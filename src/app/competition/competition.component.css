@@ -1,0 +1,125 @@
+.page-nav{
+  background-color: rgb(88, 13, 88);
+  color: white;
+}
+.btn-signup{
+  background-image:url('/assets/img/12.png') ;
+  background-repeat:no-repeat;
+}
+.facebookbutton {
+background-color: Transparent;
+background-repeat:no-repeat;
+border: 2px;
+overflow: hidden;
+}
+.page-footer{
+background-color: rgb(88, 13, 88);
+}
+.footer-text{
+color: white;
+}
+
+.button {
+border-radius: 20px;
+background-color: rgb(88, 13, 88);
+background-repeat:no-repeat;
+border: none;
+color: #FFFFFF;
+text-align: center;
+font-size: 14px;
+/* padding: 1px; */
+/* width: 70px; */
+transition: all 0.5s;
+cursor: pointer;
+margin: 2px;
+}
+
+.button span {
+cursor: pointer;
+/* display: inline-block; */
+position: relative;
+transition: 0.5s;
+}
+
+.button span:after {
+content: '\00bb';
+position: absolute;
+opacity: 0;
+top: 0;
+right: -20px;
+transition: 0.5s;
+}
+
+.button:hover span {
+padding-right: 25px;
+}
+
+.button:hover span:after {
+opacity: 1;
+right: 0;
+}
+.area {
+width: 800px;
+border: 1px solid rgb(197, 195, 193);
+position: relative;
+overflow: visible;
+border-radius: 20px;
+}
+.area1 {
+width: 500px;
+border: 1px solid rgb(197, 195, 193);
+position: relative;
+overflow: visible;
+border-radius: 20px;
+}
+.page-nav{
+background-color: rgb(88, 13, 88);
+color: white;
+}
+.home-nav{
+ /* Just because I am using big size font */
+ background-color: rgb(88, 13, 88);
+line-height: 1em;
+padding-top:2px !important;
+padding-bottom:0 !important;
+  height: 1px;
+  color: white;
+}
+
+.contain {
+display: flex;
+justify-content: center;
+flex-direction: row;
+border-radius: 40px;
+}
+.shadow {
+/* JUST FOR STYLING */
+margin-left: 5rem;
+margin-top: 5rem;
+/* JUST FOR STYLING */
+background: linear-gradient(0deg, #000, #262626);
+}
+
+.shadow:before,
+.shadow:after {
+content: '';
+position: absolute;
+top: -2px;
+left: -2px;
+/* background: linear-gradient(45deg, #720c69, #790769, #a505c5, #3c036b); */
+background-size: 400%;
+width: calc(100% + 4px);
+height: calc(100% + 4px);
+z-index: -1;
+animation: animate 20s linear infinite;
+}
+
+.shadow:after {
+filter: blur(10px);
+}
+/* .mainbody-section {
+padding-top: 1px;
+padding-bottom: 1px;
+} */
+
+

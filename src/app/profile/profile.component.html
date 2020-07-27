@@ -1,0 +1,245 @@
+<div class="container d-flex justify-content-center">
+  <div class="wrapper">
+    <div class="container">
+
+      <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color: white;">
+        <a class="navbar-brand move" (click)="homePage()"><img src="assets/img/22.png" ngbTooltip="talent hunt"
+            height="50" width="150"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <div class="collapse navbar-collapse" id="example-navbar-icons">
+            <ul class="navbar-nav ml-auto" style="margin-right: 280px;">
+              <li class="nav-item text-center">
+                <a class="nav-link" (click)="openpost(postModal)" data-toggle="modal" data-target="#"><svg
+                    style="color: black;" width="2em" height="1.5em" viewBox="0 0 16 16" class="bi bi-camera-fill"
+                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                    <path fill-rule="evenodd"
+                      d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z" />
+                  </svg><span class="d-none d-sm-inline d-xl-block px-1"
+                    style="color: black;font: 1em sans-serif;font-size: small;">Post</span></a>
+              </li>&nbsp;&nbsp;
+              <li class="nav-item text-center">
+                <a class="nav-link" (click)="homePage()" data-toggle="modal" data-target="#"><svg width="1.5em"
+                    height="1.5em" viewBox="0 0 16 16" class="bi bi-house-door-fill" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg" style="color: black;">
+                    <path
+                      d="M6.5 10.995V14.5a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5V11c0-.25-.25-.5-.5-.5H7c-.25 0-.5.25-.5.495z" />
+                    <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+                  </svg><span class="d-none d-sm-inline d-xl-block px-1"
+                    style="color: black;font: 1em sans-serif;font-size: small;">Home</span></a>
+              </li>
+              <li class="nav-item text-center">
+                <a class="nav-link" (click)="profilePage()" data-toggle="modal" data-target="#"><svg width="1.5em"
+                    height="1.5em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg" style="color: black;">
+                    <path fill-rule="evenodd"
+                      d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                  </svg><span class="d-none d-sm-inline d-xl-block px-1"
+                    style="color: black;font: 1em sans-serif;font-size: small;">Profile</span></a>
+              </li>
+              <li class="nav-item text-center">
+                <a class="nav-link" (click)="compage()" data-toggle="modal" data-target="#"><svg width="1.5em"
+                    height="1.5em" viewBox="0 0 16 16" class="bi bi-trophy" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg" style="color: black;">
+                    <path
+                      d="M3 1h10c-.495 3.467-.5 10-5 10S3.495 4.467 3 1zm0 15a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1H3zm2-1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1H5z" />
+                    <path fill-rule="evenodd"
+                      d="M12.5 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-3 2a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm-6-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-3 2a3 3 0 1 1 6 0 3 3 0 0 1-6 0z" />
+                    <path d="M7 10h2v4H7v-4z" />
+                    <path d="M10 11c0 .552-.895 1-2 1s-2-.448-2-1 .895-1 2-1 2 .448 2 1z" />
+                  </svg><span class="d-none d-sm-inline d-xl-block px-1"
+                    style="color: black; font: 1em sans-serif;font-size: small;">Competition</span></a>
+              </li>
+              <li class="nav-item">
+                <div ngbDropdown class="dropdown">
+                  <a class="nav-link dropdown-toggle" ngbDropdownToggle>
+                    <img src="assets/img/03.png" width="30">
+                  </a>
+                  <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right page-nav">
+                    <a (click)="aboutpage()" class="dropdown-item">ABOUT US</a>
+                    <a class="dropdown-item">CONTACT US</a>
+                    <a (click)="openContent(logoutModal)" class="dropdown-item">LOG OUT</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </nav><br><br><br>
+      <div class="row  d-flex justify-content-center">
+        <img src="assets/img/41.png" alt="" height="10">
+        <br>
+        <div class="row">
+          <div style="align-items: flex-end;">
+            <img *ngIf="user.profile_image !== null" src="{{user.profile_image}}"
+              class="avatar" alt="">
+              <img *ngIf="user.profile_image === null" src="assets/img/default-avatar.png"
+              class="avatar"  alt="">
+          </div>
+          <div  style="margin-left: 30px;margin-top: 60px;">
+            <h6 style="color: black;margin-top: auto;font-size: small;">{{user.fullname}}</h6>
+           <p  style="color: black;font-size: small;">{{user.personal_message}}</p>
+          
+          <div class="row">
+            <span>
+              43
+              <div class="w-100"></div>
+              post
+            </span>
+            <span>
+             43
+             <div class="w-100"></div>
+             post
+           </span>
+           <span>
+             43
+             <div class="w-100"></div>
+             post
+           </span>
+           </div>
+          </div>
+          <span >
+            <a class="btn buts" (click)="opentContent(eitModal)">Edit Profile</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- edit modal start -->
+<ng-template #eitModal let-modal>
+  <div class="d-flex text-center justify-content-center">
+    <form [formGroup]="profileEditForm">
+      <br>
+      <h6 class="heading-small text-muted mb-4">information</h6>
+      <div class="pl-lg-4">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class="form-control-label">Title</label>
+              <input type="text" formControlName="title" placeholder="Title" class="form-control" />
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class="form-control-label" for="input-first-name">
+                Username</label>
+              <input type="text" class="form-control" placeholder="Username" formControlName="username">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label class="form-control-label" for="input-username">Fullname</label>
+              <input type="text" id="input-username" class="form-control form-control-alternative"
+                placeholder="fullname" formControlName="fullname">
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- <hr class="my-4" /> -->
+      <!-- Address -->
+      <h6 class="heading-small text-muted mb-4">Contact information</h6>
+      <div class="pl-lg-4">
+
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class="form-control-label" for="input-email">Email
+                address</label>
+              <input type="email" id="input-email" class="form-control form-control-alternative"
+                placeholder="jesse@example.com" formControlName="email">
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class="form-control-label" for="input-phone">Phone
+                Number</label>
+              <input type="text" id="input-phone" class="form-control form-control-alternative"
+                placeholder="Phone Number" formControlName="phone">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <hr class="my-4" /> -->
+      <!-- Description -->
+      <h6 class="heading-small text-muted mb-4">About me</h6>
+      <div class="pl-lg-4">
+        <div class="form-group">
+          <!-- <label class="form-control-label">About Me</label> -->
+          <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ..."
+            formControlName="personal_message"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <button class="button" (click)="editUser()"><span>Update</span></button><br><br>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<!-- edit modal end -->
+
+<!-- add post -->
+<ng-template #postModal let-modal>
+  <div class="modal-content">
+    <div class="modal-body">
+
+      <img [src]="selectedFile" *ngIf="format==='IMAGE' && selectedFile" style="height: 240px; width:240px">
+      <br />
+      <video [src]="selectedFile" *ngIf="format==='VIDEO' && selectedFile" style="height: 240px; width:240px"
+        controls></video> <br />
+
+      <input *ngIf="!selectedFile" type="image" src="assets/img/103.png" width="100px" style="margin-left: 80px;"
+        (click)="fileInput.click()" />
+
+      <!-- <img [src]="selectedFile" *ngIf="selectedFile" > -->
+
+      <br><br>
+
+      <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+
+      <div class="row">
+        <div class="col-md-12">
+          <form [formGroup]="postForm">
+            <div class="form-group">
+              <input type="text" id="input-age" class="form-control form-control-alternative" formControlName="caption"
+                placeholder="caption">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="but btn btn-danger" *ngIf="selectedFile" (click)="cancel()">Cancel</button>
+      <button type="button" class="btn btn-warning" *ngIf="!selectedFile" (click)="modal.close()">Close</button>
+      <button type="button" class="but" (click)="createPost();modal.close()">Post</button>
+    </div>
+  </div>
+</ng-template>
+<!-- add post end -->
+
+
+<!-- logout modal start -->
+<ng-template #logoutModal let-modal>
+  <div>
+    <div class="modal-content">
+      <div class="modal-header content-center">
+        <h4>Logout <i class="fa fa-lock"></i></h4>
+      </div>
+      <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to log-off?</div>
+      <div class="modal-footer"><a (click)="onLogout()" class="btn btn-signup btn-block" color="white">YES</a><a
+          (click)="no()" class="btn facebookbutton btn-block">NO</a></div>
+    </div>
+  </div>
+</ng-template>
+<!-- logout modal end -->

@@ -1,0 +1,139 @@
+
+
+<div class="container d-flex justify-content-center">
+  <div class="wrapper">
+      <div class="container">
+
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;">
+          <a class="navbar-brand" href="#"><img src="assets/img/22.png" ngbTooltip="Talent Hunt" height="50" width="150"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <div ngbDropdown class="dropdown">
+                    <a class="nav-link dropdown-toggle" ngbDropdownToggle>
+                      <img src="assets/img/03.png" width="30">
+                    </a>
+                    <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right page-nav">
+                      <a (click)="aboutpage()" class="dropdown-item">ABOUT US</a>
+                      <a  class="dropdown-item">CONTACT US</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+          </div>
+        </nav>
+
+
+        <div class="content-center"><br><br><br><br>
+          <div class="row">
+            <div class="col-md-8">
+              <img src="assets/img/06.png" height="350">
+            </div><br><br>
+            <div class="col-md-4 ">
+              <span class="welcome">Welcome please</span><br><br>
+              <span class="get">Get the</span><br><br><br>
+              <span class="app">APP NOW!</span>
+              <img src="assets/img/05.png">
+              <p>Download it now, share your talent<br> and be a winner to a competitiion.</p>
+              <a href="">
+                <img src="assets/img/01.png" height="40" width="130">
+              </a>&nbsp;&nbsp;&nbsp;
+              <a href="">
+                <img src="assets/img/02.png" height="40" width="130">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- // orr -->
+    <div class="page-signup  text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <p class="des text-center">Sign Up to see more videos <br>from your friends.</p>
+            <form [formGroup]="registerForm">
+              <div class="row">
+                <div class="col-lg-6 text-center col-md-8 ml-auto mr-auto">
+                  <div class="form-group">
+                    <input type="text" formControlName="email" placeholder="Email" class="form-control input-back" />
+                  </div>
+                  <div class="form-group">
+                    <input type="text" formControlName="fullname" placeholder="full name"
+                      class="form-control input-back" />
+                  </div>
+                  <div class="form-group">
+                    <input type="text" formControlName="phone" placeholder="phone" class="form-control input-back" />
+                  </div>
+                  <div class="form-group">
+                    <input type="password" formControlName="password" placeholder="Password"
+                      class="form-control input-back" />
+                  </div>
+
+                  <div class="send-button">
+                    <button type="button" [disabled]="!registerForm.valid" (click)="registration()"
+                      class="btn btn-outline-secondary btn-round btn-md btn-block"
+                      style="color: white;background-color: rgb(121, 1, 121);">
+                      <span *ngIf="this.isRegistering" class="spinner-border spinner-border-sm" role="status"></span>
+                      <span *ngIf="this.isRegistering" class="load-text"> Signing Up...</span>
+                      <span *ngIf="!this.isRegistering" class="btn-text"> Sign Up</span>
+                    </button>
+                  </div>
+                  <!-- <div class="send-button">
+                                    <button type="button" class="btn btn-outline-secondary btn-round btn-md" style="color: white;">Login with Facebook</button>
+                                </div> -->
+                  <p class="des1"> Already haven an account?<a (click)="loginpage();registerForm.reset()" class="log-in"> Log
+                      in</a></p>
+                </div>
+
+              </div>
+            </form>
+          </div>
+          <div class="col-md-6">
+            <img src="assets/img/14.png" height="400">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer page-footer"><br>
+      <div class="container">
+          <nav>
+              <span class="row">
+                  <span class="col">
+                      <a>
+                          <img src="assets/img/21.png" alt="Thumbnail Image" height="50" width="70">
+                      </a>
+                  </span>
+                  <span class="col copyright footer-text" style="text-align: right;">
+
+
+                      FOLLOW US:
+                      <div class="w-100"></div>
+                              <a >
+                                  <img src="assets/img/17.png" height="20" width="20">
+                              </a>&nbsp;
+                              <a>
+                          <img src="assets/img/18.png" height="20" width="20">
+                              </a>&nbsp;
+                              <a href="">
+                                <img src="assets/img/19.png" height="20" width="20">
+                              </a>
+                              <div class="w-100"></div>
+                              &copy;
+                              Copyright Tekhype Limited
+                            </span>
+              </span>&nbsp;&nbsp;&nbsp;&nbsp;
+          </nav>
+      </div>
+    </footer>
+  </div>
+
+
+
+</div>

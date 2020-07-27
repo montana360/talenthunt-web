@@ -1,0 +1,63 @@
+.page-nav{
+  background-color: rgb(88, 13, 88);
+  color: white;
+}
+.page-footer{
+  background-color: rgb(88, 13, 88);
+}
+.page-signup{
+  background-image:url('/assets/img/15.png');
+}
+.footer-text{
+color: white;
+}
+.welcome {
+  color: rgb(204, 21, 204);
+  font-style: italic;
+  font-family: Brush Script MT, Brush Script Std, cursive;
+  line-height: 0 !important;
+  font-weight: 200;
+  font-size: 45px;
+}
+.app{
+  font-family: Impact, fantasy;
+  line-height: 0 !important;
+  font-weight: 400;
+  font-size: 75px;
+}
+.get{
+  font-family: DejaVu Sans Mono, monospace;
+  line-height: 0 !important;
+  font-weight: 200;
+  font-size: 45px;
+}
+.page-nav{
+  background-color: rgb(88, 13, 88);
+  color: white;
+}
+.input-back{
+  background-color: white;
+}
+.des{
+  color: white;
+  font-size: 20px;
+}
+.btn-signup{
+background-image:url('/assets/img/12.png');
+background-repeat:no-repeat;
+}
+.facebookbutton {
+background-color: Transparent;
+background-repeat:no-repeat;
+border: 2px;
+overflow: hidden;
+}
+.des1{
+color: white;
+font-size: 13px;
+}
+.log-in{
+color: rgb(204, 21, 204);
+font-size: 13px;
+cursor: pointer;
+}

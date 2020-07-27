@@ -1,0 +1,414 @@
+<div class="container d-flex justify-content-center">
+  <div class="container">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color: white;">
+      <a class="navbar-brand move" (click)="homePage()"><img src="assets/img/22.png" ngbTooltip="Talent Hunt" height="50"
+          width="150"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+        aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <div class="collapse navbar-collapse" id="example-navbar-icons">
+          <ul class="navbar-nav ml-auto" style="margin-right: 150px;">
+            <li class="nav-item text-center">
+              <a class="nav-link" (click)="profilePage()" data-toggle="modal" data-target="#"><img src="assets/img/52.png" width="20"><span
+                  class="d-none d-sm-inline d-xl-block px-1"
+                  style="color: black;font: 1em sans-serif;font-size: small;">Profile</span></a>
+            </li>&nbsp;&nbsp;
+            <li class="nav-item text-center">
+              <a class="nav-link" (click)="compage()" data-toggle="modal" data-target="#"><img src="assets/img/53.png" width="20"><span
+                  class="d-none d-sm-inline d-xl-block px-1"
+                  style="color: black; font: 1em sans-serif;font-size: small;">Competition</span></a>
+            </li>&nbsp;&nbsp;
+            <li class="nav-item">
+              <div ngbDropdown class="dropdown ">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle>
+                  <img src="assets/img/03.png" width="30">
+                </a>
+                <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right page-nav">
+                  <a class="dropdown-item"(click)="aboutpage()">ABOUT US</a>
+                  <a class="dropdown-item">CONTACT US</a>
+                  <a class="dropdown-item" (click)="openContent(logoutModal)">LOGOUT</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </nav>
+    <br><br><br>
+    <div class="row d-flex justify-content-center">
+        <img src="assets/img/41.png" alt="" height="10">
+      <br>
+
+      <div class="d-flex  justify-content-center">
+
+        <div class="rtt col-md-10">
+          <div class="row">
+            <div class="col-sm-9">
+              <h4 class="title">Competition Videos</h4>
+            </div>
+          </div>
+          <div class="container">
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfi"
+              (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+              (beforeChange)="beforeChange($event)">
+                <div ngxSlickItem class="card" *ngFor="let craft of allCraft" >
+                  <video (click)="openCraft(singleCraft);viewcraft(craft.id)" class="card-img-top" style="height: 20rem;"  >
+                    <source src="{{craft.file_url}}" type="video/mp4">
+                </video>
+                  <!-- <img class="card-img-top" src="assets/img/bg4.jpg" alt="Card image cap" style="height: 13rem;"> -->
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-3" style="align-items: flex-end;">
+                        <img *ngIf="craft.user.profile_image !== null" src="{{craft.user.profile_image}}"
+                          class="rounded-circle" height="70" alt="">
+                          <img *ngIf="craft.user.profile_image === null" src="assets/img/default-avatar.png"
+                          class="rounded-circle" height="70" alt="">
+                      </div>
+                      <div class="col-md-7 div-holder ">
+                        <h6 class="card-title" style="color: black;margin-top: auto;font-size: small;">{{craft.user.fullname}}</h6>
+                        <p class="card-text" style="color: black;font-size: small;">{{craft.caption}}</p>
+                        <b class="card-text" style="color: black;font-size: small;">{{craft.likes.length || '0'}} like(s) and {{craft.comments.length || '0'}} comment</b>
+                      </div>
+                      <div class="col-md-2" style="text-align: right;">
+                        <a class="btn buts" (click)="voteContent(votepost)">vote</a>
+                        <div class="w-100"></div>
+                        <span style="color: black; font-size: small;"><b>{{craft.votes.length || '0'}} votes</b></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>&nbsp;
+            </ngx-slick-carousel>
+          </div>
+
+
+
+          <span>
+            <div class="container"*ngIf="!isMineCompetition" >
+              <div class="row center-content">
+                  <div style="text-align: center; align-self: center;margin-left: 350px;">
+                    <button class="button" *ngIf="!isMineCompetition" (click)="join(viewcompetition?.id)">
+                      <span>Join Competition</span>
+                    </button>
+                  </div>
+              </div>
+          </div><br>
+
+            <div class="row" style="margin:20px 5px;" *ngIf="isMineCompetition">
+              <div class="col-sm-10">
+                <h5 class="title" style="padding-left:10px ;">Judges comments on this Video</h5>
+              </div>
+              <div class="col-sm-2">
+                <img (click)="openpost(postModal)" src="assets/img/76.png" style=" width: 40px;height: 40px;">
+                <p>Upload</p>
+              </div>
+            </div>
+            <div class="team" *ngFor="let judge of viewcompetition.judges">
+              <div class="row text-center d-flex justify-content-center">
+                <div class="col-md-4">
+                  <div class="team-player">
+                    <img *ngIf="judge.user.profile_image !== null" src="{{judge.user.profile_image}}" alt="Thumbnail Image" class="imsg"
+                      style="width: 90px; height: 90px;">
+                      <img *ngIf="judge.user.profile_image === null" src="assets/img/default-avatar.png" alt="Thumbnail Image" class="imsg"
+                      style="width: 90px; height: 90px;">
+                    <h6 class="title">{{judge.user.fullname}}</h6>
+                    <p class="category text-primary">Model</p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="team-player">
+                    <img src="assets/img/ryan.jpg" alt="Thumbnail Image" class="imsg"
+                      style="width: 90px; height: 90px;">
+                    <h6 class="title">Ryan Tompson</h6>
+                    <p class="category text-primary">Designer</p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="team-player">
+                    <img src="assets/img/eva.jpg" alt="Thumbnail Image" class="imsg" style="width: 90px; height: 90px;">
+                    <h6 class="title">Eva Jenner</h6>
+                    <p class="category text-primary">Fashion</p>
+                    <a *ngIf="isMineCompetition" style="cursor: pointer" (click)="toggleDisplay()">view
+                      comments</a>
+                  </div>
+                </div>
+              </div>
+              <div class="list" *ngIf="isShow">
+                <ul class="list-group" style="text-align: center;">
+                  <li class="list-group-item "><b>Judge 1: </b>Cras justo odio</li>
+                  <li class="list-group-item"><b>Judge 2: </b>Dapibus ac facilisis in</li>
+                  <li class="list-group-item"><b>Judge 3: </b>Morbi leo risus</li>
+                </ul>
+              </div>
+            </div>
+
+          </span>
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-9">
+                <h4 class="title">More Videos</h4>
+              </div>
+            </div>
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig"
+              (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+              (beforeChange)="beforeChange($event)">
+              <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+                <img  src="{{ slide.img }}" alt="" height="340px" width="95%">
+              </div>
+            </ngx-slick-carousel>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer page-footer col-sm-11" style="margin-left: 50px;"><br>
+      <div class="container">
+          <nav>
+              <span class="row">
+                  <span class="col">
+                      <a>
+                          <img src="assets/img/21.png" alt="Thumbnail Image" height="50" width="70">
+                      </a>
+                  </span>
+                  <span class="col copyright footer-text" style="text-align: right;">
+
+
+                      FOLLOW US:
+                      <div class="w-100"></div>
+                              <a >
+                                  <img src="assets/img/17.png" height="20" width="20">
+                              </a>&nbsp;
+                              <a>
+                          <img src="assets/img/18.png" height="20" width="20">
+                              </a>&nbsp;
+                              <a href="">
+                                <img src="assets/img/19.png" height="20" width="20">
+                              </a>
+                              <div class="w-100"></div>
+                              &copy;
+                              Copyright Tekhype Limited
+                            </span>
+              </span>&nbsp;&nbsp;&nbsp;&nbsp;
+          </nav>
+      </div>
+    </footer>
+  </div>
+  <ng-template #logoutModal let-modal>
+    <div>
+        <div class="modal-content">
+            <div class="modal-header content-center">
+                <h4>Logout <i class="fa fa-lock"></i></h4>
+            </div>
+            <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to log-off?</div>
+            <div class="modal-footer"><a (click)="onLogout()" class="btn btn-signup btn-block" color="white">YES</a><a
+                    (click)="no()" class="btn facebookbutton btn-block">NO</a></div>
+        </div>
+
+    </div>
+</ng-template>
+
+
+<ng-template #postModal let-modal>
+  <div class="modal-content">
+      <div class="modal-body content-center">
+
+          <img [src]="selectedFile" *ngIf="format==='IMAGE' && selectedFile" style="height: 240px; width:240px">
+          <br />
+          <video [src]="selectedFile" *ngIf="format==='VIDEO' && selectedFile" style="height: 240px; width:240px"
+              controls></video> <br />
+
+          <input *ngIf="!selectedFile" type="image" src="assets/img/103.png" width="100px" style="margin-left: 80px;" (click)="fileInput.click()" />
+
+          <!-- <img [src]="selectedFile" *ngIf="selectedFile" > -->
+
+          <br><br>
+
+          <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+
+          <div class="row">
+              <div class="col-md-12">
+                  <form [formGroup]="craftForm">
+                      <div class="form-group">
+                          <input type="text" id="input-age" class="form-control form-control-alternative"
+                              formControlName="caption" placeholder="caption">
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="but btn btn-danger" *ngIf="selectedFile" (click)="cancel()">Cancel</button>
+          <button type="button" class="btn btn-warning" *ngIf="!selectedFile" (click)="modal.close()">Close</button>
+          <button type="button" class="but" (click)="createPost();modal.close()">Post</button>
+      </div>
+  </div>
+</ng-template>
+<ng-template #votepost Let-modal>
+  <div class="section text-center rtt">
+      <div class="col-l-6 justify-content-center">
+          <div class="container">
+              <form [formGroup]="voteForm"><br>
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <input id="input-address" class="form-control form-control-alternative"
+                                  placeholder="Amount" type="number" formControlName="amount">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <input id="input-address" class="form-control form-control-alternative"
+                                  placeholder="Number of votes" type="number" formControlName="number_of_votes">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                          <select formControlName="momo_code" class='form-control'>
+                            <option value="null">Country Code</option>
+                            <option value="233">Ghana(+233)</option>
+                            <option value="234">Nigeria(+234)</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <input id="input-address" class="form-control form-control-alternative" placeholder="Phone Number"
+                          type="number" maxlength="9" formControlName="momo_number">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <input id="input-address" class="form-control form-control-alternative"
+                                placeholder="example 2332460767" type="number" formControlName="msisdn">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <select formControlName="momo_network" class='form-control'>
+                                  <option value='null'>Mobile Network</option>
+                                  <option value='MTN'>MTN</option>
+                                  <option value='AirtelTigo'>AirtelTigo</option>
+                                  <option value='Vodafone'>Vodafone</option>
+                                  <option value='Visa'>Visa</option>
+                              </select>
+                          </div>
+                      </div>
+                  </div><br>
+
+
+                  <!-- <div class="row">
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <input id="input-address" class="form-control form-control-alternative"
+                                  placeholder="Request ID" type="number" [(ngModel)]="clientID"
+                                  formControlName="client_request_id">
+                          </div>
+                      </div>
+                  </div><br> -->
+
+                  <div class="row">
+                      <div class="col-md-12 text-center">
+                          <button class="button"
+                              (click)="vote();voteForm.reset();close(votepost)"><span>VOTE</span></button><br><br>
+                      </div>
+                  </div>
+
+              </form>
+          </div>
+      </div>
+  </div>
+</ng-template>
+
+<ng-template #singleCraft Let-modal>
+  <div class="row" *ngFor = "let cra of craft">
+		<div class="col-sm-6 left-side">
+      <video  class="card-img-top" style="height: 30rem;" controls >
+        <source src="{{cra.file_url}}" type="video/mp4">
+    </video>
+		</div>
+		<div class="col-sm-6 right-side">
+      <br>
+      <div class="row">
+        <div class="col-md-3" style="align-items: flex-end;">
+          <img *ngIf="cra.user.profile_image !== null" src="{{cra.user.profile_image}}"
+            class="rounded-circle" height="70" alt="">
+            <img *ngIf="cra.user.profile_image === null" src="assets/img/default-avatar.png"
+            class="rounded-circle" height="70" alt="">
+        </div>
+        <div class="col-md-7 div-holder ">
+          <h6 class="card-title" style="color: black;margin-top: auto;font-size: small;">{{cra.user.fullname}}</h6>
+          <span class="card-text" style="color: black;font-size: small;">{{cra.caption}}</span>
+          <div class="w-100"></div>
+          <b class="card-text" style="color: black;font-size: small;">{{cra.likes.length || '0'}} like(s)</b>
+        </div>
+        <div class="col-md-2" style="text-align: right;">
+          <a class="btn buts" (click)="voteContent(votepost)">vote</a>
+          <div class="w-100"></div>
+          <span style="color: black; font-size: 11px;"><b>{{cra.votes.length || '0'}} votes</b></span>
+        </div>
+      </div><br>
+<!--Form with header-->
+<div class="card no-border example-1 scrollbar-deep-purple bordered-deep-purple thin" *ngIf = " cra.judge_comments.length > 0 || cra.comments.length > 0">
+  <div class="card-body">
+    <h6 id="section1" style="font-size: 16px;"><strong>Comments:</strong></h6>
+    <div class="row pa-move" *ngFor="let comment of cra.judge_comments">
+      <div class="col-md-1">
+          <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt=""
+              class="avs">
+          <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt=""
+              class="avs">
+      </div>
+      <div class="col-md-8" style="margin-left: 12px;">
+          <div class="row">
+              <span style="color: rgb(57, 8, 104); font-size: 14px;"><b>{{comment.user.fullname}}</b></span>
+              <div class="w-100"></div>
+              <span style="font-size: 12px;">{{comment.message}}</span>
+          </div>
+      </div>
+  </div>
+    <div class="row pa-move" *ngFor="let comment of cra.comments">
+      <div class="col-md-1">
+          <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt=""
+              class="avs">
+          <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt=""
+              class="avs">
+      </div>
+      <div class="col-md-8" style="margin-left: 12px;">
+          <div class="row">
+              <span style="font-size: 14px;"><b>{{comment.user.fullname}}</b></span>
+              <div class="w-100"></div>
+              <span style="font-size: 12px;">{{comment.message}}</span>
+          </div>
+      </div>
+  </div>
+  </div>
+</div><br>
+
+<form [formGroup]="craftcommentForm">
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="Add Comments" formControlName="message"/>
+    <div class="input-group-btn">
+      <button class="btn btn-default" type="submit">
+        <a style="color: blue;" (click)="addComment(cra.id);craftcommentForm.reset();"><b>Post</b></a>
+      </button>
+    </div>
+  </div>
+</form>
+
+
+</div>
+<!--/Form with header-->
+
+		</div><!--col-sm-6-->
+</ng-template>
