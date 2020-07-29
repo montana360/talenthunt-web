@@ -78,9 +78,10 @@ export class HomepageComponent implements OnInit {
   prev_page_url = null;
 
   isLoading = false;
-
   // boolean
+  isMine = false;
   isShow = false;
+  isData: any;
   toggleDisplay() {
     this.isShow = !this.isShow;
   }
@@ -134,7 +135,7 @@ export class HomepageComponent implements OnInit {
     this.user_id = localStorage.getItem('userID');
     this.getUsers();
     this.user = JSON.parse(localStorage.getItem('user'));
-    console.log(this.user);
+    // console.log(this.user);
     this.getpost();
 
     var body = document.getElementsByTagName('body')[0];
@@ -164,6 +165,23 @@ export class HomepageComponent implements OnInit {
   setCommentData() {
     this.commentDetails.user_id = this.commentForm.controls['user_id'].value;
     this.commentDetails.message = this.commentForm.controls['message'].value;
+  }
+
+
+  // function for calling user like
+  checkTrue() {
+    this.isMine = true;
+    // console.log('Found mine');
+  }
+
+  // check false if no user like found
+  trackLikes(post) {
+    // console.log(post['likes']);
+    this.isData = post['likes'].filter((like) => {
+      return like.user_id == this.user_id;
+    });
+
+    console.log(this.isData);
   }
 
   addComment(id) {
@@ -326,15 +344,15 @@ export class HomepageComponent implements OnInit {
   }
 
   openScrollableContent(longContent) {
-    this.modalService.open(longContent, { size: 'sm' });
+    this.modalService.open(longContent, {centered: true, size: 'sm' });
   }
 
   openpost(postModal) {
-    this.modalService.open(postModal, { size: 'sm' });
+    this.modalService.open(postModal, {centered: true, size: 'sm' });
   }
 
   openContent(logoutModal) {
-    this.modalService.open(logoutModal, { size: 'sm' });
+    this.modalService.open(logoutModal, {centered: true, size: 'sm' });
   }
 
   openUserContent(usermodal) {
@@ -354,21 +372,6 @@ export class HomepageComponent implements OnInit {
         this.next_page_url = response['data']['next_page_url'];
         this.prev_page_url = response['data']['prev_page_url'];
         this.isLoading = false;
-
-        // const data = this.allPosts.filter((post) => {
-        //   const likes = post.likes.filter(like => like.user_id == this.user_id);
-        //   // const likes = post.likes.filter((like) => {
-        //   //   // if (like.user_id == this.user_id) {
-        //   //   //   console.log('Found you');
-        //   //   //   this.isMineLike = true;
-        //   //   // } else {
-        //   //   //   console.log('You are not part of this competition');
-        //   //   //   this.isMineLike = false;
-        //   //   // }
-        //   //   this.data = like.user_id
-        //   // });
-        //   console.log(likes);
-        // });
       },
       (error) => {
         this.isLoading = false;
@@ -563,7 +566,7 @@ export class HomepageComponent implements OnInit {
         data: data,
       };
 
-      console.log(search);
+      // console.log(search);
 
       this.auth.update('search_user',localStorage.getItem('userID'), search).subscribe(
         (response) => {
@@ -691,5 +694,8 @@ export class HomepageComponent implements OnInit {
   }
   compage() {
     this.router.navigate(['/terms/']);
+  }
+  fell(id) {
+    this.router.navigate(['/user/',id]);
   }
 }

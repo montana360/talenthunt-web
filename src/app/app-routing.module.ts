@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'homepage', component: HomepageComponent, canActivate: [AuthGuard]},
   { path: 'profile', component:  ProfileComponent, canActivate: [AuthGuard]},
   { path: 'competition', component: CompetitionComponent},
-  { path: 'user', component: UserComponent, canActivate: [AuthGuard]},
+  { path: 'user/:id', component: UserComponent, canActivate: [AuthGuard]},
   { path: 'terms', component: TermsComponent, canActivate: [AuthGuard]},
   { path: 'join/:id', component: JoinCompetitionComponent, canActivate: [AuthGuard]},
   { path: 'one/:id', component: OneCompetitionComponent, canActivate: [AuthGuard]},

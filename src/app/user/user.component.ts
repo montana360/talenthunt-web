@@ -38,6 +38,19 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
+  openContent(logoutModal) {
+    this.modalService.open(logoutModal, { size: 'sm', centered: true });
+  }
+  onLogout() {
+    localStorage.clear();
+    this.modalService.dismissAll();
+    this.router.navigate(['login']);
+  }
+
+  no() {
+    this.modalService.dismissAll();
+  }
   homePage(){
     this.router.navigate(['/homepage/']);
   }

@@ -185,7 +185,7 @@ export class JoinCompetitionComponent implements OnInit {
           console.log(response);
           this.spinner.hide();
           if (response['success'] === false) {
-            this.alert.error('Could not complete registration. Please try again.');
+            this.alert.warning(response['message']);
             this.selectedFile = null;
           } else {
             this.alert.success('Welcome, competition application successful.');
@@ -200,7 +200,7 @@ export class JoinCompetitionComponent implements OnInit {
   }
 
   openContent(logoutModal) {
-    this.modalService.open(logoutModal, { size: 'sm' });
+    this.modalService.open(logoutModal, {centered: true, size: 'sm' });
   }
 
   onLogout() {

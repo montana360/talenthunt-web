@@ -5,42 +5,81 @@
 
       <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color: white;">
 
-        <a class="navbar-brand move" (click)="homePage()"><img src="assets/img/22.png" ngbTooltip="Talent hunt" height="50"
-            width="150"></a>
+        <a class="navbar-brand move" (click)="homePage()"><img src="assets/img/22.png" ngbTooltip="Talent hunt"
+            height="50" width="150"></a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
           aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
 
         </button>
-        <!-- <form [formGroup]="searchForm" class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" (keyup)="clearSearch()" formControlName="search"
-           [(ngModel)]="search" (input)="searchEverything($event.target.value)" type="search" placeholder="Search" aria-label="Search">
+
+        <form [formGroup]="searchForm" class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" (keyup)="clearSearch()" formControlName="search" [(ngModel)]="search"
+            (input)="searchEverything($event.target.value)"  placement="bottom" [ngbPopover]="popContent" type="search" placeholder="Search" aria-label="Search">
+        </form>
+
+        <!-- <ng-template  #popTitle>Search Results</ng-template> -->
+
+        <ng-template #popContent  style="overflow-y:scroll; height: 300px;">
           <div *ngIf="isFound">
             <div *ngFor="let list of searchList">
-              {{ list.fullname }}
+              <div class="row" (click)="fell(list.id)">
+                <div class="col-md-2">
+                  <img *ngIf="list.profile_image === null" src="assets/img/default-avatar.png" class="avatar">
+                  <img *ngIf="list.profile_image !== null" src="{{ list?.profile_image }}" class="avatar">
+                </div>
+                <div class="col-md-7">
+                   &nbsp; {{ list.fullname }} &nbsp; &nbsp;
+                </div>
+                <div class="col-md-3 d-flex justify-content-end">
+
+                  <!-- <div *ngFor="let follow of list.follows">
+                    <div *ngIf="follow.follower_id != user_id">
+                      <button type="button" class="btn btn-outline-info btn-sm  follow-button">Follow</button>
+                    </div>
+                  </div> -->
+
+                  <div *ngFor="let follow of list.follows">
+                    <div *ngIf="follow.follower_id == user_id">
+                      <button type="button" class="btn btn-outline-info btn-sm  follow-button"  (click)="unfollowuser(list.id)">
+                        Unfollow
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- <button type="button" class="btn btn-outline-info btn-sm" (click)="followuser(list.id)">Follow</button> -->
+                </div>
+              </div>
+              <hr>
             </div>
           </div>
-        </form> -->
+          <div *ngIf="!isFound">
+            Find your favorite artistes
+          </div>
+        </ng-template>
+
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <div class="collapse navbar-collapse" id="example-navbar-icons">
             <ul class="navbar-nav ml-auto" style="margin-right: 210px;">
               <li class="nav-item text-center mouse">
-                <a class="nav-link" (click)="openpost(postModal)" data-toggle="modal" data-target="#"><svg style="color: black;" width="2em" height="1.5em" viewBox="0 0 16 16" class="bi bi-camera-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-                  <path fill-rule="evenodd" d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
-                </svg><span
-                    class="d-none d-sm-inline d-xl-block px-1"
+                <a class="nav-link" (click)="openpost(postModal)" data-toggle="modal" data-target="#"><svg
+                    style="color: black;" width="2em" height="1.5em" viewBox="0 0 16 16" class="bi bi-camera-fill"
+                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                    <path fill-rule="evenodd"
+                      d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z" />
+                  </svg><span class="d-none d-sm-inline d-xl-block px-1"
                     style="color: black;font: 1em sans-serif;font-size: small;">Post</span></a>
               </li>&nbsp;&nbsp;
               <li class="nav-item text-center mouse">
-                <a class="nav-link" (click)="profilePage()" data-toggle="modal" data-target="#"><img src="assets/img/52.png" width="20"><span
-                    class="d-none d-sm-inline d-xl-block px-1"
+                <a class="nav-link" (click)="profilePage()" data-toggle="modal" data-target="#"><img
+                    src="assets/img/52.png" width="20"><span class="d-none d-sm-inline d-xl-block px-1"
                     style="color: black;font: 1em sans-serif;font-size: small;">Profile</span></a>
               </li>&nbsp;&nbsp;
               <li class="nav-item text-center mouse">
-                <a class="nav-link" (click)="compage()" data-toggle="modal" data-target="#"><img src="assets/img/53.png" width="20"><span
-                    class="d-none d-sm-inline d-xl-block px-1"
+                <a class="nav-link" (click)="compage()" data-toggle="modal" data-target="#"><img src="assets/img/53.png"
+                    width="20"><span class="d-none d-sm-inline d-xl-block px-1"
                     style="color: black; font: 1em sans-serif;font-size: small;">Competition</span></a>
               </li>&nbsp;&nbsp;
               <li class="nav-item mouse">
@@ -70,13 +109,13 @@
 
         <div class="justify-content-center con">
           <div class="card border-0  d-flex justify-content-center" *ngFor="let post of allPosts">
+            <span *ngIf="post">{{ trackLikes(post) }}</span>
             <div class="card-body">
               <div class="row">
                 <div class="col-md-3" style="align-items: flex-end;">
-                  <img
-                  *ngIf="post.user.profile_image !== null" src="{{post.user.profile_image}}"
-                    class="rounded-circle" height="70" alt="">
-                    <img *ngIf="post.user.profile_image === null" src="assets/img/default-avatar.png"
+                  <img *ngIf="post.user.profile_image !== null" src="{{post.user.profile_image}}" class="rounded-circle"
+                    height="70" alt="">
+                  <img *ngIf="post.user.profile_image === null" src="assets/img/default-avatar.png"
                     class="rounded-circle" height="70" alt="">
                 </div>
                 <div class="col-md-7 div-holder ">
@@ -89,43 +128,48 @@
               </div>
             </div>
             <a>
-              <img *ngIf="post?.file_type === 'IMAGE'" class="card-img-top" src="{{post.file_url}}" height="450px" width="450px" alt="Card image cap">
+              <img *ngIf="post?.file_type === 'IMAGE'" class="card-img-top" src="{{post.file_url}}" height="450px"
+                width="450px" alt="Card image cap">
             </a>
             <a>
               <video class="card-img-top" *ngIf="post?.file_type === 'VIDEO'" width="450px" height="450px" controls>
                 <source src="{{post.file_url}}" type="video/mp4">
-            </video>
+              </video>
             </a>
             <div class="card-body">
               <div class="row">
                 <div *ngIf="post?.likes.length > 0">
-                  <span  [ngSwitch]="post.likes.user_id">
-                    <img *ngSwitchCase="user_id" (click)="unlike(post?.id)" src="assets/img/44.png" height="30" width="30">
-                    <img *ngSwitchDefault (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
+
+                  <span *ngIf="isData.length > 0">
+                    <img (click)="unlike(post?.id)" src="assets/img/44.png" height="30" width="30">
                   </span>
 
-                    <!-- <span *ngFor="let like of post.likes">
-                      <span *ngIf="post.likes[2] === user_id">
-                        <img (click)="unlike(post?.id)" src="assets/img/44.png" height="30" width="30">
-                      </span>
-                      <span *ngIf="post.likes[2] !== user_id">
-                        <img (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
-                      </span>
-                    </span> -->
+                  <span *ngIf="!isData || isData.length == 0">
+                    <img (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
+                  </span>
 
+                  <!-- <div *ngFor="let like of post.likes">
+                    <div *ngIf="user_id == like.user_id">
+                      <img (click)="unlike(post?.id)" src="assets/img/44.png" height="30" width="30">
+                    </div>
 
+                    <div *ngIf="user_id != like.user_id">
+                      <img (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
+                    </div>
+                  </div> -->
                 </div>
 
                 <div *ngIf="post?.likes.length == 0">
                   <span>
-                   <img (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
+                    <img (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
                   </span>
                 </div>&nbsp;&nbsp;
                 <b>{{post?.likes.length || '0'}}</b>&nbsp;&nbsp;
-                 <img src="assets/img/42.png" height="30" width="30">&nbsp;&nbsp;
-                 <b>{{post?.comments.length || '0'}}</b>&nbsp;&nbsp;
-                 <img src="assets/img/45.png" height="30" width="30">
+                <img src="assets/img/42.png" height="30" width="30">&nbsp;&nbsp;
+                <b>{{post?.comments.length || '0'}}</b>&nbsp;&nbsp;
+                <img src="assets/img/45.png" height="30" width="30">
               </div>
+
               <!-- <div class="row">
                 <span *ngIf="post?.likes.length > 0 && post?.likes[0].user_id == user_id">
                 <img (click)="unlike(post?.id)" src="assets/img/44.png" height="30" width="30">
@@ -135,38 +179,39 @@
                   <img (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
               </span>&nbsp;&nbsp; -->
 
+
               <div class="row">
                 <span *ngIf="post?.comments.length > 0"><b>{{post?.comments.length || '0'}} comment(s)</b></span>
                 <div class="w-100"></div>
                 <span>{{post?.caption}}</span>
                 <div class="w-100"></div>&nbsp;<br>
-                    <a style="color: blue;cursor: pointer" *ngIf="post?.comments.length > 0"
-                        (click)="toggleDisplay()">view comments</a>
+                <a style="color: blue;cursor: pointer" *ngIf="post?.comments.length > 0" (click)="toggleDisplay()">view
+                  comments</a>
               </div>
               <div *ngIf="isShow">
                 <div class="row pa-move" *ngFor="let comment of post.comments">
-                    <div class="col-md-1">
-                        <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt=""
-                            class="avs">
-                        <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt=""
-                            class="avs">
+                  <div class="col-md-1">
+                    <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt=""
+                      class="avs">
+                    <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt=""
+                      class="avs">
+                  </div>
+                  <div class="col-md-11">
+                    <div class="row">
+                      <span><b>{{comment.user.fullname}}</b></span>
+                      <div class="w-100"></div>
+                      <span>{{comment.message}}</span>
                     </div>
-                    <div class="col-md-11">
-                        <div class="row">
-                            <span><b>{{comment.user.fullname}}</b></span>
-                            <div class="w-100"></div>
-                            <span>{{comment.message}}</span>
-                        </div>
-                    </div>
+                  </div>
                 </div>
-            </div>
+              </div>
             </div>
             <div class="card-footer">
               <form class="example for" [formGroup]="commentForm">
-                  <input class="mt-auto" placeholder="comment" formControlName="message" />
-                  <a style="color: blue;" (click)="addComment(post.id);commentForm.reset();"><b>Post</b></a>
+                <input class="mt-auto" placeholder="comment" formControlName="message" />
+                <a style="color: blue;" (click)="addComment(post.id);commentForm.reset();"><b>Post</b></a>
               </form>
-          </div><br><br>
+            </div><br><br>
           </div>
         </div>
 
@@ -192,80 +237,81 @@
     </div>
     <footer class="footer page-footer col-md-10" style="margin-left: 95px;"><br>
       <div class="container">
-          <nav>
-              <span class="row">
-                  <span class="col">
-                      <a>
-                          <img src="assets/img/21.png" alt="Thumbnail Image" height="50" width="70">
-                      </a>
-                  </span>
-                  <span class="col copyright footer-text" style="text-align: right;">
+        <nav>
+          <span class="row">
+            <span class="col">
+              <a>
+                <img src="assets/img/21.png" alt="Thumbnail Image" height="50" width="70">
+              </a>
+            </span>
+            <span class="col copyright footer-text" style="text-align: right;">
 
 
-                      FOLLOW US:
-                      <div class="w-100"></div>
-                              <a >
-                                  <img src="assets/img/17.png" height="20" width="20">
-                              </a>&nbsp;
-                              <a>
-                          <img src="assets/img/18.png" height="20" width="20">
-                              </a>&nbsp;
-                              <a href="">
-                                <img src="assets/img/19.png" height="20" width="20">
-                              </a>
-                              <div class="w-100"></div>
-                              &copy;
-                              Copyright Tekhype Limited
-                            </span>
-              </span>&nbsp;&nbsp;&nbsp;&nbsp;
-          </nav>
+              FOLLOW US:
+              <div class="w-100"></div>
+              <a>
+                <img src="assets/img/17.png" height="20" width="20">
+              </a>&nbsp;
+              <a>
+                <img src="assets/img/18.png" height="20" width="20">
+              </a>&nbsp;
+              <a href="">
+                <img src="assets/img/19.png" height="20" width="20">
+              </a>
+              <div class="w-100"></div>
+              &copy;
+              Copyright Tekhype Limited
+            </span>
+          </span>&nbsp;&nbsp;&nbsp;&nbsp;
+        </nav>
       </div>
     </footer>
   </div>
 </div>
 
-<ng-template #postModal let-modal >
+<ng-template #postModal let-modal>
   <div class="modal-content">
-      <div class="modal-body justify-content-center">
+    <div class="modal-body justify-content-center">
 
-          <img [src]="selectedFile" *ngIf="format==='IMAGE' && selectedFile" style="height: 240px; width:240px">
-          <br />
-          <video [src]="selectedFile" *ngIf="format==='VIDEO' && selectedFile" style="height: 240px; width:240px"
-              controls></video> <br />
+      <img [src]="selectedFile" *ngIf="format==='IMAGE' && selectedFile" style="height: 240px; width:240px">
+      <br />
+      <video [src]="selectedFile" *ngIf="format==='VIDEO' && selectedFile" style="height: 240px; width:240px"
+        controls></video> <br />
 
-          <input *ngIf="!selectedFile" type="image" src="assets/img/103.png" width="100px" style="margin-left: 80px;" (click)="fileInput.click()" />
+      <input *ngIf="!selectedFile" type="image" src="assets/img/103.png" width="100px" style="margin-left: 80px;"
+        (click)="fileInput.click()" />
 
-          <!-- <img [src]="selectedFile" *ngIf="selectedFile" > -->
+      <!-- <img [src]="selectedFile" *ngIf="selectedFile" > -->
 
-          <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
-          <div class="row">
-              <div class="col-md-12">
-                  <form [formGroup]="postForm">
-                      <div class="form-group">
-                          <input type="text" id="input-age" class="form-control form-control-alternative"
-                              formControlName="caption" placeholder="caption">
-                      </div>
-                  </form>
-              </div>
-          </div>
+      <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+      <div class="row">
+        <div class="col-md-12">
+          <form [formGroup]="postForm">
+            <div class="form-group">
+              <input type="text" id="input-age" class="form-control form-control-alternative" formControlName="caption"
+                placeholder="caption">
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="modal-footer">
-          <button type="button" class="but btn btn-danger" *ngIf="selectedFile" (click)="cancel()">Cancel</button>
-          <button type="button" class="butn btn-warning" *ngIf="!selectedFile" (click)="modal.close()">Close</button>
-          <button type="button" class="but" (click)="createPost();modal.close()">Post</button>
-      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="but btn btn-danger" *ngIf="selectedFile" (click)="cancel()">Cancel</button>
+      <button type="button" class="butn btn-warning" *ngIf="!selectedFile" (click)="modal.close()">Close</button>
+      <button type="button" class="but" (click)="createPost();modal.close()">Post</button>
+    </div>
   </div>
 </ng-template>
 
 <ng-template #logoutModal let-modal>
   <div>
-      <div class="modal-content">
-          <div class="modal-header content-center">
-              <h4>Logout <i class="fa fa-lock"></i></h4>
-          </div>
-          <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to log-off?</div>
-          <div class="modal-footer"><a (click)="onLogout()" class="btn btn-signup btn-block"
-                  color="white">YES</a><a (click)="no()" class="btn facebookbutton btn-block">NO</a></div>
+    <div class="modal-content">
+      <div class="modal-header content-center">
+        <h4>Logout <i class="fa fa-lock"></i></h4>
       </div>
+      <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to log-off?</div>
+      <div class="modal-footer"><a (click)="onLogout()" class="btn btn-signup btn-block" color="white">YES</a><a
+          (click)="no()" class="btn facebookbutton btn-block">NO</a></div>
+    </div>
   </div>
 </ng-template>

@@ -154,12 +154,10 @@ export class AuthService {
     const config = new HttpHeaders({
       CachePhrase: 'talenthuntuserAPp-tekgenwRgyshUBGDTiisoo=-hbhsiio',
       Accept: 'application/json',
-      'Cache-Control': 'no-store, no-cache'
-      // 'Cache-Control': 'no-cache'
+      'Cache-Control': 'no-store, no-cache',
+      'Access-Control-Allow-Origin': '*'
     });
     const url = 'https://payment.tekhype.com/thirdpartypayments/thirdpaymentapi.ashx';
-    // config.append('Accept', 'application/json');
-    // config.append('Authorization', 'Bearer ' + this.token);
     return this.http.post(url, payload, { headers: config });
   }
 

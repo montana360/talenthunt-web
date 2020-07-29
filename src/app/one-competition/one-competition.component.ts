@@ -148,7 +148,7 @@ this.craftcommentForm = this.formBuilder.group({
       message: this.craftcommentForm.controls['message'].value,
     };
     console.log(data);
-    this.auth.update('comment', localStorage.getItem('userID'), data).subscribe(
+    this.auth.update('craft_comment', localStorage.getItem('userID'), data).subscribe(
       (response) => {
         console.log(response);
         this.spinner.hide();
@@ -219,13 +219,13 @@ join(id) {
   this.router.navigate(['/join/',id]);
 }
 openpost(postModal) {
-  this.modalService.open(postModal, {  size: 'sm' });
+  this.modalService.open(postModal, {  size: 'sm',centered:true });
 }
 close(votepost) {
   this.modalService.dismissAll(votepost);
 }
 voteContent(votepost) {
-  this.modalService.open(votepost, {  size: 'sm' });
+  this.modalService.open(votepost, {  size: 'sm',centered:true });
 }
 
 onFileChanged(event) {
@@ -313,7 +313,7 @@ view(ev) {
   );
 }
 openContent(logoutModal) {
-  this.modalService.open(logoutModal, {   size: 'sm' });
+  this.modalService.open(logoutModal, {   size: 'sm',centered:true });
 }
 openCraft(singleCraft) {
   this.modalService.open(singleCraft, {   size: 'lg' });

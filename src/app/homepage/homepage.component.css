@@ -178,4 +178,15 @@ cursor: pointer;
   -webkit-animation-duration: 0.5s;
   animation-name: modal-animation;
   animation-duration: 0.5s;
-} 
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.follow-button {
+  background-color: #090833;
+}
