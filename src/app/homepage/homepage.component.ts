@@ -179,14 +179,9 @@ export class HomepageComponent implements OnInit {
 
   // Checking if you follow searched user
   trackFollows(list) {
-
-    // console.log(list['follows']);
-
     this.isFollow = list['follows'].filter((follow) => {
       return follow.follower_id == this.user_id;
     });
-
-    console.log(this.isFollow);
   }
 
   addComment(id) {
@@ -293,6 +288,8 @@ export class HomepageComponent implements OnInit {
           this.alert.success('following successful');
           this.getpost();
           this.getfollowers(id);
+          this.isFollow = null;
+          this.searchList = null;
         }
       },
       (error) => {
@@ -303,7 +300,7 @@ export class HomepageComponent implements OnInit {
           this.alert.warning('Internal Server Error');
         } else {
           this.spinner.hide();
-          this.alert.error('Post cant be unliked try again later');
+          this.alert.error('can not follow user');
         }
       }
     );
@@ -326,6 +323,8 @@ export class HomepageComponent implements OnInit {
             this.alert.success('Unfollow successful');
             this.getpost();
             this.getfollowers(id);
+            this.isFollow = null;
+          this.searchList = null;
           }
         },
         (error) => {
@@ -336,7 +335,7 @@ export class HomepageComponent implements OnInit {
             this.alert.warning('Internal Server Error');
           } else {
             this.spinner.hide();
-            this.alert.error('Post cant be unliked try again later');
+            this.alert.error('can not unfollow user');
           }
         }
       );

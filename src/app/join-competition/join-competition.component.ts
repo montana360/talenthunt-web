@@ -59,7 +59,7 @@ export class JoinCompetitionComponent implements OnInit {
     network: '',
     amount: '',
     CallBackUrl: 'https://talenthunt.vokacom.net/api/v1/update_payment',
-    ClientRequestDescription: 'Competition Registration',
+    ClientRequestDescription: 'Registration',
     ClientRequestId: '',
     FeesOnCustomer: false
   };
@@ -96,7 +96,7 @@ export class JoinCompetitionComponent implements OnInit {
 
     this.clientID = Math.floor(
       10000000000000000000 + Math.random() * 90000000000000000000
-    );
+    ).toString();
   }
 
   ngOnInit(): void {
@@ -231,7 +231,7 @@ export class JoinCompetitionComponent implements OnInit {
   buildPay() {
     const msisdn = this.joinComForm.get('momo_code').value + this.joinComForm.get('momo_number').value;
     this.paymentDetails.msisdn = msisdn;
-    this.paymentDetails.amount = this.amount;
+    this.paymentDetails.amount = this.amount.toString();
     this.paymentDetails.ClientRequestId = this.clientID;
     this.paymentDetails.network = this.joinComForm.get('momo_network').value;
   }

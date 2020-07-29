@@ -1,10 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NgbModalConfig, NgbModal, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { AlertService } from '../services/alert.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ActivatedRoute } from '@angular/router';
 import {
   FormGroup,
   FormBuilder,
@@ -104,6 +103,7 @@ export class OneCompetitionComponent implements OnInit {
       number_of_votes: [null, Validators.compose([Validators.required])],
       momo_network: [null, Validators.compose([Validators.required])],
       momo_code: [null, Validators.compose([Validators.required])],
+      momo_number: [null, Validators.compose([Validators.required])],
       item_type: [null, Validators.compose([Validators.required])],
       msisdn: [null, Validators.compose([Validators.required])],
       amount: [null, Validators.compose([Validators.required])],
@@ -191,6 +191,8 @@ getCraft() {
     }
   );
 }
+
+
 // view single competition
 v(id) {
   this.isLoading = true;
@@ -372,8 +374,14 @@ openCraft(singleCraft) {
     this.voteDetails.num_of_votes = this.voteForm.controls['number_of_votes'].value;
     this.voteDetails.user_id = localStorage.getItem('userID');
 
-    const msisdn = this.voteForm.get('momo_code').value + this.voteForm.get('momo_number').value;
+    const msisdn = this.voteForm.controls['momo_code'].value + this.voteForm.controls['momo_number'].value;
     this.voteDetails.msisdn = msisdn;
+
+    // const msisdn = this.joinComForm.get('momo_code').value + this.joinComForm.get('momo_number').value;
+    // this.paymentDetails.msisdn = msisdn;
+    // this.paymentDetails.amount = this.amount.toString();
+    // this.paymentDetails.ClientRequestId = this.clientID;
+    // this.paymentDetails.network = this.joinComForm.get('momo_network').value;
   }
 
   vote() {

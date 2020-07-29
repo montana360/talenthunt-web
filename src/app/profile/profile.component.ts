@@ -185,6 +185,9 @@ addComment(id) {
   openScrollableContent(longContent) {
     this.modalService.open(longContent, { scrollable: true, size: 'lg' });
   }
+  openProfile(profile) {
+    this.modalService.open(profile, { centered: true, size: 'sm' });
+  }
 
   openpost(postModal) {
     this.modalService.open(postModal, { centered: true, size: 'sm' });

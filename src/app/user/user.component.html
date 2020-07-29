@@ -1,7 +1,7 @@
-<!-- <div class="col-md-10 offset-2 d-flex justify-content-center">
-  <div class="wrapper">
-    <div class="container page">
 
+  <div class="col-md-10 offset-2 d-flex justify-content-center">
+    <div class="wrapper">
+    <div class="container page">
       <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color: white;">
         <a class="navbar-brand move" (click)="homePage()"><img src="assets/img/22.png" ngbTooltip="talent hunt"
             height="50" width="150"></a>
@@ -13,17 +13,6 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <div class="collapse navbar-collapse" id="example-navbar-icons">
             <ul class="navbar-nav ml-auto" style="margin-right: 190px;">
-
-              <li class="nav-item text-center">
-                <a class="nav-link" (click)="homePage()" data-toggle="modal" data-target="#"><svg width="1.5em"
-                    height="1.5em" viewBox="0 0 16 16" class="bi bi-house-door-fill" fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg" style="color: black;">
-                    <path
-                      d="M6.5 10.995V14.5a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5V11c0-.25-.25-.5-.5-.5H7c-.25 0-.5.25-.5.495z" />
-                    <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
-                  </svg><span class="d-none d-sm-inline d-xl-block px-1"
-                    style="color: black;font: 1em sans-serif;font-size: small;">Home</span></a>
-              </li>
               <li class="nav-item text-center">
                 <a class="nav-link" (click)="profilePage()" data-toggle="modal" data-target="#"><svg width="1.5em"
                     height="1.5em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor"
@@ -63,28 +52,14 @@
 
         </div>
       </nav><br><br><br>
-
       <img src="assets/img/41.png" alt="" height="10">
       <br><br><br><br>
-
       <div class="row d-flex justify-content-center ">
-
         <div class="justify-content-center col-md-3 d-flex">
-          <img *ngIf="user?.profile_image !== null" src="{{user?.profile_image}}" class="avatar" alt="">
-          <img *ngIf="user?.profile_image === null" src="assets/img/default-avatar.png" class="avatar" alt="">
+          <img *ngIf="viewuser?.profile_image !== null" src="{{viewuser?.profile_image}}" class="avatar" alt="">
+          <img *ngIf="viewuser?.profile_image === null" src="assets/img/default-avatar.png" class="avatar" alt="">
         </div>
-
         <div class="col-md-7">
-          <div class="row">
-            <div class="col-md-5">
-               <h6><b>{{user?.fullname}}</b></h6>
-               <h6>{{user?.username}}</h6>
-            </div>
-            <div class="col-md-7">
-              <button type="button" class="btn success"  (click)="opentContent(eitModal)">Edit Profile</button>
-           </div>
-          </div>
-
           <div class="row">
             <div class="col-md-3 text-center">
               <h6><b>{{follow?.posts.length}}</b></h6>
@@ -104,19 +79,40 @@
               <h6><b>{{follow?.following.length}}</b></h6>
               <span style="font-size: 14px;">Following</span>
             </div>
-          </div>
-    <br>
+          </div><br>
           <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-7">
+              <div *ngIf="viewuser?.follows.length > 0">
+                <span *ngIf="isFollow?.length > 0">
+                  <button type="button" (click)="unfollowuser(viewuser?.id)" class="btn success">Unfollow</button>
+                  <!-- <img (click)="unlike(list?.id)" src="assets/img/44.png" height="30" width="30"> -->
+                </span>
 
-              <p class="d-flex justify-content-start" style="font-size: 14px;">
-                {{ user?.personal_message }}
-              </p>
-            </div>
+                <span *ngIf="!isFollow || isFollow?.length == 0">
+                  <button class="but" type="button" (click)="followuser(viewuser?.id)">Follow</button>
+                  <!-- <img (click)="likep(list?.id)" src="assets/img/43.png" height="30" width="30"> -->
+                </span>
+              </div>
+              <div *ngIf="viewuser?.follows.length == 0">
+                <span>
+                  <button class="but" type="button" (click)="followuser(viewuser?.id)">Follow</button>
+                </span>
+              </div>
+           </div>
           </div>
         </div>
+      </div>&nbsp;
+      <div class="row d-flex justify-content-center">
+        <div class="justify-content-center col-md-5" style="margin-right: 310px;">
+          <h6><b>{{viewuser?.fullname}}</b></h6>
+          <p>{{viewuser?.username}}</p>
+       </div>
       </div>
-
+      <div class="row d-flex justify-content-center">
+        <div class="justify-content-center col-md-5" style="margin-right: 310px;">
+          <p>{{viewuser?.personal_message}}</p>
+       </div>
+      </div>
 
       <div class="row">
         <div class="col-md-10">
@@ -127,19 +123,45 @@
 
               <ng-template ngbTabContent>
                 <br>
-                <div class="row">
+                <div class="child-page-listing">
+
+
+                  <div class="grid-container">
+
+                    <article id="3685" class="location-listing" *ngFor="let post of allPosts">
+
+                      <a class="location-title" (click)="openScrollableContent(longContent);view(post.id)">
+                                   {{post?.caption}}                    </a>
+
+                      <div class="location-image">
+                        <a (click)="openScrollableContent(longContent);view(post.id)">
+                                        <img class="image" width="300" height="169" *ngIf="post?.file_type === 'IMAGE'"  src="{{post?.file_url}}" alt="san francisco">
+                                        <video *ngIf="post?.file_type === 'VIDEO'" width="300" height="169">
+                                          <source src="{{post?.file_url}}" type="video/mp4">
+                                        </video>
+                                      </a>
+
+                      </div>
+
+                    </article>
+
+
+                  </div>
+                  <!-- end grid container -->
+
+                </div>
+                <!-- <div class="row">
                   <div  class="col-md-4"  *ngFor="let post of allPosts">
                     <a (click)="openScrollableContent(longContent);view(post.id)">
-                      <img  *ngIf="post?.file_type === 'IMAGE'"  src="{{post?.file_url}}" height="200px"
-                        width="100%" alt="Card image cap">
+                      <img class="imd" *ngIf="post?.file_type === 'IMAGE'"  src="{{post?.file_url}}"  alt="Card image cap">
                     </a>
                     <a  (click)="openScrollableContent(longContent);view(post.id)">
-                      <video *ngIf="post?.file_type === 'VIDEO'" width="100%" height="200px">
+                      <video *ngIf="post?.file_type === 'VIDEO'" width="300rem" height="200px">
                         <source src="{{post?.file_url}}" type="video/mp4">
                       </video>
                     </a>
                   </div>
-                </div>
+                </div> -->
                 <br>
               </ng-template>
             </ngb-tab>
@@ -197,7 +219,14 @@
                       <b>{{post?.comments.length || '0'}}</b>&nbsp;&nbsp;
                       <img src="assets/img/45.png" height="30" width="30">
                     </div>
-
+                    <!-- <div class="row">
+                      <span *ngIf="post?.likes.length > 0 && post?.likes[0].user_id == user_id">
+                      <img (click)="unlike(post?.id)" src="assets/img/44.png" height="30" width="30">
+                    </span>&nbsp;&nbsp;
+                    <span
+                        *ngIf="post?.likes.length === 0 || post?.likes.length > 0 && post?.likes[0].user_id != user_id">
+                        <img (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
+                    </span>&nbsp;&nbsp; -->
 
                     <div class="row">
                       <span *ngIf="post?.comments.length > 0"><b>{{post?.comments.length || '0'}} comment(s)</b></span>
@@ -225,6 +254,12 @@
                       </div>
                     </div>
                   </div>
+                  <div class="card-footer">
+                    <!-- <form class="example for" [formGroup]="commentForm">
+                      <input class="mt-auto" placeholder="comment" formControlName="message" />
+                      <a style="color: blue;" (click)="addComment(post.id);commentForm.reset();"><b>Post</b></a>
+                    </form> -->
+                  </div><br><br>
                 </div>
               </div>
               </ng-template>
@@ -234,9 +269,10 @@
         </div>
       </div>
 
+
+    </div>
     </div>
   </div>
-</div> -->
 <!-- logout modal start -->
 <ng-template #logoutModal let-modal>
   <div>
@@ -251,3 +287,68 @@
   </div>
 </ng-template>
 <!-- logout modal end -->
+<!-- post modal -->
+<ng-template #longContent let-modal>
+  <div class="row" *ngFor = "let cra of Posts">
+    <div class="col-sm-6 left-side">
+      <video *ngIf="cra?.file_type === 'VIDEO'" class="card-img-top"  style="height: 30rem;" controls >
+        <source src="{{cra.file_url}}" type="video/mp4">
+    </video>
+    <img  *ngIf="cra?.file_type === 'IMAGE'" class="card-img-top"  src="{{cra.file_url}}" style="height: 30rem;" alt="Card image cap">
+    </div>
+    <div class="col-sm-6 right-side">
+      <br>
+      <div class="row">
+        <div class="col-md-3" style="align-items: flex-end;">
+          <img *ngIf="cra.user.profile_image !== null" src="{{cra.user.profile_image}}"
+            class="rounded-circle" height="70" alt="">
+            <img *ngIf="cra.user.profile_image === null" src="assets/img/default-avatar.png"
+            class="rounded-circle" height="70" alt="">
+        </div>
+        <div class="col-md-7 div-holder ">
+          <h6 class="card-title" style="color: black;margin-top: auto;font-size: small;">{{cra.user.fullname}}</h6>
+          <span class="card-text" style="color: black;font-size: small;">{{cra.caption}}</span>
+          <div class="w-100"></div>
+          <b class="card-text" style="color: black;font-size: small;">{{cra.likes.length || '0'}} like(s)</b>
+        </div>
+      </div><br>
+<!--Form with header-->
+<div class="card no-border example-1 scrollbar-deep-purple bordered-deep-purple thin">
+  <div class="card-body">
+    <h6 id="section1" style="font-size: 16px;"><strong>Comments:</strong></h6>
+    <div class="row pa-move" *ngFor="let comment of cra.comments">
+      <div class="col-md-1">
+          <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt=""
+              class="avs">
+          <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt=""
+              class="avs">
+      </div>
+      <div class="col-md-8" style="margin-left: 12px;">
+          <div class="row">
+              <span style="font-size: 14px;"><b>{{comment.user.fullname}}</b></span>
+              <div class="w-100"></div>
+              <span style="font-size: 12px;">{{comment.message}}</span>
+          </div>
+      </div>
+  </div>
+  </div>
+</div><br>
+
+<form [formGroup]="commentForm">
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="Add Comments" formControlName="message"/>
+    <div class="input-group-btn">
+      <button class="btn btn-default" type="submit">
+        <a style="color: blue;" (click)="addComment(cra.id);commentForm.reset();"><b>Post</b></a>
+      </button>
+    </div>
+  </div>
+</form>
+
+
+</div>
+<!--/Form with header-->
+
+    </div>
+</ng-template>
+<!-- close post modal -->
