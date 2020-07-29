@@ -24,7 +24,10 @@
         <ng-template #popContent  style="overflow-y:scroll; height: 300px;">
           <div *ngIf="isFound">
             <div *ngFor="let list of searchList">
-              <div class="row" (click)="fell(list.id)">
+
+              <span *ngIf="list">{{ trackFollows(list) }}</span>
+
+              <div class="row" [hidden]="list?.id == user_id" (click)="fell(list?.id)">
                 <div class="col-md-2">
                   <img *ngIf="list.profile_image === null" src="assets/img/default-avatar.png" class="avatar">
                   <img *ngIf="list.profile_image !== null" src="{{ list?.profile_image }}" class="avatar">
@@ -34,21 +37,17 @@
                 </div>
                 <div class="col-md-3 d-flex justify-content-end">
 
-                  <!-- <div *ngFor="let follow of list.follows">
-                    <div *ngIf="follow.follower_id != user_id">
-                      <button type="button" class="btn btn-outline-info btn-sm  follow-button">Follow</button>
-                    </div>
-                  </div> -->
+                  <span *ngIf="isFollow?.length > 0">
+                    <button type="button" class="btn success">Unfollow</button>
+                    <!-- <img (click)="unlike(list?.id)" src="assets/img/44.png" height="30" width="30"> -->
+                  </span>
 
-                  <div *ngFor="let follow of list.follows">
-                    <div *ngIf="follow.follower_id == user_id">
-                      <button type="button" class="btn btn-outline-info btn-sm  follow-button"  (click)="unfollowuser(list.id)">
-                        Unfollow
-                      </button>
-                    </div>
-                  </div>
+                  <span *ngIf="!isFollow || isFollow?.length == 0">
+                    <button type="button">Follow</button>
+                    <!-- <img (click)="likep(list?.id)" src="assets/img/43.png" height="30" width="30"> -->
+                  </span>
 
-                  <!-- <button type="button" class="btn btn-outline-info btn-sm" (click)="followuser(list.id)">Follow</button> -->
+
                 </div>
               </div>
               <hr>
@@ -148,15 +147,6 @@
                     <img (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
                   </span>
 
-                  <!-- <div *ngFor="let like of post.likes">
-                    <div *ngIf="user_id == like.user_id">
-                      <img (click)="unlike(post?.id)" src="assets/img/44.png" height="30" width="30">
-                    </div>
-
-                    <div *ngIf="user_id != like.user_id">
-                      <img (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
-                    </div>
-                  </div> -->
                 </div>
 
                 <div *ngIf="post?.likes.length == 0">

@@ -82,6 +82,7 @@ export class HomepageComponent implements OnInit {
   isMine = false;
   isShow = false;
   isData: any;
+  isFollow: any;
   toggleDisplay() {
     this.isShow = !this.isShow;
   }
@@ -167,21 +168,25 @@ export class HomepageComponent implements OnInit {
     this.commentDetails.message = this.commentForm.controls['message'].value;
   }
 
-
-  // function for calling user like
-  checkTrue() {
-    this.isMine = true;
-    // console.log('Found mine');
-  }
-
-  // check false if no user like found
+  // Checked if you liked a post
   trackLikes(post) {
-    // console.log(post['likes']);
     this.isData = post['likes'].filter((like) => {
       return like.user_id == this.user_id;
     });
 
-    console.log(this.isData);
+    // console.log(this.isData);
+  }
+
+  // Checking if you follow searched user
+  trackFollows(list) {
+
+    // console.log(list['follows']);
+
+    this.isFollow = list['follows'].filter((follow) => {
+      return follow.follower_id == this.user_id;
+    });
+
+    console.log(this.isFollow);
   }
 
   addComment(id) {
