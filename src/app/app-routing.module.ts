@@ -14,6 +14,7 @@ import { TermsComponent } from './terms/terms.component';
 import { JoinCompetitionComponent } from './join-competition/join-competition.component';
 import { OneCompetitionComponent } from './one-competition/one-competition.component';
 import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -28,7 +29,9 @@ const routes: Routes = [
   { path: 'join/:id', component: JoinCompetitionComponent, canActivate: [AuthGuard]},
   { path: 'one/:id', component: OneCompetitionComponent, canActivate: [AuthGuard]},
   { path: 'about', component: AboutComponent},
+  { path: 'contact', component: ContactComponent},
   { path: '**', component: LandingComponent },
+
 ];
 
 

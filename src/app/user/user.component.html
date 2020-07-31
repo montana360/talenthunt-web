@@ -12,7 +12,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <div class="collapse navbar-collapse" id="example-navbar-icons">
-            <ul class="navbar-nav ml-auto" style="margin-right: 190px;">
+            <ul class="navbar-nav ml-auto" style="margin-right: 230px;">
               <li class="nav-item text-center">
                 <a class="nav-link" (click)="profilePage()" data-toggle="modal" data-target="#"><svg width="1.5em"
                     height="1.5em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor"
@@ -52,7 +52,7 @@
 
         </div>
       </nav><br><br><br>
-      <img src="assets/img/41.png" alt="" height="10">
+      <img src="assets/img/41.png" alt="" height="9" style="margin-right: 180px;">
       <br><br><br><br>
       <div class="row d-flex justify-content-center ">
         <div class="justify-content-center col-md-3 d-flex">
@@ -68,14 +68,14 @@
 
             <div class="col-md-1"></div>
 
-            <div class="col-md-3 text-center">
+            <div class="col-md-3 text-center" style="cursor: pointer;" (click)="openfollowers(followers)">
               <h6><b>{{follow?.followers.length}}</b></h6>
               <span style="font-size: 14px;">Followers</span>
             </div>
 
             <div class="col-md-1"></div>
 
-            <div class="col-md-3 text-center">
+            <div class="col-md-3 text-center" style="cursor: pointer;" (click)="openfollowing(following)">
               <h6><b>{{follow?.following.length}}</b></h6>
               <span style="font-size: 14px;">Following</span>
             </div>
@@ -131,17 +131,20 @@
                     <article id="3685" class="location-listing" *ngFor="let post of allPosts">
 
                       <a class="location-title" (click)="openScrollableContent(longContent);view(post.id)">
-                                   {{post?.caption}}                    </a>
+                        <img src="assets/img/44.png" width="15px" height="15px">&nbsp; {{post?.likes.length || 0}}&nbsp;&nbsp; <img src="assets/img/42.png" width="15px" height="15px">&nbsp; {{post?.comments.length || 0}}
+                       </a>
 
-                      <div class="location-image">
-                        <a (click)="openScrollableContent(longContent);view(post.id)">
-                                        <img class="image" width="300" height="169" *ngIf="post?.file_type === 'IMAGE'"  src="{{post?.file_url}}" alt="san francisco">
-                                        <video *ngIf="post?.file_type === 'VIDEO'" width="300" height="169">
-                                          <source src="{{post?.file_url}}" type="video/mp4">
+                                   <div class="card location-image">
+                                    <a (click)="openScrollableContent(longContent);view(post.id)">
+                                      <img class="image" class="card-img-top" width="300" height="169" *ngIf="post?.file_type === 'IMAGE'"
+                                        src="{{post?.file_url}}" alt="san francisco">
+                                      <video *ngIf="post?.file_type === 'VIDEO'" class="card-img-top" width="300" height="169">
+                                        <source src="{{post?.file_url}}" type="video/mp4" >
                                         </video>
-                                      </a>
+                                    </a>
 
-                      </div>
+                                  </div>
+
 
                     </article>
 
@@ -289,66 +292,143 @@
 <!-- logout modal end -->
 <!-- post modal -->
 <ng-template #longContent let-modal>
-  <div class="row" *ngFor = "let cra of Posts">
-    <div class="col-sm-6 left-side">
-      <video *ngIf="cra?.file_type === 'VIDEO'" class="card-img-top"  style="height: 30rem;" controls >
+  <div class="row" *ngFor="let cra of Posts">
+    <span *ngIf="cra">{{ trackLikes(cra) }}</span>
+    <div class="col-sm-7 left-side">
+      <video *ngIf="cra?.file_type === 'VIDEO'" class="card-img-top" style="height: 30rem;" controls>
         <source src="{{cra.file_url}}" type="video/mp4">
-    </video>
-    <img  *ngIf="cra?.file_type === 'IMAGE'" class="card-img-top"  src="{{cra.file_url}}" style="height: 30rem;" alt="Card image cap">
+      </video>
+      <img *ngIf="cra?.file_type === 'IMAGE'" class="card-img-top" src="{{cra.file_url}}" style="height: 30rem;"
+        alt="Card image cap">
     </div>
-    <div class="col-sm-6 right-side">
+    <div class="col-sm-4 right-side">
       <br>
       <div class="row">
         <div class="col-md-3" style="align-items: flex-end;">
-          <img *ngIf="cra.user.profile_image !== null" src="{{cra.user.profile_image}}"
-            class="rounded-circle" height="70" alt="">
-            <img *ngIf="cra.user.profile_image === null" src="assets/img/default-avatar.png"
-            class="rounded-circle" height="70" alt="">
+          <img *ngIf="cra.user.profile_image !== null" src="{{cra.user.profile_image}}" class="rounded-circle"
+            height="70" alt="">
+          <img *ngIf="cra.user.profile_image === null" src="assets/img/default-avatar.png" class="rounded-circle"
+            height="70" alt="">
         </div>
-        <div class="col-md-7 div-holder ">
+        <div class="col-md-8 div-holder " style="margin-left: 20px;">
           <h6 class="card-title" style="color: black;margin-top: auto;font-size: small;">{{cra.user.fullname}}</h6>
           <span class="card-text" style="color: black;font-size: small;">{{cra.caption}}</span>
           <div class="w-100"></div>
           <b class="card-text" style="color: black;font-size: small;">{{cra.likes.length || '0'}} like(s)</b>
         </div>
       </div><br>
-<!--Form with header-->
-<div class="card no-border example-1 scrollbar-deep-purple bordered-deep-purple thin">
-  <div class="card-body">
-    <h6 id="section1" style="font-size: 16px;"><strong>Comments:</strong></h6>
-    <div class="row pa-move" *ngFor="let comment of cra.comments">
-      <div class="col-md-1">
-          <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt=""
-              class="avs">
-          <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt=""
-              class="avs">
-      </div>
-      <div class="col-md-8" style="margin-left: 12px;">
-          <div class="row">
-              <span style="font-size: 14px;"><b>{{comment.user.fullname}}</b></span>
-              <div class="w-100"></div>
-              <span style="font-size: 12px;">{{comment.message}}</span>
+      <!--Form with header-->
+      <div *ngIf="cra.comments.length > 0" class="card border-0 example-1 scrollbar-deep-purple bordered-deep-purple thin">
+        <div class="card-body">
+          <h6 id="section1" style="font-size: 12px;"><strong>Comments:</strong></h6>
+          <div class="row pa-move" *ngFor="let comment of cra.comments">
+            <div class="col-md-1">
+              <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt="" class="avs">
+              <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt="" class="avs">
+            </div>
+            <div class="col-md-8" style="margin-left: 12px;">
+              <div class="row">
+                <span style="font-size: 12px;"><b>{{comment.user.fullname}}</b></span>
+                <div class="w-100"></div>
+                <span style="font-size: 10px;">{{comment.message}}</span>
+              </div>
+            </div>
           </div>
+        </div>
+      </div><br>
+      <div class="row">
+        <div *ngIf="cra?.likes.length > 0">
+
+          <span *ngIf="isData.length > 0">
+            <img (click)="unlike(cra?.id)" src="assets/img/44.png" height="30" width="30">
+          </span>
+
+          <span *ngIf="!isData || isData.length == 0">
+            <img (click)="likep(cra?.id)" src="assets/img/43.png" height="30" width="30">
+          </span>
+
+        </div>
+
+        <div *ngIf="cra?.likes.length == 0">
+          <span>
+            <img (click)="likep(cra?.id)" src="assets/img/43.png" height="30" width="30">
+          </span>
+        </div>&nbsp;&nbsp;
+        <b>{{cra?.likes.length || '0'}}</b>&nbsp;&nbsp;
+        <img src="assets/img/45.png" height="30" width="30">
       </div>
-  </div>
-  </div>
-</div><br>
 
-<form [formGroup]="commentForm">
-  <div class="input-group">
-    <input type="text" class="form-control" placeholder="Add Comments" formControlName="message"/>
-    <div class="input-group-btn">
-      <button class="btn btn-default" type="submit">
-        <a style="color: blue;" (click)="addComment(cra.id);commentForm.reset();"><b>Post</b></a>
-      </button>
-    </div>
-  </div>
-</form>
+      <form [formGroup]="commentForm">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Add Comments" formControlName="message" />
+          <div class="input-group-btn">
+            <button class="btns btn-default" [disabled]="!commentForm.valid" (click)="addComment(cra.id);commentForm.reset();" type="submit">
+              <b>Post</b>
+            </button>
+          </div>
+        </div>
+      </form>
 
-
-</div>
-<!--/Form with header-->
 
     </div>
+    <!--/Form with header-->
+
+  </div>
 </ng-template>
 <!-- close post modal -->
+<!-- following modal -->
+<ng-template #followers let-modal>
+  <div class="modal-header text-center">
+    <h6 class="modal-title">Followers</h6>
+    <button type="button" class="" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div  *ngFor="let foll of follow.followers">
+    <div  class="row" >
+      <div class="col-md-2">
+        <img *ngIf="foll.follower.profile_image === null" src="assets/img/default-avatar.png" class="avatar3">
+        <img *ngIf="foll.follower.profile_image !== null" src="{{ foll?.follower.profile_image }}" class="avatar3">
+      </div>
+      <div class="col-md-7" style="cursor: pointer;" (click)="fell(foll?.follower_id);v(foll?.follower_id);getfollowers(foll?.follower_id);getUserpost(foll?.follower_id);modal.dismiss('Cross click')">
+        &nbsp;
+        <span >
+          {{ foll.follower.fullname }}
+        </span>
+        &nbsp; &nbsp;
+      </div>
+    </div>
+    <hr>
+  </div>
+  </div>
+
+ </ng-template>
+ <ng-template #following let-modal>
+  <div class="modal-header text-center">
+    <h6 class="modal-title">following</h6>
+    <button type="button" class="" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" >
+    <div *ngFor="let foll of follow.following">
+    <div  class="row" >
+      <div class="col-md-2">
+        <img *ngIf="foll.user.profile_image === null" src="assets/img/default-avatar.png" class="avatar3">
+        <img *ngIf="foll.user.profile_image !== null" src="{{ foll?.user.profile_image }}" class="avatar3">
+      </div>
+      <div class="col-md-7" >
+        &nbsp;
+        <span style="cursor: pointer;" (click)="fell(foll?.user_id);v(foll?.user_id);getfollowers(foll?.user_id);getUserpost(foll?.user_id);modal.dismiss('Cross click')">
+          {{ foll.user.fullname }}
+        </span>
+        &nbsp; &nbsp;
+      </div>
+
+    </div>
+    <hr>
+  </div>
+  </div>
+
+ </ng-template>

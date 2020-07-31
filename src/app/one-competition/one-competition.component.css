@@ -206,14 +206,7 @@ box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.24);}
 -moz-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.24);
 box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.24);
 }
-.scrollbar-deep-purple::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background-color: #F5F5F5;
-  border-radius: 10px; }
 
-  .scrollbar-deep-purple::-webkit-scrollbar {
-  width: 12px;
-  background-color: #F5F5F5; }
 
   .scrollbar-deep-purple::-webkit-scrollbar-thumb {
   border-radius: 10px;
@@ -224,51 +217,6 @@ box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.24);
   scrollbar-color: #512da8 #F5F5F5;
   }
 
-  .scrollbar-cyan::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background-color: #F5F5F5;
-  border-radius: 10px; }
-
-  .scrollbar-cyan::-webkit-scrollbar {
-  width: 12px;
-  background-color: #F5F5F5; }
-
-  .scrollbar-cyan::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background-color: #00bcd4; }
-
-  .scrollbar-cyan {
-  scrollbar-color: #4c075a #F5F5F5;
-  }
-
-  .scrollbar-dusty-grass::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background-color: #F5F5F5;
-  border-radius: 10px; }
-
-  .scrollbar-dusty-grass::-webkit-scrollbar {
-  width: 12px;
-  background-color: #F5F5F5; }
-
-
-  .scrollbar-ripe-malinka::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background-color: #F5F5F5;
-  border-radius: 10px; }
-
-  .scrollbar-ripe-malinka::-webkit-scrollbar {
-  width: 12px;
-  background-color: #F5F5F5; }
-
-
-
-  .bordered-deep-purple::-webkit-scrollbar-track {
-  -webkit-box-shadow: none;
-  border: 1px solid #512da8; }
-
-  .bordered-deep-purple::-webkit-scrollbar-thumb {
-  -webkit-box-shadow: none; }
 
 
 
@@ -291,4 +239,17 @@ box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.24);
     width: 25px;
     height: 25px;
     border-radius: 60%;
+  }
+  .fish
+  {
+    position:absolute;
+    top: 100px;
+    left: 200px;
+    z-index: 2;
+  }
+  .avatar3 {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
   }

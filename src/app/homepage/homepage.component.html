@@ -22,8 +22,8 @@
         <!-- <ng-template  #popTitle>Search Results</ng-template> -->
 
         <ng-template #popContent class="popover">
-          <div  *ngIf="isFound">
-            <div  *ngFor="let list of searchList">
+          <div class="popover" *ngIf="isFound">
+            <div   *ngFor="let list of searchList">
 
               <span *ngIf="list">{{ trackFollows(list) }}</span>
 
@@ -39,19 +39,7 @@
                   </span>
                   &nbsp; &nbsp;
                 </div>
-                <div class="col-md-3 d-flex justify-content-end">
-                  <div>
-                    <span *ngIf="isFollow?.length > 0">
-                      <button type="button" (click)="unfollowuser(list?.id)" class="btn success">Unfollow</button>
-                      <!-- <img (click)="unlike(list?.id)" src="assets/img/44.png" height="30" width="30"> -->
-                    </span>
 
-                    <span *ngIf="!isFollow || isFollow?.length == 0">
-                      <button class="but" type="button" (click)="followuser(list?.id)">Follow</button>
-                      <!-- <img (click)="likep(list?.id)" src="assets/img/43.png" height="30" width="30"> -->
-                    </span>
-                  </div>
-                </div>
               </div>
               <hr>
             </div>
@@ -117,7 +105,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-md-3" style="align-items: flex-end;">
-                  <img *ngIf="post.user.profile_image !== null" src="{{post.user.profile_image}}" class="rounded-circle"
+                  <img *ngIf="post.user.profile_image !== null" src="{{post.user.profile_image}}" class="avatar1"
                     height="70" alt="">
                   <img *ngIf="post.user.profile_image === null" src="assets/img/default-avatar.png"
                     class="rounded-circle" height="70" alt="">
@@ -140,7 +128,7 @@
                 <source src="{{post.file_url}}" type="video/mp4">
               </video>
             </a>
-            <div class="card-body">
+            <div class="card-body" >
               <div class="row">
                 <div *ngIf="post?.likes.length > 0">
 

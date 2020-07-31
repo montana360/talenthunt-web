@@ -53,7 +53,10 @@ export class ProfileComponent implements OnInit {
   token: any;
   viewPost: any;
   post: any;
+  allUsers:any;
   user_id: any;
+  isData: any;
+  isFollow: any;
 
   // comment variable declaration
   commentDetails = {
@@ -95,6 +98,11 @@ export class ProfileComponent implements OnInit {
         Validators.compose([Validators.required, Validators.email]),
       ],
     });
+    this.commentForm = this.formBuilder.group({
+      user_id: [null],
+      message: [null,Validators.required],
+    });
+
 
     // customize default values of tabsets used by this component tree
     conTabfig.justify = 'center';
@@ -107,6 +115,7 @@ export class ProfileComponent implements OnInit {
     this.user_id = localStorage.getItem('userID');
 
     this.getUser();
+    this.getUsers();
 
     this.token = localStorage.getItem('token');
     this.getfollowers();
@@ -137,8 +146,72 @@ export class ProfileComponent implements OnInit {
     // building comment form
     this.commentForm = this.formBuilder.group({
       user_id: [null],
-      message: [null],
+      message: [null,Validators.required],
     });
+  }
+  trackLikes(cra) {
+    this.isData = cra['likes'].filter((like) => {
+      return like.user_id == this.user_id;
+    });
+    console.log(this.isData);
+  }
+  likep(id) {
+    this.spinner.show();
+    const data = {
+      post_id: id,
+      user_id: parseInt(localStorage.getItem('userID'), 10),
+    };
+    console.log(data);
+    this.auth.update('like', localStorage.getItem('userID'), data).subscribe(
+      (response) => {
+        console.log(response);
+        this.spinner.hide();
+        if (response !== null || response !== undefined) {
+          this.alert.success('Post liked');
+          this.view(id);
+        }
+      },
+      (error) => {
+        // console.log(error);
+        this.spinner.hide();
+        if (error.status === 500) {
+          this.spinner.hide();
+          this.alert.warning('Internal Server Error');
+        } else {
+          this.spinner.hide();
+          this.alert.error('Post liked not successful try again later');
+        }
+      }
+    );
+  }
+  unlike(id) {
+    this.spinner.show();
+    const data = {
+      post_id: id,
+      user_id: parseInt(localStorage.getItem('userID'), 10),
+    };
+    console.log(data);
+    this.auth.update('unlike', localStorage.getItem('userID'), data).subscribe(
+      (response) => {
+        console.log(response);
+        this.spinner.hide();
+        if (response !== null || response !== undefined) {
+          this.alert.success('Post unliked');
+          this.view(id);
+        }
+      },
+      (error) => {
+        // console.log(error);
+        this.spinner.hide();
+        if (error.status === 500) {
+          this.spinner.hide();
+          this.alert.warning('Internal Server Error');
+        } else {
+          this.spinner.hide();
+          this.alert.error('Post cant be unliked try again later');
+        }
+      }
+    );
   }
 // set comment data
 setCommentData() {
@@ -159,7 +232,8 @@ addComment(id) {
       this.spinner.hide();
       if (response !== null || response !== undefined) {
         this.alert.success('Comment posted successfully');
-        this.getUserpost();
+        this.view(id);
+
       }
     },
     (error) => {
@@ -192,7 +266,13 @@ addComment(id) {
   openpost(postModal) {
     this.modalService.open(postModal, { centered: true, size: 'sm' });
   }
+  openfollowers(followers) {
+    this.modalService.open(followers, { centered: true,scrollable:true});
+  }
 
+  openfollowing(following) {
+    this.modalService.open(following, { centered: true,scrollable:true});
+  }
   onFileChanged(event) {
     const size = event.target.files[0].size;
     const fileSize = size / 1024;
@@ -431,7 +511,9 @@ addComment(id) {
   openSContent(singlepost) {
     this.modalService.open(singlepost, { size: 'lg' });
   }
-
+  fell(id) {
+    this.router.navigate(['/user/',id]);
+  }
 
 
   // Getting image functionality
@@ -482,6 +564,7 @@ addComment(id) {
             this.alert.warning(response['message']);
           } else {
             this.alert.success('Profile image update successful');
+            this.getUser();
           }
         },
         (error) => {
@@ -529,4 +612,98 @@ addComment(id) {
   compage() {
     this.router.navigate(['/terms/']);
   }
+   // Checking if you follow searched user
+ trackFollows(user) {
+  this.isFollow = user['follows'].filter((follow) => {
+    return follow.follower_id == this.user_id;
+  });
+  console.log(this.isFollow);
+}
+followuser(id) {
+  this.spinner.show();
+  const data = {
+    follower_id: parseInt(localStorage.getItem('userID'), 10),
+    user_id: id,
+  };
+  console.log(data);
+  this.auth.update('follow', localStorage.getItem('userID'), data).subscribe(
+    (response) => {
+      console.log(response);
+      this.spinner.hide();
+      if (response !== null || response !== undefined) {
+        this.alert.success('following successful');
+        // this.v(this.ID);
+        this.getfollowers();
+        this.isFollow = null;
+        // this.searchList = null;
+      }
+    },
+    (error) => {
+      console.log(error);
+      this.spinner.hide();
+      if (error.status === 500) {
+        this.spinner.hide();
+        this.alert.warning('Internal Server Error');
+      } else {
+        this.spinner.hide();
+        this.alert.error('can not follow user');
+      }
+    }
+  );
+}
+
+unfollowuser(id) {
+  this.spinner.show();
+  const data = {
+    user_id: id,
+    follower_id: parseInt(localStorage.getItem('userID'), 10),
+  };
+  console.log(data);
+  this.auth
+    .update('un_follow', localStorage.getItem('userID'), data)
+    .subscribe(
+      (response) => {
+        console.log(response);
+        this.spinner.hide();
+        if (response !== null || response !== undefined) {
+          this.alert.success('Unfollow successful');
+          // this.v(this.ID);
+          this.getfollowers();
+          this.isFollow = null;
+        // this.searchList = null;
+        }
+      },
+      (error) => {
+        console.log(error);
+        this.spinner.hide();
+        if (error.status === 500) {
+          this.spinner.hide();
+          this.alert.warning('Internal Server Error');
+        } else {
+          this.spinner.hide();
+          this.alert.error('can not unfollow user');
+        }
+      }
+    );
+}
+getUsers() {
+  this.spinner.show();
+  this.auth.get('users').subscribe(
+    (response) => {
+      // console.log(response);
+      if (response['data']['data'].length > 0) {
+        this.allUsers = response['data']['data'];
+        console.log(this.allUsers);
+        this.spinner.hide();
+      } else {
+        this.spinner.hide();
+        this.alert.info('No Data available yet');
+      }
+    },
+    (error) => {
+      this.spinner.hide();
+      this.alert.error(error['message']);
+    }
+  );
+}
 }

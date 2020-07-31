@@ -182,6 +182,7 @@ export class HomepageComponent implements OnInit {
     this.isFollow = list['follows'].filter((follow) => {
       return follow.follower_id == this.user_id;
     });
+    console.log(this.isFollow);
   }
 
   addComment(id) {
@@ -227,7 +228,7 @@ export class HomepageComponent implements OnInit {
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           this.alert.success('Post liked');
-          this.getpost();
+          this.getpost()
         }
       },
       (error) => {
@@ -257,7 +258,7 @@ export class HomepageComponent implements OnInit {
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           this.alert.success('Post unliked');
-          this.getpost();
+          this.getpost()
         }
       },
       (error) => {
@@ -286,7 +287,6 @@ export class HomepageComponent implements OnInit {
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           this.alert.success('following successful');
-          this.getpost();
           this.getfollowers(id);
           this.isFollow = null;
           this.searchList = null;
@@ -321,7 +321,6 @@ export class HomepageComponent implements OnInit {
           this.spinner.hide();
           if (response !== null || response !== undefined) {
             this.alert.success('Unfollow successful');
-            this.getpost();
             this.getfollowers(id);
             this.isFollow = null;
           this.searchList = null;
@@ -366,7 +365,7 @@ export class HomepageComponent implements OnInit {
     this.modalService.open(singlepost, { size: 'lg' });
   }
   getpost() {
-    this.isLoading = true;
+    // this.isLoading = true;
     this.auth.get('posts').subscribe(
       (response) => {
         console.log(response['data']['data']);

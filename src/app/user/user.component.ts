@@ -28,6 +28,8 @@ export class UserComponent implements OnInit {
   ID: any;
   user_id: any;
   isFollow: any;
+  isData: any;
+
   toggleDisplay() {
     this.isShow = !this.isShow;
   }
@@ -51,6 +53,11 @@ export class UserComponent implements OnInit {
      // customize default values of tabsets used by this component tree
      conTabfig.justify = 'center';
      conTabfig.type = 'pills';
+      // building comment form
+    this.commentForm = this.formBuilder.group({
+      user_id: [null],
+      message: [null,Validators.required],
+    });
    }
 
   ngOnInit(): void {
@@ -62,8 +69,72 @@ export class UserComponent implements OnInit {
 
     this.commentForm = this.formBuilder.group({
       user_id: [null],
-      message: [null],
+      message: [null,Validators.required],
     });
+  }
+  trackLikes(cra) {
+    this.isData = cra['likes'].filter((like) => {
+      return like.user_id == this.user_id;
+    });
+    console.log(this.isData);
+  }
+  likep(id) {
+    this.spinner.show();
+    const data = {
+      post_id: id,
+      user_id: parseInt(localStorage.getItem('userID'), 10),
+    };
+    console.log(data);
+    this.auth.update('like', localStorage.getItem('userID'), data).subscribe(
+      (response) => {
+        console.log(response);
+        this.spinner.hide();
+        if (response !== null || response !== undefined) {
+          this.alert.success('Post liked');
+          this.view(id);
+        }
+      },
+      (error) => {
+        // console.log(error);
+        this.spinner.hide();
+        if (error.status === 500) {
+          this.spinner.hide();
+          this.alert.warning('Internal Server Error');
+        } else {
+          this.spinner.hide();
+          this.alert.error('Post liked not successful try again later');
+        }
+      }
+    );
+  }
+  unlike(id) {
+    this.spinner.show();
+    const data = {
+      post_id: id,
+      user_id: parseInt(localStorage.getItem('userID'), 10),
+    };
+    console.log(data);
+    this.auth.update('unlike', localStorage.getItem('userID'), data).subscribe(
+      (response) => {
+        console.log(response);
+        this.spinner.hide();
+        if (response !== null || response !== undefined) {
+          this.alert.success('Post unliked');
+          this.view(id);
+        }
+      },
+      (error) => {
+        // console.log(error);
+        this.spinner.hide();
+        if (error.status === 500) {
+          this.spinner.hide();
+          this.alert.warning('Internal Server Error');
+        } else {
+          this.spinner.hide();
+          this.alert.error('Post cant be unliked try again later');
+        }
+      }
+    );
   }
 
   // set comment data
@@ -86,7 +157,7 @@ addComment(id) {
       this.spinner.hide();
       if (response !== null || response !== undefined) {
         this.alert.success('Comment posted successfully');
-        this.getUserpost(id);
+        this.view(id);
       }
     },
     (error) => {
@@ -266,5 +337,20 @@ view(ev) {
           }
         }
       );
+  }
+  fell(id) {
+    this.isLoading = true;
+    this.v(this.ID);
+    this.getfollowers(this.ID);
+    this.getUserpost(this.ID);
+    this.router.navigate(['/user/',id]);
+    this.isLoading = false
+  }
+  openfollowers(followers) {
+    this.modalService.open(followers, { centered: true,scrollable:true});
+  }
+
+  openfollowing(following) {
+    this.modalService.open(following, { centered: true,scrollable:true});
   }
 }

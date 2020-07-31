@@ -186,6 +186,12 @@ cursor: pointer;
   height: 30px;
   border-radius: 50%;
 }
+.avatar1 {
+  vertical-align: middle;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
 
 .follow-button {
   background-color: #090833;
@@ -207,6 +213,6 @@ cursor: pointer;
 }
 .popover {
   overflow-y : scroll;
-  height: 200px;
+  height: 100px;
   width: 100px;
 }

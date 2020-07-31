@@ -28,6 +28,7 @@ import { AboutComponent } from './about/about.component';
 
 // Import your library
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     TermsComponent,
     JoinCompetitionComponent,
     OneCompetitionComponent,
-    AboutComponent
+    AboutComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

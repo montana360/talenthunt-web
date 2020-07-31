@@ -59,14 +59,15 @@
                   <video (click)="openCraft(singleCraft);viewcraft(craft.id)" class="card-img-top" style="height: 20rem;"  >
                     <source src="{{craft.file_url}}" type="video/mp4">
                 </video>
+                <img class="fish" (click)="openCraft(singleCraft);viewcraft(craft.id)"  width="80" src="assets/img/160.png">
                   <!-- <img class="card-img-top" src="assets/img/bg4.jpg" alt="Card image cap" style="height: 13rem;"> -->
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-3" style="align-items: flex-end;">
                         <img *ngIf="craft.user.profile_image !== null" src="{{craft.user.profile_image}}"
-                          class="rounded-circle" height="70" alt="">
+                          class="avatar3" alt="">
                           <img *ngIf="craft.user.profile_image === null" src="assets/img/default-avatar.png"
-                          class="rounded-circle" height="70" alt="">
+                          class="avatar3" alt="">
                       </div>
                       <div class="col-md-7 div-holder ">
                         <h6 class="card-title" style="color: black;margin-top: auto;font-size: small;">{{craft.user.fullname}}</h6>
@@ -342,9 +343,9 @@
       <div class="row">
         <div class="col-md-3" style="align-items: flex-end;">
           <img *ngIf="cra.user.profile_image !== null" src="{{cra.user.profile_image}}"
-            class="rounded-circle" height="70" alt="">
+            class="avatar3" alt="">
             <img *ngIf="cra.user.profile_image === null" src="assets/img/default-avatar.png"
-            class="rounded-circle" height="70" alt="">
+            class="avatar3"  alt="">
         </div>
         <div class="col-md-7 div-holder ">
           <h6 class="card-title" style="color: black;margin-top: auto;font-size: small;">{{cra.user.fullname}}</h6>
@@ -359,7 +360,7 @@
         </div>
       </div><br>
 <!--Form with header-->
-<div class="card no-border example-1 scrollbar-deep-purple bordered-deep-purple thin" *ngIf = " cra.judge_comments.length > 0 || cra.comments.length > 0">
+<div class="card border-0 example-1 scrollbar-deep-purple bordered-deep-purple thin" *ngIf = " cra.judge_comments.length > 0 || cra.comments.length > 0">
   <div class="card-body">
     <h6 id="section1" style="font-size: 16px;"><strong>Comments:</strong></h6>
     <div class="row pa-move" *ngFor="let comment of cra.judge_comments">
