@@ -38,7 +38,6 @@ export class ProfileComponent implements OnInit {
   profileImage = null;
 
   isLoader = false;
-  isLoader = false;
 
   toggleDisplay() {
     this.isShow = !this.isShow;

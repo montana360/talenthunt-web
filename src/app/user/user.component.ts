@@ -25,15 +25,15 @@ export class UserComponent implements OnInit {
   isShow = false;
   commentForm: FormGroup;
   isLoading = false;
-  viewuser: any;
-  allPosts: any;
-  viewPost: any;
-  Posts: any;
-  follow: any;
-  ID: any;
-  user_id: any;
-  isFollow: any;
-  isData: any;
+  viewuser= null;
+  allPosts= null;
+  viewPost= null;
+  Posts= null;
+  follow= null;
+  ID= null;
+  user_id= null;
+  isFollow= null;
+  isData= null;
 
   toggleDisplay() {
     this.isShow = !this.isShow;
@@ -206,7 +206,7 @@ export class UserComponent implements OnInit {
     this.modalService.open(logoutModal, { size: 'sm', centered: true });
   }
 
-  
+
   onLogout() {
     localStorage.clear();
     this.modalService.dismissAll();
@@ -278,6 +278,7 @@ export class UserComponent implements OnInit {
 
 
   getUserpost(id) {
+    console.log(id);
     this.isLoading = true;
     this.auth.show('user_posts', id).subscribe(
       (response) => {
@@ -370,12 +371,27 @@ export class UserComponent implements OnInit {
 
   fell(id) {
     this.isLoading = true;
+    this.clear();
+    this.router.navigate(['/user/', id]);
     this.v(this.ID);
     this.getfollowers(this.ID);
     this.getUserpost(this.ID);
-    this.router.navigate(['/user/', id]);
     this.isLoading = false;
   }
+
+
+  clear() {
+    this.isLoading = false;
+    // this.viewuser= null;
+    this.allPosts= null;
+    // this.viewPost= null;
+    // this.Posts= null;
+    this.follow= null;
+    this.ID;
+    this.isFollow= null;
+    this.isData= null;
+  }
+
   openfollowers(followers) {
     this.modalService.open(followers, { centered: true, scrollable: true });
   }

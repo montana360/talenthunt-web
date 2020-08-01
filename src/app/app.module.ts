@@ -30,6 +30,18 @@ import { AboutComponent } from './about/about.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ContactComponent } from './contact/contact.component';
 import { UserFollowersPipe } from './pipes/user-followers.pipe';
+import { ResponsiveModule } from 'ngx-responsive';
+
+const config = {
+  breakPoints: {
+      xs: {max: 600},
+      sm: {min: 601, max: 959},
+      md: {min: 960, max: 1279},
+      lg: {min: 1280, max: 1919},
+      xl: {min: 1920}
+  },
+  debounceTime: 100
+};
 
 @NgModule({
   declarations: [
@@ -56,6 +68,7 @@ import { UserFollowersPipe } from './pipes/user-followers.pipe';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    ResponsiveModule.forRoot(),
     ToastrModule.forRoot(), // ToastrModule added,
     HttpClientModule,
     NgxSpinnerModule,
