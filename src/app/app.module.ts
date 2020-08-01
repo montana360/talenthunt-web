@@ -29,6 +29,7 @@ import { AboutComponent } from './about/about.component';
 // Import your library
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ContactComponent } from './contact/contact.component';
+import { UserFollowersPipe } from './pipes/user-followers.pipe';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ContactComponent } from './contact/contact.component';
     JoinCompetitionComponent,
     OneCompetitionComponent,
     AboutComponent,
-    ContactComponent
+    ContactComponent,
+    UserFollowersPipe
   ],
   imports: [
     BrowserModule,

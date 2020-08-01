@@ -65,7 +65,7 @@
                 </div>
               </span><br>
 
-                <button class="button" *ngIf="!isMineCompetition" (click)="join(viewcompetition?.id)">
+                <button class="button" *ngIf="isPart" (click)="join(viewcompetition?.id)">
                   <span>Join Competition</span>
                 </button>
 

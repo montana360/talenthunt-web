@@ -91,14 +91,14 @@
             <div class="container"*ngIf="!isMineCompetition" >
               <div class="row center-content">
                   <div style="text-align: center; align-self: center;margin-left: 350px;">
-                    <button class="button" *ngIf="!isMineCompetition" (click)="join(viewcompetition?.id)">
+                    <button class="button" *ngIf="isPart" (click)="join(viewcompetition?.id)">
                       <span>Join Competition</span>
                     </button>
                   </div>
               </div>
           </div><br>
 
-            <div class="row" style="margin:20px 5px;" *ngIf="isMineCompetition">
+            <div class="row" style="margin:20px 5px;" *ngIf="!isPart">
               <div class="col-sm-10">
                 <h5 class="title" style="padding-left:10px ;">Judges comments on this Video</h5>
               </div>
@@ -332,7 +332,8 @@
 </ng-template>
 
 <ng-template #singleCraft Let-modal>
-  <div class="row" *ngFor = "let cra of craft">
+  <div class="row" *ngFor="let cra of craft">
+    <span *ngIf="cra">{{ trackLikes(cra) }}</span>
 		<div class="col-sm-6 left-side">
       <video  class="card-img-top"  style="height: 30rem;" controls >
         <source src="{{cra.file_url}}" type="video/mp4">
@@ -395,13 +396,33 @@
   </div>
   </div>
 </div><br>
+<div class="row">
+  <div *ngIf="cra?.likes.length > 0">
 
+    <span *ngIf="isData.length > 0">
+      <img (click)="unlike(cra?.id)" src="assets/img/44.png" height="30" width="30">
+    </span>
+
+    <span *ngIf="!isData || isData.length == 0">
+      <img (click)="likep(cra?.id)" src="assets/img/43.png" height="30" width="30">
+    </span>
+
+  </div>
+
+  <div *ngIf="cra?.likes.length == 0">
+    <span>
+      <img (click)="likep(cra?.id)" src="assets/img/43.png" height="30" width="30">
+    </span>
+  </div>&nbsp;&nbsp;
+  <b>{{cra?.likes.length || '0'}}</b>&nbsp;&nbsp;
+  <img src="assets/img/45.png" height="30" width="30">
+</div>
 <form [formGroup]="craftcommentForm">
   <div class="input-group">
     <input type="text" class="form-control" placeholder="Add Comments" formControlName="message"/>
     <div class="input-group-btn">
-      <button class="btn btn-default" type="submit">
-        <a style="color: blue;" (click)="addComment(cra.id);craftcommentForm.reset();"><b>Post</b></a>
+      <button class="btns btn-default" type="submit" [disabled]="!craftcommentForm.valid" (click)="addComment(cra.id);craftcommentForm.reset();">
+        <b>Post</b>
       </button>
     </div>
   </div>

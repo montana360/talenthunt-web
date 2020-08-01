@@ -22,6 +22,7 @@ export class OneCompetitionComponent implements OnInit {
   viewcompetition:any;
   competition:any;
   allCraft:any;
+  isData: any;
 
   // comment variable declaration
   craftcommentDetails = {
@@ -68,6 +69,7 @@ export class OneCompetitionComponent implements OnInit {
   craft: any;
   isLoading = false;
   isMineCompetition = false;
+  isPart = true;
 
   craftData = {
     caption: '',
@@ -114,6 +116,10 @@ export class OneCompetitionComponent implements OnInit {
     this.clientID = Math.floor(
       10000000000000000000 + Math.random() * 90000000000000000000
     );
+    this.craftcommentForm = this.formBuilder.group({
+      user_id: [null],
+      message: [null,Validators.required],
+    });
   }
 
   ngOnInit(): void {
@@ -122,6 +128,7 @@ export class OneCompetitionComponent implements OnInit {
     this.user_id = localStorage.getItem('userID');
     this.v(this.compID);
     this.getCraft();
+    this.userCompStatus();
     // post data form
   this.craftForm = this.formBuilder.group({
   caption: [null],
@@ -131,8 +138,73 @@ export class OneCompetitionComponent implements OnInit {
 // building comment form
 this.craftcommentForm = this.formBuilder.group({
   user_id: [null],
-  message: [null],
+  message: [null,Validators.required],
 });
+  }
+  trackLikes(cra) {
+    this.isData = cra['likes'].filter((like) => {
+      return like.user_id == this.user_id;
+    });
+    console.log(this.isData);
+  }
+  likep(id) {
+    this.spinner.show();
+    const data = {
+      craft_id: id,
+      user_id: parseInt(localStorage.getItem('userID'), 10),
+    };
+    console.log(data);
+    this.auth.update('like_craft', localStorage.getItem('userID'), data).subscribe(
+      (response) => {
+        console.log(response);
+        this.spinner.hide();
+        if (response !== null || response !== undefined) {
+          this.alert.success('Post liked');
+          this.viewcraft(id);
+        }
+      },
+      (error) => {
+        // console.log(error);
+        this.spinner.hide();
+        if (error.status === 500) {
+          this.spinner.hide();
+          this.alert.warning('Internal Server Error');
+        } else {
+          this.spinner.hide();
+          this.alert.error('Post liked not successful try again later');
+        }
+      }
+    );
+  }
+
+  unlike(id) {
+    this.spinner.show();
+    const data = {
+      craft_id: id,
+      user_id: parseInt(localStorage.getItem('userID'), 10),
+    };
+    console.log(data);
+    this.auth.update('unlike_craft', localStorage.getItem('userID'), data).subscribe(
+      (response) => {
+        console.log(response);
+        this.spinner.hide();
+        if (response !== null || response !== undefined) {
+          this.alert.success('Post unliked');
+          this.viewcraft(id);
+        }
+      },
+      (error) => {
+        // console.log(error);
+        this.spinner.hide();
+        if (error.status === 500) {
+          this.spinner.hide();
+          this.alert.warning('Internal Server Error');
+        } else {
+          this.spinner.hide();
+          this.alert.error('Post cant be unliked try again later');
+        }
+      }
+    );
   }
    // set comment data
    setCommentData() {
@@ -154,7 +226,7 @@ this.craftcommentForm = this.formBuilder.group({
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           this.alert.success('Comment posted successfully');
-          this.getCraft();
+          this.viewcraft(id);
         }
       },
       (error) => {
@@ -413,6 +485,25 @@ openCraft(singleCraft) {
       },
       (error) => {
         console.log(error);
+        this.alert.error('Getting data unsuccessful. Please try again');
+      }
+    );
+  }
+  userCompStatus() {
+    const data = {
+      user_id: localStorage.getItem('userID'),
+      competition_id: this.compID
+    };
+
+    this.auth.update('check_registration_state', localStorage.getItem('userID'), data).subscribe(
+      (response) => {
+        console.log(response);
+        if (response['data'].length > 0){
+          this.isPart = false;
+        }
+      },
+      (error) => {
+        this.isLoading = false;
         this.alert.error('Getting data unsuccessful. Please try again');
       }
     );

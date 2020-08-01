@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModalConfig, NgbModal, NgbDateStruct, NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModalConfig,
+  NgbModal,
+  NgbDateStruct,
+  NgbTabsetConfig,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   FormGroup,
   FormBuilder,
   Validators,
-  FormControl
+  FormControl,
 } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -14,15 +19,15 @@ import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
   isShow = false;
   commentForm: FormGroup;
   isLoading = false;
   viewuser: any;
-  allPosts:any;
-  viewPost:any;
+  allPosts: any;
+  viewPost: any;
   Posts: any;
   follow: any;
   ID: any;
@@ -50,18 +55,18 @@ export class UserComponent implements OnInit {
     private spinner: NgxSpinnerService,
     conTabfig: NgbTabsetConfig
   ) {
-     // customize default values of tabsets used by this component tree
-     conTabfig.justify = 'center';
-     conTabfig.type = 'pills';
-      // building comment form
+    // customize default values of tabsets used by this component tree
+    conTabfig.justify = 'center';
+    conTabfig.type = 'pills';
+    // building comment form
     this.commentForm = this.formBuilder.group({
       user_id: [null],
-      message: [null,Validators.required],
+      message: [null, Validators.required],
     });
-   }
+  }
 
   ngOnInit(): void {
-    this.ID = this.route.snapshot.paramMap.get("id");
+    this.ID = this.route.snapshot.paramMap.get('id');
     this.user_id = localStorage.getItem('userID');
     this.v(this.ID);
     this.getfollowers(this.ID);
@@ -69,15 +74,24 @@ export class UserComponent implements OnInit {
 
     this.commentForm = this.formBuilder.group({
       user_id: [null],
-      message: [null,Validators.required],
+      message: [null, Validators.required],
     });
   }
+
+  ngOnDestroy() {
+    var body = document.getElementsByTagName('body')[0];
+    body.classList.remove('profile-page');
+    var navbar = document.getElementsByTagName('nav')[0];
+    navbar.classList.remove('navbar-transparent');
+  }
+
   trackLikes(cra) {
     this.isData = cra['likes'].filter((like) => {
       return like.user_id == this.user_id;
     });
     console.log(this.isData);
   }
+
   likep(id) {
     this.spinner.show();
     const data = {
@@ -107,6 +121,7 @@ export class UserComponent implements OnInit {
       }
     );
   }
+
   unlike(id) {
     this.spinner.show();
     const data = {
@@ -138,58 +153,60 @@ export class UserComponent implements OnInit {
   }
 
   // set comment data
-setCommentData() {
-  this.commentDetails.user_id = this.commentForm.controls['user_id'].value;
-  this.commentDetails.message = this.commentForm.controls['message'].value;
-}
+  setCommentData() {
+    this.commentDetails.user_id = this.commentForm.controls['user_id'].value;
+    this.commentDetails.message = this.commentForm.controls['message'].value;
+  }
 
-addComment(id) {
-  this.spinner.show();
-  const data = {
-    post_id: id,
-    user_id: parseInt(localStorage.getItem('userID'), 10),
-    message: this.commentForm.controls['message'].value,
-  };
-  // console.log(data);
-  this.auth.update('comment', localStorage.getItem('userID'), data).subscribe(
-    (response) => {
-      console.log(response);
-      this.spinner.hide();
-      if (response !== null || response !== undefined) {
-        this.alert.success('Comment posted successfully');
-        this.view(id);
-      }
-    },
-    (error) => {
-      // console.log(error);
-      this.spinner.hide();
-      if (error.status === 500) {
+  addComment(id) {
+    this.spinner.show();
+    const data = {
+      post_id: id,
+      user_id: parseInt(localStorage.getItem('userID'), 10),
+      message: this.commentForm.controls['message'].value,
+    };
+    // console.log(data);
+    this.auth.update('comment', localStorage.getItem('userID'), data).subscribe(
+      (response) => {
+        console.log(response);
         this.spinner.hide();
-        this.alert.warning('Internal Server Error');
-      } else {
+        if (response !== null || response !== undefined) {
+          this.alert.success('Comment posted successfully');
+          this.view(id);
+        }
+      },
+      (error) => {
+        // console.log(error);
         this.spinner.hide();
-        this.alert.error('Comment not posted Try again later');
+        if (error.status === 500) {
+          this.spinner.hide();
+          this.alert.warning('Internal Server Error');
+        } else {
+          this.spinner.hide();
+          this.alert.error('Comment not posted Try again later');
+        }
       }
-    }
-  );
-}
+    );
+  }
 
-view(ev) {
-  this.auth.show('post', ev).subscribe(
-    (response) => {
-      this.Posts = response['data'];
-      console.log(this.Posts);
-    },
-    (error) => {
-      console.log(error);
-      this.alert.error('Getting data unsuccessful. Please try again');
-    }
-  );
-}
+  view(ev) {
+    this.auth.show('post', ev).subscribe(
+      (response) => {
+        this.Posts = response['data'];
+        console.log(this.Posts);
+      },
+      (error) => {
+        console.log(error);
+        this.alert.error('Getting data unsuccessful. Please try again');
+      }
+    );
+  }
 
   openContent(logoutModal) {
     this.modalService.open(logoutModal, { size: 'sm', centered: true });
   }
+
+  
   onLogout() {
     localStorage.clear();
     this.modalService.dismissAll();
@@ -199,18 +216,27 @@ view(ev) {
   no() {
     this.modalService.dismissAll();
   }
-  homePage(){
+
+
+  homePage() {
     this.router.navigate(['/homepage/']);
   }
-  profilePage(){
+
+
+  profilePage() {
     this.router.navigate(['/profile/']);
   }
-  aboutpage(){
+
+
+  aboutpage() {
     this.router.navigate(['/about/']);
   }
-  compage(){
+
+
+  compage() {
     this.router.navigate(['/terms/']);
   }
+
 
   v(id) {
     this.auth.show('user', id).subscribe(
@@ -226,12 +252,13 @@ view(ev) {
     );
   }
 
- // Checking if you follow searched user
- trackFollows() {
-  this.isFollow = this.viewuser['follows'].filter((follow) => {
-    return follow.follower_id == this.user_id;
-  });
-}
+
+  // Checking if you follow searched user
+  trackFollows() {
+    this.isFollow = this.viewuser['follows'].filter((follow) => {
+      return follow.follower_id == this.user_id;
+    });
+  }
 
   getfollowers(id) {
     this.isLoading = true;
@@ -266,10 +293,10 @@ view(ev) {
     );
   }
 
-  openScrollableContent(longContent) {
-    this.modalService.open(longContent, {  size: 'lg' });
-  }
 
+  openScrollableContent(longContent) {
+    this.modalService.open(longContent, { size: 'lg' });
+  }
 
   followuser(id) {
     this.spinner.show();
@@ -304,6 +331,7 @@ view(ev) {
     );
   }
 
+
   unfollowuser(id) {
     this.spinner.show();
     const data = {
@@ -322,7 +350,7 @@ view(ev) {
             this.v(this.ID);
             this.getfollowers(id);
             this.isFollow = null;
-          // this.searchList = null;
+            // this.searchList = null;
           }
         },
         (error) => {
@@ -338,19 +366,21 @@ view(ev) {
         }
       );
   }
+
+
   fell(id) {
     this.isLoading = true;
     this.v(this.ID);
     this.getfollowers(this.ID);
     this.getUserpost(this.ID);
-    this.router.navigate(['/user/',id]);
-    this.isLoading = false
+    this.router.navigate(['/user/', id]);
+    this.isLoading = false;
   }
   openfollowers(followers) {
-    this.modalService.open(followers, { centered: true,scrollable:true});
+    this.modalService.open(followers, { centered: true, scrollable: true });
   }
 
   openfollowing(following) {
-    this.modalService.open(following, { centered: true,scrollable:true});
+    this.modalService.open(following, { centered: true, scrollable: true });
   }
 }

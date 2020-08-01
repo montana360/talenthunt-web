@@ -14,14 +14,13 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { AlertService } from '../services/alert.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import {NgbTabsetConfig} from '@ng-bootstrap/ng-bootstrap';
-
+import { NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  providers: [NgbTabsetConfig] // add NgbTabsetConfig to the component providers
+  providers: [NgbTabsetConfig], // add NgbTabsetConfig to the component providers
 })
 export class ProfileComponent implements OnInit {
   // formBuild
@@ -38,7 +37,8 @@ export class ProfileComponent implements OnInit {
   imageForm: FormGroup;
   profileImage = null;
 
-  isLoading = false;
+  isLoader = false;
+  isLoader = false;
 
   toggleDisplay() {
     this.isShow = !this.isShow;
@@ -53,10 +53,11 @@ export class ProfileComponent implements OnInit {
   token: any;
   viewPost: any;
   post: any;
-  allUsers:any;
+  allUsers: any;
   user_id: any;
   isData: any;
   isFollow: any;
+  usersIFollow: any;
 
   // comment variable declaration
   commentDetails = {
@@ -100,9 +101,8 @@ export class ProfileComponent implements OnInit {
     });
     this.commentForm = this.formBuilder.group({
       user_id: [null],
-      message: [null,Validators.required],
+      message: [null, Validators.required],
     });
-
 
     // customize default values of tabsets used by this component tree
     conTabfig.justify = 'center';
@@ -110,7 +110,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isLoading = true;
+    this.isLoader = true;
 
     this.user_id = localStorage.getItem('userID');
 
@@ -142,11 +142,11 @@ export class ProfileComponent implements OnInit {
       email: [''],
     });
     // this.prepareEditForm();
-    this.isLoading = false;
+    this.isLoader = false;
     // building comment form
     this.commentForm = this.formBuilder.group({
       user_id: [null],
-      message: [null,Validators.required],
+      message: [null, Validators.required],
     });
   }
   trackLikes(cra) {
@@ -213,42 +213,43 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
-// set comment data
-setCommentData() {
-  this.commentDetails.user_id = this.commentForm.controls['user_id'].value;
-  this.commentDetails.message = this.commentForm.controls['message'].value;
-}
-addComment(id) {
-  this.spinner.show();
-  const data = {
-    post_id: id,
-    user_id: parseInt(localStorage.getItem('userID'), 10),
-    message: this.commentForm.controls['message'].value,
-  };
-  console.log(data);
-  this.auth.update('comment', localStorage.getItem('userID'), data).subscribe(
-    (response) => {
-      console.log(response);
-      this.spinner.hide();
-      if (response !== null || response !== undefined) {
-        this.alert.success('Comment posted successfully');
-        this.view(id);
 
-      }
-    },
-    (error) => {
-      // console.log(error);
-      this.spinner.hide();
-      if (error.status === 500) {
+  // set comment data
+  setCommentData() {
+    this.commentDetails.user_id = this.commentForm.controls['user_id'].value;
+    this.commentDetails.message = this.commentForm.controls['message'].value;
+  }
+
+  addComment(id) {
+    this.spinner.show();
+    const data = {
+      post_id: id,
+      user_id: parseInt(localStorage.getItem('userID'), 10),
+      message: this.commentForm.controls['message'].value,
+    };
+    console.log(data);
+    this.auth.update('comment', localStorage.getItem('userID'), data).subscribe(
+      (response) => {
+        console.log(response);
         this.spinner.hide();
-        this.alert.warning('Internal Server Error');
-      } else {
+        if (response !== null || response !== undefined) {
+          this.alert.success('Comment posted successfully');
+          this.view(id);
+        }
+      },
+      (error) => {
+        // console.log(error);
         this.spinner.hide();
-        this.alert.error('Comment not posted Try again later');
+        if (error.status === 500) {
+          this.spinner.hide();
+          this.alert.warning('Internal Server Error');
+        } else {
+          this.spinner.hide();
+          this.alert.error('Comment not posted Try again later');
+        }
       }
-    }
-  );
-}
+    );
+  }
   ngOnDestroy() {
     var body = document.getElementsByTagName('body')[0];
     body.classList.remove('profile-page');
@@ -267,11 +268,11 @@ addComment(id) {
     this.modalService.open(postModal, { centered: true, size: 'sm' });
   }
   openfollowers(followers) {
-    this.modalService.open(followers, { centered: true,scrollable:true});
+    this.modalService.open(followers, { centered: true, scrollable: true });
   }
 
   openfollowing(following) {
-    this.modalService.open(following, { centered: true,scrollable:true});
+    this.modalService.open(following, { centered: true, scrollable: true });
   }
   onFileChanged(event) {
     const size = event.target.files[0].size;
@@ -308,9 +309,8 @@ addComment(id) {
     this.postData.caption = this.postForm.controls['caption'].value;
   }
 
-
   createPost() {
-    this.isLoading = true;
+    this.isLoader = true;
 
     const formData = new FormData();
 
@@ -327,7 +327,7 @@ addComment(id) {
       .subscribe(
         (response) => {
           console.log(response);
-          this.isLoading = false;
+          this.isLoader = false;
           if (response['success'] === false) {
             this.alert.warning(response['message']);
           } else {
@@ -344,36 +344,54 @@ addComment(id) {
   }
 
   getUserpost() {
-    this.isLoading = true;
+    this.isLoader = true;
     this.auth.show('user_posts', localStorage.getItem('userID')).subscribe(
       (response) => {
         this.allPosts = response['data'];
         this.postlength = response['data'].length;
-        this.isLoading = false;
+        this.isLoader = false;
       },
       (error) => {
         console.log(error);
-        this.isLoading = false;
+        this.isLoader = false;
         this.alert.error('Error loading post');
       }
     );
   }
 
-
   getfollowers() {
-    this.isLoading = true;
-    this.auth.show('get_profile_count', localStorage.getItem('userID')).subscribe(
+    this.isLoader = true;
+    this.auth
+      .show('get_profile_count', localStorage.getItem('userID'))
+      .subscribe(
+        (response) => {
+          // console.log(response);
+          this.follow = response;
+          this.isLoader = false;
+        },
+        (error) => {
+          this.isLoader = false;
+          this.alert.error('Error loading post');
+          console.log(error);
+        }
+      );
+  }
+
+  // Tracking all followers of user
+  trackUserFollowers(id) {
+    this.auth.show('user', id).subscribe(
       (response) => {
-        console.log(response);
-        this.follow = response;
-        this.isLoading = false;
+        console.log(response['data']);
+        this.usersIFollow = response['data']['followers'].filter((follow) => {
+          return follow.follower_id == this.user_id;
+        });
+        console.log(this.usersIFollow);
       },
       (error) => {
-        this.isLoading = false;
-        this.alert.error('Error loading post');
-        console.log(error);
+        this.alert.error('Getting data unsuccessful. Please try again');
       }
     );
+
   }
 
   openContent(logoutModal) {
@@ -394,19 +412,20 @@ addComment(id) {
     this.modalService.dismissAll();
   }
 
+
   // Get user
   getUser() {
-    this.isLoading = true;
+    this.isLoader = true;
     this.auth.show('user', localStorage.getItem('userID')).subscribe(
       (response) => {
-        console.log(response['data']);
+        // console.log(response['data']);
         this.user = response['data'];
         this.prepareEditForm();
-        this.isLoading = false;
+        this.isLoader = false;
       },
       (error) => {
         console.log(error);
-        this.isLoading = false;
+        this.isLoader = false;
         this.alert.error('Error loading user Data');
       }
     );
@@ -414,16 +433,16 @@ addComment(id) {
 
 
   viewpost(id) {
-    this.isLoading = true;
+    this.isLoader = true;
     this.auth.show('user_posts', id).subscribe(
       (response) => {
-        this.isLoading = false;
+        this.isLoader = false;
         this.viewPost = response['data'];
         console.log(this.viewPost);
       },
       (error) => {
         console.log(error);
-        this.isLoading = false;
+        this.isLoader = false;
         this.alert.warning('Could not get requested data');
       }
     );
@@ -466,14 +485,18 @@ addComment(id) {
 
 
   editUser() {
-    this.isLoading = true;
+    this.isLoader = true;
     this.setEditData();
     // console.log(this.profileEditDetails);
     this.auth
-      .update('update_user_web', localStorage.getItem('userID'), this.profileEditDetails)
+      .update(
+        'update_user_web',
+        localStorage.getItem('userID'),
+        this.profileEditDetails
+      )
       .subscribe(
         (response) => {
-          this.isLoading = false;
+          this.isLoader = false;
           if (response !== null || response !== undefined) {
             this.alert.success('User message Updated successfully');
             this.getUser();
@@ -481,7 +504,7 @@ addComment(id) {
         },
         (error) => {
           console.log(error);
-          this.isLoading = false;
+          this.isLoader = false;
           if (error.status === 500) {
             this.alert.warning(
               'Can not update the information, please check the data'
@@ -511,10 +534,11 @@ addComment(id) {
   openSContent(singlepost) {
     this.modalService.open(singlepost, { size: 'lg' });
   }
-  fell(id) {
-    this.router.navigate(['/user/',id]);
-  }
 
+
+  fell(id) {
+    this.router.navigate(['/user/', id]);
+  }
 
   // Getting image functionality
   onImageChanged(event) {
@@ -546,7 +570,7 @@ addComment(id) {
   }
 
   updateImage() {
-    this.isLoading = true;
+    this.isLoader = true;
     const imageData = new FormData();
 
     imageData.append(
@@ -559,7 +583,7 @@ addComment(id) {
       .update('profile_photo', localStorage.getItem('userID'), imageData)
       .subscribe(
         (response) => {
-          this.isLoading = false;
+          this.isLoader = false;
           if (response['success'] === false) {
             this.alert.warning(response['message']);
           } else {
@@ -579,7 +603,7 @@ addComment(id) {
       .show('remove_profile_photo', localStorage.getItem('userID'))
       .subscribe(
         (response) => {
-          this.isLoading = false;
+          this.isLoader = false;
           if (response['success'] === false) {
             this.alert.warning(response['message']);
           } else {
@@ -593,84 +617,49 @@ addComment(id) {
       );
   }
 
-
   homePage() {
     this.router.navigate(['/homepage/']);
   }
-
 
   profilePage() {
     this.router.navigate(['/profile/']);
   }
 
-
   aboutpage() {
     this.router.navigate(['/about/']);
   }
 
-
   compage() {
     this.router.navigate(['/terms/']);
   }
-   // Checking if you follow searched user
- trackFollows(user) {
-  this.isFollow = user['follows'].filter((follow) => {
-    return follow.follower_id == this.user_id;
-  });
-  console.log(this.isFollow);
-}
-followuser(id) {
-  this.spinner.show();
-  const data = {
-    follower_id: parseInt(localStorage.getItem('userID'), 10),
-    user_id: id,
-  };
-  console.log(data);
-  this.auth.update('follow', localStorage.getItem('userID'), data).subscribe(
-    (response) => {
-      console.log(response);
-      this.spinner.hide();
-      if (response !== null || response !== undefined) {
-        this.alert.success('following successful');
-        // this.v(this.ID);
-        this.getfollowers();
-        this.isFollow = null;
-        // this.searchList = null;
-      }
-    },
-    (error) => {
-      console.log(error);
-      this.spinner.hide();
-      if (error.status === 500) {
-        this.spinner.hide();
-        this.alert.warning('Internal Server Error');
-      } else {
-        this.spinner.hide();
-        this.alert.error('can not follow user');
-      }
-    }
-  );
-}
 
-unfollowuser(id) {
-  this.spinner.show();
-  const data = {
-    user_id: id,
-    follower_id: parseInt(localStorage.getItem('userID'), 10),
-  };
-  console.log(data);
-  this.auth
-    .update('un_follow', localStorage.getItem('userID'), data)
-    .subscribe(
+
+  // Checking if you follow searched user
+  trackFollows(user) {
+    this.isFollow = user['follows'].filter((follow) => {
+      return follow.follower_id == this.user_id;
+    });
+    console.log(this.isFollow);
+  }
+
+
+  followuser(id) {
+    this.spinner.show();
+    const data = {
+      follower_id: parseInt(localStorage.getItem('userID'), 10),
+      user_id: id,
+    };
+    console.log(data);
+    this.auth.update('follow', localStorage.getItem('userID'), data).subscribe(
       (response) => {
         console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
-          this.alert.success('Unfollow successful');
+          this.alert.success('following successful');
           // this.v(this.ID);
           this.getfollowers();
           this.isFollow = null;
-        // this.searchList = null;
+          // this.searchList = null;
         }
       },
       (error) => {
@@ -681,29 +670,66 @@ unfollowuser(id) {
           this.alert.warning('Internal Server Error');
         } else {
           this.spinner.hide();
-          this.alert.error('can not unfollow user');
+          this.alert.error('can not follow user');
         }
       }
     );
-}
-getUsers() {
-  this.spinner.show();
-  this.auth.get('users').subscribe(
-    (response) => {
-      // console.log(response);
-      if (response['data']['data'].length > 0) {
-        this.allUsers = response['data']['data'];
-        console.log(this.allUsers);
+  }
+
+  unfollowuser(id) {
+    this.spinner.show();
+    const data = {
+      user_id: id,
+      follower_id: parseInt(localStorage.getItem('userID'), 10),
+    };
+    console.log(data);
+    this.auth
+      .update('un_follow', localStorage.getItem('userID'), data)
+      .subscribe(
+        (response) => {
+          console.log(response);
+          this.spinner.hide();
+          if (response !== null || response !== undefined) {
+            this.alert.success('Unfollow successful');
+            // this.v(this.ID);
+            this.getfollowers();
+            this.isFollow = null;
+            // this.searchList = null;
+          }
+        },
+        (error) => {
+          console.log(error);
+          this.spinner.hide();
+          if (error.status === 500) {
+            this.spinner.hide();
+            this.alert.warning('Internal Server Error');
+          } else {
+            this.spinner.hide();
+            this.alert.error('can not unfollow user');
+          }
+        }
+      );
+  }
+
+
+  getUsers() {
+    this.spinner.show();
+    this.auth.get('users').subscribe(
+      (response) => {
+        // console.log(response);
+        if (response['data']['data'].length > 0) {
+          this.allUsers = response['data']['data'];
+          console.log(this.allUsers);
+          this.spinner.hide();
+        } else {
+          this.spinner.hide();
+          this.alert.info('No Data available yet');
+        }
+      },
+      (error) => {
         this.spinner.hide();
-      } else {
-        this.spinner.hide();
-        this.alert.info('No Data available yet');
+        this.alert.error(error['message']);
       }
-    },
-    (error) => {
-      this.spinner.hide();
-      this.alert.error(error['message']);
-    }
-  );
-}
+    );
+  }
 }

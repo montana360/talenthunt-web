@@ -24,6 +24,7 @@ export class TermsComponent implements OnInit {
   participants: any;
   comData: any;
   isMineCompetition = false;
+  isPart = true;
 
   constructor(
     config: NgbModalConfig,
@@ -42,6 +43,7 @@ export class TermsComponent implements OnInit {
     this.compID = 2;
     this.user_id = localStorage.getItem('userID');
     this.v(this.compID);
+    this.userCompStatus();
   }
 
   getAllCompetitions() {
@@ -122,5 +124,25 @@ export class TermsComponent implements OnInit {
 
   openContent(logoutModal) {
     this.modalService.open(logoutModal, {   size: 'sm' });
+  }
+
+  userCompStatus() {
+    const data = {
+      user_id: localStorage.getItem('userID'),
+      competition_id: this.compID
+    };
+
+    this.auth.update('check_registration_state', localStorage.getItem('userID'), data).subscribe(
+      (response) => {
+        console.log(response);
+        if (response['data'].length > 0){
+          this.isPart = false;
+        }
+      },
+      (error) => {
+        this.isLoading = false;
+        this.alert.error('Getting data unsuccessful. Please try again');
+      }
+    );
   }
 }
