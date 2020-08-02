@@ -1,10 +1,6 @@
 import {
   Component,
   OnInit,
-  AfterViewInit,
-  ViewChild,
-  ElementRef,
-  HostListener,
 } from '@angular/core';
 import {
   NgbModalConfig,
@@ -45,6 +41,7 @@ export class HomepageComponent implements OnInit {
   postForm: FormGroup;
   searchForm: FormGroup;
 
+  public isMenuCollapsed = true;
   // variable declaration
   id: string;
   username: string;
@@ -697,6 +694,9 @@ export class HomepageComponent implements OnInit {
   }
   compage() {
     this.router.navigate(['/terms/']);
+  }
+  contact(){
+    this.router.navigate(['/contact/']);
   }
   fell(id) {
     this.router.navigate(['/user/',id]);

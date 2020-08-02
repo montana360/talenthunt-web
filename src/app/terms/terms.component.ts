@@ -122,6 +122,11 @@ export class TermsComponent implements OnInit {
     this.router.navigate(['/terms/']);
   }
 
+  contact() {
+    this.router.navigate(['/contact/']);
+  }
+
+
   openContent(logoutModal) {
     this.modalService.open(logoutModal, {   size: 'sm' });
   }

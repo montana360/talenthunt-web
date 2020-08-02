@@ -232,6 +232,9 @@ export class UserComponent implements OnInit {
     this.router.navigate(['/about/']);
   }
 
+  contact() {
+    this.router.navigate(['/contact/']);
+  }
 
   compage() {
     this.router.navigate(['/terms/']);

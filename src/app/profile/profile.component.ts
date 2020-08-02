@@ -23,6 +23,7 @@ import { NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';
   providers: [NgbTabsetConfig], // add NgbTabsetConfig to the component providers
 })
 export class ProfileComponent implements OnInit {
+  public isMenuCollapsed = true;
   // formBuild
   postForm: FormGroup;
   commentForm: FormGroup;
@@ -632,6 +633,9 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/terms/']);
   }
 
+  contact() {
+    this.router.navigate(['/contact/']);
+  }
 
   // Checking if you follow searched user
   trackFollows(user) {

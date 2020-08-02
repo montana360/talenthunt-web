@@ -140,5 +140,8 @@ landingpage(){
 aboutpage(){
   this.router.navigate(['/about/']);
 }
+contact(){
+  this.router.navigate(['/contact/']);
+}
 
 }

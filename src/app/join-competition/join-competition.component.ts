@@ -227,6 +227,10 @@ export class JoinCompetitionComponent implements OnInit {
     this.router.navigate(['/terms/']);
   }
 
+  contact() {
+    this.router.navigate(['/contact/']);
+  }
+
 
   buildPay() {
     const msisdn = this.joinComForm.get('momo_code').value + this.joinComForm.get('momo_number').value;

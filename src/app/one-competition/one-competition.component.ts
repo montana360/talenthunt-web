@@ -427,6 +427,11 @@ openCraft(singleCraft) {
   compage(){
     this.router.navigate(['/terms/']);
   }
+
+  contact() {
+    this.router.navigate(['/contact/']);
+  }
+
   onLogout() {
     localStorage.clear();
     this.modalService.dismissAll();

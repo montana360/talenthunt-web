@@ -21,11 +21,7 @@
   color: white;
 }
 .move{
-  margin-left: 200px;
-  cursor: pointer;
-}
-.move[_ngcontent-awb-c123] {
-  margin-left: 0px;
+  margin: 0 auto;
 }
 .avs {
   vertical-align: middle;
