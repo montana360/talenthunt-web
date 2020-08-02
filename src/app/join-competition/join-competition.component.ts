@@ -21,6 +21,7 @@ import {
   styleUrls: ['./join-competition.component.css'],
 })
 export class JoinCompetitionComponent implements OnInit {
+  public isMenuCollapsed = true;
   isDisabled = true;
   viewcompetition: any;
   competition: any;

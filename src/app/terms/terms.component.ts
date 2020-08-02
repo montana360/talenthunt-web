@@ -17,6 +17,8 @@ import {
   styleUrls: ['./terms.component.css']
 })
 export class TermsComponent implements OnInit {
+  public isMenuCollapsed = true;
+
   compID: any;
   user_id: any;
   isLoading: any;

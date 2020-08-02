@@ -1,22 +1,136 @@
-.home-nav{
-  /* Just because I am using big size font */
-  background-color: rgb(88, 13, 88);
- line-height: 1em;
- padding-top:2px !important;
- padding-bottom:0 !important;
-   height: 1px;
-   color: white;
+body {
+  color: #000;
+  overflow-x: hidden;
+  height: 100%;
+  background-color: #B0BEC5;
+  background-repeat: no-repeat
 }
-.page-nav{
-  background-color: rgb(88, 13, 88);
-  color: white;
+
+
+
+.card2 {
+  margin: 0px 50px
 }
-.ten{
-  width:100%;
-  height:100%;
+
+.logo {
+  width: 150px;
+  height: 100px;
+  margin-top: 20px;
+  margin-left: 35px
 }
-.nine{
-  background-image: url('/assets/img/127.png');
+.image {
+  width: 360px;
+  height: 280px
+}
+
+.border-line {
+  border-right: 1px solid #EEEEEE
+}
+
+
+.line {
+  height: 1px;
+  width: 45%;
+  background-color: #E0E0E0;
+  margin-top: 10px
+}
+
+.or {
+  width: 10%;
+  font-weight: bold
+}
+
+.text-sm {
+  font-size: 14px !important
+}
+
+::placeholder {
+  color: #BDBDBD;
+  opacity: 1;
+  font-weight: 300
+}
+
+:-ms-input-placeholder {
+  color: #BDBDBD;
+  font-weight: 300
+}
+
+::-ms-input-placeholder {
+  color: #BDBDBD;
+  font-weight: 300
+}
+
+input,
+textarea {
+  padding: 10px 12px 10px 12px;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+  margin-bottom: 5px;
+  margin-top: 2px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #2C3E50;
+  font-size: 14px;
+  letter-spacing: 1px
+}
+
+input:focus,
+textarea:focus {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: 1px solid #304FFE;
+  outline-width: 0
+}
+
+button:focus {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  outline-width: 0
+}
+
+a {
+  color: inherit;
+  cursor: pointer
+}
+
+.btn-blue {
+  background-color: #790c8f;
+  width: 150px;
+  color: #fff;
+  border-radius: 2px
+}
+
+.btn-blue:hover {
+  background-color: transparent;
+  cursor: pointer;
+  color: #000;
+}
+
+.bg-blue {
+  color: #fff;
+  background-color: #790c8f
+}
+
+@media screen and (max-width: 991px) {
+  .logo {
+      margin-left: 0px
+  }
+
+  .image {
+      width: 300px;
+      height: 300px
+  }
+
+  .border-line {
+      border-right: none
+  }
+
+  .card2 {
+      border-top: 1px solid #EEEEEE !important;
+      margin: 0px 15px
+  }
 }
 .page-footer{
   background-color: rgb(88, 13, 88);
@@ -24,49 +138,75 @@
 .footer-text{
   color: white;
   }
-  .button {
-      border-radius: 20px;
-      background-color: rgb(88, 13, 88);
-      background-repeat:no-repeat;
-      border: none;
-      color: #FFFFFF;
-      text-align: center;
-      font-size: 16px;
-      padding: 8px;
-      width: 180px;
-      transition: all 0.5s;
-      cursor: pointer;
-      margin: 2px;
+  .home-nav{
+    /* Just because I am using big size font */
+    background-color: rgb(88, 13, 88);
+   line-height: 1em;
+   padding-top:2px !important;
+   padding-bottom:0 !important;
+     height: 1px;
+     color: white;
+  }
+  .page-nav{
+    background-color: rgb(88, 13, 88);
+    color: white;
+  }
+  .ten{
+    width:100%;
+    height:100%;
+  }
+  .nine{
+    background-image: url('/assets/img/127.png');
+  }
+  .page-footer{
+    background-color: rgb(88, 13, 88);
+  }
+  .footer-text{
+    color: white;
     }
+    .button {
+        border-radius: 20px;
+        background-color: rgb(88, 13, 88);
+        background-repeat:no-repeat;
+        border: none;
+        color: #FFFFFF;
+        text-align: center;
+        font-size: 16px;
+        padding: 8px;
+        width: 180px;
+        transition: all 0.5s;
+        cursor: pointer;
+        margin: 2px;
+      }
 
-    .button span {
-      cursor: pointer;
-      /* display: inline-block; */
-      position: relative;
-      transition: 0.5s;
-    }
+      .button span {
+        cursor: pointer;
+        /* display: inline-block; */
+        position: relative;
+        transition: 0.5s;
+      }
 
-    .button span:after {
-      content: '\00bb';
-      position: absolute;
-      opacity: 0;
-      top: 0;
-      right: -20px;
-      transition: 0.5s;
-    }
+      .button span:after {
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+      }
 
-    .button:hover span {
-      padding-right: 25px;
-    }
+      .button:hover span {
+        padding-right: 25px;
+      }
 
-    .button:hover span:after {
-      opacity: 1;
-      right: 0;
-    }
-    .move{
-      margin-left: 180px;
-    }
-    .btn-signup{
-      background-color: rebeccapurple;
-      background-repeat:no-repeat;
-    }
+      .button:hover span:after {
+        opacity: 1;
+        right: 0;
+      }
+      .move{
+        margin: 0 auto;
+      }
+      .btn-signup{
+        background-color: rebeccapurple;
+        background-repeat:no-repeat;
+      }

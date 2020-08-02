@@ -22,6 +22,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
+  public isMenuCollapsed = true;
+
   isShow = false;
   commentForm: FormGroup;
   isLoading = false;

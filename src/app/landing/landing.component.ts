@@ -13,6 +13,8 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./landing.component.css']
 })
 export class LandingComponent implements OnInit {
+  public isMenuCollapsed = true;
+
   isRegistering = false;
   credentials: signup;
   registerForm: FormGroup;

@@ -17,6 +17,7 @@ import {
   styleUrls: ['./one-competition.component.css']
 })
 export class OneCompetitionComponent implements OnInit {
+  public isMenuCollapsed = true;
   craftcommentForm: FormGroup;
   isShow = false;
   viewcompetition:any;
