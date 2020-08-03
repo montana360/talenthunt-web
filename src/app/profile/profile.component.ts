@@ -365,7 +365,7 @@ export class ProfileComponent implements OnInit {
       .show('get_profile_count', localStorage.getItem('userID'))
       .subscribe(
         (response) => {
-          // console.log(response);
+          console.log(response);
           this.follow = response;
           this.isLoader = false;
         },

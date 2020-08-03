@@ -190,7 +190,7 @@ export class JoinCompetitionComponent implements OnInit {
             this.selectedFile = null;
           } else {
             this.alert.success('Welcome, competition application successful.');
-            this.makePayment();
+            // this.makePayment();
           }
         },
         (error) => {

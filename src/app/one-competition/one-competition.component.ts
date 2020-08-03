@@ -54,7 +54,7 @@ export class OneCompetitionComponent implements OnInit {
   toggleDisplay() {
     this.isShow = !this.isShow;
   }
-
+  id:any;
   craftID: any;
   clientID: number;
   voteForm: FormGroup;
@@ -63,7 +63,7 @@ export class OneCompetitionComponent implements OnInit {
   crafts:any;
   compID:any;
   user_id: any;
-  id:string;
+  // id:string;
   format: any;
   participants: any;
   comData: any;
@@ -71,6 +71,7 @@ export class OneCompetitionComponent implements OnInit {
   isLoading = false;
   isMineCompetition = false;
   isPart = true;
+  amount: any;
 
   craftData = {
     caption: '',
@@ -83,13 +84,13 @@ export class OneCompetitionComponent implements OnInit {
 
   voteDetails = {
     user_id: '',
-    craft_id: null,
+    craft_id: '',
     num_of_votes: '',
-    item_type: 'vote for content',
+    // item_type: 'vote for content',
     msisdn: '',
     momo_network: '',
     amount: null,
-    client_request_id: null
+    // client_request_id: null
   };
 
   constructor(
@@ -103,20 +104,23 @@ export class OneCompetitionComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.voteForm = formBuilder.group({
-      number_of_votes: [null, Validators.compose([Validators.required])],
+      user_id: [null],
+      num_of_votes: [null, Validators.compose([Validators.required])],
       momo_network: [null, Validators.compose([Validators.required])],
       momo_code: [null, Validators.compose([Validators.required])],
       momo_number: [null, Validators.compose([Validators.required])],
-      item_type: [null, Validators.compose([Validators.required])],
+      // item_type: [null, Validators.compose([Validators.required])],
       msisdn: [null, Validators.compose([Validators.required])],
       amount: [null, Validators.compose([Validators.required])],
-      client_request_id: [null, Validators.compose([Validators.required])],
+      // client_request_id: [null, Validators.compose([Validators.required])],
     });
 
     // Generating random numbers for client request id
-    this.clientID = Math.floor(
-      10000000000000000000 + Math.random() * 90000000000000000000
-    );
+    // this.clientID = Math.floor(
+    //   10000000000000000000 + Math.random() * 90000000000000000000
+    // ),toString();
+
+
     this.craftcommentForm = this.formBuilder.group({
       user_id: [null],
       message: [null,Validators.required],
@@ -124,7 +128,7 @@ export class OneCompetitionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.craftID = this.route.snapshot.paramMap.get('id');
+    // this.craftID = this.allCraft.id;
     this.compID = this.route.snapshot.paramMap.get("id");
     this.user_id = localStorage.getItem('userID');
     this.v(this.compID);
@@ -274,8 +278,8 @@ v(id) {
       this.isLoading = false;
       this.viewcompetition = response['data'][0];
       console.log(this.viewcompetition);
-      this.participants = this.viewcompetition.participants;
-
+      this.amount = this.viewcompetition.vote_fees;
+      console.log(this.amount);
         this.comData = this.participants.filter((part) => {
           if(part.user_id == this.user_id) {
             this.isMineCompetition = true;
@@ -445,11 +449,11 @@ openCraft(singleCraft) {
 
   // building vote data
   buildData() {
-    this.voteDetails.amount = this.voteForm.controls['amount'].value * this.voteForm.controls['number_of_votes'].value;
-    this.voteDetails.client_request_id = this.clientID;
+    this.voteDetails.amount = this.amount * this.voteForm.controls['num_of_votes'].value;
+    // this.voteDetails.client_request_id = this.clientID;
     this.voteDetails.craft_id = this.craftID;
     this.voteDetails.momo_network =  this.voteForm.controls['momo_network'].value;
-    this.voteDetails.num_of_votes = this.voteForm.controls['number_of_votes'].value;
+    this.voteDetails.num_of_votes = this.voteForm.controls['num_of_votes'].value;
     this.voteDetails.user_id = localStorage.getItem('userID');
 
     const msisdn = this.voteForm.controls['momo_code'].value + this.voteForm.controls['momo_number'].value;
@@ -462,10 +466,19 @@ openCraft(singleCraft) {
     // this.paymentDetails.network = this.joinComForm.get('momo_network').value;
   }
 
-  vote() {
-    this.buildData();
-    console.log(this.voteDetails);
-     this.auth.update('vote', localStorage.getItem('userID'), this.voteDetails).subscribe(
+  vote(id) {
+    // this.buildData();
+    const data = {
+      craft_id: id,
+      user_id: parseInt(localStorage.getItem('userID'), 10),
+      msisdn: parseInt(this.voteForm.controls['momo_code'].value + this.voteForm.controls['momo_number'].value),
+      num_of_votes: this.voteForm.controls['num_of_votes'].value,
+      amount: this.amount * this.voteForm.controls['num_of_votes'].value,
+      momo_network: this.voteForm.controls['momo_network'].value,
+
+    };
+    console.log(data);
+     this.auth.update('vote', localStorage.getItem('userID'), data).subscribe(
         (response) => {
           console.log(response);
           this.spinner.hide();
@@ -482,12 +495,15 @@ openCraft(singleCraft) {
         }
       );
   }
+
   viewcraft(ev) {
     this.auth.show('craft', ev).subscribe(
       (response) => {
         console.log(response);
         this.craft = response['data'];
         console.log(this.craft);
+        this.craftID = this.craft.id;
+        console.log(this.craftID);
       },
       (error) => {
         console.log(error);
