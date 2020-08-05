@@ -361,11 +361,13 @@ export class HomepageComponent implements OnInit {
   openSContent(singlepost) {
     this.modalService.open(singlepost, { size: 'lg' });
   }
+
+
   getpost() {
     // this.isLoading = true;
     this.auth.get('posts').subscribe(
       (response) => {
-        console.log(response['data']['data']);
+        // console.log(response['data']['data']);
         this.allPosts = response['data']['data'];
         this.first_page_url = response['data']['first_page_url'];
         this.last_page_url = response['data']['last_page_url'];
@@ -593,7 +595,7 @@ export class HomepageComponent implements OnInit {
   }
 
   nextPage() {
-    console.log(this.next_page_url);
+    this.isLoading = true;
     this.auth.paginate(this.next_page_url).subscribe(
       (response) => {
         this.allPosts = response['data']['data'];
@@ -601,16 +603,18 @@ export class HomepageComponent implements OnInit {
         this.last_page_url = response['data']['last_page_url'];
         this.next_page_url = response['data']['next_page_url'];
         this.prev_page_url = response['data']['prev_page_url'];
+        this.isLoading = false;
       },
       (error) => {
         console.log(error);
+        this.isLoading = false;
         this.alert.error('Could not get more data...');
       }
     );
   }
 
   prevPage() {
-    console.log(this.prev_page_url);
+    this.isLoading = true;
     this.auth.paginate(this.prev_page_url).subscribe(
       (response) => {
         this.allPosts = response['data']['data'];
@@ -618,16 +622,18 @@ export class HomepageComponent implements OnInit {
         this.last_page_url = response['data']['last_page_url'];
         this.next_page_url = response['data']['next_page_url'];
         this.prev_page_url = response['data']['prev_page_url'];
+        this.isLoading = false;
       },
       (error) => {
         console.log(error);
+        this.isLoading = false;
         this.alert.error('Could not get more data...');
       }
     );
   }
 
   firstPage() {
-    // console.log(this.prev_page_url);
+    this.isLoading = true;
     this.auth.paginate(this.first_page_url).subscribe(
       (response) => {
         this.allPosts = response['data']['data'];
@@ -635,16 +641,18 @@ export class HomepageComponent implements OnInit {
         this.last_page_url = response['data']['last_page_url'];
         this.next_page_url = response['data']['next_page_url'];
         this.prev_page_url = response['data']['prev_page_url'];
+        this.isLoading = false;
       },
       (error) => {
         console.log(error);
+        this.isLoading = false;
         this.alert.error('Could not get more data...');
       }
     );
   }
 
   lastPage() {
-    // console.log(this.prev_page_url);
+    this.isLoading = true;
     this.auth.paginate(this.last_page_url).subscribe(
       (response) => {
         this.allPosts = response['data']['data'];
@@ -652,9 +660,11 @@ export class HomepageComponent implements OnInit {
         this.last_page_url = response['data']['last_page_url'];
         this.next_page_url = response['data']['next_page_url'];
         this.prev_page_url = response['data']['prev_page_url'];
+        this.isLoading = false;
       },
       (error) => {
         console.log(error);
+        this.isLoading = false;
         this.alert.error('Could not get more data...');
       }
     );

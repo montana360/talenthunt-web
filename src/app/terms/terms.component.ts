@@ -46,6 +46,7 @@ export class TermsComponent implements OnInit {
     this.user_id = localStorage.getItem('userID');
     this.v(this.compID);
     this.userCompStatus();
+    this.getAllCompetitions();
   }
 
   getAllCompetitions() {
@@ -104,7 +105,9 @@ export class TermsComponent implements OnInit {
   join(id) {
     this.router.navigate(['/join/',id]);
   }
+
   one(id) {
+    console.log(id);
     this.router.navigate(['/one/',id]);
   }
 
@@ -131,6 +134,9 @@ export class TermsComponent implements OnInit {
 
   openContent(logoutModal) {
     this.modalService.open(logoutModal, {   size: 'sm' });
+  }
+  openServices(terms) {
+    this.modalService.open(terms, { centered: true, scrollable:true });
   }
 
   userCompStatus() {

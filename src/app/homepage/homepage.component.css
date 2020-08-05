@@ -208,9 +208,13 @@ cursor: pointer;
   color: black;
 }
 .popover {
-  overflow-y : scroll;
-  height: 100px;
-  width: 100px;
+  /* margin:10px, 10px; */
+  padding:10px;
+  width: 360px;
+  height: 360px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align:justify center;
 }
 /* For mobile phones: */
 [class*="col-"] {

@@ -46,24 +46,22 @@ export class JoinCompetitionComponent implements OnInit {
     email: '',
     bio: '',
     momo_number: '',
-    momo_network: '',
+    network: '',
     momo_code: '',
-    item_type: '',
     msisdn: '',
     amount: '',
-    client_request_id: '',
   };
 
-  // payment details
-  paymentDetails = {
-    msisdn: '',
-    network: '',
-    amount: '',
-    CallBackUrl: 'https://talenthunt.vokacom.net/api/v1/update_payment',
-    ClientRequestDescription: 'Registration',
-    ClientRequestId: '',
-    FeesOnCustomer: false
-  };
+  // // payment details
+  // paymentDetails = {
+  //   msisdn: '',
+  //   network: '',
+  //   amount: '',
+  //   CallBackUrl: 'https://talenthunt.vokacom.net/api/v1/update_payment',
+  //   ClientRequestDescription: 'Registration',
+  //   ClientRequestId: '',
+  //   FeesOnCustomer: false
+  // };
 
   constructor(
     config: NgbModalConfig,
@@ -87,17 +85,17 @@ export class JoinCompetitionComponent implements OnInit {
       email: [null, Validators.compose([Validators.required])],
       bio: [null, Validators.compose([Validators.required])],
       momo_number: [null, Validators.compose([Validators.required])],
-      momo_network: [null, Validators.compose([Validators.required])],
+      network: [null, Validators.compose([Validators.required])],
       momo_code: [null, Validators.compose([Validators.required])],
-      item_type: [null, Validators.compose([Validators.required])],
+      // item_type: [null, Validators.compose([Validators.required])],
       msisdn: [null, Validators.compose([Validators.required])],
       amount: [null, Validators.compose([Validators.required])],
-      client_request_id: [null, Validators.compose([Validators.required])],
+      // client_request_id: [null, Validators.compose([Validators.required])],
     });
 
-    this.clientID = Math.floor(
-      10000000000000000000 + Math.random() * 90000000000000000000
-    ).toString();
+    // this.clientID = Math.floor(
+    //   10000000000000000000 + Math.random() * 90000000000000000000
+    // ).toString();
   }
 
   ngOnInit(): void {
@@ -162,20 +160,20 @@ export class JoinCompetitionComponent implements OnInit {
     formData.append('email', this.joinComForm.get('email').value);
     formData.append('bio', this.joinComForm.get('bio').value);
     formData.append('momo_number', this.joinComForm.get('momo_number').value);
-    formData.append('momo_network', this.joinComForm.get('momo_network').value);
+    formData.append('network', this.joinComForm.get('network').value);
+    console.log(this.joinComForm.get('network').value)
     formData.append('momo_code', this.joinComForm.get('momo_code').value);
-    formData.append('item_type', 'Value Biaa');
+    // formData.append('item_type', 'Value Biaa');
 
-    const msisdn =
-      this.joinComForm.get('momo_code').value +
+    const msisdn = "233" +
       this.joinComForm.get('momo_number').value;
     formData.append('msisdn', msisdn);
-    // console.log(msisdn);
+    console.log(msisdn);
 
     formData.append('amount', this.amount);
-    formData.append('client_request_id', this.clientID);
+    // formData.append('client_request_id', this.clientID);
 
-    // console.log(formData);
+    console.log(formData);
 
     // this.makePayment();
 
@@ -233,24 +231,24 @@ export class JoinCompetitionComponent implements OnInit {
   }
 
 
-  buildPay() {
-    const msisdn = this.joinComForm.get('momo_code').value + this.joinComForm.get('momo_number').value;
-    this.paymentDetails.msisdn = msisdn;
-    this.paymentDetails.amount = this.amount.toString();
-    this.paymentDetails.ClientRequestId = this.clientID;
-    this.paymentDetails.network = this.joinComForm.get('momo_network').value;
-  }
+  // buildPay() {
+  //   const msisdn = this.joinComForm.get('momo_code').value + this.joinComForm.get('momo_number').value;
+  //   this.paymentDetails.msisdn = msisdn;
+  //   this.paymentDetails.amount = this.amount.toString();
+  //   this.paymentDetails.ClientRequestId = this.clientID;
+  //   this.paymentDetails.network = this.joinComForm.get('momo_network').value;
+  // }
 
 
-  makePayment() {
-    this.buildPay();
-    // console.log(this.paymentDetails);
-    this.auth.pay(this.paymentDetails).subscribe(response => {
-      console.log(response);
-            // this.router.navigate(['/one/:id']);
-    }, error => {
-      console.log(error);
-    });
-  }
+  // makePayment() {
+  //   this.buildPay();
+  //   // console.log(this.paymentDetails);
+  //   this.auth.pay(this.paymentDetails).subscribe(response => {
+  //     console.log(response);
+  //           // this.router.navigate(['/one/:id']);
+  //   }, error => {
+  //     console.log(error);
+  //   });
+  // }
 
 }

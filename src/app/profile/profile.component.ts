@@ -39,6 +39,8 @@ export class ProfileComponent implements OnInit {
   profileImage = null;
 
   isLoader = false;
+  followers: any;
+  following: any;
 
   toggleDisplay() {
     this.isShow = !this.isShow;
@@ -57,7 +59,7 @@ export class ProfileComponent implements OnInit {
   user_id: any;
   isData: any;
   isFollow: any;
-  usersIFollow: any;
+  isFollowData: any;
 
   // comment variable declaration
   commentDetails = {
@@ -250,6 +252,8 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
+
+
   ngOnDestroy() {
     var body = document.getElementsByTagName('body')[0];
     body.classList.remove('profile-page');
@@ -378,20 +382,12 @@ export class ProfileComponent implements OnInit {
   }
 
   // Tracking all followers of user
-  trackUserFollowers(id) {
-    this.auth.show('user', id).subscribe(
-      (response) => {
-        console.log(response['data']);
-        this.usersIFollow = response['data']['followers'].filter((follow) => {
-          return follow.follower_id == this.user_id;
-        });
-        console.log(this.usersIFollow);
-      },
-      (error) => {
-        this.alert.error('Getting data unsuccessful. Please try again');
-      }
-    );
-
+  trackFollowing(data) {
+    // console.log(data['follower']);
+    this.isFollowData = data['follower']['follows'].filter((follow) => {
+      return follow.follower_id == this.user_id;
+    });
+    console.log(this.isFollowData);
   }
 
   openContent(logoutModal) {
@@ -722,7 +718,7 @@ export class ProfileComponent implements OnInit {
         // console.log(response);
         if (response['data']['data'].length > 0) {
           this.allUsers = response['data']['data'];
-          console.log(this.allUsers);
+          // console.log(this.allUsers);
           this.spinner.hide();
         } else {
           this.spinner.hide();

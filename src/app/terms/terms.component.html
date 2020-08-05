@@ -42,11 +42,12 @@
           <div class="text-center">
             <div class="row">
               <div class="col-6 offset-3">
-                <h5 style="font-size: 14px;color: #fff;text-align: center;">This website features text and html changing,
-                  converting, and generating tools designed to save you time making web pages or preparing content for web
-                  publishing projects or other groovy stuff. Or even use the site to make a random choice.
-                  I've also written some articles about the English language such as how to alphabetize words and the rules
-                  of capitalization.</h5><br>
+                <h5 style="font-size: 14px;color: #fff;text-align: center;">
+                  These Terms of Use govern your use of Talent Hunt and provide information about the Talent Hunt Platform and its Service, as outlined below.
+                   When you create a Talent Hunt account or use Talent Hunt, you agree to these terms.
+                  The Talent Hunt Service is provided to you by Tekhype, Ltd.
+                  These Terms of Use therefore constitute an agreement between you and Tekhype, Ltd.</h5>
+                  <a (click)="openServices(terms)">More</a>
               </div>
             </div>
 
@@ -135,6 +136,40 @@
           <div class="modal-footer"><a (click)="onLogout()" class="btn btn-signup btn-block"
                   color="white">YES</a><a (click)="no()" class="btn facebookbutton btn-block">NO</a></div>
       </div>
+
   </div>
 </ng-template>
 <!-- logout modal end -->
+
+<!-- terms and condition modal -->
+<ng-template #terms let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Terms and Conditions</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="justify">
+      <p>These Terms of Use govern your use of Talent Hunt and provide information about the Talent Hunt Platform and its Service, as outlined below. When you create a Talent Hunt account or use Talent Hunt, you agree to these terms. The Talent Hunt Service is provided to you by Tekhype, Ltd. These Terms of Use therefore constitute an agreement between you and Tekhype, Ltd. The Talent Hunt Service We at Talent Hunt agree to provide you with the Talent Hunt Service. Which includes all of the Talent Hunt products features, applications, services, technologies, and software that we provide to advance Talent Hunt’s mission: Redefining talent discovery and growth. The Talent Hunt Service is made up of the following aspects (the Service): A personal billboard to share with the world. Talent is diverse and comes in so many ways unimaginable. </p>
+  <b>Our Goal</b>
+  <p>Our goal with the Talent Hunt Service, is to provide a unique platform where people of all crafts and art can share their stories, highlighting their unique paths that matter to them. By sharing their journey to success with a community of creatives, they can grow with feedback from friends and followers. A safe space to nurture and grow talent. We recognize the need for talent to be nurtured with bits of inspiration and competitions to bring the best of talents. With this hindsight, we use all information available to build systems and healthy competitions to help spur on talent. We use all the information we have – including your information – to try to keep our platform safe and secure for all budding talents and fans. Design, develop and implement technologies to meet the needs of our community. Constantly reviewing and updating our Service, is integral towards building an amazing platform for the community of creatives. A big part of our Service is creating and using cutting-edge technologies that help us personalize, protect, and improve our Service on an incredibly large scale. Technologies like artificial intelligence and machine learning give us the power to apply complex processes across our Service. Automated technologies also help us ensure the functionality and integrity of our Service. Connecting you with brands, products, and services. Based on interests shared by yourself and other creatives, we strive to improve our Service by serving you with custom ads relevant to your art and craft. By bringing these closer to you, you have a much better chance of finding what you love. Innovation and Growth. We consistently review data collected on users, studying their engagement with the Service, to build and evolve our Service offerings; into a much better and secure platform for all. Thereby, improving the user experience of the Service.</p>
+  <b>Data Policy</b>
+  <p>The Data Policy Providing our Service requires collecting and using your information. The Data Policy explains how we collect, use, and share information across other Tekhype products. Agreeing to our terms and conditions inherently implies an explicit agreement to our Data Policy on Talent Hunt. Your Commitments In return for our commitment to provide the Service, we require you to make the below commitments to us.</p>
+  <b> Who Can Use Talent Hunt</b>
+  <p> We want our Service to be as open and inclusive as possible, but we also want it to be safe, secure, and in accordance with the law. So, we need you to commit to a few restrictions in order to be part of the Talent Hunt community.</p>
+  <p><b>1.</b> You must be at least 13 years old or the minimum legal age in your country to use Talent Hunt.</p>
+  <p><b>2.</b> You must not be prohibited from receiving any aspect of our Service under applicable laws or engaging in payments related Services if you are on an applicable denied party listing.</p>
+  <p><b>3.</b> We must not have previously disabled your account for violation of law or any of our policies.</p>
+  <b>How You Can't Use Talent Hunt.</b>
+  <p>Providing a safe and open Service for a broad community requires that we all do our part.</p>
+  <p><b>1.</b> You can't impersonate others or provide inaccurate information.</p>
+  <p><b>2.</b> You don't have to disclose your identity on Talent Hunt, but you must provide us with accurate and up to date information (including registration information) when participating in any of the Talent Hunt competitions. Also, you may not impersonate someone you aren't, and you can't create an account for someone else unless you have their express permission.</p>
+  <p><b>3.</b> You can't do anything unlawful, misleading, or fraudulent or for an illegal or unauthorized purpose.</p>
+  <p><b>4.</b> You can't violate (or help or encourage others to violate) these Terms or our policies, including in particular the Talent Hunt Competition Guidelines and Talent Hunt Platform Policies.</p>
+  <p><b>5.</b> You can't do anything to interfere with or impair the intended operation of the Service.</p>
+  <p><b>6.</b> You can't attempt to create accounts or access or collect information in unauthorized ways. This includes creating accounts or collecting information in an automated way without our express permission.</p>
+    </div>
+
+  </div>
+</ng-template>

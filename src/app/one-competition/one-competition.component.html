@@ -70,9 +70,9 @@
                     <b class="card-text" style="color: black;font-size: small;">{{craft.likes.length || '0'}} like(s) and {{craft.comments.length || '0'}} comment</b>
                   </div>
                   <div class="col-md-2" style="text-align: right;">
-                    <a class="btn buts" (click)="voteContent(votepost);viewcraft(craft.id)">vote</a>
+                    <a class="btn buts" (click)="voteContent(votepost);viewcraf(craft.id)">vote</a>
                     <div class="w-100"></div>
-                    <span style="color: black; font-size: small;"><b>{{craft.votes.length || '0'}} votes</b></span>
+                    <span style="color: black; font-size: small;"><b>{{craft?.votes.length || '0'}} votes</b></span>
                   </div>
                 </div>
               </div>
@@ -102,36 +102,21 @@
             <p>Upload</p>
           </div>
         </div>
-        <div class="team" *ngFor="let judge of viewcompetition.judges">
+        <div class="team" >
           <div class="row text-center d-flex justify-content-center">
-            <div class="col-md-4">
+            <div class="col-md-4" *ngFor="let judge of viewcompetition.judges">
               <div class="team-player">
                 <img *ngIf="judge.user.profile_image !== null" src="{{judge.user.profile_image}}" alt="Thumbnail Image" class="imsg"
                   style="width: 90px; height: 90px;">
                   <img *ngIf="judge.user.profile_image === null" src="assets/img/default-avatar.png" alt="Thumbnail Image" class="imsg"
                   style="width: 90px; height: 90px;">
                 <h6 class="title">{{judge.user.fullname}}</h6>
-                <p class="category text-primary">Model</p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="team-player">
-                <img src="assets/img/ryan.jpg" alt="Thumbnail Image" class="imsg"
-                  style="width: 90px; height: 90px;">
-                <h6 class="title">Ryan Tompson</h6>
-                <p class="category text-primary">Designer</p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="team-player">
-                <img src="assets/img/eva.jpg" alt="Thumbnail Image" class="imsg" style="width: 90px; height: 90px;">
-                <h6 class="title">Eva Jenner</h6>
-                <p class="category text-primary">Fashion</p>
-                <a *ngIf="isMineCompetition" style="cursor: pointer" (click)="toggleDisplay()">view
-                  comments</a>
+                <!-- <p class="category text-primary">{{judge.user.username}}</p> -->
               </div>
             </div>
           </div>
+          <a *ngIf="isMineCompetition" style="cursor: pointer" (click)="toggleDisplay()">view
+            comments</a>
           <div class="list" *ngIf="isShow">
             <ul class="list-group" style="text-align: center;">
               <li class="list-group-item "><b>Judge 1: </b>Cras justo odio</li>
@@ -264,16 +249,8 @@
                       </div>
                   </div>
                   <div class="row">
-                    <div class="col-lg-4">
-                      <div class="form-group">
-                          <select formControlName="momo_code" class='form-control'>
-                            <option value="null">Country Code</option>
-                            <option value="233">Ghana(+233)</option>
-                            <option value="234">Nigeria(+234)</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-8">
+
+                    <div class="col-md-12">
                       <div class="form-group">
                         <input id="input-address" class="form-control form-control-alternative" placeholder="Phone Number"
                           type="number" maxlength="9" formControlName="momo_number">
@@ -291,7 +268,7 @@
                   <div class="row">
                       <div class="col-md-12">
                           <div class="form-group">
-                              <select formControlName="momo_network" class='form-control'>
+                              <select formControlName="network" class='form-control'>
                                   <option value='null'>Mobile Network</option>
                                   <option value='MTN'>MTN</option>
                                   <option value='AirtelTigo'>AirtelTigo</option>
@@ -316,7 +293,7 @@
                   <div class="row">
                       <div class="col-md-12 text-center">
                           <button class="button"
-                              (click)="vote(allCraft.id);voteForm.reset();close(votepost)"><span>VOTE</span></button><br><br>
+                              (click)="vote();voteForm.reset();close(votepost)"><span>VOTE</span></button><br><br>
                       </div>
                   </div>
 
@@ -350,7 +327,7 @@
           <b class="card-text" style="color: black;font-size: small;">{{cra.likes.length || '0'}} like(s)</b>
         </div>
         <div class="col-md-2" style="text-align: right;">
-          <a class="btn buts" (click)="voteContent(votepost)">vote</a>
+          <a class="btn buts" (click)="voteContent(votepost);viewcraf(cra.id)">vote</a>
           <div class="w-100"></div>
           <span style="color: black; font-size: 11px;"><b>{{cra.votes.length || '0'}} votes</b></span>
         </div>

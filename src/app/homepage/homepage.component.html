@@ -20,9 +20,9 @@
 
         <!-- <ng-template  #popTitle>Search Results</ng-template> -->
 
-        <ng-template #popContent class="popover">
+        <ng-template #popContent>
           <div class="popover" *ngIf="isFound">
-            <div   *ngFor="let list of searchList">
+            <div *ngFor="let list of searchList">
 
               <span *ngIf="list">{{ trackFollows(list) }}</span>
 
@@ -83,7 +83,9 @@
         </ul>
       </div>
     </nav>
+
     <img src="assets/img/41.png" alt="" height="6" width="100%">
+
     <div *ngIf="!isLoading" class="col-md-8 move">
       <div class="card border-0  d-flex justify-content-center" *ngFor="let post of allPosts">
         <span *ngIf="post">{{ trackLikes(post) }}</span>
@@ -124,7 +126,6 @@
               <span *ngIf="!isData || isData.length == 0">
                 <img style="cursor: pointer;" (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
               </span>
-
             </div>
 
             <div *ngIf="post?.likes.length == 0">
@@ -182,6 +183,19 @@
         </div><br><br>
       </div>
     </div>
+
+    <!-- Pagination Div -->
+    <div *ngIf="!isLoading" class="col-md-8 move">
+      <div align="right">
+        <button *ngIf="first_page_url" (click)="firstPage()" type="button" class="btn btn-primary">First</button>
+        <button *ngIf="prev_page_url" (click)="prevPage()" type="button" class="btn btn-primary">Previous</button>
+        <button *ngIf="next_page_url" (click)="nextPage()" type="button" class="btn btn-primary">Next</button>
+        <button *ngIf="last_page_url" (click)="lastPage()" type="button" class="btn btn-primary">Last</button>
+      </div>
+    </div>
+
+    <br><br>
+
     <div *ngIf="!isLoading" class="trending">
       <div class="row">
         <div class="col-sm-8">
