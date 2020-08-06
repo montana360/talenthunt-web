@@ -69,10 +69,10 @@
                     <p class="card-text" style="color: black;font-size: small;">{{craft.caption}}</p>
                     <b class="card-text" style="color: black;font-size: small;">{{craft.likes.length || '0'}} like(s) and {{craft.comments.length || '0'}} comment</b>
                   </div>
-                  <div class="col-md-2" style="text-align: right;">
+                  <div class="col-md-2" *ngIf ="craft.craft_type !== 'AUDITION'" style="text-align: right;">
                     <a class="btn buts" (click)="voteContent(votepost);viewcraf(craft.id)">vote</a>
                     <div class="w-100"></div>
-                    <span style="color: black; font-size: small;"><b>{{craft?.votes.length || '0'}} votes</b></span>
+                    <span  style="color: black; font-size: small;"><b>{{craft?.votes.length || '0'}} votes</b></span>
                   </div>
                 </div>
               </div>

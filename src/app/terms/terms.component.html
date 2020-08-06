@@ -1,8 +1,8 @@
 <div class="container-fluid col-md-9">
   <div class="card0 border-0">
     <nav class="navbar navbar-expand-lg navbar-light  mb-3" style="background-color: white;">
-      <a class="navbar-brand " (click)="homePage()"><img src="assets/img/22.png" ngbTooltip="Talent hunt"
-        height="50" width="150"></a>
+      <a class="navbar-brand " (click)="homePage()"><img src="assets/img/22.png" ngbTooltip="Talent hunt" height="50"
+          width="150"></a>
 
       <!-- Step 3: Toggle the value of the property when the toggler button is clicked. -->
       <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
@@ -14,8 +14,8 @@
 
         <ul class="navbar-nav ml-auto">
           <li class="nav-item text-center mouse">
-            <a class="nav-link" (click)="profilePage()" data-toggle="modal" data-target="#"><img
-                src="assets/img/52.png" width="20"><span class="d-none d-sm-inline d-xl-block px-1"
+            <a class="nav-link" (click)="profilePage()" data-toggle="modal" data-target="#"><img src="assets/img/52.png"
+                width="20"><span class="d-none d-sm-inline d-xl-block px-1"
                 style="color: black;font: 1em sans-serif;font-size: small;">Profile</span></a>
           </li>&nbsp;&nbsp;
           <li class="nav-item mouse">
@@ -43,26 +43,26 @@
             <div class="row">
               <div class="col-6 offset-3">
                 <h5 style="font-size: 14px;color: #fff;text-align: center;">
-                  These Terms of Use govern your use of Talent Hunt and provide information about the Talent Hunt Platform and its Service, as outlined below.
-                   When you create a Talent Hunt account or use Talent Hunt, you agree to these terms.
+                  These Terms of Use govern your use of Talent Hunt and provide information about the Talent Hunt
+                  Platform and its Service, as outlined below.
+                  When you create a Talent Hunt account or use Talent Hunt, you agree to these terms.
                   The Talent Hunt Service is provided to you by Tekhype, Ltd.
-                  These Terms of Use therefore constitute an agreement between you and Tekhype, Ltd.</h5>
-                  <a (click)="openServices(terms)">More</a>
+                  These Terms of Use therefore constitute an agreement between you and Tekhype, Ltd.... <a style="color: blue; font: 1em sans-serif;" (click)="openServices(terms)">Read More</a></h5>
               </div>
             </div>
 
-              <div class="row move">
-                <div class="col-md-8 move">
+            <div class="row move">
+              <div class="col-md-8 move">
 
-                    <img src="assets/img/154.png" alt="Avatar" width="400" style="align-items: center;">
+                <img src="assets/img/154.png" alt="Avatar" width="400" style="align-items: center;">
 
-                </div>
               </div>
+            </div>
             <br>
 
-              <button class="button" *ngIf="isPart" (click)="join(viewcompetition?.id)">
-                <span>Join Competition</span>
-              </button>
+            <button class="button" *ngIf="isPart" (click)="join(viewcompetition?.id)">
+              <span>Join Competition</span>
+            </button>
 
             <button (click)="one(viewcompetition?.id)" class="button"><span>View Competition</span></button>
           </div><br><br>
@@ -70,106 +70,213 @@
       </div>
 
     </div><br>
-      <h4 class="title text-center"><b>Awards</b></h4>
-      <div class="row" >
-        <!-- <div *ngFor="let award of viewcompetition.awards"></div> -->
-        <div class="col-sm text-center">
-          <img src="assets/img/153.png" style="width:100px; height:100px;">
-          <h5 class="title" style="font-size: 13px;"><b>60,000GH₵</b></h5>
-          <h5 class="title"style="font-size: 13px;"><b>Record label Deal 1 year <br> Dubai Trip</b></h5>
+    <h4 class="title text-center"><b>Awards</b></h4>
+    <div class="row">
+      <!-- <div *ngFor="let award of viewcompetition.awards"></div> -->
+      <div class="col-sm text-center">
+        <img src="assets/img/153.png" style="width:100px; height:100px;">
+        <h5 class="title" style="font-size: 13px;"><b>60,000GH₵</b></h5>
+        <h5 class="title" style="font-size: 13px;"><b>Record label Deal 1 year <br> Dubai Trip</b></h5>
 
-        </div>
-        <div class="col-sm text-center">
-          <img src="assets/img/152.png" style="width:100px; height:100px;">
-          <h5 class="title"style="font-size: 13px;"><b>20,000GH₵</b></h5>
-          <h5 class="title"style="font-size: 13px;"><b>Trip to South Africa</b></h5>
-
-        </div>
-        <div class="col-sm text-center">
-          <img src="assets/img/151.png" style="width:100px; height:100px;">
-          <h5 class="title"style="font-size: 13px;"><b>10,0000GH₵</b></h5>
-
-        </div>
       </div>
+      <div class="col-sm text-center">
+        <img src="assets/img/152.png" style="width:100px; height:100px;">
+        <h5 class="title" style="font-size: 13px;"><b>20,000GH₵</b></h5>
+        <h5 class="title" style="font-size: 13px;"><b>Trip to South Africa</b></h5>
 
-  <footer class="footer page-footer"><br>
-    <div class="container">
-      <nav>
-        <span class="row">
-          <span class="col">
-            <a>
-              <img src="assets/img/21.png" alt="Thumbnail Image" height="50" width="70">
-            </a>
-          </span>
-          <span class="col copyright footer-text" style="text-align: right;">
+      </div>
+      <div class="col-sm text-center">
+        <img src="assets/img/151.png" style="width:100px; height:100px;">
+        <h5 class="title" style="font-size: 13px;"><b>10,0000GH₵</b></h5>
 
-
-            FOLLOW US:
-            <div class="w-100"></div>
-            <a>
-              <img src="assets/img/17.png" height="20" width="20">
-            </a>&nbsp;
-            <a>
-              <img src="assets/img/18.png" height="20" width="20">
-            </a>&nbsp;
-            <a href="">
-              <img src="assets/img/19.png" height="20" width="20">
-            </a>
-            <div class="w-100"></div>
-            &copy;
-            Copyright Tekhype Limited
-          </span>
-        </span>&nbsp;&nbsp;&nbsp;&nbsp;
-      </nav>
+      </div>
     </div>
-  </footer>
-</div>
 
-<!-- logout modal start -->
-<ng-template #logoutModal let-modal>
-  <div>
+    <footer class="footer page-footer"><br>
+      <div class="container">
+        <nav>
+          <span class="row">
+            <span class="col">
+              <a>
+                <img src="assets/img/21.png" alt="Thumbnail Image" height="50" width="70">
+              </a>
+            </span>
+            <span class="col copyright footer-text" style="text-align: right;">
+
+
+              FOLLOW US:
+              <div class="w-100"></div>
+              <a>
+                <img src="assets/img/17.png" height="20" width="20">
+              </a>&nbsp;
+              <a>
+                <img src="assets/img/18.png" height="20" width="20">
+              </a>&nbsp;
+              <a href="">
+                <img src="assets/img/19.png" height="20" width="20">
+              </a>
+              <div class="w-100"></div>
+              &copy;
+              Copyright Tekhype Limited
+            </span>
+          </span>&nbsp;&nbsp;&nbsp;&nbsp;
+        </nav>
+      </div>
+    </footer>
+  </div>
+
+  <!-- logout modal start -->
+  <ng-template #logoutModal let-modal>
+    <div>
       <div class="modal-content">
-          <div class="modal-header content-center">
-              <h4>Logout <i class="fa fa-lock"></i></h4>
-          </div>
-          <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to log-off?</div>
-          <div class="modal-footer"><a (click)="onLogout()" class="btn btn-signup btn-block"
-                  color="white">YES</a><a (click)="no()" class="btn facebookbutton btn-block">NO</a></div>
+        <div class="modal-header content-center">
+          <h4>Logout <i class="fa fa-lock"></i></h4>
+        </div>
+        <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to log-off?</div>
+        <div class="modal-footer"><a (click)="onLogout()" class="btn btn-signup btn-block" color="white">YES</a><a
+            (click)="no()" class="btn facebookbutton btn-block">NO</a></div>
       </div>
 
-  </div>
-</ng-template>
-<!-- logout modal end -->
-
-<!-- terms and condition modal -->
-<ng-template #terms let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Terms and Conditions</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="justify">
-      <p>These Terms of Use govern your use of Talent Hunt and provide information about the Talent Hunt Platform and its Service, as outlined below. When you create a Talent Hunt account or use Talent Hunt, you agree to these terms. The Talent Hunt Service is provided to you by Tekhype, Ltd. These Terms of Use therefore constitute an agreement between you and Tekhype, Ltd. The Talent Hunt Service We at Talent Hunt agree to provide you with the Talent Hunt Service. Which includes all of the Talent Hunt products features, applications, services, technologies, and software that we provide to advance Talent Hunt’s mission: Redefining talent discovery and growth. The Talent Hunt Service is made up of the following aspects (the Service): A personal billboard to share with the world. Talent is diverse and comes in so many ways unimaginable. </p>
-  <b>Our Goal</b>
-  <p>Our goal with the Talent Hunt Service, is to provide a unique platform where people of all crafts and art can share their stories, highlighting their unique paths that matter to them. By sharing their journey to success with a community of creatives, they can grow with feedback from friends and followers. A safe space to nurture and grow talent. We recognize the need for talent to be nurtured with bits of inspiration and competitions to bring the best of talents. With this hindsight, we use all information available to build systems and healthy competitions to help spur on talent. We use all the information we have – including your information – to try to keep our platform safe and secure for all budding talents and fans. Design, develop and implement technologies to meet the needs of our community. Constantly reviewing and updating our Service, is integral towards building an amazing platform for the community of creatives. A big part of our Service is creating and using cutting-edge technologies that help us personalize, protect, and improve our Service on an incredibly large scale. Technologies like artificial intelligence and machine learning give us the power to apply complex processes across our Service. Automated technologies also help us ensure the functionality and integrity of our Service. Connecting you with brands, products, and services. Based on interests shared by yourself and other creatives, we strive to improve our Service by serving you with custom ads relevant to your art and craft. By bringing these closer to you, you have a much better chance of finding what you love. Innovation and Growth. We consistently review data collected on users, studying their engagement with the Service, to build and evolve our Service offerings; into a much better and secure platform for all. Thereby, improving the user experience of the Service.</p>
-  <b>Data Policy</b>
-  <p>The Data Policy Providing our Service requires collecting and using your information. The Data Policy explains how we collect, use, and share information across other Tekhype products. Agreeing to our terms and conditions inherently implies an explicit agreement to our Data Policy on Talent Hunt. Your Commitments In return for our commitment to provide the Service, we require you to make the below commitments to us.</p>
-  <b> Who Can Use Talent Hunt</b>
-  <p> We want our Service to be as open and inclusive as possible, but we also want it to be safe, secure, and in accordance with the law. So, we need you to commit to a few restrictions in order to be part of the Talent Hunt community.</p>
-  <p><b>1.</b> You must be at least 13 years old or the minimum legal age in your country to use Talent Hunt.</p>
-  <p><b>2.</b> You must not be prohibited from receiving any aspect of our Service under applicable laws or engaging in payments related Services if you are on an applicable denied party listing.</p>
-  <p><b>3.</b> We must not have previously disabled your account for violation of law or any of our policies.</p>
-  <b>How You Can't Use Talent Hunt.</b>
-  <p>Providing a safe and open Service for a broad community requires that we all do our part.</p>
-  <p><b>1.</b> You can't impersonate others or provide inaccurate information.</p>
-  <p><b>2.</b> You don't have to disclose your identity on Talent Hunt, but you must provide us with accurate and up to date information (including registration information) when participating in any of the Talent Hunt competitions. Also, you may not impersonate someone you aren't, and you can't create an account for someone else unless you have their express permission.</p>
-  <p><b>3.</b> You can't do anything unlawful, misleading, or fraudulent or for an illegal or unauthorized purpose.</p>
-  <p><b>4.</b> You can't violate (or help or encourage others to violate) these Terms or our policies, including in particular the Talent Hunt Competition Guidelines and Talent Hunt Platform Policies.</p>
-  <p><b>5.</b> You can't do anything to interfere with or impair the intended operation of the Service.</p>
-  <p><b>6.</b> You can't attempt to create accounts or access or collect information in unauthorized ways. This includes creating accounts or collecting information in an automated way without our express permission.</p>
     </div>
+  </ng-template>
+  <!-- logout modal end -->
 
-  </div>
-</ng-template>
+  <!-- terms and condition modal -->
+  <ng-template #terms let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Terms and Conditions</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="justify">
+        <p>These Terms of Use govern your use of Talent Hunt and provide information about the Talent Hunt Platform and
+          its Service, as outlined below. When you create a Talent Hunt account or use Talent Hunt, you agree to these
+          terms. The Talent Hunt Service is provided to you by Tekhype, Ltd. These Terms of Use therefore constitute an
+          agreement between you and Tekhype, Ltd. The Talent Hunt Service We at Talent Hunt agree to provide you with
+          the Talent Hunt Service. Which includes all of the Talent Hunt products features, applications, services,
+          technologies, and software that we provide to advance Talent Hunt’s mission: Redefining talent discovery and
+          growth. The Talent Hunt Service is made up of the following aspects (the Service): A personal billboard to
+          share with the world. Talent is diverse and comes in so many ways unimaginable. </p>
+        <b>Our Goal</b>
+        <p>Our goal with the Talent Hunt Service, is to provide a unique platform where people of all crafts and art can
+          share their stories, highlighting their unique paths that matter to them. By sharing their journey to success
+          with a community of creatives, they can grow with feedback from friends and followers. A safe space to nurture
+          and grow talent. We recognize the need for talent to be nurtured with bits of inspiration and competitions to
+          bring the best of talents. With this hindsight, we use all information available to build systems and healthy
+          competitions to help spur on talent. We use all the information we have – including your information – to try
+          to keep our platform safe and secure for all budding talents and fans. Design, develop and implement
+          technologies to meet the needs of our community. Constantly reviewing and updating our Service, is integral
+          towards building an amazing platform for the community of creatives. A big part of our Service is creating and
+          using cutting-edge technologies that help us personalize, protect, and improve our Service on an incredibly
+          large scale. Technologies like artificial intelligence and machine learning give us the power to apply complex
+          processes across our Service. Automated technologies also help us ensure the functionality and integrity of
+          our Service. Connecting you with brands, products, and services. Based on interests shared by yourself and
+          other creatives, we strive to improve our Service by serving you with custom ads relevant to your art and
+          craft. By bringing these closer to you, you have a much better chance of finding what you love. Innovation and
+          Growth. We consistently review data collected on users, studying their engagement with the Service, to build
+          and evolve our Service offerings; into a much better and secure platform for all. Thereby, improving the user
+          experience of the Service.</p>
+        <b>Data Policy</b>
+        <p>The Data Policy Providing our Service requires collecting and using your information. The Data Policy
+          explains how we collect, use, and share information across other Tekhype products. Agreeing to our terms and
+          conditions inherently implies an explicit agreement to our Data Policy on Talent Hunt. Your Commitments In
+          return for our commitment to provide the Service, we require you to make the below commitments to us.</p>
+        <b> Who Can Use Talent Hunt</b>
+        <p> We want our Service to be as open and inclusive as possible, but we also want it to be safe, secure, and in
+          accordance with the law. So, we need you to commit to a few restrictions in order to be part of the Talent
+          Hunt community.</p>
+        <p><b>1.</b> You must be at least 13 years old or the minimum legal age in your country to use Talent Hunt.</p>
+        <p><b>2.</b> You must not be prohibited from receiving any aspect of our Service under applicable laws or
+          engaging in payments related Services if you are on an applicable denied party listing.</p>
+        <p><b>3.</b> We must not have previously disabled your account for violation of law or any of our policies.</p>
+        <b>How You Can't Use Talent Hunt.</b>
+        <p>Providing a safe and open Service for a broad community requires that we all do our part.</p>
+        <p><b>1.</b> You can't impersonate others or provide inaccurate information.</p>
+        <p><b>2.</b> You don't have to disclose your identity on Talent Hunt, but you must provide us with accurate and
+          up to date information (including registration information) when participating in any of the Talent Hunt
+          competitions. Also, you may not impersonate someone you aren't, and you can't create an account for someone
+          else unless you have their express permission.</p>
+        <p><b>3.</b> You can't do anything unlawful, misleading, or fraudulent or for an illegal or unauthorized
+          purpose.</p>
+        <p><b>4.</b> You can't violate (or help or encourage others to violate) these Terms or our policies, including
+          in particular the Talent Hunt Competition Guidelines and Talent Hunt Platform Policies.</p>
+        <p><b>5.</b> You can't do anything to interfere with or impair the intended operation of the Service.</p>
+        <p><b>6.</b> You can't attempt to create accounts or access or collect information in unauthorized ways. This
+          includes creating accounts or collecting information in an automated way without our express permission.</p>
+        <p><b>7.</b> You can't attempt to buy, sell, or transfer any aspect of your account (including your username) or
+          solicit, collect, or use login credentials of other users.</p>
+        <p><b>8.</b> You can't post private or confidential information or do anything that violates someone else's
+          rights, including intellectual property.</p>
+        <b>Permissions You Give to Us</b>
+        <p>As part of our agreement, you also give us permissions that we need to provide the Service.</p>
+        <p><b>1.</b> We do not claim ownership of your content, but you grant us a license to use it.</p>
+        <p><b>2.</b> Nothing is changing about your rights in your content. We do not claim ownership of your content
+          that you post on or through the Service. Instead, when you share, post, or upload content that is covered by
+          intellectual property rights (like photos or videos) on or in connection with our Service, you hereby grant to
+          us a non-exclusive, royalty-free, transferable, sub-licensable, worldwide license to host, use, distribute,
+          modify, run, copy, publicly perform or display, translate, and create derivative works of your content
+          (consistent with your privacy and application settings). You can end this license anytime by deleting your
+          content or account. However, content will continue to appear if you shared it with others and they have not
+          deleted it.</p>
+        <p><b>3.</b> Permission to use your username, profile picture, and information about your relationships and
+          actions with accounts, ads, and sponsored content.</p>
+        <p><b>4.</b> You give us permission to show your username, profile picture, and information about your actions
+          (such as likes) or relationships (such as follows) next to or in connection with accounts, ads, offers, and
+          other sponsored content that you follow or engage with that are displayed on Facebook Products, without any
+          compensation to you. For example, we may show that you liked a sponsored post created by a brand that has paid
+          us to display its ads on Talent Hunt. As with actions on other content and follows of other accounts, actions
+          on sponsored content and follows of sponsored accounts can be seen only by people who have permission to see
+          that content or follow. We will also respect your ad settings.</p>
+        <p><b>5.</b> You agree that we can download and install updates to the Service on your device. Additional Rights
+          We Retain If you select a username or similar identifier for your account, we may change it if we believe it
+          is appropriate or necessary (for example, if it infringes someone's intellectual property or impersonates
+          another user). If you use content covered by intellectual property rights that we have and make available in
+          our Service (for example, images, designs, videos, or sounds we provide that you add to content you create or
+          share), we retain all rights to our content (but not yours). You can only use our intellectual property and
+          trademarks or similar marks as expressly permitted by our Brand Guidelines or with our prior written
+          permission. You must obtain written permission from us or under an open source license to modify, create
+          derivative works of, decompile, or otherwise attempt to extract source code from us.</p>
+        <b>Content Removal and Disabling or Terminating Your Account</b>
+        <p>We can remove any content or information you share on the Service if we believe that it violates these Terms
+          of Use, our policies, or we are permitted or required to do so by law. We can refuse to provide or stop
+          providing all or part of the Service to you (including terminating or disabling your account) immediately to
+          protect our community or Services, or if you create risk or legal exposure for us, violate these Terms of Use
+          or our policies, if you repeatedly infringe other people's intellectual property rights, or where we are
+          permitted or required to do so by law. If we take action to disable or terminate your account, we will notify
+          you where appropriate. If you believe your account has been terminated in error, or you want to disable or
+          permanently delete your account, consult our Help Center. Our Agreement and What Happens if We Disagree Our
+          Agreement. Your use of music on the Service is also subject to guidelines form, and your use of our API is
+          subject to our Platform Policy. If you use certain other features or related Services, additional terms will
+          be made available and will also become a part of our agreement. For example, if you use payment features, you
+          will be asked to agree to the Community Payment Terms. If any of those terms conflict with this agreement,
+          those other terms will govern. If any aspect of this agreement is unenforceable, the rest will remain in
+          effect. Any amendment or waiver to our agreement must be in writing and signed by us. If we fail to enforce
+          any aspect of this agreement, it will not be a waiver. We reserve all rights not expressly granted to you.</p>
+        <b>Who Has Rights Under this Agreement?</b>
+        <p>This agreement does not give rights to any third parties. You cannot transfer your rights or obligations
+          under this agreement without our consent. Our rights and obligations can be assigned to others. For example,
+          this could occur if our ownership changes (as in a merger, acquisition, or sale of assets) or by law. Who Is
+          Responsible if Something Happens? Our Service is provided "as is," and we can't guarantee it will be safe and
+          secure or will work perfectly all the time.<b> TO THE EXTENT PERMITTED BY LAW, WE ALSO DISCLAIM ALL WARRANTIES,
+            WHETHER EXPRESS OR IMPLIED, INCLUDING THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+            PURPOSE, TITLE, AND NON-INFRINGEMENT.</b> We also don’t control what people and others do or say, and we
+          aren’t responsible for their (or your) actions or conduct (whether online or offline) or content (including
+          unlawful or objectionable content). We also aren’t responsible for Services and features offered by other
+          people or companies, even if you access them through our Service. Our responsibility for anything that happens
+          on the Service (also called "liability") is limited as much as the law will allow. If there is an issue with
+          our Service, we can't know what all the possible impacts might be. You agree that we won't be responsible
+          ("liable") for any lost profits, revenues, information, or data, or consequential, special, indirect,
+          exemplary, punitive, or incidental damages arising out of or related to these Terms, even if we know they are
+          possible. This includes when we delete your content, information, or account. How We Will Handle Disputes. If
+          you are a consumer, the laws of the country in which you reside will apply to any claim, cause of action, or
+          dispute you have against us that arises out of or relates to these Terms ("claim"), and you may resolve your
+          claim in any competent court in that country that has jurisdiction over the claim. In all other cases, you
+          agree that the claim must be resolved exclusively in Ghana, and that you will submit to the personal
+          jurisdiction of any courts for the purpose of litigating any such claim, and that the laws of Ghana will
+          govern these Terms and any claim, without regard to conflict of law provisions.</p>
+      </div>
+
+    </div>
+  </ng-template>

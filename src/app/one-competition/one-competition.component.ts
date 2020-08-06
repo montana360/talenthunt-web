@@ -24,6 +24,8 @@ export class OneCompetitionComponent implements OnInit {
   competition:any;
   allCraft:any;
   isData: any;
+  isVotes:any;
+  myArray = [];
 
   // comment variable declaration
   craftcommentDetails = {
@@ -47,9 +49,7 @@ export class OneCompetitionComponent implements OnInit {
   ];
 
   slideConfig = {"slidesToShow": 4, "slidesToScroll": 4,};
-  slideConfi = {"slidesToShow": 1.9, "slidesToScroll": 1,
-
-};
+  slideConfi = {"slidesToShow": 1.9, "slidesToScroll": 1,};
 
   toggleDisplay() {
     this.isShow = !this.isShow;
@@ -117,10 +117,12 @@ export class OneCompetitionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     // this.craftID = this.allCraft.id;
     this.compID = this.route.snapshot.paramMap.get("id");
     this.user_id = localStorage.getItem('userID');
     this.v(this.compID);
+    // this.trackvotes(this.craft);
     this.getCraft();
     this.userCompStatus();
     // post data form
@@ -135,6 +137,16 @@ this.craftcommentForm = this.formBuilder.group({
   message: [null,Validators.required],
 });
   }
+  trackvotes(cra) {
+    console.log(cra['votes']);
+    // this.isVotes = cra['votes'].filter((vote) => {
+    //   let sum: number = 0;
+    //   vote.forEach(a => sum += a.value);
+    //   console.log(sum );
+    // });
+    // console.log(this.isVotes);
+  }
+
   trackLikes(cra) {
     this.isData = cra['likes'].filter((like) => {
       return like.user_id == this.user_id;
@@ -236,6 +248,7 @@ this.craftcommentForm = this.formBuilder.group({
       }
     );
   }
+
   // Get all craft
 getCraft() {
   this.isLoading = true;
@@ -536,4 +549,5 @@ openCraft(singleCraft) {
       }
     );
   }
+
 }
