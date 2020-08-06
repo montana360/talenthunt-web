@@ -144,7 +144,7 @@ export class ProfileComponent implements OnInit {
       email: [''],
     });
     // this.prepareEditForm();
-    this.isLoader = false;
+    // this.isLoader = false;
     // building comment form
     this.commentForm = this.formBuilder.group({
       user_id: [null],
@@ -514,8 +514,10 @@ export class ProfileComponent implements OnInit {
 
 
   view(ev) {
+    // this.isLoader = true;
     this.auth.show('post', ev).subscribe(
       (response) => {
+        // this.isLoader = false;
         this.Posts = response['data'];
         console.log(this.Posts);
       },
@@ -712,21 +714,21 @@ export class ProfileComponent implements OnInit {
 
 
   getUsers() {
-    this.spinner.show();
+    this.isLoader = true;
     this.auth.get('users').subscribe(
       (response) => {
         // console.log(response);
         if (response['data']['data'].length > 0) {
           this.allUsers = response['data']['data'];
           // console.log(this.allUsers);
-          this.spinner.hide();
+          this.isLoader = false;
         } else {
-          this.spinner.hide();
+          this.isLoader = false;
           this.alert.info('No Data available yet');
         }
       },
       (error) => {
-        this.spinner.hide();
+        this.isLoader = false;
         this.alert.error(error['message']);
       }
     );

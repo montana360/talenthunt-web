@@ -21,7 +21,7 @@ export class TermsComponent implements OnInit {
 
   compID: any;
   user_id: any;
-  isLoading: any;
+  isLoading = false;
   viewcompetition: any;
   participants: any;
   comData: any;
@@ -40,6 +40,7 @@ export class TermsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     // this.getAllCompetitions();
     // this.compID = this.route.snapshot.paramMap.get("id");
     this.compID = 2;
@@ -50,11 +51,11 @@ export class TermsComponent implements OnInit {
   }
 
   getAllCompetitions() {
-    this.spinner.show();
+    this.isLoading = true;
     this.auth.get("competitions").subscribe(
       response => {
         console.log(response);
-        this.spinner.hide();
+        this.isLoading = false;
         if (response["data"] !== null || response["data"] !== undefined) {
           // this.competition = response["data"];
         } else {

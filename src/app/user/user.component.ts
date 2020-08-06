@@ -68,6 +68,7 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLoading =true
     this.ID = this.route.snapshot.paramMap.get('id');
     this.user_id = localStorage.getItem('userID');
     this.v(this.ID);

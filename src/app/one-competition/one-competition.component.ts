@@ -117,7 +117,7 @@ export class OneCompetitionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.isLoading = true;
     // this.craftID = this.allCraft.id;
     this.compID = this.route.snapshot.paramMap.get("id");
     this.user_id = localStorage.getItem('userID');

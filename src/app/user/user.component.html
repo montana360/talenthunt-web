@@ -1,6 +1,6 @@
 <div class="container-fluid col-md-9 con">
   <div class="card0 border-0">
-    <nav class="navbar navbar-expand-lg navbar-light  mb-3" style="background-color: white;">
+    <nav class="navbar navbar-expand-lg navbar-light  mb-3" style="background-color: white;margin-bottom: 0px;">
       <a class="navbar-brand " (click)="homePage()"><img src="assets/img/22.png" ngbTooltip="Talent hunt"
         height="50" width="150"></a>
 
@@ -39,8 +39,9 @@
       </div>
     </nav>
     <img src="assets/img/41.png" alt="" height="6" width="100%">
+    <br><br>
 
-    <div class="row d-flex justify-content-center ">
+    <div *ngIf="!isLoading" class="row d-flex justify-content-center ">
       <div class="justify-content-center col-md-3 d-flex">
         <img *ngIf="viewuser?.profile_image !== null" src="{{viewuser?.profile_image}}" class="avatar" alt="">
         <img *ngIf="viewuser?.profile_image === null" src="assets/img/default-avatar.png" class="avatar" alt="">
@@ -89,18 +90,24 @@
         </div>
       </div>
     </div>&nbsp;
-    <div class="row justify-content-center">
+    <div *ngIf="!isLoading" class="row justify-content-center">
       <div class="justify-content-center col-md-5" style="margin-right: 310px;">
         <h6><b>{{viewuser?.fullname}}</b></h6>
         <p>{{viewuser?.username}}</p>
      </div>
     </div>
-    <div class="row justify-content-center ">
+    <div *ngIf="!isLoading" class="row justify-content-center ">
       <div class="justify-content-center col-md-5" style="margin-right: 310px;">
         <p>{{viewuser?.personal_message}}</p>
      </div>
     </div>
     <br><br>
+    <div *ngIf="isLoading" class="d-flex justify-content-center">
+      <br><br><br><br><br><br><br><br><br>
+      <div class="spinner-grow" style="color: rgb(109, 8, 109);" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
 
     <div *ngIf="!isLoading" class="row">
       <div class="col-md-10 move">
@@ -241,7 +248,7 @@
         </ngb-tabset>
       </div>
     </div>
-  <footer class="footer page-footer"><br>
+  <footer *ngIf="!isLoading" class="footer page-footer"><br>
     <div class="container">
       <nav>
         <span class="row">
