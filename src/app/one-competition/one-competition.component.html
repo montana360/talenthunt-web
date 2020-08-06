@@ -50,7 +50,8 @@
         <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfi"
           (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
           (beforeChange)="beforeChange($event)">
-            <div ngxSlickItem class="card" *ngFor="let craft of allCraft" >
+            <div ngxSlickItem class="card" style="height: 450px;" *ngFor="let craft of allCraft">
+              <span *ngIf="craft">{{ voteCount(craft) }}</span>
               <video (click)="openCraft(singleCraft);viewcraft(craft.id)" class="card-img-top" style="height: 20rem;"  >
                 <source src="{{craft.file_url}}" type="video/mp4">
             </video>
@@ -69,11 +70,18 @@
                     <p class="card-text" style="color: black;font-size: small;">{{craft.caption}}</p>
                     <b class="card-text" style="color: black;font-size: small;">{{craft.likes.length || '0'}} like(s) and {{craft.comments.length || '0'}} comment</b>
                   </div>
-                  <div class="col-md-2" *ngIf ="craft.craft_type !== 'AUDITION'" style="text-align: right;">
-                    <a class="btn buts" (click)="voteContent(votepost);viewcraf(craft.id)">vote</a>
+                  <div class="col-md-4" *ngIf ="craft.craft_type !== 'AUDITION'" style="text-align: right;">
+                    <b style="color: green">{{ numVotes || '0' }} Votes</b>
                     <div class="w-100"></div>
-                    <span  style="color: black; font-size: small;"><b>{{craft?.votes.length || '0'}} votes</b></span>
+                    <a class="btn buts" (click)="voteContent(votepost);viewcraf(craft.id)">Vote</a>
+                    <div class="w-100"></div>
+                    <span  style="color: black; font-size: small;"><b>{{craft?.votes.length || '0'}} voter(s)</b></span>
                   </div>
+
+                  <div class="col-md-4" *ngIf ="craft.craft_type == 'AUDITION'" style="text-align: right;">
+                    <span  style="color: green; font-size: small;"><b>AUDITION</b></span>
+                  </div>
+
                 </div>
               </div>
             </div>&nbsp;

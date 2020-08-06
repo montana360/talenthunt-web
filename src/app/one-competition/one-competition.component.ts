@@ -26,6 +26,7 @@ export class OneCompetitionComponent implements OnInit {
   isData: any;
   isVotes:any;
   myArray = [];
+  numVotes = 0;
 
   // comment variable declaration
   craftcommentDetails = {
@@ -548,6 +549,10 @@ openCraft(singleCraft) {
         this.alert.error('Getting data unsuccessful. Please try again');
       }
     );
+  }
+
+  voteCount(craft) {
+    this.numVotes = craft['votes'].reduce((accum,item) => accum + item.num_of_votes, 0)
   }
 
 }
