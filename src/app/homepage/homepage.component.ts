@@ -30,6 +30,9 @@ import {
   HttpParams,
 } from '@angular/common/http';
 
+import { ClipboardService } from 'ngx-clipboard'
+
+
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
@@ -40,14 +43,22 @@ export class HomepageComponent implements OnInit {
   commentForm: FormGroup;
   postForm: FormGroup;
   searchForm: FormGroup;
+  craftcommentForm: FormGroup;
+  voteForm: FormGroup;
+
 
   public isMenuCollapsed = true;
+
   // variable declaration
+  craftID: any;
+  amount: any;
   id: string;
   username: string;
   url: any;
+  craft: any;
   user_id: any;
   user: any;
+  viewcompetition:any;
   UserPosts: any;
   allUsers: any;
   vuser: any;
@@ -65,6 +76,7 @@ export class HomepageComponent implements OnInit {
   searchList = null;
   isMineLike = false;
   isFound = false;
+  allCraft: any;
 
   prev_page = null;
   next_page = null;
@@ -93,6 +105,13 @@ export class HomepageComponent implements OnInit {
     post_id: '',
     message: '',
   };
+  // comment variable declaration
+  craftcommentDetails = {
+    user_id: '',
+    craft_id: '',
+    message: '',
+  };
+
 
   // Post Data
   postData = {
@@ -118,6 +137,17 @@ export class HomepageComponent implements OnInit {
 
   slideConfig = { slidesToShow: 4, slidesToScroll: 4 };
 
+  voteDetails = {
+    user_id: '',
+    craft_id: '',
+    num_of_votes: '',
+    // item_type: 'vote for content',
+    msisdn: '',
+    network: '',
+    amount: null,
+    // client_request_id: null
+  };
+
   constructor(
     private modalService: NgbModal,
     private auth: AuthService,
@@ -125,17 +155,35 @@ export class HomepageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
     private router: Router,
-    private http: HttpClient
-  ) {}
+    private http: HttpClient,
+    private clipboardService: ClipboardService
+  ) {
+    this.voteForm = formBuilder.group({
+      num_of_votes: [null, Validators.compose([Validators.required])],
+      network: [null, Validators.compose([Validators.required])],
+      momo_number: [null, Validators.compose([Validators.required])],
+      msisdn: [null, Validators.compose([Validators.required])],
+      amount: [null, Validators.compose([Validators.required])],
+    });
+    this.craftcommentForm = this.formBuilder.group({
+      user_id: [null],
+      message: [null,Validators.required],
+    });
+  }
 
   ngOnInit(): void {
+
+    console.log(this.router.url);
+    // console.log(window.location.href);
+
     this.isLoading = true;
     this.user_id = localStorage.getItem('userID');
     this.getUsers();
+    // this.vi(this.compID);
     this.user = JSON.parse(localStorage.getItem('user'));
     // console.log(this.user);
     this.getpost();
-
+    this.getCraft();
     var body = document.getElementsByTagName('body')[0];
     body.classList.add('profile-page');
     var navbar = document.getElementsByTagName('nav')[0];
@@ -158,13 +206,61 @@ export class HomepageComponent implements OnInit {
     this.searchForm = this.formBuilder.group({
       search: [null],
     });
+
+    this.craftcommentForm = this.formBuilder.group({
+      user_id: [null],
+      message: [null,Validators.required],
+    });
   }
+
+  copy(text){
+    this.clipboardService.copyFromContent(text);
+    this.alert.success('Url copied');
+    // this.alert.success(text);
+  }
+
+
   // set comment data
   setCommentData() {
     this.commentDetails.user_id = this.commentForm.controls['user_id'].value;
     this.commentDetails.message = this.commentForm.controls['message'].value;
   }
+ // set comment data
+   setCraftCommentData() {
+    this.craftcommentDetails.user_id = this.craftcommentForm.controls['user_id'].value;
+    this.craftcommentDetails.message = this.craftcommentForm.controls['message'].value;
+  }
 
+  addCraftComment(id) {
+    this.spinner.show();
+    const data = {
+      craft_id: id,
+      user_id: parseInt(localStorage.getItem('userID'), 10),
+      message: this.craftcommentForm.controls['message'].value,
+    };
+    console.log(data);
+    this.auth.update('craft_comment', localStorage.getItem('userID'), data).subscribe(
+      (response) => {
+        console.log(response);
+        this.spinner.hide();
+        if (response !== null || response !== undefined) {
+          this.alert.success('Comment posted successfully');
+          this.viewcraft(id);
+        }
+      },
+      (error) => {
+        // console.log(error);
+        this.spinner.hide();
+        if (error.status === 500) {
+          this.spinner.hide();
+          this.alert.warning('Internal Server Error');
+        } else {
+          this.spinner.hide();
+          this.alert.error('Comment not posted Try again later');
+        }
+      }
+    );
+  }
   // Checked if you liked a post
   trackLikes(post) {
     this.isData = post['likes'].filter((like) => {
@@ -711,4 +807,123 @@ export class HomepageComponent implements OnInit {
   fell(id) {
     this.router.navigate(['/user/',id]);
   }
+   // Get all craft
+getCraft() {
+  this.isLoading = true;
+  this.auth.get('crafts').subscribe(
+    response => {
+      // console.log(response);
+      if (response['data']['data'].length > 0) {
+        this.allCraft = response['data']['data'];
+        console.log(this.allCraft);
+        this.isLoading = false;
+      } else {
+        this.isLoading = false;
+        this.alert.info('No Data available yet');
+      }
+    },
+    error => {
+      this.spinner.hide();
+      this.alert.error(error['message']);
+    }
+  );
+}
+openCraft(singleCraft) {
+  this.modalService.open(singleCraft, {   size: 'lg' });
+}
+viewcraft(ev) {
+  this.auth.show('craft', ev).subscribe(
+    (response) => {
+      console.log(response);
+      this.craft = response['data'];
+      console.log(this.craft);
+    },
+    (error) => {
+      console.log(error);
+      this.alert.error('Getting data unsuccessful. Please try again');
+    }
+  );
+}
+voteContent(votepost) {
+  this.modalService.open(votepost, {  size: 'sm',centered:true });
+}
+viewcraf(ev) {
+  this.auth.show('craft', ev).subscribe(
+    (response) => {
+      console.log(response);
+      this.craft = response['data'][0];
+      console.log(this.craft);
+      this.craftID = this.craft.id;
+      console.log(this.craftID);
+    },
+    (error) => {
+      console.log(error);
+      this.alert.error('Getting data unsuccessful. Please try again');
+    }
+  );
+}
+ // building vote data
+ buildVData() {
+  this.voteDetails.amount = this.amount * this.voteForm.controls['num_of_votes'].value;
+  // this.voteDetails.client_request_id = this.clientID;
+  this.voteDetails.craft_id = this.craftID;
+  this.voteDetails.network =  this.voteForm.controls['network'].value;
+  this.voteDetails.num_of_votes = this.voteForm.controls['num_of_votes'].value;
+  this.voteDetails.user_id = localStorage.getItem('userID');
+
+  const msisdn = this.voteForm.controls['momo_code'].value + this.voteForm.controls['momo_number'].value;
+  this.voteDetails.msisdn = msisdn;
+
+  // const msisdn = this.joinComForm.get('momo_code').value + this.joinComForm.get('momo_number').value;
+  // this.paymentDetails.msisdn = msisdn;
+  // this.paymentDetails.amount = this.amount.toString();
+  // this.paymentDetails.ClientRequestId = this.clientID;
+  // this.paymentDetails.network = this.joinComForm.get('momo_network').value;
+}
+
+vote() {
+  // this.buildData();
+  const data = {
+    craft_id: this.craftID,
+    user_id: parseInt(localStorage.getItem('userID'), 10),
+    msisdn: parseInt('233' + this.voteForm.controls['momo_number'].value),
+    num_of_votes: this.voteForm.controls['num_of_votes'].value,
+    amount: this.amount * this.voteForm.controls['num_of_votes'].value,
+    network: this.voteForm.controls['network'].value,
+
+  };
+  console.log(data);
+   this.auth.update('vote', localStorage.getItem('userID'), data).subscribe(
+      (response) => {
+        console.log(response);
+        this.spinner.hide();
+        if (response['success'] === false) {
+          this.alert.warning(response['message']);
+        } else {
+          this.alert.success('Thanks for voting');
+          this.getCraft();
+        }
+      },
+      (error) => {
+        console.log(error);
+        this.alert.warning('Error sending data');
+      }
+    );
+}
+vi(id) {
+  this.isLoading = true;
+  this.auth.show('competition', id).subscribe(
+    (response) => {
+      this.isLoading = false;
+      this.viewcompetition = response['data'][0];
+      console.log(this.viewcompetition);
+      this.amount = this.viewcompetition.vote_fees;
+      console.log(this.amount);
+    },
+    (error) => {
+      this.isLoading = false;
+      this.alert.error('Getting data unsuccessful. Please try again');
+    }
+  );
+}
 }

@@ -55,7 +55,7 @@
               <video (click)="openCraft(singleCraft);viewcraft(craft.id)" class="card-img-top" style="height: 20rem;"  >
                 <source src="{{craft.file_url}}" type="video/mp4">
             </video>
-            <img class="fish" (click)="openCraft(singleCraft);viewcraft(craft.id)"  width="80" src="assets/img/160.png">
+            <!-- <img class="fish" (click)="openCraft(singleCraft);viewcraft(craft.id)"  width="80" src="assets/img/160.png"> -->
               <!-- <img class="card-img-top" src="assets/img/bg4.jpg" alt="Card image cap" style="height: 13rem;"> -->
               <div class="card-body">
                 <div class="row">
@@ -93,7 +93,7 @@
       <span>
         <div class="container"*ngIf="!isMineCompetition" >
           <div class="row center-content">
-              <div style="text-align: center; align-self: center;margin-left: 350px;">
+              <div style="text-align: center; align-self: center;margin: auto;">
                 <button class="button" *ngIf="isPart" (click)="join(viewcompetition?.id)">
                   <span>Join Competition</span>
                 </button>
@@ -144,8 +144,10 @@
         <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig"
           (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
           (beforeChange)="beforeChange($event)">
-          <div ngxSlickItem *ngFor="let slide of slides" class="slide">
-            <img  src="{{ slide.img }}" alt="" height="340px" width="95%">
+          <div ngxSlickItem  *ngFor="let craft of allCraft" class="slide">
+            <img (click)="openCraft(singleCraft);viewcraft(craft.id)"  *ngIf="craft.video_thumbnail !== null" src="https://talenthunt.vokacom.net/uploads/{{ craft.video_thumbnail}}" alt="" height="340px" width="95%">
+            <img (click)="openCraft(singleCraft);viewcraft(craft.id)" *ngIf="craft.video_thumbnail === null" src="assets/img/favicon.png" alt="" height="340px" width="75%">
+
           </div>
         </ngx-slick-carousel>
         <br>
@@ -320,6 +322,7 @@
 <ng-template #singleCraft Let-modal>
   <div class="row" *ngFor="let cra of craft">
     <span *ngIf="cra">{{ trackLikes(cra) }}</span>
+    <!-- <span *ngIf="cra">{{ voteC(cra) }}</span> -->
 		<div class="col-sm-6 left-side">
       <video  class="card-img-top"  style="height: 30rem;" controls >
         <source src="{{cra.file_url}}" type="video/mp4">
@@ -334,16 +337,18 @@
             <img *ngIf="cra.user.profile_image === null" src="assets/img/default-avatar.png"
             class="avatar3"  alt="">
         </div>
-        <div class="col-md-7 div-holder ">
+        <div class="col-md-5 div-holder ">
           <h6 class="card-title" style="color: black;margin-top: auto;font-size: small;">{{cra.user.fullname}}</h6>
           <span class="card-text" style="color: black;font-size: small;">{{cra.caption}}</span>
           <div class="w-100"></div>
           <b class="card-text" style="color: black;font-size: small;">{{cra.likes.length || '0'}} like(s)</b>
         </div>
-        <div class="col-md-2" style="text-align: right;">
+        <div class="col-md-4" >
+          <!-- <b style="color: green">{{ numVotes || '0' }} Votes</b>
+          <div class="w-100"></div> -->
           <a class="btn buts" (click)="voteContent(votepost);viewcraf(cra.id)">vote</a>
           <div class="w-100"></div>
-          <span style="color: black; font-size: 11px;"><b>{{cra.votes.length || '0'}} votes</b></span>
+          <span style="color: black; font-size: 11px;"><b>{{cra.votes.length || '0'}} voter(s)</b></span>
         </div>
       </div><br>
 <!--Form with header-->

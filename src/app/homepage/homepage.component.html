@@ -101,9 +101,9 @@
               <h6 class="card-title" (click)="fell(post?.user_id)">{{post.user.fullname}}</h6>
               <p class="card-text">{{post?.location}}</p>
             </div>
-            <div class="col-md-2" style="text-align: right;">
+            <!-- <div class="col-md-2" style="text-align: right;">
               <img src="assets/img/49.png" height="4" width="30">
-            </div>
+            </div> -->
           </div>
         </div>
         <a>
@@ -136,7 +136,8 @@
             <b>{{post?.likes.length || '0'}}</b>&nbsp;&nbsp;
             <img style="cursor: pointer;" src="assets/img/42.png" height="30" width="30">&nbsp;&nbsp;
             <b>{{post?.comments.length || '0'}}</b>&nbsp;&nbsp;
-            <img style="cursor: pointer;" src="assets/img/45.png" height="30" width="30">
+
+            <img style="cursor: pointer;" (click)="copy(post?.file_url)" src="assets/img/45.png" height="30" width="30">
           </div>
 
           <!-- <div class="row">

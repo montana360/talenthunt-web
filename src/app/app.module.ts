@@ -31,6 +31,8 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ContactComponent } from './contact/contact.component';
 import { UserFollowersPipe } from './pipes/user-followers.pipe';
 import { ResponsiveModule } from 'ngx-responsive';
+import { ClipboardModule } from 'ngx-clipboard';
+
 
 const config = {
   breakPoints: {
@@ -74,7 +76,8 @@ const config = {
     NgxSpinnerModule,
     CarouselModule,
     // Specify your library as an import
-    SlickCarouselModule
+    SlickCarouselModule,
+    ClipboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
