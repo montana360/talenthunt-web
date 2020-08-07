@@ -71,7 +71,7 @@
                     <b class="card-text" style="color: black;font-size: small;">{{craft.likes.length || '0'}} like(s) and {{craft.comments.length || '0'}} comment</b>
                   </div>
                   <div class="col-md-4" *ngIf ="craft.craft_type !== 'AUDITION'" style="text-align: right;">
-                    <b style="color: green">{{ numVotes || '0' }} Votes</b>
+                    <b style="color: green;font-size: small;">{{ numVotes || '0' }} Vote(s)</b>
                     <div class="w-100"></div>
                     <a class="btn buts" (click)="voteContent(votepost);viewcraf(craft.id)">Vote</a>
                     <div class="w-100"></div>
@@ -173,10 +173,10 @@
 
             FOLLOW US:
             <div class="w-100"></div>
-            <a>
+            <a href="https://www.instagram.com/talenthunt_live/">
               <img src="assets/img/17.png" height="20" width="20">
             </a>&nbsp;
-            <a>
+            <a href="https://twitter.com/TalenthuntL">
               <img src="assets/img/18.png" height="20" width="20">
             </a>&nbsp;
             <a href="">
