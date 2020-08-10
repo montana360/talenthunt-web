@@ -15,6 +15,10 @@ body {
 .card2 {
   margin: 0px 50px
 }
+.des{
+  color: white;
+  font-size: 20px;
+}
 
 .logo {
   width: 150px;

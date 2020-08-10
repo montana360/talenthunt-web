@@ -363,7 +363,6 @@ a {
     scrollbar-color: #512da8 #F5F5F5;
     }
 
-
     .square::-webkit-scrollbar-track {
     border-radius: 0 !important; }
 
@@ -497,3 +496,42 @@ a {
     border: 3px solid rgba(54, 8, 85, 0.829);
 
     }
+    form.example button {
+      float: left;
+      /* width: 20%; */
+      /* padding: 10px; */
+      background: transparent;
+      color: white;
+      font-size: 17px;
+      /* border: 1px solid grey; */
+      border: none; /* Prevent double borders */
+      cursor: pointer;
+    }
+    form.example button:disabled {
+      background: transparent;
+      cursor: progress;
+    }
+
+    /* Clear floats */
+    form.example::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    .for {
+      /* This bit sets up the horizontal layout */
+      display:flex;
+      flex-direction:row;
+
+      /* This bit draws the box around it */
+      border:1px solid grey;
+
+      /* I've used padding so you can see the edges of the elements. */
+      padding:2px;
+    }
+    .example-2 {
+      position: relative;
+      overflow-y: scroll;
+      height: 100px;
+     }

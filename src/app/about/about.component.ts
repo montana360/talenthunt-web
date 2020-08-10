@@ -17,4 +17,7 @@ export class AboutComponent implements OnInit {
   homePage(){
     this.router.navigate(['/homepage/']);
   }
+  contact(){
+    this.router.navigate(['/contact/']);
+  }
 }

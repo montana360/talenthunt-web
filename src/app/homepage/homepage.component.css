@@ -5,6 +5,14 @@
 .con{
   background-image: url('/assets/img/54.png');
 }
+.btns {
+  border: none;
+  background-color: white;
+  color: blue;
+  padding: 7px 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
 .col-md-3 {
   flex: 0 0 2%;
   max-width: 25%;
@@ -29,7 +37,7 @@
   height: 25px;
   border-radius: 60%;
   border: 3px solid rgba(54, 8, 85, 0.829);
-  
+
 }
 .card{
   /* transition: none !important; */
@@ -40,31 +48,21 @@
   box-sizing: border-box;
 }
 
-/* Style the search field */
-form.example input[type=text] {
-  padding: 10px;
-  font-size: 17px;
-  border: 1px solid grey;
-  float: left;
-  width: 80%;
-  background: #f1f1f1;
-}
-
 /* Style the submit button */
 form.example button {
   float: left;
-  width: 20%;
-  padding: 10px;
-  background: #2196F3;
+  /* width: 20%; */
+  /* padding: 10px; */
+  background: transparent;
   color: white;
   font-size: 17px;
-  border: 1px solid grey;
-  border-left: none; /* Prevent double borders */
+  /* border: 1px solid grey; */
+  border: none; /* Prevent double borders */
   cursor: pointer;
 }
-
-form.example button:hover {
-  background: #0b7dda;
+form.example button:disabled {
+  background: transparent;
+  cursor: progress;
 }
 
 /* Clear floats */
@@ -73,19 +71,7 @@ form.example::after {
   clear: both;
   display: table;
 }
-.butn {
-  background-color: #d10924; /* Green */
-  border: none;
-  color: white;
-  padding: 12px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 12px;
-}
+
 .for {
   /* This bit sets up the horizontal layout */
   display:flex;
@@ -97,16 +83,13 @@ form.example::after {
   /* I've used padding so you can see the edges of the elements. */
   padding:2px;
 }
-button {
-  /* Just a little styling to make it pretty */
+/* button {
   border:1px solid blue;
   background:blue;
   color:white;
-}
+} */
 input {
-  /* Tell the input to use all the available space */
   flex-grow:2;
-  /* And hide the input's outline, so the form looks like the outline */
   border:none;
 }
 
@@ -132,6 +115,19 @@ input:focus {
   cursor: pointer;
   border-radius: 12px;
 }
+.butn {
+  background-color: #9c0404; /* Green */
+  border: none;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+}
 .button {
   border-radius: 20px;
   background-image: url('/assets/img/12.png');
@@ -145,15 +141,6 @@ input:focus {
   transition: all 0.5s;
   cursor: pointer;
   margin: 5px;
-}
-.loader {
-  width: 5rem;
-  height: 5rem;
-  border: 0.6rem solid #999;
-  border-bottom-color: transparent;
-  border-radius: 50%;
-  margin: 0 auto;
-  animation: loader 500ms linear infinite;
 }
 .page-footer{
   background-color: rgb(88, 13, 88);
@@ -227,36 +214,8 @@ cursor: pointer;
   width: 100%;
 }
 
-@media only screen and (min-width: 600px) {
-  /* For tablets: */
-  .col-s-1 {width: 8.33%;}
-  .col-s-2 {width: 16.66%;}
-  .col-s-3 {width: 25%;}
-  .col-s-4 {width: 33.33%;}
-  .col-s-5 {width: 41.66%;}
-  .col-s-6 {width: 50%;}
-  .col-s-7 {width: 58.33%;}
-  .col-s-8 {width: 66.66%;}
-  .col-s-9 {width: 75%;}
-  .col-s-10 {width: 83.33%;}
-  .col-s-11 {width: 91.66%;}
-  .col-s-12 {width: 100%;}
-}
-@media only screen and (min-width: 768px) {
-  /* For desktop: */
-  .col-md-1 {width: 8.33%;}
-  .col-md-2 {width: 16.66%;}
-  .col-md-3 {width: 25%;}
-  .col-md-4 {width: 33.33%;}
-  .col-md-5 {width: 41.66%;}
-  .col-md-6 {width: 50%;}
-  .col-md-7 {width: 58.33%;}
-  .col-md-8 {width: 66.66%;}
-  .col-md-9 {width: 75%;}
-  .col-md-10 {width: 83.33%;}
-  .col-md-11 {width: 91.66%;}
-  .col-md-12 {width: 100%;}
-}
+
+
 .move[_ngcontent-ikv-c125] {
   /* margin-left: 00px; */
   cursor: pointer;
@@ -271,3 +230,24 @@ cursor: pointer;
       content: attr(data-src-800px, url);
   }
 }
+.scrollbar-deep-purple::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: #512da8; }
+
+  .scrollbar-deep-purple {
+  scrollbar-color: #512da8 #F5F5F5;
+  }
+  .square::-webkit-scrollbar-track {
+    border-radius: 0 !important; }
+
+    .square::-webkit-scrollbar-thumb {
+    border-radius: 0 !important; }
+
+    .thin::-webkit-scrollbar {
+    width: 6px; }
+  .example-1 {
+    position: relative;
+    overflow-y: scroll;
+    height: 100px;
+   }

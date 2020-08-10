@@ -169,6 +169,10 @@ export class HomepageComponent implements OnInit {
       user_id: [null],
       message: [null,Validators.required],
     });
+    this.commentForm = this.formBuilder.group({
+      user_id: [null],
+      message: [null,Validators.required],
+    });
   }
 
   ngOnInit(): void {
@@ -192,7 +196,7 @@ export class HomepageComponent implements OnInit {
     // building comment form
     this.commentForm = this.formBuilder.group({
       user_id: [null],
-      message: [null],
+      message: [null,Validators.required],
     });
 
     // post data form
@@ -638,6 +642,7 @@ export class HomepageComponent implements OnInit {
     this.url = ['next_page_url'];
   }
   view(ev) {
+    this.isShow = !this.isShow;
     this.auth.show('post', ev).subscribe(
       (response) => {
         console.log(response['data']);
@@ -765,6 +770,18 @@ export class HomepageComponent implements OnInit {
       }
     );
   }
+  // view(ev) {
+  //   this.auth.show('post', ev).subscribe(
+  //     (response) => {
+  //       this.Posts = response['data'];
+  //       console.log(this.Posts);
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //       this.alert.error('Getting data unsuccessful. Please try again');
+  //     }
+  //   );
+  // }
 
   addSlide() {
     this.slides.push({ img: 'http://placehold.it/350x150/777777' });

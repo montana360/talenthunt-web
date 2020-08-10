@@ -38,7 +38,7 @@
     <div *ngIf="!isLoading" class="nine">
       <div class="container"><br>
         <div class="content-center ">
-          <h1 class="title" style="font-size: 40px;text-align: center;color: #fff;">Teams and Conditions</h1>
+          <h1 class="title" style="font-size: 40px;text-align: center;color: #fff;">Terms and Conditions</h1>
           <div class="text-center">
             <div class="row">
               <div class="col-6 offset-3">
@@ -46,8 +46,8 @@
                   These Terms of Use govern your use of Talent Hunt and provide information about the Talent Hunt
                   Platform and its Service, as outlined below.
                   When you create a Talent Hunt account or use Talent Hunt, you agree to these terms.
-                  The Talent Hunt Service is provided to you by Tekhype, Ltd.
-                  These Terms of Use therefore constitute an agreement between you and Tekhype, Ltd.... <a style="color: blue; font: 1em sans-serif;" (click)="openServices(terms)">Read More</a></h5>
+                  The Talent Hunt Service is provided to you by Tekhype Ltd.
+                  These Terms of Use therefore constitute an agreement between you and Tekhype Ltd.... <a style="color: blue; font: 1em sans-serif;" (click)="openServices(terms)">Read More</a></h5>
               </div>
             </div>
 
@@ -149,8 +149,8 @@
 
   <!-- terms and condition modal -->
   <ng-template #terms let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Terms and Conditions</h4>
+    <div class="modal-header" style="background-color: transparent;">
+      <h4 class="modal-title"  id="modal-basic-title">Terms and Conditions</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -159,8 +159,10 @@
       <div class="justify">
         <p>These Terms of Use govern your use of Talent Hunt and provide information about the Talent Hunt Platform and
           its Service, as outlined below. When you create a Talent Hunt account or use Talent Hunt, you agree to these
-          terms. The Talent Hunt Service is provided to you by Tekhype, Ltd. These Terms of Use therefore constitute an
-          agreement between you and Tekhype, Ltd. The Talent Hunt Service We at Talent Hunt agree to provide you with
+          terms. The Talent Hunt Service is provided to you by Tekhype Ltd. These Terms of Use therefore constitute an
+          agreement between you and Tekhype Ltd.</p>
+          <b>The Talent Hunt Service</b>
+          <p>We at Talent Hunt agree to provide you with
           the Talent Hunt Service. Which includes all of the Talent Hunt products features, applications, services,
           technologies, and software that we provide to advance Talent Hunt’s mission: Redefining talent discovery and
           growth. The Talent Hunt Service is made up of the following aspects (the Service): A personal billboard to

@@ -92,13 +92,13 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-3" style="align-items: flex-end;">
-              <img *ngIf="post.user.profile_image !== null" src="{{post.user.profile_image}}" class="avatar1"
+              <img style="cursor: pointer;" (click)="fell(post?.user_id)" *ngIf="post.user.profile_image !== null" src="{{post.user.profile_image}}" class="avatar1"
                alt="">
-              <img *ngIf="post.user.profile_image === null" src="assets/img/default-avatar.png"
+              <img style="cursor: pointer;" (click)="fell(post?.user_id)" *ngIf="post.user.profile_image === null" src="assets/img/default-avatar.png"
                 class="avatar1"  alt="">
             </div>
             <div class="col-md-7 div-holder " >
-              <h6 class="card-title" (click)="fell(post?.user_id)">{{post.user.fullname}}</h6>
+              <h6 class="card-title" style="cursor: pointer;" (click)="fell(post?.user_id)">{{post.user.fullname}}</h6>
               <p class="card-text">{{post?.location}}</p>
             </div>
             <!-- <div class="col-md-2" style="text-align: right;">
@@ -155,10 +155,11 @@
             <div class="w-100"></div>
             <span>{{post?.caption}}</span>
             <div class="w-100"></div>&nbsp;<br>
-            <a style="color: blue;cursor: pointer" *ngIf="post?.comments.length > 0" (click)="toggleDisplay()">view
+            <a style="color: rgb(48, 10, 83);cursor: pointer" *ngIf="post?.comments.length > 0" (click)="view(post.id)">view
               comments</a>
           </div>
-          <div *ngIf="isShow">
+          <div *ngIf="isShow" class="card border-0 example-1 scrollbar-deep-purple bordered-deep-purple thin">
+            <div class="card-body">
             <div class="row pa-move" *ngFor="let comment of post.comments">
               <div class="col-md-1">
                 <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt=""
@@ -175,11 +176,12 @@
               </div>
             </div>
           </div>
+          </div>
         </div>
         <div class="card-footer">
           <form class="example for" [formGroup]="commentForm">
-            <input class="mt-auto" placeholder="comment" formControlName="message" />
-            <a style="color: blue;" (click)="addComment(post.id);commentForm.reset();"><b>Post</b></a>
+            <input class="mt-auto" placeholder="comment" formControlName="message">
+            <button [disabled]="!commentForm.valid" style="color: rgb(48, 10, 83); cursor: pointer;" (click)="addComment(post.id);commentForm.reset();"><b>Post</b></button>
           </form>
         </div><br><br>
       </div>

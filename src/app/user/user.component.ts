@@ -72,7 +72,8 @@ export class UserComponent implements OnInit {
     this.ID = this.route.snapshot.paramMap.get('id');
     this.user_id = localStorage.getItem('userID');
     this.v(this.ID);
-    this.getfollowers(this.ID);
+    this.getfollowers
+    (this.ID);
     this.getUserpost(this.ID);
 
     this.commentForm = this.formBuilder.group({
