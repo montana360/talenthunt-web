@@ -190,7 +190,15 @@
                         <p class="card-text">{{post?.location}}</p>
                       </div>
                       <!-- <div class="col-md-2" style="text-align: right;">
-                        <img src="assets/img/49.png" height="4" width="30">
+                        <div ngbDropdown class="dropdown ">
+                          <a class="nav-link dropdown-toggle" ngbDropdownToggle>
+                            <img src="assets/img/49.png" width="30">
+                          </a>
+                          <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right page-nav">
+                            <a class="dropdown-item" (click)="copy(post?.file_url)">Share Post</a>
+                            <a class="dropdown-item" (click)="openReportContent(report)">Report Post</a>
+                          </div>
+                        </div>
                       </div> -->
                     </div>
                   </div>
@@ -298,44 +306,40 @@
     </footer>
   </div>
 
-  <!-- add post -->
-  <ng-template #postModal let-modal>
-    <div class="modal-content">
-      <div class="modal-body">
+ <!-- post modal start-->
+<ng-template #postModal let-modal>
+  <div class="modal-content">
+    <div class="modal-body justify-content-center">
 
-        <img [src]="selectedFile" *ngIf="format==='IMAGE' && selectedFile" style="height: 240px; width:240px">
-        <br />
-        <video [src]="selectedFile" *ngIf="format==='VIDEO' && selectedFile" style="height: 240px; width:240px"
-          controls></video> <br />
+      <img [src]="selectedFile" *ngIf="format==='IMAGE' && selectedFile" style="height: 240px; width:240px">
+      <br />
+      <video [src]="selectedFile" *ngIf="format==='VIDEO' && selectedFile" style="height: 240px; width:240px"
+        controls></video> <br />
 
-        <input *ngIf="!selectedFile" type="image" src="assets/img/103.png" width="100px" style="margin-left: 80px;"
-          (click)="fileInput.click()" />
+      <input *ngIf="!selectedFile" type="image" src="assets/img/103.png" width="100px" style="margin-left: 80px;"
+        (click)="fileInput.click()" />
 
-        <!-- <img [src]="selectedFile" *ngIf="selectedFile" > -->
 
-        <br><br>
-
-        <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
-
-        <div class="row">
-          <div class="col-md-12">
-            <form [formGroup]="postForm">
-              <div class="form-group">
-                <input type="text" id="input-age" class="form-control form-control-alternative"
-                  formControlName="caption" placeholder="caption">
-              </div>
-            </form>
-          </div>
+      <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+      <div class="row">
+        <div class="col-md-12">
+          <form [formGroup]="postForm">
+            <div class="form-group">
+              <input type="text" id="input-age" class="form-control form-control-alternative" formControlName="caption"
+                placeholder="caption">
+            </div>
+          </form>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="but btn btn-danger" *ngIf="selectedFile" (click)="cancel()">Cancel</button>
-        <button type="button" class=" butn  btn-warning" *ngIf="!selectedFile" (click)="modal.close()">Close</button>
-        <button type="button" class="but" (click)="createPost();modal.close()">Post</button>
-      </div>
     </div>
-  </ng-template>
-  <!-- add post end -->
+    <div class="modal-footer">
+      <button type="button" class="but btn btn-danger" *ngIf="selectedFile" (click)="cancel()">Cancel</button>
+      <button type="button" class="butn btn-warning" *ngIf="!selectedFile" (click)="modal.close()">Close</button>
+      <button type="button" class="but" (click)="createPost();modal.close()">Post</button>
+    </div>
+  </div>
+</ng-template>
+<!-- post modal end -->
 
 
   <!-- logout modal start -->

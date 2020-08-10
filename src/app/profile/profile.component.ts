@@ -15,6 +15,7 @@ import { AuthService } from '../services/auth.service';
 import { AlertService } from '../services/alert.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ClipboardService } from 'ngx-clipboard'
 
 @Component({
   selector: 'app-profile',
@@ -93,7 +94,8 @@ export class ProfileComponent implements OnInit {
     private alert: AlertService,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
-    conTabfig: NgbTabsetConfig
+    conTabfig: NgbTabsetConfig,
+    private clipboardService: ClipboardService
   ) {
     this.imageForm = formBuilder.group({
       profile_image: [
@@ -396,6 +398,9 @@ export class ProfileComponent implements OnInit {
 
   opentContent(eitModal) {
     this.modalService.open(eitModal, { size: 'md', centered: true });
+  }
+  openReportContent(report) {
+    this.modalService.open(report, {centered: true, size: 'sm' });
   }
 
   onLogout() {
@@ -732,5 +737,10 @@ export class ProfileComponent implements OnInit {
         this.alert.error(error['message']);
       }
     );
+  }
+  copy(text){
+    this.clipboardService.copyFromContent(text);
+    this.alert.success('Post link copied');
+    // this.alert.success(text);
   }
 }

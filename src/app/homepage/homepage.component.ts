@@ -219,7 +219,7 @@ export class HomepageComponent implements OnInit {
 
   copy(text){
     this.clipboardService.copyFromContent(text);
-    this.alert.success('Url copied');
+    this.alert.success('Post link copied');
     // this.alert.success(text);
   }
 
@@ -445,6 +445,9 @@ export class HomepageComponent implements OnInit {
 
   openScrollableContent(longContent) {
     this.modalService.open(longContent, {centered: true, size: 'sm' });
+  }
+  openReportContent(report) {
+    this.modalService.open(report, {centered: true, size: 'sm' });
   }
 
   openpost(postModal) {
