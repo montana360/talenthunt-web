@@ -1,4 +1,19 @@
 
+
+.post,
+textarea {
+  padding: 10px 12px 10px 12px;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+  margin-bottom: 5px;
+  margin-top: 2px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #2C3E50;
+  font-size: 14px;
+  letter-spacing: 1px
+}
+
 .page-footer{
   background-color: rgb(88, 13, 88);
 }
@@ -125,23 +140,6 @@
     border-color: #000000;
     color: black;
   }
-
-  @import url('https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=latin-ext');
-
-
-  #playground-container {
-      height: 500px;
-      overflow: hidden !important;
-
-  }
-  .main{margin-top:70px;
-  -webkit-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.24);
-  -moz-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.24);
-  box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.24);
-  padding:0px;
-  }
-
-
   .left-side{
     /* padding:0px 0px 100px;
     background:#9100ff; */
@@ -159,27 +157,6 @@
     color:#FFF;
     padding:10px 10px 10px 26px;
     }
-
-
-    .fb{background: #2d6bb7;
-      color: #FFF;
-      padding: 10px 15px;
-      border-radius: 18px;
-      font-size: 12px;
-      font-weight: 600;
-      margin-right: 15px;
-    margin-left:26px;-webkit-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.24);
-  -moz-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.24);
-  box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.24);}
-    .tw{background: #20c1ed;
-      color: #FFF;
-      padding: 10px 15px;
-      border-radius: 18px;
-      font-size: 12px;
-      font-weight: 600;
-      margin-right: 15px;-webkit-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.24);
-  -moz-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.24);
-  box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.24);}
 
     .right-side{
     /* padding:30px 0px 100px; */
@@ -254,7 +231,7 @@
       background: #f2f2f2;
     }
     .image {
-      width: 100%; /* need to overwrite inline dimensions */
+      width: 100%;
       height: auto;
     }
     h2 {

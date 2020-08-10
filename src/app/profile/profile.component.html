@@ -261,7 +261,7 @@
                   </div>
                   <div class="card-footer">
                     <form class="example for" [formGroup]="commentForm">
-                      <input class="mt-auto" placeholder="comment" formControlName="message">
+                      <input class="mt-auto post" placeholder="comment" formControlName="message">
                       <button [disabled]="!commentForm.valid" style="color: rgb(48, 10, 83); cursor: pointer;" (click)="addComment(post.id);commentForm.reset();"><b>Post</b></button>
                     </form>
                   </div><br><br>
