@@ -239,7 +239,7 @@
       <div class="modal-footer">
           <button type="button" class="but btn btn-danger" *ngIf="selectedFile" (click)="cancel()">Cancel</button>
           <button type="button" class="btn btn-warning" *ngIf="!selectedFile" (click)="modal.close()">Close</button>
-          <button type="button" class="but" (click)="createPost();modal.close()">Post</button>
+          <button type="button"[disabled]="!craftForm.valid" class="but" (click)="createPost();modal.close()">Post</button>
       </div>
   </div>
 </ng-template>

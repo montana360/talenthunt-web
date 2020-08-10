@@ -187,7 +187,7 @@ cursor: pointer;
 }
 
 .btn {
-  border: 2px solid black;
+  border: none;
   background-color: white;
   color: black;
   padding: 7px 6px;

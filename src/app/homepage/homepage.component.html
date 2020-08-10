@@ -197,11 +197,12 @@
 
     <!-- Pagination Div -->
     <div *ngIf="!isLoading" class="col-md-8 move">
-      <div align="right">
-        <button *ngIf="first_page_url" (click)="firstPage()" type="button" class="btn btn-primary">First</button>
-        <button *ngIf="prev_page_url" (click)="prevPage()" type="button" class="btn btn-primary">Previous</button>
-        <button *ngIf="next_page_url" (click)="nextPage()" type="button" class="btn btn-primary">Next</button>
-        <button *ngIf="last_page_url" (click)="lastPage()" type="button" class="btn btn-primary">Last</button>
+      <div align="center">
+
+        <!-- <button *ngIf="first_page_url" (click)="firstPage()" type="button" class="btn btn-primary">First</button> -->
+        <button *ngIf="prev_page_url" (click)="prevPage()" type="button" class="btn">Previous Page...</button>
+        <button *ngIf="next_page_url" (click)="nextPage()" type="button" class="btn">Load more...</button>
+        <!-- <button *ngIf="last_page_url" (click)="lastPage()" type="button" class="btn btn-primary">Last</button> -->
       </div>
     </div>
 
@@ -293,7 +294,7 @@
     <div class="modal-footer">
       <button type="button" class="but btn btn-danger" *ngIf="selectedFile" (click)="cancel()">Cancel</button>
       <button type="button" class="butn btn-warning" *ngIf="!selectedFile" (click)="modal.close()">Close</button>
-      <button type="button" class="but" (click)="createPost();modal.close()">Post</button>
+      <button [disabled]="!postForm.valid" type="button" class="but" (click)="createPost();modal.close()">Post</button>
     </div>
   </div>
 </ng-template>

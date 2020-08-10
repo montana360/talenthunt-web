@@ -44,9 +44,8 @@
       </div>
     </nav>
     <img src="assets/img/41.png" alt="" height="6" width="100%">
-
+    <br><br>
     <div *ngIf="!isLoader" class="row d-flex justify-content-center ">
-
       <div class="col-md-3">
         <img *ngIf="user?.profile_image !== null" (click)="fileInput.click()" src="{{user?.profile_image}}"
           class="avatar" alt="">
@@ -173,8 +172,8 @@
           </ngb-tab>&nbsp;&nbsp;&nbsp;
 
           <ngb-tab>
-            <ng-template ngbTabTitle><img src="assets/img/34.png" width="30px" height="30px"></ng-template>
-            <ng-template ngbTabContent>
+            <ng-template ngbTabTitle ><img src="assets/img/34.png" width="30px" height="30px"></ng-template>
+            <ng-template style="background-color: rgb(48, 10, 83);" ngbTabContent>
               <div class=" col-md-10 move">
                 <div class="card border-0  d-flex justify-content-center" *ngFor="let post of allPosts">
                   <div class="card-body">
