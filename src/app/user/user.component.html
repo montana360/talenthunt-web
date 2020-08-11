@@ -162,6 +162,7 @@
             <ng-template ngbTabContent>
               <div class=" col-md-10 move">
                 <div class="card border-0  d-flex justify-content-center" *ngFor="let post of allPosts">
+                  <span *ngIf="post">{{ trackLike(post) }}</span>
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-3" style="align-items: flex-end;">
@@ -175,7 +176,15 @@
                         <p class="card-text">{{post?.location}}</p>
                       </div>
                       <div class="col-md-2" style="text-align: right;">
-                        <img src="assets/img/49.png" height="4" width="30">
+                        <div ngbDropdown class="dropdown ">
+                          <a class="nav-link dropdown-toggle" ngbDropdownToggle>
+                            <img src="assets/img/49.png" width="30">
+                          </a>
+                          <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right page-nav">
+                            <a class="dropdown-item" (click)="copy(post?.file_url)">Share Post</a>
+                            <a class="dropdown-item" (click)="openReportContent(report);view(post.id)">Report Post</a>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -192,12 +201,19 @@
                   <div class="card-body">
                     <div class="row">
                       <div *ngIf="post?.likes.length > 0">
-                        <img src="assets/img/44.png" height="30" width="30">
+
+                        <span *ngIf="isData.length > 0">
+                          <img style="cursor: pointer;" (click)="unlike(post?.id)" src="assets/img/44.png" height="30" width="30">
+                        </span>
+
+                        <span *ngIf="!isData || isData.length == 0">
+                          <img style="cursor: pointer;" (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
+                        </span>
                       </div>
 
                       <div *ngIf="post?.likes.length == 0">
                         <span>
-                          <img src="assets/img/43.png" height="30" width="30">
+                          <img style="cursor: pointer;" (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
                         </span>
                       </div>&nbsp;&nbsp;
                       <b>{{post?.likes.length || '0'}}</b>&nbsp;&nbsp;
@@ -212,11 +228,12 @@
                       <div class="w-100"></div>
                       <span>{{post?.caption}}</span>
                       <div class="w-100"></div>&nbsp;<br>
-                      <a style="color: blue;cursor: pointer" *ngIf="post?.comments.length > 0"
+                      <a style="color: rgb(48, 10, 83);cursor: pointer" *ngIf="post?.comments.length > 0"
                         (click)="toggleDisplay()">view
                         comments</a>
                     </div>
-                    <div *ngIf="isShow">
+                    <div *ngIf="isShow" class="card border-0 example-2 scrollbar-deep-purple bordered-deep-purple thin">
+                      <div class="card-body">
                       <div class="row pa-move" *ngFor="let comment of post.comments">
                         <div class="col-md-1">
                           <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt=""
@@ -233,12 +250,13 @@
                         </div>
                       </div>
                     </div>
+                    </div>
                   </div>
                   <div class="card-footer">
                     <form class="example for" [formGroup]="commentForm">
-                    <input class="mt-auto" placeholder="comment" formControlName="message" />
-                    <a style="color: blue;" (click)="addComment(post.id);commentForm.reset();"><b>Post</b></a>
-                  </form>
+                      <input class="mt-auto post" placeholder="comment" formControlName="message">
+                      <button [disabled]="!commentForm.valid" style="color: rgb(48, 10, 83); cursor: pointer;" (click)="addComment(post.id);commentForm.reset();"><b>Post</b></button>
+                    </form>
                   </div><br><br>
                 </div>
               </div>
@@ -446,3 +464,24 @@
   </div>
 </ng-template>
 <!-- close post modal -->
+
+<ng-template #report let-modal>
+  <div *ngFor="let pos of Posts">
+  <div class="modal-header" >
+    <h6 class="modal-title" style="color: red;" id="modal-basic-title">Why are you reporting this post?</h6>
+    <button type="button" style="font-size: small;" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="reportForm">
+      <div class="form-group">
+        <input formControlName="complaint" type="text" placeholder="Reason">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button  type="button" class="buts" (click)="reportpost(pos.id);modal.close()">Report</button>
+  </div>
+</div>
+  </ng-template>

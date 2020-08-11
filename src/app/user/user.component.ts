@@ -15,6 +15,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { AlertService } from '../services/alert.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ClipboardService } from 'ngx-clipboard';
 
 @Component({
   selector: 'app-user',
@@ -26,6 +27,7 @@ export class UserComponent implements OnInit {
 
   isShow = false;
   commentForm: FormGroup;
+  reportForm: FormGroup;
   isLoading = false;
   viewuser= null;
   allPosts= null;
@@ -37,6 +39,7 @@ export class UserComponent implements OnInit {
   isFollow= null;
   isData= null;
 
+
   toggleDisplay() {
     this.isShow = !this.isShow;
   }
@@ -45,6 +48,12 @@ export class UserComponent implements OnInit {
     user_id: '',
     post_id: '',
     message: '',
+  };
+  // report variables
+  reportDetails = {
+    user_id: '',
+    content_id: '',
+    complaint: '',
   };
   constructor(
     config: NgbModalConfig,
@@ -55,7 +64,8 @@ export class UserComponent implements OnInit {
     private alert: AlertService,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
-    conTabfig: NgbTabsetConfig
+    conTabfig: NgbTabsetConfig,
+    private clipboardService: ClipboardService
   ) {
     // customize default values of tabsets used by this component tree
     conTabfig.justify = 'center';
@@ -64,6 +74,10 @@ export class UserComponent implements OnInit {
     this.commentForm = this.formBuilder.group({
       user_id: [null],
       message: [null, Validators.required],
+    });
+    this.reportForm = this.formBuilder.group({
+      user_id: [null],
+      complaint: [null,Validators.required],
     });
   }
 
@@ -80,6 +94,10 @@ export class UserComponent implements OnInit {
       user_id: [null],
       message: [null, Validators.required],
     });
+    this.reportForm = this.formBuilder.group({
+      user_id: [null],
+      complaint: [null,Validators.required],
+    });
   }
 
   ngOnDestroy() {
@@ -95,7 +113,12 @@ export class UserComponent implements OnInit {
     });
     console.log(this.isData);
   }
-
+  trackLike(post) {
+    this.isData = post['likes'].filter((like) => {
+      return like.user_id == this.user_id;
+    });
+    console.log(this.isData);
+  }
   likep(id) {
     this.spinner.show();
     const data = {
@@ -110,6 +133,7 @@ export class UserComponent implements OnInit {
         if (response !== null || response !== undefined) {
           this.alert.success('Post liked');
           this.view(id);
+          this.getUserpost(this.ID);
         }
       },
       (error) => {
@@ -140,6 +164,7 @@ export class UserComponent implements OnInit {
         if (response !== null || response !== undefined) {
           this.alert.success('Post unliked');
           this.view(id);
+          this.getUserpost(this.ID);
         }
       },
       (error) => {
@@ -155,6 +180,40 @@ export class UserComponent implements OnInit {
       }
     );
   }
+// set report data
+setReportData(){
+  this.reportDetails.user_id = this.reportForm.controls['user_id'].value;
+  this.reportDetails.complaint = this.reportForm.controls['complaint'].value;
+}
+reportpost(id){
+  const data = {
+    content_id: id,
+    user_id: parseInt(localStorage.getItem('userID'), 10),
+    complaint: this.reportForm.controls['complaint'].value
+  };
+  console.log(data);
+  this.auth.update('complaint', localStorage.getItem('userID'), data).subscribe(
+    (response) => {
+      console.log(response);
+      this.spinner.hide();
+      if (response !== null || response !== undefined) {
+        this.alert.success('Thank for you talent hunt team will check this!');
+        this.getUserpost(this.ID);
+      }
+    },
+    (error) => {
+      // console.log(error);
+      this.spinner.hide();
+      if (error.status === 500) {
+        this.spinner.hide();
+        this.alert.warning('Internal Server Error');
+      } else {
+        this.spinner.hide();
+        this.alert.error('Report did not go through try again later');
+      }
+    }
+  );
+}
 
   // set comment data
   setCommentData() {
@@ -177,6 +236,7 @@ export class UserComponent implements OnInit {
         if (response !== null || response !== undefined) {
           this.alert.success('Comment posted successfully');
           this.view(id);
+          this.getUserpost(this.ID);
         }
       },
       (error) => {
@@ -286,7 +346,7 @@ export class UserComponent implements OnInit {
 
   getUserpost(id) {
     console.log(id);
-    this.isLoading = true;
+    // this.isLoading = true;
     this.auth.show('user_posts', id).subscribe(
       (response) => {
         this.allPosts = response['data'];
@@ -405,5 +465,13 @@ export class UserComponent implements OnInit {
 
   openfollowing(following) {
     this.modalService.open(following, { centered: true, scrollable: true });
+  }
+  openReportContent(report) {
+    this.modalService.open(report, {centered: true, size: 'sm' });
+  }
+  copy(text){
+    this.clipboardService.copyFromContent(text);
+    this.alert.success('Post link copied');
+    // this.alert.success(text);
   }
 }

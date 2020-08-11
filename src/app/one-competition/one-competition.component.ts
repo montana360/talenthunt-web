@@ -306,6 +306,9 @@ openpost(postModal) {
 close(votepost) {
   this.modalService.dismissAll(votepost);
 }
+opensms(sms) {
+  this.modalService.open(sms, {centered: true, size: 'sm' });
+}
 voteContent(votepost) {
   this.modalService.open(votepost, {  size: 'sm',centered:true });
 }

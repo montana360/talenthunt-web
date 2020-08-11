@@ -86,7 +86,31 @@
 
     <img src="assets/img/41.png" alt="" height="6" width="100%">
 
+
+
     <div *ngIf="!isLoading" class="col-md-8 move">
+      <div class="card border-0" >&nbsp;
+        <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfi"
+          (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+          (beforeChange)="beforeChange($event)">
+          <div ngxSlickItem *ngFor="let craf of allCraft" class="slide">
+            <div class="row">
+              <div class="col-md-9">
+                <img style="cursor: pointer;" (click)="openCraft(singleCraft);viewcraft(craf.id)" *ngIf="craf.user.profile_image !== null" src="{{craf.user.profile_image}}" class="avatar1"
+                 alt="">
+                <img style="cursor: pointer;" (click)="openCraft(singleCraft);viewcraft(craf.id)"  *ngIf="craf.user.profile_image === null" src="assets/img/default-avatar.png"
+                  class="avatar1"  alt="">
+                  <!-- <div class="w-100"></div> -->
+                  <div class="center-text justify-content-center">
+                    <h6 class="card-title" style="cursor: pointer;" (click)="openCraft(singleCraft);viewcraft(craf.id)" >{{craf.user.fullname}}</h6>
+                  </div>
+              </div>
+
+            </div>
+          </div>
+        </ngx-slick-carousel>
+
+      </div>&nbsp;
       <div class="card border-0  d-flex justify-content-center" *ngFor="let post of allPosts">
         <span *ngIf="post">{{ trackLikes(post) }}</span>
         <div class="card-body">
@@ -101,17 +125,17 @@
               <h6 class="card-title" style="cursor: pointer;" (click)="fell(post?.user_id)">{{post.user.fullname}}</h6>
               <p class="card-text">{{post?.location}}</p>
             </div>
-            <!-- <div class="col-md-2" style="text-align: right;">
+            <div class="col-md-2" style="text-align: right;">
               <div ngbDropdown class="dropdown ">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle>
                   <img src="assets/img/49.png" width="30">
                 </a>
                 <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right page-nav">
                   <a class="dropdown-item" (click)="copy(post?.file_url)">Share Post</a>
-                  <a class="dropdown-item" (click)="openReportContent(report)">Report Post</a>
+                  <a class="dropdown-item" (click)="openReportContent(report);view(post.id)">Report Post</a>
                 </div>
               </div>
-            </div> -->
+            </div>
           </div>
         </div>
         <a>
@@ -316,19 +340,222 @@
 </ng-template>
 <!-- logout modal end -->
 
-<!-- <ng-template #report let-modal>
+<ng-template #report let-modal>
+  <div *ngFor="let pos of Psts">
   <div class="modal-header" >
-    <h6 class="modal-title" style="color: red;" id="modal-basic-title">Why are you report this post?</h6>
+    <h6 class="modal-title" style="color: red;" id="modal-basic-title">Why are you reporting this post?</h6>
     <button type="button" style="font-size: small;" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form>
-
+    <form [formGroup]="reportForm">
+      <div class="form-group">
+        <input formControlName="complaint" type="text" placeholder="Reason">
+      </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="but" (click)="createPost();modal.close()">Post</button>
+    <button  type="button" class="buts" (click)="reportpost(pos.id);modal.close()">Report</button>
   </div>
-  </ng-template> -->
+</div>
+  </ng-template>
+
+
+  <ng-template #singleCraft Let-modal>
+    <div class="row" *ngFor="let cra of craft">
+      <span *ngIf="cra">{{ trackLikes(cra) }}</span>
+      <!-- <span *ngIf="cra">{{ voteC(cra) }}</span> -->
+      <div class="col-sm-6 left-side">
+        <video  class="card-img-top"  style="height: 30rem;" controls >
+          <source src="{{cra.file_url}}" type="video/mp4">
+      </video>
+      </div>
+      <div class="col-sm-6 right-side">
+        <br>
+        <div class="row">
+          <div class="col-md-3" style="align-items: flex-end;">
+            <img *ngIf="cra.user.profile_image !== null" src="{{cra.user.profile_image}}"
+              class="avatar3" alt="">
+              <img *ngIf="cra.user.profile_image === null" src="assets/img/default-avatar.png"
+              class="avatar3"  alt="">
+          </div>
+          <div class="col-md-5 div-holder ">
+            <h6 class="card-title" style="color: black;margin-top: auto;font-size: small;">{{cra.user.fullname}}</h6>
+            <span class="card-text" style="color: black;font-size: small;">{{cra.caption}}</span>
+            <div class="w-100"></div>
+            <b class="card-text" style="color: black;font-size: small;">{{cra.likes.length || '0'}} like(s)</b>
+          </div>
+          <div class="col-md-4" >
+            <!-- <b style="color: green">{{ numVotes || '0' }} Votes</b>
+            <div class="w-100"></div> -->
+            <span *ngIf="cra.craft_type =='AUDITION'" style="color: green; font-size: small;"><b>AUDITION</b></span>
+            <a *ngIf="cra.craft_type !=='AUDITION'" class="but" (click)="voteContent(votepost);viewcraf(cra.id)">vote</a>
+            <div class="w-100"></div>
+            <span *ngIf="cra.craft_type !=='AUDITION'" style="color: black; font-size: 11px;"><b>{{cra.votes.length || '0'}} voter(s)</b></span>
+          </div>
+        </div><br>
+  <!--Form with header-->
+  <div class="card border-0 example-1 scrollbar-deep-purple bordered-deep-purple thin" *ngIf = " cra.judge_comments.length > 0 || cra.comments.length > 0">
+    <div class="card-body">
+      <h6 id="section1" style="font-size: 16px;"><strong>Comments:</strong></h6>
+      <div class="row pa-move" *ngFor="let comment of cra.judge_comments">
+        <div class="col-md-1">
+            <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt=""
+                class="avs">
+            <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt=""
+                class="avs">
+        </div>
+        <div class="col-md-8" style="margin-left: 12px;">
+            <div class="row">
+                <span style="color: rgb(57, 8, 104); font-size: 14px;"><b>{{comment.user.fullname}}</b></span>
+                <div class="w-100"></div>
+                <span style="font-size: 12px;">{{comment.message}}</span>
+            </div>
+        </div>
+    </div>
+      <div class="row pa-move" *ngFor="let comment of cra.comments">
+        <div class="col-md-1">
+            <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt=""
+                class="avs">
+            <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt=""
+                class="avs">
+        </div>
+        <div class="col-md-8" style="margin-left: 12px;">
+            <div class="row">
+                <span style="font-size: 14px;"><b>{{comment.user.fullname}}</b></span>
+                <div class="w-100"></div>
+                <span style="font-size: 12px;">{{comment.message}}</span>
+            </div>
+        </div>
+    </div>
+    </div>
+  </div><br>
+  <div class="row">
+    <div *ngIf="cra?.likes.length > 0">
+
+      <span *ngIf="isData.length > 0">
+        <img style="cursor: pointer;" (click)="unclike(cra?.id)" src="assets/img/44.png" height="30" width="30">
+      </span>
+
+      <span *ngIf="!isData || isData.length == 0">
+        <img style="cursor: pointer;" (click)="likecp(cra?.id)" src="assets/img/43.png" height="30" width="30">
+      </span>
+
+    </div>
+
+    <div *ngIf="cra?.likes.length == 0">
+      <span>
+        <img style="cursor: pointer;" (click)="likecp(cra?.id)" src="assets/img/43.png" height="30" width="30">
+      </span>
+    </div>&nbsp;&nbsp;
+    <b>{{cra?.likes.length || '0'}}</b>&nbsp;&nbsp;
+    <img src="assets/img/45.png" height="30" width="30">
+  </div>&nbsp;
+  <form [formGroup]="craftcommentForm">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Add Comments" formControlName="message"/>
+      <div class="input-group-btn">
+        <button class="btns btn-default" type="submit" [disabled]="!craftcommentForm.valid" (click)="addCraftComment(cra.id);craftcommentForm.reset();">
+          <b>Post</b>
+        </button>
+      </div>
+    </div>
+  </form>
+
+
+  </div>
+  <!--/Form with header-->
+
+      </div><!--col-sm-6-->
+  </ng-template>
+
+
+  <ng-template #votepost Let-modal>
+    <div class="section text-center rtt">
+        <div class="col-l-6 justify-content-center">
+            <div class="container">
+                <form [formGroup]="voteForm"><br>
+                    <!-- <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="input-address" class="form-control form-control-alternative"
+                                    placeholder="Amount" type="number" formControlName="amount">
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="input-address" class="form-control form-control-alternative"
+                                    placeholder="Number of votes" type="number" formControlName="num_of_votes">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <input id="input-address" class="form-control form-control-alternative" placeholder="Phone Number"
+                            type="number" maxlength="9" formControlName="momo_number">
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="input-address" class="form-control form-control-alternative"
+                                  placeholder="example 2332460767" type="number" formControlName="msisdn">
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <select formControlName="network" class='form-control'>
+                                    <option value='null'>Mobile Network</option>
+                                    <option value='MTN'>MTN</option>
+                                    <option value='AirtelTigo'>AirtelTigo</option>
+                                    <option value='Vodafone'>Vodafone</option>
+                                    <option value='Visa'>Visa</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div><br>
+
+
+                    <!-- <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="input-address" class="form-control form-control-alternative"
+                                    placeholder="Request ID" type="number" [(ngModel)]="clientID"
+                                    formControlName="client_request_id">
+                            </div>
+                        </div>
+                    </div><br> -->
+
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <button class="button"[disabled]="!voteForm.valid"
+                                (click)="vote();voteForm.reset();close(votepost);opensms(sms)"><span>VOTE</span></button><br><br>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+  </ng-template>
+<!-- logout modal start -->
+<ng-template #sms let-modal>
+  <div>
+    <div class="modal-content">
+      <div class="modal-header content-center">
+        <h4>Message <i class="fa fa-lock"></i></h4>
+      </div>
+      <div class="modal-body"><i class="fa fa-question-circle"></i> Check you phone to enter your Mobile money pin</div>
+      <div class="modal-footer"><a (click)="no()" class="btn facebookbutton btn-block">Ok</a></div>
+    </div>
+  </div>
+</ng-template>
+<!-- logout modal end -->

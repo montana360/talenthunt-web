@@ -308,8 +308,8 @@
 
                   <div class="row">
                       <div class="col-md-12 text-center">
-                          <button class="button"
-                              (click)="vote();voteForm.reset();close(votepost)"><span>VOTE</span></button><br><br>
+                          <button class="button"[disabled]="!voteForm.valid"
+                              (click)="vote();voteForm.reset();close(votepost);opensms(sms)"><span>VOTE</span></button><br><br>
                       </div>
                   </div>
 
@@ -425,3 +425,17 @@
 
 		</div><!--col-sm-6-->
 </ng-template>
+
+<!-- logout modal start -->
+<ng-template #sms let-modal>
+  <div>
+    <div class="modal-content">
+      <div class="modal-header content-center">
+        <h4>Message <i class="fa fa-lock"></i></h4>
+      </div>
+      <div class="modal-body"><i class="fa fa-question-circle"></i> Check you phone to enter your Mobile money pin</div>
+      <div class="modal-footer"><a (click)="no()" class="btn facebookbutton btn-block">Ok</a></div>
+    </div>
+  </div>
+</ng-template>
+<!-- logout modal end -->

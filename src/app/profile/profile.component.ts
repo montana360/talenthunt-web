@@ -62,12 +62,15 @@ export class ProfileComponent implements OnInit {
   isFollow: any;
   isFollowData: any;
 
+
   // comment variable declaration
   commentDetails = {
     user_id: '',
     post_id: '',
     message: '',
   };
+
+
 
   profileEditDetails = {
     title: '',
@@ -108,6 +111,7 @@ export class ProfileComponent implements OnInit {
       message: [null, Validators.required],
     });
 
+
     // customize default values of tabsets used by this component tree
     conTabfig.justify = 'center';
     conTabfig.type = 'pills';
@@ -120,6 +124,7 @@ export class ProfileComponent implements OnInit {
 
     this.getUser();
     this.getUsers();
+
 
     this.token = localStorage.getItem('token');
     this.getfollowers();
@@ -152,9 +157,16 @@ export class ProfileComponent implements OnInit {
       user_id: [null],
       message: [null, Validators.required],
     });
+
   }
   trackLikes(cra) {
     this.isData = cra['likes'].filter((like) => {
+      return like.user_id == this.user_id;
+    });
+    console.log(this.isData);
+  }
+  trackLike(post) {
+    this.isData = post['likes'].filter((like) => {
       return like.user_id == this.user_id;
     });
     console.log(this.isData);
@@ -173,6 +185,7 @@ export class ProfileComponent implements OnInit {
         if (response !== null || response !== undefined) {
           this.alert.success('Post liked');
           this.view(id);
+          this.getUserpost();
         }
       },
       (error) => {
@@ -202,6 +215,8 @@ export class ProfileComponent implements OnInit {
         if (response !== null || response !== undefined) {
           this.alert.success('Post unliked');
           this.view(id);
+          this.getUserpost();
+
         }
       },
       (error) => {
@@ -217,6 +232,8 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
+
+
 
   // set comment data
   setCommentData() {
@@ -239,6 +256,7 @@ export class ProfileComponent implements OnInit {
         if (response !== null || response !== undefined) {
           this.alert.success('Comment posted successfully');
           this.view(id);
+          this.getUserpost();
         }
       },
       (error) => {
@@ -350,7 +368,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getUserpost() {
-    this.isLoader = true;
+    // this.isLoader = true;
     this.auth.show('user_posts', localStorage.getItem('userID')).subscribe(
       (response) => {
         this.allPosts = response['data'];
@@ -419,7 +437,7 @@ export class ProfileComponent implements OnInit {
     this.isLoader = true;
     this.auth.show('user', localStorage.getItem('userID')).subscribe(
       (response) => {
-        // console.log(response['data']);
+        console.log(response['data']);
         this.user = response['data'];
         this.prepareEditForm();
         this.isLoader = false;

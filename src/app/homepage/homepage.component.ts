@@ -45,6 +45,7 @@ export class HomepageComponent implements OnInit {
   searchForm: FormGroup;
   craftcommentForm: FormGroup;
   voteForm: FormGroup;
+  reportForm: FormGroup;
 
 
   public isMenuCollapsed = true;
@@ -111,6 +112,11 @@ export class HomepageComponent implements OnInit {
     craft_id: '',
     message: '',
   };
+  reportDetails = {
+    user_id: '',
+    content_id: '',
+    complaint: '',
+  };
 
 
   // Post Data
@@ -136,6 +142,9 @@ export class HomepageComponent implements OnInit {
   ];
 
   slideConfig = { slidesToShow: 4, slidesToScroll: 4 };
+  slideConfi = {slidesToShow: 5, slidesToScroll: 3,autoplay:true,
+  autoplaySpeed:3000,arrows:true};
+
 
   voteDetails = {
     user_id: '',
@@ -165,13 +174,20 @@ export class HomepageComponent implements OnInit {
       msisdn: [null, Validators.compose([Validators.required])],
       amount: [null, Validators.compose([Validators.required])],
     });
+
     this.craftcommentForm = this.formBuilder.group({
       user_id: [null],
       message: [null,Validators.required],
     });
+
     this.commentForm = this.formBuilder.group({
       user_id: [null],
       message: [null,Validators.required],
+    });
+
+    this.reportForm = this.formBuilder.group({
+      user_id: [null],
+      complaint: [null,Validators.required],
     });
   }
 
@@ -183,6 +199,7 @@ export class HomepageComponent implements OnInit {
     this.isLoading = true;
     this.user_id = localStorage.getItem('userID');
     this.getUsers();
+    this.getcompetition();
     // this.vi(this.compID);
     this.user = JSON.parse(localStorage.getItem('user'));
     // console.log(this.user);
@@ -215,6 +232,11 @@ export class HomepageComponent implements OnInit {
       user_id: [null],
       message: [null,Validators.required],
     });
+
+    this.reportForm = this.formBuilder.group({
+      user_id: [null],
+      complaint: [null,Validators.required],
+    });
   }
 
   copy(text){
@@ -223,16 +245,51 @@ export class HomepageComponent implements OnInit {
     // this.alert.success(text);
   }
 
+  // set report data
+setReportData(){
+  this.reportDetails.user_id = this.reportForm.controls['user_id'].value;
+  this.reportDetails.complaint = this.reportForm.controls['complaint'].value;
+}
 
   // set comment data
   setCommentData() {
     this.commentDetails.user_id = this.commentForm.controls['user_id'].value;
     this.commentDetails.message = this.commentForm.controls['message'].value;
   }
- // set comment data
+ // set craftcomment data
    setCraftCommentData() {
     this.craftcommentDetails.user_id = this.craftcommentForm.controls['user_id'].value;
     this.craftcommentDetails.message = this.craftcommentForm.controls['message'].value;
+  }
+
+  reportpost(id){
+    const data = {
+      content_id: id,
+      user_id: parseInt(localStorage.getItem('userID'), 10),
+      complaint: this.reportForm.controls['complaint'].value
+    };
+    console.log(data);
+    this.auth.update('complaint', localStorage.getItem('userID'), data).subscribe(
+      (response) => {
+        console.log(response);
+        this.spinner.hide();
+        if (response !== null || response !== undefined) {
+          this.alert.success('Thank for you for reporting this post');
+          this.getpost();
+        }
+      },
+      (error) => {
+        // console.log(error);
+        this.spinner.hide();
+        if (error.status === 500) {
+          this.spinner.hide();
+          this.alert.warning('Internal Server Error');
+        } else {
+          this.spinner.hide();
+          this.alert.error('Report did not go through try again later');
+        }
+      }
+    );
   }
 
   addCraftComment(id) {
@@ -308,6 +365,65 @@ export class HomepageComponent implements OnInit {
         } else {
           this.spinner.hide();
           this.alert.error('Comment not posted Try again later');
+        }
+      }
+    );
+  }
+  likecp(id) {
+    this.spinner.show();
+    const data = {
+      craft_id: id,
+      user_id: parseInt(localStorage.getItem('userID'), 10),
+    };
+    console.log(data);
+    this.auth.update('like_craft', localStorage.getItem('userID'), data).subscribe(
+      (response) => {
+        console.log(response);
+        this.spinner.hide();
+        if (response !== null || response !== undefined) {
+          this.alert.success('Post liked');
+          this.viewcraft(id);
+        }
+      },
+      (error) => {
+        // console.log(error);
+        this.spinner.hide();
+        if (error.status === 500) {
+          this.spinner.hide();
+          this.alert.warning('Internal Server Error');
+        } else {
+          this.spinner.hide();
+          this.alert.error('Post liked not successful try again later');
+        }
+      }
+    );
+  }
+
+  unclike(id) {
+    this.spinner.show();
+    const data = {
+      craft_id: id,
+      user_id: parseInt(localStorage.getItem('userID'), 10),
+    };
+    console.log(data);
+    this.auth.update('unlike_craft', localStorage.getItem('userID'), data).subscribe(
+      (response) => {
+        console.log(response);
+        this.spinner.hide();
+        if (response !== null || response !== undefined) {
+          this.alert.success('Post unliked');
+          this.viewcraft(id);
+        }
+      },
+      (error) => {
+        // console.log(error);
+        this.spinner.hide();
+        if (error.status === 500) {
+          this.spinner.hide();
+          this.alert.warning('Internal Server Error');
+        } else {
+          this.spinner.hide();
+          this.alert.error('Post cant be unliked try again later');
         }
       }
     );
@@ -456,6 +572,9 @@ export class HomepageComponent implements OnInit {
 
   openContent(logoutModal) {
     this.modalService.open(logoutModal, {centered: true, size: 'sm' });
+  }
+  opensms(sms) {
+    this.modalService.open(sms, {centered: true, size: 'sm' });
   }
 
   openUserContent(usermodal) {
@@ -851,6 +970,9 @@ getCraft() {
 openCraft(singleCraft) {
   this.modalService.open(singleCraft, {   size: 'lg' });
 }
+close(votepost) {
+  this.modalService.dismissAll(votepost);
+}
 viewcraft(ev) {
   this.auth.show('craft', ev).subscribe(
     (response) => {
@@ -930,9 +1052,9 @@ vote() {
       }
     );
 }
-vi(id) {
+getcompetition() {
   this.isLoading = true;
-  this.auth.show('competition', id).subscribe(
+  this.auth.get('competitions').subscribe(
     (response) => {
       this.isLoading = false;
       this.viewcompetition = response['data'][0];

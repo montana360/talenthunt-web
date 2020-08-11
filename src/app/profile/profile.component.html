@@ -176,6 +176,7 @@
             <ng-template style="background-color: rgb(48, 10, 83);" ngbTabContent>
               <div class=" col-md-10 move">
                 <div class="card border-0  d-flex justify-content-center" *ngFor="let post of allPosts">
+                  <span *ngIf="post">{{ trackLike(post) }}</span>
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-3" style="align-items: flex-end;">
@@ -214,12 +215,19 @@
                   <div class="card-body">
                     <div class="row">
                       <div *ngIf="post?.likes.length > 0">
-                        <img src="assets/img/44.png" height="30" width="30">
+
+                        <span *ngIf="isData.length > 0">
+                          <img style="cursor: pointer;" (click)="unlike(post?.id)" src="assets/img/44.png" height="30" width="30">
+                        </span>
+
+                        <span *ngIf="!isData || isData.length == 0">
+                          <img style="cursor: pointer;" (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
+                        </span>
                       </div>
 
                       <div *ngIf="post?.likes.length == 0">
                         <span>
-                          <img src="assets/img/43.png" height="30" width="30">
+                          <img style="cursor: pointer;" (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
                         </span>
                       </div>&nbsp;&nbsp;
                       <b>{{post?.likes.length || '0'}}</b>&nbsp;&nbsp;
