@@ -1,7 +1,7 @@
 <div class="container-fluid col-md-9 con">
   <div class="card0 border-0">
     <nav class="navbar navbar-expand-lg navbar-light  mb-3" style="background-color: white;">
-      <a class="navbar-brand " (click)="homePage()"><img src="assets/img/22.png" ngbTooltip="Talent hunt" height="50"
+      <a class="navbar-brand " style="cursor: pointer;" (click)="homePage()"><img src="assets/img/22.png" ngbTooltip="Talent hunt" height="50"
           width="150"></a>
 
       <!-- Step 3: Toggle the value of the property when the toggler button is clicked. -->
@@ -11,6 +11,41 @@
 
       <!-- Step 2: Add the ngbCollapse directive to the element below. -->
       <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+
+        <form [formGroup]="searchForm" class="form-inline my-2 my-lg-0">
+          <input class="myInput form-control mr-sm-2" (keyup)="clearSearch()" formControlName="search" [(ngModel)]="search"
+            (input)="searchEverything($event.target.value)"  placement="bottom" [ngbPopover]="popContent" type="search" placeholder="Search" aria-label="Search">
+        </form>
+
+        <!-- <ng-template  #popTitle>Search Results</ng-template> -->
+
+        <ng-template #popContent>
+          <div class="popover" *ngIf="isFound">
+            <div *ngFor="let list of searchList">
+
+              <span *ngIf="list">{{ trackFollows(list) }}</span>
+
+              <div  class="row" [hidden]="list?.id == user_id">
+                <div class="col-md-2">
+                  <img *ngIf="list.profile_image === null" src="assets/img/default-avatar.png" class="avatar4">
+                  <img *ngIf="list.profile_image !== null" src="{{ list?.profile_image }}" class="avatar4">
+                </div>
+                <div class="col-md-7" >
+                  &nbsp;
+                  <span (click)="fell(list?.id)">
+                    {{ list.fullname }}
+                  </span>
+                  &nbsp; &nbsp;
+                </div>
+
+              </div>
+              <hr>
+            </div>
+          </div>
+          <div *ngIf="!isFound">
+            Find your friends
+          </div>
+        </ng-template>
 
         <ul class="navbar-nav ml-auto">
           <li class="nav-item text-center mouse">
@@ -189,17 +224,17 @@
                         <h6 class="card-title">{{post.user.fullname}}</h6>
                         <p class="card-text">{{post?.location}}</p>
                       </div>
-                      <!-- <div class="col-md-2" style="text-align: right;">
+                      <div class="col-md-2" style="text-align: right;">
                         <div ngbDropdown class="dropdown ">
                           <a class="nav-link dropdown-toggle" ngbDropdownToggle>
                             <img src="assets/img/49.png" width="30">
                           </a>
                           <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right page-nav">
-                            <a class="dropdown-item" (click)="copy(post?.file_url)">Share Post</a>
-                            <a class="dropdown-item" (click)="openReportContent(report)">Report Post</a>
+                            <a class="dropdown-item" (click)="copy(post?.file_url)"><i class="fa fa-share-alt"></i>&nbsp;Share Post</a>
+                            <a class="dropdown-item" (click)="opendeleteContent(del);view(post.id)"><i class="fa fa-trash"></i>&nbsp; Delete Post</a>
                           </div>
                         </div>
-                      </div> -->
+                      </div>
                     </div>
                   </div>
                   <a>
@@ -255,12 +290,15 @@
                           <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt=""
                             class="avs">
                         </div>
-                        <div class="col-md-11">
+                        <div class="col-md-9">
                           <div class="row">
                             <span><b>{{comment.user.fullname}}</b></span>
                             <div class="w-100"></div>
                             <span>{{comment.message}}</span>
                           </div>
+                        </div>
+                        <div *ngIf="user.id === comment.user.id" class="col-md-2">
+                              <a class="dropdown-item" (click)="deleteComment(comment.id)"><i class="fa fa-trash" style="color: red;"></i></a>
                         </div>
                       </div>
                     </div>
@@ -325,7 +363,7 @@
 
       <input *ngIf="!selectedFile" type="image" src="assets/img/103.png" width="100px" style="margin-left: 80px;"
         (click)="fileInput.click()" />
-
+        <p *ngIf="!selectedFile" style="margin-left: 70px;">Click <b>"+"</b> to add file</p>
 
       <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
       <div class="row">
@@ -363,6 +401,22 @@
     </div>
   </ng-template>
   <!-- logout modal end -->
+
+  <!-- delete modal start -->
+  <ng-template #del let-modal>
+    <div *ngFor="let cra of Posts">
+      <div class="modal-content">
+        <div class="modal-header content-center">
+          <h4>Delete Post <i class="fa fa-trash" style="color: red;"></i></h4>
+        </div>
+        <div class="modal-body"><i class="fa fa-trash"></i> Are you sure you want to Delete this Post?</div>
+        <div class="modal-footer"><a (click)="deletePost(cra.id);modal.close()" class="but btn-block" color="white">YES</a><a (click)="no()"
+            class="btn facebookbutton btn-block">NO</a></div>
+      </div>
+    </div>
+  </ng-template>
+  <!-- delete modal end -->
+
 
   <!-- folllower modal -->
   <ng-template #followers let-modal>
@@ -442,7 +496,9 @@
     <div class="d-flex text-center justify-content-center">
       <form [formGroup]="profileEditForm">
         <br>
-        <h6 class="heading-small text-muted mb-4">information</h6>
+        <h6 class="heading-small text-muted mb-4">information <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button></h6>
         <div class="pl-lg-4">
           <div class="row">
             <div class="col-lg-6">
@@ -506,7 +562,7 @@
         </div>
         <div class="row">
           <div class="col-md-12 text-center">
-            <button class="button" (click)="editUser()"><span>Update</span></button><br><br>
+            <button [disabled]="!profileEditForm.valid" class="button" (click)="editUser()"><span>Update</span></button><br><br>
           </div>
         </div>
       </form>
@@ -581,11 +637,11 @@
           </div>&nbsp;&nbsp;
           <b>{{cra?.likes.length || '0'}}</b>&nbsp;&nbsp;
           <img src="assets/img/45.png" height="30" width="30">
-        </div>
+        </div>&nbsp;
 
         <form [formGroup]="commentForm">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Add Comments" formControlName="message" />
+            <input type="text" class="com" placeholder="Add Comments" formControlName="message" />
             <div class="input-group-btn">
               <button class="btns btn-default" [disabled]="!commentForm.valid"
                 (click)="addComment(cra.id);commentForm.reset();" type="submit">

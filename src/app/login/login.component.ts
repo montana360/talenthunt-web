@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     credentials: Login;
     token: any;
+    allPosts:any;
     sentCode: boolean;
 
     // Login Data
@@ -93,6 +94,7 @@ signIn() {
                 localStorage.setItem('user_profile', JSON.stringify(response['data']['profile']));
                 localStorage.setItem('follows', JSON.stringify(response['data']['follows']));
                 this.router.navigateByUrl('/homepage');
+                this.getpost();
                 this.alert.success('Welcome ' + localStorage.getItem('username'));
             } else {
                 localStorage.clear();
@@ -124,5 +126,20 @@ signIn() {
 }
 landingpage(){
     this.router.navigate(['/landing/']);
+  }
+  getpost() {
+    // this.isLoading = true;
+    this.auth.get('posts').subscribe(
+      (response) => {
+        // console.log(response['data']['data']);
+        this.allPosts = response['data']['data'];
+        this.isLoading = false;
+      },
+      (error) => {
+        this.isLoading = false;
+        this.alert.error('Error loading user Data');
+        // console.log(error);
+      }
+    );
   }
 }

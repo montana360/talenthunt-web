@@ -176,7 +176,7 @@ textarea {
     padding:10px 50px 10px 50px;
     }
     .form{padding:10px 50px 10px 50px;}
-      .form-control{box-shadow: none !important;
+      .com{box-shadow: none !important;
       border-radius: 0px !important;
       border-bottom: 1px solid #9100ff !important;
       border-top: none !important;
@@ -386,4 +386,36 @@ textarea {
       -webkit-animation-duration: 0.5s;
       animation-name: modal-animation;
       animation-duration: 0.5s;
+    }
+
+    .avatar4 {
+      vertical-align: middle;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 3px solid rgba(54, 8, 85, 0.829);
+
+    }
+    .popover {
+      /* margin:10px, 10px; */
+      padding:10px;
+      width: 360px;
+      height: 360px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      text-align:justify center;
+    }
+    .myInput {
+      background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+      background-position: 10px 12px; /* Position the search icon */
+      background-repeat: no-repeat; /* Do not repeat the icon image */
+      width: 100%; /* Full-width */
+      font-size: 16px; /* Increase font-size */
+      padding: 12px 20px 12px 40px; /* Add some padding */
+      border: 1px solid #ddd; /* Add a grey border */
+      /* margin-bottom: 12px;  */
+    }
+    /* For mobile phones: */
+    [class*="col-"] {
+      width: 100%;
     }

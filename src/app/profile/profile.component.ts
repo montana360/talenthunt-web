@@ -15,7 +15,8 @@ import { AuthService } from '../services/auth.service';
 import { AlertService } from '../services/alert.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';
-import { ClipboardService } from 'ngx-clipboard'
+import { ClipboardService } from 'ngx-clipboard';
+
 
 @Component({
   selector: 'app-profile',
@@ -28,6 +29,8 @@ export class ProfileComponent implements OnInit {
   // formBuild
   postForm: FormGroup;
   commentForm: FormGroup;
+  searchForm: FormGroup;
+
   id: string;
   username: string;
   profileEditForm: FormGroup;
@@ -38,10 +41,13 @@ export class ProfileComponent implements OnInit {
   isShow = false;
   imageForm: FormGroup;
   profileImage = null;
-
+  isFound = false;
+  searchList = null;
   isLoader = false;
   followers: any;
   following: any;
+  search = '';
+
 
   toggleDisplay() {
     this.isShow = !this.isShow;
@@ -158,7 +164,53 @@ export class ProfileComponent implements OnInit {
       message: [null, Validators.required],
     });
 
+    // search form
+    this.searchForm = this.formBuilder.group({
+      search: [null],
+    });
+
   }
+
+   // Search functionality
+   searchEverything(data) {
+    if (this.search === '') {
+      this.clearSearch();
+    } else if (data === '' || data === null) {
+      this.clearSearch();
+      return;
+    } else {
+
+      const search = {
+        data: data,
+      };
+
+      // console.log(search);
+
+      this.auth.update('search_user',localStorage.getItem('userID'), search).subscribe(
+        (response) => {
+          console.log(response);
+          if (response['success'] === true) {
+            this.isFound = true;
+            this.searchList = response['data']['data'];
+          } else {
+            this.searchList = null;
+            this.isFound = false;
+          }
+        },
+        (error) => {
+          // console.log(error);
+          this.searchList = null;
+        }
+      );
+    }
+  }
+
+  clearSearch() {
+    this.searchList = null;
+    this.isFound = false;
+  }
+
+
   trackLikes(cra) {
     this.isData = cra['likes'].filter((like) => {
       return like.user_id == this.user_id;
@@ -169,7 +221,7 @@ export class ProfileComponent implements OnInit {
     this.isData = post['likes'].filter((like) => {
       return like.user_id == this.user_id;
     });
-    console.log(this.isData);
+    // console.log(this.isData);
   }
   likep(id) {
     this.spinner.show();
@@ -371,6 +423,7 @@ export class ProfileComponent implements OnInit {
     // this.isLoader = true;
     this.auth.show('user_posts', localStorage.getItem('userID')).subscribe(
       (response) => {
+        console.log(response);
         this.allPosts = response['data'];
         this.postlength = response['data'].length;
         this.isLoader = false;
@@ -420,6 +473,10 @@ export class ProfileComponent implements OnInit {
   openReportContent(report) {
     this.modalService.open(report, {centered: true, size: 'sm' });
   }
+  opendeleteContent(del) {
+    this.modalService.open(del, {centered: true, size: 'sm' });
+  }
+
 
   onLogout() {
     localStorage.clear();
@@ -760,5 +817,49 @@ export class ProfileComponent implements OnInit {
     this.clipboardService.copyFromContent(text);
     this.alert.success('Post link copied');
     // this.alert.success(text);
+  }
+
+
+  // Delete post function
+  deletePost(id) {
+    this.isLoader = true;
+     // this.isLoader = true;
+     const data = {
+      id: id,
+    };
+    console.log(data);
+    this.auth.destroy('remove_post',localStorage.getItem('userID'), data).subscribe(
+      response => {
+        console.log(this.id);
+        this.isLoader = false;
+        this.alert.success('Post deleted successfully');
+        this.getUserpost();
+      },
+      error => {
+        console.log(error);
+        this.isLoader = false;
+        this.alert.error('Deleting Post Unsuccessful Try again later');
+      }
+    );
+  }
+  // Delete post function
+  deleteComment(id) {
+    // this.isLoader = true;
+    const data = {
+      id: id,
+    };
+    console.log(data);
+    this.auth.destroy('remove_comment',localStorage.getItem('userID'), data).subscribe(
+      response => {
+        this.isLoader = false;
+        this.alert.success("Comment deleted successfully");
+        this.getUserpost();
+      },
+      error => {
+        console.log(error);
+        this.isLoader = false;
+        this.alert.error('deleting comment Unsuccessful please try again later');
+      }
+    );
   }
 }

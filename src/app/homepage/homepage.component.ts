@@ -1068,4 +1068,24 @@ getcompetition() {
     }
   );
 }
+
+deleteComment(id) {
+  // this.isLoader = true;
+  const data = {
+    comment_id: id,
+  };
+  console.log(data);
+  this.auth.destroy('remove_comment',localStorage.getItem('userID'), data).subscribe(
+    response => {
+      this.isLoading = false;
+      this.alert.success("Comment deleted successfully");
+      this.getpost();
+    },
+    error => {
+      console.log(error);
+      this.isLoading = false;
+      this.alert.error('deleting comment Unsuccessful please try again later');
+    }
+  );
+}
 }

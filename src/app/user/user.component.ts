@@ -28,6 +28,7 @@ export class UserComponent implements OnInit {
   isShow = false;
   commentForm: FormGroup;
   reportForm: FormGroup;
+  searchForm: FormGroup;
   isLoading = false;
   viewuser= null;
   allPosts= null;
@@ -38,6 +39,10 @@ export class UserComponent implements OnInit {
   user_id= null;
   isFollow= null;
   isData= null;
+  isFound = false;
+  searchList = null;
+  search = '';
+
 
 
   toggleDisplay() {
@@ -80,6 +85,9 @@ export class UserComponent implements OnInit {
       complaint: [null,Validators.required],
     });
   }
+  refresh(): void {
+    window.location.reload();
+}
 
   ngOnInit(): void {
     this.isLoading =true
@@ -98,7 +106,51 @@ export class UserComponent implements OnInit {
       user_id: [null],
       complaint: [null,Validators.required],
     });
+     // search form
+     this.searchForm = this.formBuilder.group({
+      search: [null],
+    });
   }
+
+   // Search functionality
+   searchEverything(data) {
+    if (this.search === '') {
+      this.clearSearch();
+    } else if (data === '' || data === null) {
+      this.clearSearch();
+      return;
+    } else {
+
+      const search = {
+        data: data,
+      };
+
+      // console.log(search);
+
+      this.auth.update('search_user',localStorage.getItem('userID'), search).subscribe(
+        (response) => {
+          console.log(response);
+          if (response['success'] === true) {
+            this.isFound = true;
+            this.searchList = response['data']['data'];
+          } else {
+            this.searchList = null;
+            this.isFound = false;
+          }
+        },
+        (error) => {
+          // console.log(error);
+          this.searchList = null;
+        }
+      );
+    }
+  }
+
+  clearSearch() {
+    this.searchList = null;
+    this.isFound = false;
+  }
+
 
   ngOnDestroy() {
     var body = document.getElementsByTagName('body')[0];
@@ -317,6 +369,12 @@ reportpost(id){
         this.alert.error('Getting data unsuccessful. Please try again');
       }
     );
+  }
+  trackFollow(user) {
+    this.isFollow = user['follows'].filter((follow) => {
+      return follow.follower_id == this.user_id;
+    });
+    console.log(this.isFollow);
   }
 
 
