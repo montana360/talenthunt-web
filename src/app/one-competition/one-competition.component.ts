@@ -372,7 +372,7 @@ createPost() {
       console.log(response);
       this.isLoading = false;
       if (response['success'] === false) {
-        this.alert.warning(response['message']);
+        this.alert.warning('Make sure provide your video');
       } else {
         this.alert.success('Post added successfully');
         this.getCraft();
@@ -557,5 +557,7 @@ openCraft(singleCraft) {
   voteCount(craft) {
     this.numVotes = craft['votes'].reduce((accum,item) => accum + item.num_of_votes, 0)
   }
-
+  voteC(cra) {
+    this.numVotes = cra['votes'].reduce((accum,item) => accum + item.num_of_votes, 0)
+  }
 }

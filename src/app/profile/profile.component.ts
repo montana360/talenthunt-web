@@ -574,7 +574,7 @@ export class ProfileComponent implements OnInit {
         (response) => {
           this.isLoader = false;
           if (response !== null || response !== undefined) {
-            this.alert.success('User message Updated successfully');
+            this.alert.success('User Profile Updated successfully');
             this.getUser();
           }
         },

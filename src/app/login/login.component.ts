@@ -102,7 +102,7 @@ signIn() {
                 this.alert.info('Users Only');
                 this.router.navigate(['/login/']);
             }
-           }, 10000);
+           }, 30000);
         },
         error => {
             if (error.status === 500) {

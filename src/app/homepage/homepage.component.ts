@@ -72,6 +72,7 @@ export class HomepageComponent implements OnInit {
   format: any;
   data: any;
   Psts: any;
+  numVotes = 0;
   next: '';
   search = '';
   searchList = null;
@@ -1087,5 +1088,8 @@ deleteComment(id) {
       this.alert.error('deleting comment Unsuccessful please try again later');
     }
   );
+}
+voteC(cra) {
+  this.numVotes = cra['votes'].reduce((accum,item) => accum + item.num_of_votes, 0)
 }
 }

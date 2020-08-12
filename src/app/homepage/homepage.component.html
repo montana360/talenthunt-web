@@ -368,7 +368,7 @@
   <ng-template #singleCraft Let-modal>
     <div class="row" *ngFor="let cra of craft">
       <span *ngIf="cra">{{ trackLikes(cra) }}</span>
-      <!-- <span *ngIf="cra">{{ voteC(cra) }}</span> -->
+      <span *ngIf="cra">{{ voteC(cra) }}</span>
       <div class="col-sm-6 left-side">
         <video  class="card-img-top"  style="height: 30rem;" controls >
           <source src="{{cra.file_url}}" type="video/mp4">
@@ -390,12 +390,12 @@
             <b class="card-text" style="color: black;font-size: small;">{{cra.likes.length || '0'}} like(s)</b>
           </div>
           <div class="col-md-4" >
-            <!-- <b style="color: green">{{ numVotes || '0' }} Votes</b>
-            <div class="w-100"></div> -->
+            <b *ngIf="cra.craft_type !=='AUDITION'" style="color: green;font-size: small">{{ numVotes || '0' }} Votes</b>
+            <div class="w-100"></div>
             <span *ngIf="cra.craft_type =='AUDITION'" style="color: green; font-size: small;"><b>AUDITION</b></span>
             <a *ngIf="cra.craft_type !=='AUDITION'" class="but" (click)="voteContent(votepost);viewcraf(cra.id)">vote</a>
             <div class="w-100"></div>
-            <span *ngIf="cra.craft_type !=='AUDITION'" style="color: black; font-size: 11px;"><b>{{cra.votes.length || '0'}} voter(s)</b></span>
+            <!-- <span *ngIf="cra.craft_type !=='AUDITION'" style="color: black; font-size: 11px;"><b>{{cra.votes.length || '0'}} voters</b></span> -->
           </div>
         </div><br>
   <!--Form with header-->
