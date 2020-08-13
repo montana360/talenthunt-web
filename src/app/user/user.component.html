@@ -144,8 +144,17 @@
       </div>
     </div>
 
+
     <div *ngIf="!isLoading" class="row">
-      <div class="col-md-10 move">
+      <div *ngIf="allPosts.length == 0" class=" d-flex justify-content-center col-md-10 move">
+        <a >
+          <i class="fa fa-camera-retro" style="font-size:50px;color: rgb(143, 127, 127);margin-left: 50px;"></i>
+          <span class="d-none d-sm-inline d-xl-block px-1"
+                   style="color: rgb(143, 127, 127);font-size:20px">No Post Available</span>
+        </a>
+        </div>
+
+      <div *ngIf="allPosts.length > 0" class="col-md-10 move">
         <ngb-tabset [destroyOnHide]="false">
 
           <ngb-tab>

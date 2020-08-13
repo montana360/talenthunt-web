@@ -107,10 +107,7 @@ export class ProfileComponent implements OnInit {
     private clipboardService: ClipboardService
   ) {
     this.imageForm = formBuilder.group({
-      profile_image: [
-        null,
-        Validators.compose([Validators.required, Validators.email]),
-      ],
+      profile_image: [null]
     });
     this.commentForm = this.formBuilder.group({
       user_id: [null],
@@ -350,6 +347,8 @@ export class ProfileComponent implements OnInit {
   openfollowing(following) {
     this.modalService.open(following, { centered: true, scrollable: true });
   }
+
+
   onFileChanged(event) {
     const size = event.target.files[0].size;
     const fileSize = size / 1024;
@@ -633,10 +632,15 @@ export class ProfileComponent implements OnInit {
     if (file) {
       var reader = new FileReader();
       reader.readAsDataURL(file);
-
+      if (file.type.indexOf('image') > -1) {
+        this.format = 'IMAGE';
+      } else if (file.type.indexOf('video') > -1) {
+        this.format = 'VIDEO';
+      }
       reader.onload = (event) => {
         this.selectedFile = event.target.result;
         this.imageForm.get('profile_image').setValue(file);
+        // this.postForm.get('file_type').setValue(this.format);
       };
     }
 
@@ -655,7 +659,10 @@ export class ProfileComponent implements OnInit {
       'profile_image',
       this.imageForm.get('profile_image').value
     );
+
     imageData.append('user_id', localStorage.getItem('userID'));
+
+    console.log(imageData);
 
     this.auth
       .update('profile_photo', localStorage.getItem('userID'), imageData)
@@ -671,6 +678,7 @@ export class ProfileComponent implements OnInit {
         },
         (error) => {
           console.log(error);
+          this.isLoader = false;
           this.alert.warning('Error sending data');
         }
       );

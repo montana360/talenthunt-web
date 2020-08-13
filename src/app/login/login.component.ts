@@ -83,7 +83,6 @@ signIn() {
     this.setCredentials();
     this.auth.authenticate(this.loginData).subscribe(
         response => {
-           setTimeout(() => {
                 // console.log(response["token"]['token']);
             if (response !== null || response !== undefined) {
                 localStorage.setItem("token", response["token"]['token']);
@@ -93,16 +92,17 @@ signIn() {
                 localStorage.setItem('user', JSON.stringify(response['data']));
                 localStorage.setItem('user_profile', JSON.stringify(response['data']['profile']));
                 localStorage.setItem('follows', JSON.stringify(response['data']['follows']));
-                this.router.navigateByUrl('/homepage');
-                this.getpost();
-                this.alert.success('Welcome ' + localStorage.getItem('username'));
+                setTimeout(() => {
+                  this.alert.success('Welcome ' + localStorage.getItem('username'));
+                  // console.log(localStorage.getItem('token'));
+                  this.router.navigateByUrl('/homepage');
+                }, 3000);
             } else {
                 localStorage.clear();
                 this.isLoading = false;
                 this.alert.info('Users Only');
                 this.router.navigate(['/login/']);
             }
-           }, 30000);
         },
         error => {
             if (error.status === 500) {

@@ -238,6 +238,15 @@ export class HomepageComponent implements OnInit {
       user_id: [null],
       complaint: [null,Validators.required],
     });
+
+    // this.callPostsAgain();
+  }
+
+  callPostsAgain() {
+    setTimeout(() => {
+      this.getpost();
+      console.log('Posts called again');
+    }, 10000);
   }
 
   copy(text){
@@ -587,10 +596,10 @@ setReportData(){
 
 
   getpost() {
-    // this.isLoading = true;
+    this.isLoading = true;
     this.auth.get('posts').subscribe(
       (response) => {
-        // console.log(response['data']['data']);
+        console.log(response['data']['data']);
         this.allPosts = response['data']['data'];
         this.first_page_url = response['data']['first_page_url'];
         this.last_page_url = response['data']['last_page_url'];
@@ -631,7 +640,7 @@ setReportData(){
     this.spinner.show();
     this.auth.show('user_posts', id).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.UserPosts = response['data'];
         console.log(this.UserPosts);
         this.spinner.hide();
@@ -648,7 +657,7 @@ setReportData(){
     this.spinner.show();
     this.auth.show('get_profile_count', id).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.follow = response;
         console.log(this.follow);
         this.spinner.hide();
@@ -915,19 +924,19 @@ setReportData(){
   }
 
   slickInit(e) {
-    console.log('slick initialized');
+    // console.log('slick initialized');
   }
 
   breakpoint(e) {
-    console.log('breakpoint');
+    // console.log('breakpoint');
   }
 
   afterChange(e) {
-    console.log('afterChange');
+    // console.log('afterChange');
   }
 
   beforeChange(e) {
-    console.log('beforeChange');
+    // console.log('beforeChange');
   }
   homePage() {
     this.router.navigate(['/homepage/']);
