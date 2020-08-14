@@ -251,7 +251,7 @@ export class HomepageComponent implements OnInit {
 
   copy(text){
     this.clipboardService.copyFromContent(text);
-    this.alert.success('Post link copied');
+    this.alert.info('Post link copied');
     // this.alert.success(text);
   }
 
@@ -284,7 +284,7 @@ setReportData(){
         console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
-          this.alert.success('Thank for you for reporting this post');
+          // this.alert.success('Thank for you for reporting this post');
           this.getpost();
         }
       },
@@ -293,10 +293,10 @@ setReportData(){
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
-          this.alert.warning('Internal Server Error');
+          this.alert.warning('connect to the internet and try again');
         } else {
           this.spinner.hide();
-          this.alert.error('Report did not go through try again later');
+          // this.alert.error('Report did not go through try again later');
         }
       }
     );
@@ -315,7 +315,7 @@ setReportData(){
         console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
-          this.alert.success('Comment posted successfully');
+          // this.alert.success('Comment posted successfully');
           this.viewcraft(id);
         }
       },
@@ -324,10 +324,10 @@ setReportData(){
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
-          this.alert.warning('Internal Server Error');
+          this.alert.warning('connect to the internet and try again');
         } else {
           this.spinner.hide();
-          this.alert.error('Comment not posted Try again later');
+          // this.alert.error('Comment not posted Try again later');
         }
       }
     );
@@ -362,7 +362,7 @@ setReportData(){
         console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
-          this.alert.success('Comment posted successfully');
+          // this.alert.success('Comment posted successfully');
           this.getpost();
         }
       },
@@ -371,10 +371,10 @@ setReportData(){
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
-          this.alert.warning('Internal Server Error');
+          this.alert.warning('connect to the internet and try again');
         } else {
           this.spinner.hide();
-          this.alert.error('Comment not posted Try again later');
+          // this.alert.error('Comment not posted Try again later');
         }
       }
     );
@@ -391,7 +391,7 @@ setReportData(){
         console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
-          this.alert.success('Post liked');
+          // this.alert.success('Post liked');
           this.viewcraft(id);
         }
       },
@@ -400,10 +400,10 @@ setReportData(){
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
-          this.alert.warning('Internal Server Error');
+          this.alert.warning('connect to the internet and try again');
         } else {
           this.spinner.hide();
-          this.alert.error('Post liked not successful try again later');
+          // this.alert.error('Post liked not successful try again later');
         }
       }
     );
@@ -421,7 +421,7 @@ setReportData(){
         console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
-          this.alert.success('Post unliked');
+          // this.alert.success('Post unliked');
           this.viewcraft(id);
         }
       },
@@ -430,10 +430,10 @@ setReportData(){
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
-          this.alert.warning('Internal Server Error');
+          this.alert.warning('connect to the internet and try again');
         } else {
           this.spinner.hide();
-          this.alert.error('Post cant be unliked try again later');
+          // this.alert.error('Post cant be unliked try again later');
         }
       }
     );
@@ -450,7 +450,7 @@ setReportData(){
         console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
-          this.alert.success('Post liked');
+          // this.alert.success('Post liked');
           this.getpost()
         }
       },
@@ -459,10 +459,10 @@ setReportData(){
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
-          this.alert.warning('Internal Server Error');
+          this.alert.warning('connect to the internet and try again');
         } else {
           this.spinner.hide();
-          this.alert.error('Post liked not successful try again later');
+          // this.alert.error('Post liked not successful try again later');
         }
       }
     );
@@ -480,7 +480,7 @@ setReportData(){
         console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
-          this.alert.success('Post unliked');
+          // this.alert.success('Post unliked');
           this.getpost()
         }
       },
@@ -489,10 +489,10 @@ setReportData(){
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
-          this.alert.warning('Internal Server Error');
+          this.alert.warning('connect to the internet and try again');
         } else {
           this.spinner.hide();
-          this.alert.error('Post cant be unliked try again later');
+          // this.alert.error('Post cant be unliked try again later');
         }
       }
     );
@@ -509,7 +509,7 @@ setReportData(){
         console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
-          this.alert.success('following successful');
+          // this.alert.success('following successful');
           this.getfollowers(id);
           this.isFollow = null;
           this.searchList = null;
@@ -520,10 +520,10 @@ setReportData(){
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
-          this.alert.warning('Internal Server Error');
+          this.alert.warning('connect to the internet and try again');
         } else {
           this.spinner.hide();
-          this.alert.error('can not follow user');
+          // this.alert.error('can not follow user');
         }
       }
     );
@@ -543,7 +543,7 @@ setReportData(){
           console.log(response);
           this.spinner.hide();
           if (response !== null || response !== undefined) {
-            this.alert.success('Unfollow successful');
+            // this.alert.success('Unfollow successful');
             this.getfollowers(id);
             this.isFollow = null;
           this.searchList = null;
@@ -554,10 +554,10 @@ setReportData(){
           this.spinner.hide();
           if (error.status === 500) {
             this.spinner.hide();
-            this.alert.warning('Internal Server Error');
+            this.alert.warning('connect to the internet and try again');
           } else {
             this.spinner.hide();
-            this.alert.error('can not unfollow user');
+            // this.alert.error('can not unfollow user');
           }
         }
       );
@@ -596,7 +596,7 @@ setReportData(){
 
 
   getpost() {
-    this.isLoading = true;
+    // this.isLoading = true;
     this.auth.get('posts').subscribe(
       (response) => {
         console.log(response['data']['data']);
@@ -609,7 +609,7 @@ setReportData(){
       },
       (error) => {
         this.isLoading = false;
-        this.alert.error('Error loading user Data');
+        this.alert.warning('connect to the internet and try again');
         // console.log(error);
       }
     );
@@ -631,7 +631,7 @@ setReportData(){
       },
       (error) => {
         this.spinner.hide();
-        this.alert.error(error['message']);
+        // this.alert.error(error['message']);
       }
     );
   }
@@ -647,7 +647,7 @@ setReportData(){
       },
       (error) => {
         this.spinner.hide();
-        this.alert.error('Error loading post');
+        this.alert.error('connect to the internet and try again');
         // console.log(error);
       }
     );
@@ -664,7 +664,7 @@ setReportData(){
       },
       (error) => {
         this.spinner.hide();
-        this.alert.error('Error loading post');
+        this.alert.error('connect to the internet and try again');
         // console.log(error);
       }
     );
@@ -682,7 +682,7 @@ setReportData(){
       (error) => {
         this.spinner.hide();
         // console.log(error);
-        this.alert.warning('Could not get requested data');
+        this.alert.warning('connect to the internet and try again');
       }
     );
   }
@@ -759,13 +759,13 @@ setReportData(){
           if (response['success'] === false) {
             this.alert.warning(response['message']);
           } else {
-            this.alert.success('Post added successfully');
+            // this.alert.success('Post added successfully');
             this.getpost();
           }
         },
         (error) => {
           console.log(error);
-          this.alert.warning('Error sending data');
+          this.alert.warning('connect to the internet and try again');
         }
       );
   }
@@ -783,7 +783,7 @@ setReportData(){
       },
       (error) => {
         console.log(error);
-        this.alert.error('Getting data unsuccessful. Please try again');
+        this.alert.error('Getting data unsuccessful. Please connect to the internet and try again');
       }
     );
   }
@@ -841,7 +841,7 @@ setReportData(){
       (error) => {
         console.log(error);
         this.isLoading = false;
-        this.alert.error('Could not get more data...');
+        // this.alert.error('Could not get more data...');
       }
     );
   }
@@ -860,7 +860,7 @@ setReportData(){
       (error) => {
         console.log(error);
         this.isLoading = false;
-        this.alert.error('Could not get more data...');
+        // this.alert.error('Could not get more data...');
       }
     );
   }
@@ -879,7 +879,7 @@ setReportData(){
       (error) => {
         console.log(error);
         this.isLoading = false;
-        this.alert.error('Could not get more data...');
+        // this.alert.error('Could not get more data...');
       }
     );
   }
@@ -898,7 +898,7 @@ setReportData(){
       (error) => {
         console.log(error);
         this.isLoading = false;
-        this.alert.error('Could not get more data...');
+        // this.alert.error('Could not get more data...');
       }
     );
   }
@@ -958,7 +958,7 @@ setReportData(){
   }
    // Get all craft
 getCraft() {
-  this.isLoading = true;
+  // this.isLoading = true;
   this.auth.get('crafts').subscribe(
     response => {
       // console.log(response);
@@ -973,7 +973,7 @@ getCraft() {
     },
     error => {
       this.spinner.hide();
-      this.alert.error(error['message']);
+      // this.alert.error(error['message']);
     }
   );
 }
@@ -992,7 +992,7 @@ viewcraft(ev) {
     },
     (error) => {
       console.log(error);
-      this.alert.error('Getting data unsuccessful. Please try again');
+      this.alert.warning('Getting data unsuccessful. Please connect to the internet and try again');
     }
   );
 }
@@ -1010,7 +1010,7 @@ viewcraf(ev) {
     },
     (error) => {
       console.log(error);
-      this.alert.error('Getting data unsuccessful. Please try again');
+      this.alert.warning('Getting data unsuccessful. Please connect to the internet and try again');
     }
   );
 }
@@ -1058,7 +1058,7 @@ vote() {
       },
       (error) => {
         console.log(error);
-        this.alert.warning('Error sending data');
+        this.alert.warning('connect to the internet and try again');
       }
     );
 }
@@ -1074,7 +1074,7 @@ getcompetition() {
     },
     (error) => {
       this.isLoading = false;
-      this.alert.error('Getting data unsuccessful. Please try again');
+      this.alert.error('Getting data unsuccessful. Please connect to the internet and try again');
     }
   );
 }
@@ -1082,19 +1082,19 @@ getcompetition() {
 deleteComment(id) {
   // this.isLoader = true;
   const data = {
-    comment_id: id,
+    id: id,
   };
   console.log(data);
   this.auth.destroy('remove_comment',localStorage.getItem('userID'), data).subscribe(
     response => {
       this.isLoading = false;
-      this.alert.success("Comment deleted successfully");
+      // this.alert.success("Comment deleted successfully");
       this.getpost();
     },
     error => {
       console.log(error);
       this.isLoading = false;
-      this.alert.error('deleting comment Unsuccessful please try again later');
+      this.alert.warning('connect to the internet and try again');
     }
   );
 }

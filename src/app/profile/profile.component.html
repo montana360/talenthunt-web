@@ -82,9 +82,9 @@
     <br><br>
     <div *ngIf="!isLoader" class="row d-flex justify-content-center ">
       <div class="col-md-3">
-        <img *ngIf="user?.profile_image !== null" (click)="fileInput.click()" src="{{user?.profile_image}}"
+        <img *ngIf="user?.profile_image !== null" (click)="openProfileContent(profile)" src="{{user?.profile_image}}"
           class="avatar" alt="">
-        <img *ngIf="user?.profile_image === null" (click)="fileInput.click()" src="assets/img/default-avatar.png"
+        <img *ngIf="user?.profile_image === null" (click)="openProfileContent(profile)" src="assets/img/default-avatar.png"
           class="avatar" alt="">
         <input style="display: none" type="file" (change)="onImageChanged($event)" #fileInput>
       </div>
@@ -259,24 +259,24 @@
                       <div *ngIf="post?.likes.length > 0">
 
                         <span *ngIf="isData.length > 0">
-                          <img style="cursor: pointer;" (click)="unlike(post?.id)" src="assets/img/44.png" height="30" width="30">
+                          <i class="fa fa-heart" style="cursor: pointer;" (click)="unlike(post?.id)" style="font-size:36px;color: rgb(63, 5, 117);"></i>
                         </span>
 
                         <span *ngIf="!isData || isData.length == 0">
-                          <img style="cursor: pointer;" (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
+                          <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likep(post?.id)" style="font-size:36px;"></i>
                         </span>
                       </div>
 
                       <div *ngIf="post?.likes.length == 0">
                         <span>
-                          <img style="cursor: pointer;" (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
+                          <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likep(post?.id)" style="font-size:36px;"></i>
                         </span>
                       </div>&nbsp;&nbsp;
                       <b>{{post?.likes.length || '0'}}</b>&nbsp;&nbsp;
-                      <img src="assets/img/42.png" height="30" width="30">&nbsp;&nbsp;
-                      <b>{{post?.comments.length || '0'}}</b>&nbsp;&nbsp;
-                      <img src="assets/img/45.png" height="30" width="30">
-                    </div>
+            <i class="fa fa-comments-o" style="font-size:36px;cursor: pointer;"></i>&nbsp;&nbsp;
+            <b>{{post?.comments.length || '0'}}</b>&nbsp;&nbsp;
+            <i class="fa fa-share-alt" (click)="copy(post?.file_url)" style="font-size:36px;cursor: pointer;"></i>
+          </div>
 
                     <div class="row">
                       <span *ngIf="post?.comments.length > 0"><b>{{post?.comments.length || '0'}}
@@ -288,7 +288,7 @@
                         (click)="toggleDisplay()">view
                         comments</a>
                     </div>
-                    <div *ngIf="isShow" class="card border-0 example-2 scrollbar-deep-purple bordered-deep-purple thin">
+                    <div *ngIf="isShow" class="card border-0 example-2 thin">
                       <div class="card-body">
                       <div class="row pa-move" *ngFor="let comment of post.comments">
                         <div class="col-md-1">
@@ -605,7 +605,7 @@
         </div><br>
         <!--Form with header-->
         <div *ngIf="cra.comments.length > 0"
-          class="card border-0 example-1 scrollbar-deep-purple bordered-deep-purple thin">
+          class="card border-0 example-1 thin">
           <div class="card-body">
             <h6 id="section1" style="font-size: 12px;"><strong>Comments:</strong></h6>
             <div class="row pa-move" *ngFor="let comment of cra.comments">
@@ -628,23 +628,25 @@
           <div *ngIf="cra?.likes.length > 0">
 
             <span *ngIf="isData.length > 0">
-              <img (click)="unlike(cra?.id)" src="assets/img/44.png" height="30" width="30">
+              <i class="fa fa-heart" style="cursor: pointer;" (click)="unlike(cra?.id)" style="font-size:36px;color: rgb(63, 5, 117);"></i>
             </span>
 
             <span *ngIf="!isData || isData.length == 0">
-              <img (click)="likep(cra?.id)" src="assets/img/43.png" height="30" width="30">
+              <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likep(cra?.id)" style="font-size:36px;"></i>
             </span>
-
           </div>
 
           <div *ngIf="cra?.likes.length == 0">
             <span>
-              <img (click)="likep(cra?.id)" src="assets/img/43.png" height="30" width="30">
+              <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likep(cra?.id)" style="font-size:36px;"></i>
             </span>
           </div>&nbsp;&nbsp;
-          <b>{{cra?.likes.length || '0'}}</b>&nbsp;&nbsp;
-          <img src="assets/img/45.png" height="30" width="30">
-        </div>&nbsp;
+        <b>{{cra?.likes.length || '0'}}</b>&nbsp;&nbsp;
+        <i class="fa fa-comments-o" style="font-size:36px;cursor: pointer;"></i>&nbsp;&nbsp;
+        <b>{{cra?.comments.length || '0'}}</b>&nbsp;&nbsp;
+        <i class="fa fa-share-alt" (click)="copy(cra?.file_url)" style="font-size:36px;cursor: pointer;"></i>
+      </div>&nbsp;
+
 
         <form [formGroup]="commentForm">
           <div class="input-group">
@@ -663,3 +665,22 @@
     </div>
   </ng-template>
   <!-- close post modal -->
+
+<!-- change modal start -->
+<ng-template #profile let-modal>
+  <div >
+    <!-- <div class="modal-content"> -->
+      <div class="modal-header d-flex justify-content-center" (click)="fileInput.click()">
+        <h6 style="color: rgb(80, 4, 104);cursor: pointer;"> <i class="fa fa-camera" ></i> Change Profile Picture</h6>
+        <input style="display: none" type="file" (change)="onImageChanged($event);modal.close()" #fileInput>
+      </div>
+      <div class="modal-header d-flex justify-content-center" (click)="removeProfile();modal.close()">
+        <h6 style="color: red;cursor: pointer;" ><i class="fa fa-trash" ></i> Remove Profile Picture </h6>
+      </div>
+      <div class="modal-header d-flex justify-content-center" (click)="modal.close()">
+        <h6 style="color: rgb(12, 12, 12);cursor: pointer;"><i class="fa fa-exclamation-circle" ></i> Cancel</h6>
+      </div>
+    <!-- </div> -->
+  </div>
+</ng-template>
+<!-- delete modal end -->

@@ -183,7 +183,7 @@ export class UserComponent implements OnInit {
         console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
-          this.alert.success('Post liked');
+          // this.alert.success('Post liked');
           this.view(id);
           this.getUserpost(this.ID);
         }
@@ -193,10 +193,10 @@ export class UserComponent implements OnInit {
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
-          this.alert.warning('Internal Server Error');
+          this.alert.warning('connect to the internet and try again');
         } else {
           this.spinner.hide();
-          this.alert.error('Post liked not successful try again later');
+          // this.alert.error('Post liked not successful try again later');
         }
       }
     );
@@ -214,7 +214,7 @@ export class UserComponent implements OnInit {
         console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
-          this.alert.success('Post unliked');
+          // this.alert.success('Post unliked');
           this.view(id);
           this.getUserpost(this.ID);
         }
@@ -224,10 +224,10 @@ export class UserComponent implements OnInit {
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
-          this.alert.warning('Internal Server Error');
+          this.alert.warning('connect to the internet and try again');
         } else {
           this.spinner.hide();
-          this.alert.error('Post cant be unliked try again later');
+          // this.alert.error('Post cant be unliked try again later');
         }
       }
     );
@@ -249,7 +249,7 @@ reportpost(id){
       console.log(response);
       this.spinner.hide();
       if (response !== null || response !== undefined) {
-        this.alert.success('Thank for you talent hunt team will check this!');
+        this.alert.info('Thank for you talent hunt team will check this!');
         this.getUserpost(this.ID);
       }
     },
@@ -258,10 +258,10 @@ reportpost(id){
       this.spinner.hide();
       if (error.status === 500) {
         this.spinner.hide();
-        this.alert.warning('Internal Server Error');
+        this.alert.warning('connect to the internet and try again');
       } else {
         this.spinner.hide();
-        this.alert.error('Report did not go through try again later');
+        // this.alert.error('Report did not go through try again later');
       }
     }
   );
@@ -286,7 +286,7 @@ reportpost(id){
         console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
-          this.alert.success('Comment posted successfully');
+          // this.alert.success('Comment posted successfully');
           this.view(id);
           this.getUserpost(this.ID);
         }
@@ -296,10 +296,10 @@ reportpost(id){
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
-          this.alert.warning('Internal Server Error');
+          this.alert.warning('connect to the internet and try again');
         } else {
           this.spinner.hide();
-          this.alert.error('Comment not posted Try again later');
+          // this.alert.error('Comment not posted Try again later');
         }
       }
     );
@@ -313,7 +313,7 @@ reportpost(id){
       },
       (error) => {
         console.log(error);
-        this.alert.error('Getting data unsuccessful. Please try again');
+        this.alert.info('Getting data unsuccessful. Please connect to the internet and try again');
       }
     );
   }
@@ -366,7 +366,7 @@ reportpost(id){
         // console.log(this.viewuser['follows']);
       },
       (error) => {
-        this.alert.error('Getting data unsuccessful. Please try again');
+        this.alert.info('Getting data unsuccessful. Please connect to the internet and try again');
       }
     );
   }
@@ -386,7 +386,7 @@ reportpost(id){
   }
 
   getfollowers(id) {
-    this.isLoading = true;
+    // this.isLoading = true;
     this.auth.show('get_profile_count', id).subscribe(
       (response) => {
         console.log(response);
@@ -395,8 +395,8 @@ reportpost(id){
       },
       (error) => {
         this.isLoading = false;
-        this.alert.error('Error loading post');
-        console.log(error);
+        this.alert.info('connect to the internet and try again');
+        // console.log(error);
       }
     );
   }
@@ -412,9 +412,9 @@ reportpost(id){
         this.isLoading = false;
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.isLoading = false;
-        this.alert.error('Error loading post');
+        this.alert.info('connect to the internet and try again');
       }
     );
   }
@@ -436,7 +436,7 @@ reportpost(id){
         console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
-          this.alert.success('following successful');
+          // this.alert.success('following successful');
           this.v(this.ID);
           this.getfollowers(id);
           this.isFollow = null;
@@ -448,10 +448,10 @@ reportpost(id){
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
-          this.alert.warning('Internal Server Error');
+          this.alert.warning('connect to the internet and try again');
         } else {
           this.spinner.hide();
-          this.alert.error('can not follow user');
+          // this.alert.error('can not follow user');
         }
       }
     );
@@ -472,7 +472,7 @@ reportpost(id){
           console.log(response);
           this.spinner.hide();
           if (response !== null || response !== undefined) {
-            this.alert.success('Unfollow successful');
+            // this.alert.success('Unfollow successful');
             this.v(this.ID);
             this.getfollowers(id);
             this.isFollow = null;
@@ -484,10 +484,10 @@ reportpost(id){
           this.spinner.hide();
           if (error.status === 500) {
             this.spinner.hide();
-            this.alert.warning('Internal Server Error');
+            this.alert.warning('connect to the internet and try again');
           } else {
             this.spinner.hide();
-            this.alert.error('can not unfollow user');
+            // this.alert.error('can not unfollow user');
           }
         }
       );
@@ -495,7 +495,7 @@ reportpost(id){
 
 
   fell(id) {
-    this.isLoading = true;
+    // this.isLoading = true;
     this.clear();
     this.router.navigate(['/user/', id]);
     this.v(this.ID);

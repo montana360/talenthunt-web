@@ -232,7 +232,7 @@ export class ProfileComponent implements OnInit {
         console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
-          this.alert.success('Post liked');
+          // this.alert.success('Post liked');
           this.view(id);
           this.getUserpost();
         }
@@ -242,10 +242,10 @@ export class ProfileComponent implements OnInit {
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
-          this.alert.warning('Internal Server Error');
+          this.alert.warning('connect to the internet and try again');
         } else {
           this.spinner.hide();
-          this.alert.error('Post liked not successful try again later');
+          // this.alert.error('Post liked not successful try again later');
         }
       }
     );
@@ -262,7 +262,7 @@ export class ProfileComponent implements OnInit {
         console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
-          this.alert.success('Post unliked');
+          // this.alert.success('Post unliked');
           this.view(id);
           this.getUserpost();
 
@@ -273,10 +273,10 @@ export class ProfileComponent implements OnInit {
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
-          this.alert.warning('Internal Server Error');
+          this.alert.warning('connect to the internet and try again');
         } else {
           this.spinner.hide();
-          this.alert.error('Post cant be unliked try again later');
+          // this.alert.error('Post cant be unliked try again later');
         }
       }
     );
@@ -303,7 +303,7 @@ export class ProfileComponent implements OnInit {
         console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
-          this.alert.success('Comment posted successfully');
+          // this.alert.success('Comment posted successfully');
           this.view(id);
           this.getUserpost();
         }
@@ -313,10 +313,10 @@ export class ProfileComponent implements OnInit {
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
-          this.alert.warning('Internal Server Error');
+          this.alert.warning('connect to the internet and try again');
         } else {
           this.spinner.hide();
-          this.alert.error('Comment not posted Try again later');
+          // this.alert.error('Comment not posted Try again later');
         }
       }
     );
@@ -406,14 +406,14 @@ export class ProfileComponent implements OnInit {
           if (response['success'] === false) {
             this.alert.warning(response['message']);
           } else {
-            this.alert.success('Post added successfully');
+            // this.alert.success('Post added successfully');
             this.getUserpost();
             this.getfollowers();
           }
         },
         (error) => {
           console.log(error);
-          this.alert.warning('Error sending data');
+          this.alert.warning('connect to the internet and try again');
         }
       );
   }
@@ -430,13 +430,13 @@ export class ProfileComponent implements OnInit {
       (error) => {
         console.log(error);
         this.isLoader = false;
-        this.alert.error('Error loading post');
+        this.alert.warning('connect to the internet and try again');
       }
     );
   }
 
   getfollowers() {
-    this.isLoader = true;
+    // this.isLoader = true;
     this.auth
       .show('get_profile_count', localStorage.getItem('userID'))
       .subscribe(
@@ -447,7 +447,7 @@ export class ProfileComponent implements OnInit {
         },
         (error) => {
           this.isLoader = false;
-          this.alert.error('Error loading post');
+          this.alert.error('connect to the internet and try again');
           console.log(error);
         }
       );
@@ -475,6 +475,10 @@ export class ProfileComponent implements OnInit {
   opendeleteContent(del) {
     this.modalService.open(del, {centered: true, size: 'sm' });
   }
+  openProfileContent(profile) {
+    this.modalService.open(profile, {centered: true, size: 'sm' });
+  }
+
 
 
   onLogout() {
@@ -490,9 +494,10 @@ export class ProfileComponent implements OnInit {
 
   // Get user
   getUser() {
-    this.isLoader = true;
+    // this.isLoader = true;
     this.auth.show('user', localStorage.getItem('userID')).subscribe(
       (response) => {
+        this.user = null;
         console.log(response['data']);
         this.user = response['data'];
         this.prepareEditForm();
@@ -501,14 +506,14 @@ export class ProfileComponent implements OnInit {
       (error) => {
         console.log(error);
         this.isLoader = false;
-        this.alert.error('Error loading user Data');
+        this.alert.warning('connect to the internet and try again');
       }
     );
   }
 
 
   viewpost(id) {
-    this.isLoader = true;
+    // this.isLoader = true;
     this.auth.show('user_posts', id).subscribe(
       (response) => {
         this.isLoader = false;
@@ -518,7 +523,7 @@ export class ProfileComponent implements OnInit {
       (error) => {
         console.log(error);
         this.isLoader = false;
-        this.alert.warning('Could not get requested data');
+        this.alert.warning('connect to the internet and try again');
       }
     );
   }
@@ -573,7 +578,7 @@ export class ProfileComponent implements OnInit {
         (response) => {
           this.isLoader = false;
           if (response !== null || response !== undefined) {
-            this.alert.success('User Profile Updated successfully');
+            // this.alert.success('User Profile Updated successfully');
             this.getUser();
           }
         },
@@ -582,10 +587,10 @@ export class ProfileComponent implements OnInit {
           this.isLoader = false;
           if (error.status === 500) {
             this.alert.warning(
-              'Can not update the information, please check the data'
+              'connect to the internet and try again'
             );
           } else {
-            this.alert.error('User update failed, try again later.');
+            // this.alert.error('User update failed, try again later.');
           }
         }
       );
@@ -602,7 +607,7 @@ export class ProfileComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        this.alert.error('Getting data unsuccessful. Please try again');
+        this.alert.warning('Getting data unsuccessful. Please connect to the internet and try again');
       }
     );
   }
@@ -636,10 +641,13 @@ export class ProfileComponent implements OnInit {
         this.format = 'IMAGE';
       } else if (file.type.indexOf('video') > -1) {
         this.format = 'VIDEO';
+        this.alert.info('Videos not allowed');
+        return false;
       }
       reader.onload = (event) => {
         this.selectedFile = event.target.result;
         this.imageForm.get('profile_image').setValue(file);
+
         // this.postForm.get('file_type').setValue(this.format);
       };
     }
@@ -672,33 +680,33 @@ export class ProfileComponent implements OnInit {
           if (response['success'] === false) {
             this.alert.warning(response['message']);
           } else {
-            this.alert.success('Profile image update successful');
+            // this.alert.success('Profile image update successful');
             this.getUser();
           }
         },
         (error) => {
           console.log(error);
           this.isLoader = false;
-          this.alert.warning('Error sending data');
+          this.alert.warning('connect to the internet and try again');
         }
       );
   }
 
   removeProfile() {
     this.auth
-      .show('remove_profile_photo', localStorage.getItem('userID'))
+      .store('remove_profile_photo', localStorage.getItem('userID'))
       .subscribe(
         (response) => {
           this.isLoader = false;
           if (response['success'] === false) {
-            this.alert.warning(response['message']);
+            // this.alert.warning(response['message']);
           } else {
-            this.alert.success('Profile image update successful');
+            // this.alert.success('Profile image update successful');
           }
         },
         (error) => {
           console.log(error);
-          this.alert.warning('Error sending data');
+          this.alert.warning('connect to the internet and try again');
         }
       );
   }
@@ -744,7 +752,7 @@ export class ProfileComponent implements OnInit {
         console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
-          this.alert.success('following successful');
+          // this.alert.success('following successful');
           // this.v(this.ID);
           this.getfollowers();
           this.isFollow = null;
@@ -756,10 +764,10 @@ export class ProfileComponent implements OnInit {
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
-          this.alert.warning('Internal Server Error');
+          this.alert.warning('connect to the internet and try again');
         } else {
           this.spinner.hide();
-          this.alert.error('can not follow user');
+          // this.alert.error('can not follow user');
         }
       }
     );
@@ -779,7 +787,7 @@ export class ProfileComponent implements OnInit {
           console.log(response);
           this.spinner.hide();
           if (response !== null || response !== undefined) {
-            this.alert.success('Unfollow successful');
+            // this.alert.success('Unfollow successful');
             // this.v(this.ID);
             this.getfollowers();
             this.isFollow = null;
@@ -791,10 +799,10 @@ export class ProfileComponent implements OnInit {
           this.spinner.hide();
           if (error.status === 500) {
             this.spinner.hide();
-            this.alert.warning('Internal Server Error');
+            this.alert.warning('connect to the internet and try again');
           } else {
             this.spinner.hide();
-            this.alert.error('can not unfollow user');
+            // this.alert.error('can not unfollow user');
           }
         }
       );
@@ -802,7 +810,7 @@ export class ProfileComponent implements OnInit {
 
 
   getUsers() {
-    this.isLoader = true;
+    // this.isLoader = true;
     this.auth.get('users').subscribe(
       (response) => {
         // console.log(response);
@@ -812,25 +820,25 @@ export class ProfileComponent implements OnInit {
           this.isLoader = false;
         } else {
           this.isLoader = false;
-          this.alert.info('No Data available yet');
+          // this.alert.info('No Data available yet');
         }
       },
       (error) => {
         this.isLoader = false;
-        this.alert.error(error['message']);
+        // this.alert.error(error['message']);
       }
     );
   }
   copy(text){
     this.clipboardService.copyFromContent(text);
-    this.alert.success('Post link copied');
+    this.alert.info('Post link copied');
     // this.alert.success(text);
   }
 
 
   // Delete post function
   deletePost(id) {
-    this.isLoader = true;
+    // this.isLoader = true;
      // this.isLoader = true;
      const data = {
       id: id,
@@ -840,13 +848,13 @@ export class ProfileComponent implements OnInit {
       response => {
         console.log(this.id);
         this.isLoader = false;
-        this.alert.success('Post deleted successfully');
+        // this.alert.success('Post deleted successfully');
         this.getUserpost();
       },
       error => {
         console.log(error);
         this.isLoader = false;
-        this.alert.error('Deleting Post Unsuccessful Try again later');
+        this.alert.info('Deleting Post Unsuccessful connect to the internet and try again later');
       }
     );
   }
@@ -860,13 +868,13 @@ export class ProfileComponent implements OnInit {
     this.auth.destroy('remove_comment',localStorage.getItem('userID'), data).subscribe(
       response => {
         this.isLoader = false;
-        this.alert.success("Comment deleted successfully");
+        // this.alert.success("Comment deleted successfully");
         this.getUserpost();
       },
       error => {
         console.log(error);
         this.isLoader = false;
-        this.alert.error('deleting comment Unsuccessful please try again later');
+        this.alert.error('connect to the internet and try again');
       }
     );
   }

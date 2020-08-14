@@ -247,23 +247,23 @@
                       <div *ngIf="post?.likes.length > 0">
 
                         <span *ngIf="isData.length > 0">
-                          <img style="cursor: pointer;" (click)="unlike(post?.id)" src="assets/img/44.png" height="30" width="30">
+                          <i class="fa fa-heart" style="cursor: pointer;" (click)="unlike(post?.id)" style="font-size:36px;color: rgb(63, 5, 117);"></i>
                         </span>
 
                         <span *ngIf="!isData || isData.length == 0">
-                          <img style="cursor: pointer;" (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
+                          <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likep(post?.id)" style="font-size:36px;"></i>
                         </span>
                       </div>
 
                       <div *ngIf="post?.likes.length == 0">
                         <span>
-                          <img style="cursor: pointer;" (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
+                          <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likep(post?.id)" style="font-size:36px;"></i>
                         </span>
                       </div>&nbsp;&nbsp;
                       <b>{{post?.likes.length || '0'}}</b>&nbsp;&nbsp;
-                      <img src="assets/img/42.png" height="30" width="30">&nbsp;&nbsp;
+                      <i class="fa fa-comments-o" style="font-size:36px;cursor: pointer;"></i>&nbsp;&nbsp;
                       <b>{{post?.comments.length || '0'}}</b>&nbsp;&nbsp;
-                      <img src="assets/img/45.png" height="30" width="30">
+                      <i class="fa fa-share-alt" (click)="copy(post?.file_url)" style="font-size:36px;cursor: pointer;"></i>
                     </div>
 
                     <div class="row">
@@ -472,23 +472,24 @@
         <div *ngIf="cra?.likes.length > 0">
 
           <span *ngIf="isData.length > 0">
-            <img (click)="unlike(cra?.id)" src="assets/img/44.png" height="30" width="30">
+            <i class="fa fa-heart" style="cursor: pointer;" (click)="unlike(cra?.id)" style="font-size:36px;color: rgb(63, 5, 117);"></i>
           </span>
 
           <span *ngIf="!isData || isData.length == 0">
-            <img (click)="likep(cra?.id)" src="assets/img/43.png" height="30" width="30">
+            <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likep(cra?.id)" style="font-size:36px;"></i>
           </span>
-
         </div>
 
         <div *ngIf="cra?.likes.length == 0">
           <span>
-            <img (click)="likep(cra?.id)" src="assets/img/43.png" height="30" width="30">
+            <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likep(cra?.id)" style="font-size:36px;"></i>
           </span>
         </div>&nbsp;&nbsp;
-        <b>{{cra?.likes.length || '0'}}</b>&nbsp;&nbsp;
-        <img src="assets/img/45.png" height="30" width="30">
-      </div>&nbsp;
+      <b>{{cra?.likes.length || '0'}}</b>&nbsp;&nbsp;
+      <i class="fa fa-comments-o" style="font-size:36px;cursor: pointer;"></i>&nbsp;&nbsp;
+      <b>{{cra?.comments.length || '0'}}</b>&nbsp;&nbsp;
+      <i class="fa fa-share-alt" (click)="copy(cra?.file_url)" style="font-size:36px;cursor: pointer;"></i>
+    </div>&nbsp;
 
       <form [formGroup]="commentForm">
         <div class="input-group">

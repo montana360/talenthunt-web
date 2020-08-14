@@ -153,24 +153,23 @@
             <div *ngIf="post?.likes.length > 0">
 
               <span *ngIf="isData.length > 0">
-                <img style="cursor: pointer;" (click)="unlike(post?.id)" src="assets/img/44.png" height="30" width="30">
+                <i class="fa fa-heart" style="cursor: pointer;" (click)="unlike(post?.id)" style="font-size:36px;color: rgb(63, 5, 117);"></i>
               </span>
 
               <span *ngIf="!isData || isData.length == 0">
-                <img style="cursor: pointer;" (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
+                <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likep(post?.id)" style="font-size:36px;"></i>
               </span>
             </div>
 
             <div *ngIf="post?.likes.length == 0">
               <span>
-                <img style="cursor: pointer;" (click)="likep(post?.id)" src="assets/img/43.png" height="30" width="30">
+                <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likep(post?.id)" style="font-size:36px;"></i>
               </span>
             </div>&nbsp;&nbsp;
             <b>{{post?.likes.length || '0'}}</b>&nbsp;&nbsp;
-            <img style="cursor: pointer;" src="assets/img/42.png" height="30" width="30">&nbsp;&nbsp;
+            <i class="fa fa-comments-o" style="font-size:36px;cursor: pointer;"></i>&nbsp;&nbsp;
             <b>{{post?.comments.length || '0'}}</b>&nbsp;&nbsp;
-
-            <img style="cursor: pointer;" (click)="copy(post?.file_url)" src="assets/img/45.png" height="30" width="30">
+            <i class="fa fa-share-alt" (click)="copy(post?.file_url)" style="font-size:36px;cursor: pointer;"></i>
           </div>
 
           <!-- <div class="row">
@@ -191,7 +190,7 @@
             <a style="color: rgb(48, 10, 83);cursor: pointer" *ngIf="post?.comments.length > 0" (click)="view(post.id)">view
               comments</a>
           </div>
-          <div *ngIf="isShow" class="card border-0 example-1 scrollbar-deep-purple bordered-deep-purple thin">
+          <div *ngIf="isShow" class="card border-0 example-1   thin">
             <div class="card-body">
             <div class="row pa-move" *ngFor="let comment of post.comments">
               <div class="col-md-1">
@@ -399,7 +398,7 @@
           </div>
         </div><br>
   <!--Form with header-->
-  <div class="card border-0 example-1 scrollbar-deep-purple bordered-deep-purple thin" *ngIf = " cra.judge_comments.length > 0 || cra.comments.length > 0">
+  <div class="card border-0 example-1  thin" *ngIf = " cra.judge_comments.length > 0 || cra.comments.length > 0">
     <div class="card-body">
       <h6 id="section1" style="font-size: 16px;"><strong>Comments:</strong></h6>
       <div class="row pa-move" *ngFor="let comment of cra.judge_comments">
@@ -431,6 +430,7 @@
                 <span style="font-size: 12px;">{{comment.message}}</span>
             </div>
         </div>
+
     </div>
     </div>
   </div><br>
@@ -438,21 +438,23 @@
     <div *ngIf="cra?.likes.length > 0">
 
       <span *ngIf="isData.length > 0">
-        <img style="cursor: pointer;" (click)="unclike(cra?.id)" src="assets/img/44.png" height="30" width="30">
+        <i class="fa fa-heart" style="cursor: pointer;" (click)="unclike(cra?.id)" style="font-size:36px;color: rgb(63, 5, 117);"></i>
       </span>
 
       <span *ngIf="!isData || isData.length == 0">
-        <img style="cursor: pointer;" (click)="likecp(cra?.id)" src="assets/img/43.png" height="30" width="30">
+        <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likecp(cra?.id)" style="font-size:36px;"></i>
       </span>
 
     </div>
 
     <div *ngIf="cra?.likes.length == 0">
       <span>
-        <img style="cursor: pointer;" (click)="likecp(cra?.id)" src="assets/img/43.png" height="30" width="30">
+        <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likecp(cra?.id)" style="font-size:36px;"></i>
       </span>
     </div>&nbsp;&nbsp;
     <b>{{cra?.likes.length || '0'}}</b>&nbsp;&nbsp;
+    <i class="fa fa-share-alt" (click)="copy(cra?.file_url)" style="font-size:36px;cursor: pointer;"></i>
+
     <!-- <img src="assets/img/45.png" height="30" width="30"> -->
   </div>&nbsp;
   <form [formGroup]="craftcommentForm">

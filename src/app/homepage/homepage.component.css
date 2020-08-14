@@ -45,7 +45,7 @@
   box-lines: 2px;
 }
 * {
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
 }
 
 /* Style the submit button */
@@ -259,16 +259,27 @@ cursor: pointer;
   background-color: #512da8; }
 
   .scrollbar-deep-purple {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
   scrollbar-color: #512da8 #F5F5F5;
+
   }
   .square::-webkit-scrollbar-track {
-    border-radius: 0 !important; }
+    border-radius: 0 !important;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    width: 6px;
+  }
 
     .square::-webkit-scrollbar-thumb {
-    border-radius: 0 !important; }
+    border-radius: 0 !important;
+    width: 6px;
+  }
 
     .thin::-webkit-scrollbar {
-    width: 6px; }
+    width: 6px;
+   }
+
+
   .example-1 {
     position: relative;
     overflow-y: scroll;

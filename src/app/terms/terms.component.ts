@@ -155,7 +155,7 @@ export class TermsComponent implements OnInit {
       },
       (error) => {
         this.isLoading = false;
-        this.alert.error('Getting data unsuccessful. Please try again');
+        this.alert.info('Getting data unsuccessful. Please try again');
       }
     );
   }

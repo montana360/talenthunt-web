@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AlertService {
   constructor(private toastr: ToastrService) {
     this.toastr.toastrConfig.timeOut = 5000;
-    this.toastr.toastrConfig.positionClass = 'toast-top-right';
+    this.toastr.toastrConfig.positionClass = 'toast-bottom-right';
     this.toastr.toastrConfig.closeButton = true;
     this.toastr.toastrConfig.progressBar = true;
     this.toastr.toastrConfig.preventDuplicates = true;
