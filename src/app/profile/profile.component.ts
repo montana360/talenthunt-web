@@ -140,7 +140,7 @@ export class ProfileComponent implements OnInit {
     navbar.classList.add('navbar-transparent');
     // post data form
     this.postForm = this.formBuilder.group({
-      caption: [null],
+      caption: [null,Validators.required],
       file: [null],
       file_type: [null],
     });
@@ -454,13 +454,21 @@ export class ProfileComponent implements OnInit {
   }
 
   // Tracking all followers of user
-  trackFollowing(data) {
+  trackFollowing(user) {
     // console.log(data['follower']);
-    this.isFollowData = data['follower']['follows'].filter((follow) => {
+    this.isFollowData = user['follower']['follows'].filter((follow) => {
       return follow.follower_id == this.user_id;
     });
     console.log(this.isFollowData);
   }
+   // Checking if you follow searched user
+   trackFollows(user) {
+    this.isFollow = user['follows'].filter((follow) => {
+      return follow.follower_id == this.user_id;
+    });
+    // console.log(this.isFollow);
+  }
+
 
   openContent(logoutModal) {
     this.modalService.open(logoutModal, { size: 'sm', centered: true });
@@ -678,7 +686,7 @@ export class ProfileComponent implements OnInit {
         (response) => {
           this.isLoader = false;
           if (response['success'] === false) {
-            this.alert.warning(response['message']);
+            // this.alert.warning(response['message']);
           } else {
             // this.alert.success('Profile image update successful');
             this.getUser();
@@ -694,7 +702,7 @@ export class ProfileComponent implements OnInit {
 
   removeProfile() {
     this.auth
-      .store('remove_profile_photo', localStorage.getItem('userID'))
+      .update('remove_profile_photo',localStorage.getItem('userID'),localStorage.getItem('userID'))
       .subscribe(
         (response) => {
           this.isLoader = false;
@@ -731,13 +739,6 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/contact/']);
   }
 
-  // Checking if you follow searched user
-  trackFollows(user) {
-    this.isFollow = user['follows'].filter((follow) => {
-      return follow.follower_id == this.user_id;
-    });
-    console.log(this.isFollow);
-  }
 
 
   followuser(id) {

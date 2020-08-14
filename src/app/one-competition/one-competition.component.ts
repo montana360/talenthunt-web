@@ -128,7 +128,7 @@ export class OneCompetitionComponent implements OnInit {
     this.userCompStatus();
     // post data form
   this.craftForm = this.formBuilder.group({
-  caption: [null],
+  caption: [null,Validators.required],
   file: [null],
   file_type: [null],
 });
@@ -331,6 +331,8 @@ onFileChanged(event) {
     reader.readAsDataURL(file);
     if (file.type.indexOf('image') > -1) {
       this.format = 'IMAGE';
+      this.alert.info('Images not allowed');
+        return false;
     } else if (file.type.indexOf('video') > -1) {
       this.format = 'VIDEO';
     }

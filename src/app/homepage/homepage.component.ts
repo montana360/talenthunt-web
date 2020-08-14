@@ -219,7 +219,7 @@ export class HomepageComponent implements OnInit {
 
     // post data form
     this.postForm = this.formBuilder.group({
-      caption: [null],
+      caption: [null,Validators.required],
       file: [null],
       file_type: [null],
     });
@@ -801,7 +801,7 @@ setReportData(){
         data: data,
       };
 
-      // console.log(search);
+      console.log(search);
 
       this.auth.update('search_user',localStorage.getItem('userID'), search).subscribe(
         (response) => {

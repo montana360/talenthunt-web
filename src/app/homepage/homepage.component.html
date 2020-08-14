@@ -32,14 +32,29 @@
                   <img *ngIf="list.profile_image === null" src="assets/img/default-avatar.png" class="avatar">
                   <img *ngIf="list.profile_image !== null" src="{{ list?.profile_image }}" class="avatar">
                 </div>
-                <div class="col-md-7" >
+                <div class="col-md-6" >
                   &nbsp;
                   <span (click)="fell(list?.id)">
                     {{ list.fullname }}
                   </span>
                   &nbsp; &nbsp;
                 </div>
+                  <div class="col-md-3">
+                    <div *ngIf="list.follows.length > 0">
+                      <span *ngIf="isFollow.length > 0">
+                        <button  type="button" class="btnu success" (click)="unfollowuser(list.id);">Following</button>
+                      </span>
 
+                      <span *ngIf="!isFollow || isFollow.length == 0">
+                        <button  type="button" class="bits" (click)="followuser(list.id);">Follow</button>
+                      </span>
+                    </div>
+                    <div *ngIf="list.follows.length == 0">
+                      <span>
+                        <button type="button" class="bits" (click)="followuser(list.id);">Follow</button>
+                      </span>
+                  </div>
+              </div>
               </div>
               <hr>
             </div>
@@ -140,7 +155,7 @@
           </div>
         </div>
         <a>
-          <img *ngIf="post?.file_type === 'IMAGE'" class="card-img-top" src="{{post.file_url}}" height="450px"
+          <img *ngIf="post?.file_type === 'IMAGE'" class="card-img-top" src="{{post.file_url}}"
             width="300px" alt="Card image cap">
         </a>
         <a>

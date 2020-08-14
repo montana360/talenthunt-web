@@ -390,18 +390,18 @@
   <div *ngIf="cra?.likes.length > 0">
 
     <span *ngIf="isData.length > 0">
-      <img (click)="unlike(cra?.id)" src="assets/img/44.png" height="30" width="30">
+      <i class="fa fa-heart" style="cursor: pointer;" (click)="unlike(cra?.id)" style="font-size:36px;color: rgb(63, 5, 117);"></i>
     </span>
 
     <span *ngIf="!isData || isData.length == 0">
-      <img (click)="likep(cra?.id)" src="assets/img/43.png" height="30" width="30">
+      <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likep(cra?.id)" style="font-size:36px;"></i>
     </span>
 
   </div>
 
   <div *ngIf="cra?.likes.length == 0">
     <span>
-      <img (click)="likep(cra?.id)" src="assets/img/43.png" height="30" width="30">
+      <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likep(cra?.id)" style="font-size:36px;"></i>
     </span>
   </div>&nbsp;&nbsp;
   <b>{{cra?.likes.length || '0'}}</b>&nbsp;&nbsp;

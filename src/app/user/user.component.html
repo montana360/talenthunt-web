@@ -37,7 +37,22 @@
                   </span>
                   &nbsp; &nbsp;
                 </div>
+                <div class="col-md-3">
+                  <div *ngIf="list.follows.length > 0">
+                    <span *ngIf="isFollow.length > 0">
+                      <button  type="button" class="btnu success" (click)="unfollowuser(list.id);">Following</button>
+                    </span>
 
+                    <span *ngIf="!isFollow || isFollow.length == 0">
+                      <button  type="button" class="bits" (click)="followuser(list.id);">Follow</button>
+                    </span>
+                  </div>
+                  <div *ngIf="list.follows.length == 0">
+                    <span>
+                      <button type="button" class="bits" (click)="followuser(list.id);">Follow</button>
+                    </span>
+                </div>
+            </div>
               </div>
               <hr>
             </div>
@@ -234,7 +249,7 @@
                   </div>
                   <a>
                     <img *ngIf="post?.file_type === 'IMAGE'" class="card-img-top" src="{{post.file_url}}"
-                      height="450px" width="450px" alt="Card image cap">
+                    width="450px">
                   </a>
                   <a>
                     <video class="card-img-top" *ngIf="post?.file_type === 'VIDEO'" width="450px" height="450px"
@@ -450,7 +465,7 @@
         </div>
       </div><br>
       <!--Form with header-->
-      <div *ngIf="cra.comments.length > 0" class="card border-0 example-1 scrollbar-deep-purple bordered-deep-purple thin">
+      <div *ngIf="cra.comments.length > 0" class="card border-0 example-1 thin">
         <div class="card-body">
           <h6 id="section1" style="font-size: 12px;"><strong>Comments:</strong></h6>
           <div class="row pa-move" *ngFor="let comment of cra.comments">

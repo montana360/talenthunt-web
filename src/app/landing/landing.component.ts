@@ -118,17 +118,23 @@ registration() {
       error => {
         if (error.status === 500) {
           this.isRegistering = false;
-          this.alert.error(
+          this.alert.info(
             "Please check the form data and fill correctly especially the domain name."
           );
-        } else if (error.status === 0) {
+        }else if(error.status === 401){
           this.isRegistering = false;
-          this.alert.error("Network error. No internet connectivity.");
+          this.alert.info(
+            "email is already in used"
+          );
+        }
+         else if (error.status === 0) {
+          this.isRegistering = false;
+          this.alert.info("Network error. No internet connectivity.");
         } else {
           this.isRegistering = false;
-          this.alert.error(error["message"]);
+          this.alert.info('Please check your internet connection and try again');
         }
-        console.log(error);
+        // console.log(error);
       }
     );
   }, 10000);
