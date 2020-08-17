@@ -5,6 +5,12 @@ import {
   Validators,
   FormControl
 } from '@angular/forms';
+import {
+  NgbModalConfig,
+  NgbModal,
+  NgbDateStruct,
+  NgbCarouselConfig,
+} from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { AlertService } from '../services/alert.service';
@@ -39,6 +45,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private modalService: NgbModal,
         private alert: AlertService,
         private auth: AuthService,
         private router: Router,
@@ -96,7 +103,7 @@ signIn() {
                   this.alert.success('Welcome ' + localStorage.getItem('username'));
                   // console.log(localStorage.getItem('token'));
                   this.router.navigateByUrl('/homepage');
-                }, 3000);
+                }, 1000);
             } else {
                 localStorage.clear();
                 this.isLoading = false;
@@ -127,6 +134,9 @@ signIn() {
 landingpage(){
     this.router.navigate(['/landing/']);
   }
+  forgetpage(){
+    this.router.navigate(['/forgetpass/']);
+  }
   getpost() {
     // this.isLoading = true;
     this.auth.get('posts').subscribe(
@@ -142,4 +152,6 @@ landingpage(){
       }
     );
   }
+
+
 }

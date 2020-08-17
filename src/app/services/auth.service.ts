@@ -29,7 +29,7 @@ export class AuthService {
     private router: Router,
     private alert: AlertService
   ) {
-    this.init();
+    // this.init();
   }
   async init() {
     this.headers = new HttpHeaders({
@@ -87,11 +87,11 @@ export class AuthService {
   }
 
   // show patch details for  a single resource
-  restore(url, id) {
+  restore(url, payload) {
     const config = new HttpHeaders();
     config.append('Accept', 'application/json');
-    config.append('Authorization', 'Bearer ' + this.token);
-    return this.http.patch('https://' + server + url + '/' + id, {
+    // config.append('Authorization', 'Bearer ' + this.token);
+    return this.http.post('https://' + server + url, payload, {
       headers: this.headers,
     });
   }

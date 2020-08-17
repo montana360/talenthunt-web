@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { HttpClientModule } from '@angular/common/http';
+// import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from "ngx-spinner";
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -32,7 +32,11 @@ import { ContactComponent } from './contact/contact.component';
 import { UserFollowersPipe } from './pipes/user-followers.pipe';
 import { ResponsiveModule } from 'ngx-responsive';
 import { ClipboardModule } from 'ngx-clipboard';
-
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
+import { ForgetpassComponent } from './forgetpass/forgetpass.component';
+import { ResetpassComponent } from './resetpass/resetpass.component';
+import { PinComponent } from './pin/pin.component';
 
 const config = {
   breakPoints: {
@@ -59,7 +63,10 @@ const config = {
     OneCompetitionComponent,
     AboutComponent,
     ContactComponent,
-    UserFollowersPipe
+    UserFollowersPipe,
+    ForgetpassComponent,
+    ResetpassComponent,
+    PinComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +86,9 @@ const config = {
     SlickCarouselModule,
     ClipboardModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

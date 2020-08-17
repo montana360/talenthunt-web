@@ -15,12 +15,18 @@ import { JoinCompetitionComponent } from './join-competition/join-competition.co
 import { OneCompetitionComponent } from './one-competition/one-competition.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
+import { ForgetpassComponent } from './forgetpass/forgetpass.component';
+import { ResetpassComponent } from './resetpass/resetpass.component';
+import { PinComponent } from './pin/pin.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
 
   { path: 'landing', component: LandingComponent},
   { path: 'login' , component: LoginComponent},
+  { path: 'forgetpass', component: ForgetpassComponent},
+  { path: 'resetpass', component: ResetpassComponent},
+  { path: 'pin', component: PinComponent},
   { path: 'homepage', component: HomepageComponent, canActivate: [AuthGuard]},
   { path: 'profile', component:  ProfileComponent, canActivate: [AuthGuard]},
   { path: 'competition', component: CompetitionComponent},
