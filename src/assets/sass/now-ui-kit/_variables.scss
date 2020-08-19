@@ -51,10 +51,10 @@ $primary-states-color:       lighten($primary-color, 6%) !default;
 $primary-color-opacity:      rgba(249, 99, 50, .3) !default;
 $primary-color-alert:        rgba(249, 99, 50, .8) !default;
 
-$success-color:              #18ce0f !default;
+$success-color:              #c5c5c5 !default;
 $success-states-color:       lighten($success-color, 6%) !default;
-$success-color-opacity:      rgba(24, 206, 15, .3) !default;
-$success-color-alert:        rgba(24, 206, 15, .8) !default;
+$success-color-opacity:      rgba(255, 255, 255, 0.3) !default;
+$success-color-alert:        rgba(255, 255, 255, 0.8) !default;
 
 $info-color:                 #2CA8FF !default;
 $info-states-color:          lighten($info-color, 6%) !default;
@@ -222,7 +222,7 @@ $width-icon-message-sm:			 20px;
 $white-navbar:                  rgba(#FFFFFF, .96);
 $primary-navbar:                rgba(#34ACDC, .98);
 $info-navbar:                   rgba(#5BCAFF, .98);
-$success-navbar:                rgba(#4CD964, .98);
+$success-navbar:                rgba(#ffffff, .98);
 $warning-navbar:                rgba(#FF9500, .98);
 $danger-navbar:                 rgba(#FF4C40, .98);
 

@@ -58,4 +58,7 @@ export class ContactComponent implements OnInit {
   compage() {
     this.router.navigate(['/terms/']);
   }
+  openverifyContent(pinnum) {
+    this.modalService.open(pinnum, {centered: true, size: 'sm' });
+  }
 }

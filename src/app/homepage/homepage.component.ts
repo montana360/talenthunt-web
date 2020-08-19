@@ -38,6 +38,8 @@ import { ClipboardService } from 'ngx-clipboard'
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
+
+
 })
 export class HomepageComponent implements OnInit {
   // formgroup
@@ -201,6 +203,7 @@ Allnoti:any;
   }
 
   ngOnInit(): void {
+    this.loadNextPost();
     this.getnotifications();
     this.getAllnotifications();
     console.log(this.router.url);
@@ -486,7 +489,7 @@ setReportData(){
     console.log(data);
     this.auth.update('unlike', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           // this.alert.success('Post unliked');
@@ -518,7 +521,7 @@ setReportData(){
         console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
-          // this.alert.success('following successful');
+          this.alert.success('following successful');
           this.getfollowers(id);
           this.isFollow = null;
           this.searchList = null;
@@ -552,7 +555,7 @@ setReportData(){
           console.log(response);
           this.spinner.hide();
           if (response !== null || response !== undefined) {
-            // this.alert.success('Unfollow successful');
+            this.alert.success('Unfollow successful');
             this.getfollowers(id);
             this.isFollow = null;
           this.searchList = null;
@@ -608,12 +611,13 @@ setReportData(){
     // this.isLoading = true;
     this.auth.get('posts').subscribe(
       (response) => {
-        console.log(response['data']['data']);
+        console.log(response['data']);
         this.allPosts = response['data']['data'];
         // this.first_page_url = response['data']['first_page_url'];
         // this.last_page_url = response['data']['last_page_url'];
         this.next_page_url = response['data']['next_page_url'];
-        // this.prev_page_url = response['data']['prev_page_url'];
+        console.log(this.next_page_url);
+        this.prev_page_url = response['data']['prev_page_url'];
         this.isLoading = false;
       },
       (error) => {
@@ -628,30 +632,63 @@ setReportData(){
     if(this.notscrolly && this.notEmptyPost){
       this.spinner.show();
       this.notscrolly = false;
-      this.nextPage();
+      this.loadNextPost();
+    }
+  }
+  onScrollup(){
+    console.log("Scrolledup");
+    if(this.notscrolly && this.notEmptyPost){
+      this.spinner.show();
+      // this.notscrolly = false;
+      this. prevPage();
     }
   }
 
+
   loadNextPost(){
-    const url = 'https://talenthunt.vokacom.net/api/v1/posts'
-        // returning last post from array
-        const lastPost = this.allPosts['data'][this.allPosts.length - 1];
-        // get id of last post
-        // const lastPostId = lastPost.id;
-        // sent this id as key value pare using formdata()
-        const dataTosend = new FormData();
-        // dataTosend.append('id', lastPostId);
+    console.log(this.next_page_url);
+
         this.auth.paginate(this.next_page_url)
         .subscribe((response) =>{
-          console.log(response);
-          const newPost = this.next_page_url;
-          this.spinner.hide();
-          if (newPost.length === 0){
+          console.log(response['data']);
+          this.next_page_url = null;
+          const newPost = response['data']['data'];
+          this.next_page_url = response['data']['next_page_url'];
+          console.log(this.next_page_url);
+          this.prev_page_url = response['data']['prev_page_url'];
+          if(this.next_page_url == null) {
             this.notEmptyPost = false;
           }
+
+          // console.log(newPost);
+          this.spinner.hide();
           this.allPosts = this.allPosts.concat(newPost);
           this.notscrolly = true;
         });
+  }
+  prevPage() {
+    this.isLoading = true;
+    this.auth.paginate(this.prev_page_url).subscribe(
+      (response) => {
+        this.allPosts = response['data']['data'];
+        this.prev_page_url = response['data']['prev_page_url'];
+        this.isLoading = false;
+        console.log(response);
+          const oldPost = this.prev_page_url;
+          this.spinner.hide();
+          if (oldPost.length === 0){
+            this.notEmptyPost = false;
+          }
+          this.allPosts = this.allPosts.concat(oldPost);
+          this.notscrolly = true;
+        this.isLoading = false;
+      },
+      (error) => {
+        console.log(error);
+        this.isLoading = false;
+        // this.alert.error('Could not get more data...');
+      }
+    );
   }
 
   nextPage() {
@@ -699,7 +736,7 @@ setReportData(){
   getAllnotifications() {
     this.auth.show('notifications', localStorage.getItem('userID')).subscribe(
       (response) => {
-         console.log(response);
+        //  console.log(response);
          if (response['success'] === true) {
           this.isNoti = true;
           this.Allnoti = response['data']['data'];
@@ -721,7 +758,7 @@ setReportData(){
     const data = {
       id: id,
     };
-    console.log(data);
+    // console.log(data);
     this.auth.destroy('remove_notification',localStorage.getItem('userID'), data).subscribe(
       response => {
         this.isLoading = false;
@@ -740,10 +777,8 @@ setReportData(){
     this.spinner.show();
     this.auth.get('users').subscribe(
       (response) => {
-        // console.log(response);
         if (response['data']['data'].length > 0) {
           this.allUsers = response['data']['data'];
-          // console.log(this.allUsers);
           this.spinner.hide();
         } else {
           this.spinner.hide();
@@ -780,7 +815,7 @@ setReportData(){
       (response) => {
         // console.log(response);
         this.follow = response;
-        console.log(this.follow);
+        // console.log(this.follow);
         this.spinner.hide();
       },
       (error) => {
@@ -951,24 +986,7 @@ setReportData(){
 
 
 
-  prevPage() {
-    this.isLoading = true;
-    this.auth.paginate(this.prev_page_url).subscribe(
-      (response) => {
-        this.allPosts = response['data']['data'];
-        this.first_page_url = response['data']['first_page_url'];
-        this.last_page_url = response['data']['last_page_url'];
-        this.next_page_url = response['data']['next_page_url'];
-        this.prev_page_url = response['data']['prev_page_url'];
-        this.isLoading = false;
-      },
-      (error) => {
-        console.log(error);
-        this.isLoading = false;
-        // this.alert.error('Could not get more data...');
-      }
-    );
-  }
+
 
   firstPage() {
     this.isLoading = true;

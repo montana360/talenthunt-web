@@ -30,7 +30,7 @@
               </div>
             </div>
             <div class="container-contact100-form-btn row justify-content-center">
-              <button class="btn btn-blue text-center">
+              <button (click)="openverifyContent(pinnum)" class="btn btn-blue text-center">
                 Send Message
               </button>
             </div>
@@ -111,3 +111,14 @@
     </div>
   </footer>
 </div>
+<ng-template #pinnum let-modal>
+  <div>
+    <div class="modal-content">
+      <div class="modal-header content-center">
+        <h4>Message <i class="fa fa-lock"></i></h4>
+      </div>
+      <div class="modal-body"><i class="fa fa-question-circle"></i> Thank you for Contacting Us We will respond to your message soon</div>
+      <div class="modal-footer"><a (click)="homePage();modal.close()" class="btn facebookbutton btn-block">Ok</a></div>
+    </div>
+  </div>
+</ng-template>

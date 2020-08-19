@@ -95,72 +95,76 @@
     </nav>
     <img src="assets/img/41.png" alt="" height="6" width="100%">
     <br><br>
-    <div *ngIf="!isLoader" class="row d-flex justify-content-center ">
-      <div class="col-md-3">
-        <img *ngIf="user?.profile_image !== null" (click)="openProfileContent(profile)" src="{{user?.profile_image}}"
-          class="avatar" alt="">
-        <img *ngIf="user?.profile_image === null" (click)="openProfileContent(profile)" src="assets/img/default-avatar.png"
-          class="avatar" alt="">
-        <!-- <input style="display: none" type="file" (change)="onImageChanged($event)" #fileInput> -->
+    <div class=" container-fluid">
+      <div class = "d-flex justify-content-center">
+      <div *ngIf="!isLoader" class="row d-flex justify-content-center">
+        <div class="col-xs-1 col-md-3 justify-content-center">
+          <img *ngIf="user?.profile_image !== null" (click)="openProfileContent(profile)" src="{{user?.profile_image}}"
+            class="avatar" alt="">
+          <img *ngIf="user?.profile_image === null" (click)="openProfileContent(profile)" src="assets/img/default-avatar.png"
+            class="avatar" alt="">
+          <!-- <input style="display: none" type="file" (change)="onImageChanged($event)" #fileInput> -->
+        </div>
+
+        <div class="col-xs-3 col-md-7 justify-content-center">
+          <div class="d-flex justify-content-center" style="padding-top: 5px;">
+            <div class="col-xs-5 col-md-5">
+              <h6><b>{{user?.fullname}}</b></h6>
+              <h6>{{user?.username}}</h6>
+            </div>
+            <div class="col-xs-7 col-md-7">
+              <button type="button" class="btn success" style="margin-left: auto;" (click)="opentContent(eitModal)">Edit Profile</button>
+            </div>
+          </div>
+          <br>
+          <div class="row d-flex justify-content-around">
+            <div class="col-xs-1 col-md-3 text-center">
+              <h6><b>{{follow?.posts.length}}</b></h6>
+              <span style="font-size: 18px;">Posts</span>
+            </div>
+            <!-- <img src="assets/img/04.png" height="50px"> -->
+
+            <div class="col-xs-1 col-md-3 text-center" style="cursor: pointer;" (click)="openfollowers(followers)">
+              <h6><b>{{follow?.followers.length}}</b></h6>
+              <span style="font-size: 18px;">Followers</span>
+            </div>
+            <!-- <img src="assets/img/04.png" height="50px"> -->
+
+            <div class=" col-xs-1 col-md-3 text-center" style="cursor: pointer;" (click)="openfollowing(following)">
+              <h6><b>{{follow?.following.length}}</b></h6>
+              <span style="font-size: 18px;">Following</span>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-xs-9 col-md-9">
+
+              <p class="d-flex justify-content-center" style="font-size: 14px;">
+                {{ user?.personal_message }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="justify-content-center">
+          <div class="row">
+            <div class="col-md-3">
+              <img *ngIf="user.profile_image !== null" src="{{user.profile_image}}" class="avatar" alt="">
+              <img *ngIf="user.profile_image === null" src="assets/img/default-avatar.png" class="avatar" alt="">
+            </div>
+            <div class="col-md-8" style="margin-top: 30px;">
+              <h6 style="color: black;margin-top: auto;font-size: medium;">{{user.fullname}}</h6>
+              <a class="btn buts" (click)="opentContent(eitModal)">Edit Profile</a>
+              <p style="color: black;font-size: small;">{{user.personal_message}}</p>
+
+            </div>
+
+
+          </div>
+        </div> -->
       </div>
-
-      <div class="col-md-7">
-        <div class="row">
-          <div class="col-md-5">
-            <h6><b>{{user?.fullname}}</b></h6>
-            <h6>{{user?.username}}</h6>
-          </div>
-          <div class="col-md-7">
-            <button type="button" class="btn success" (click)="opentContent(eitModal)">Edit Profile</button>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-md-3 text-center">
-            <h6><b>{{follow?.posts.length}}</b></h6>
-            <span style="font-size: 18px;">Posts</span>
-          </div>
-          <img src="assets/img/04.png" height="50px">
-
-          <div class="col-md-3 text-center" style="cursor: pointer;" (click)="openfollowers(followers)">
-            <h6><b>{{follow?.followers.length}}</b></h6>
-            <span style="font-size: 18px;">Followers</span>
-          </div>
-          <img src="assets/img/04.png" height="50px">
-
-          <div class="col-md-3 text-center" style="cursor: pointer;" (click)="openfollowing(following)">
-            <h6><b>{{follow?.following.length}}</b></h6>
-            <span style="font-size: 18px;">Following</span>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-md-9">
-
-            <p class="d-flex justify-content-start" style="font-size: 14px;">
-              {{ user?.personal_message }}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- <div class="justify-content-center">
-        <div class="row">
-          <div class="col-md-3">
-            <img *ngIf="user.profile_image !== null" src="{{user.profile_image}}" class="avatar" alt="">
-            <img *ngIf="user.profile_image === null" src="assets/img/default-avatar.png" class="avatar" alt="">
-          </div>
-          <div class="col-md-8" style="margin-top: 30px;">
-            <h6 style="color: black;margin-top: auto;font-size: medium;">{{user.fullname}}</h6>
-            <a class="btn buts" (click)="opentContent(eitModal)">Edit Profile</a>
-            <p style="color: black;font-size: small;">{{user.personal_message}}</p>
-
-          </div>
-
-
-        </div>
-      </div> -->
     </div>
+  </div>
     <br><br>
 
     <div *ngIf="isLoader" class="d-flex justify-content-center">

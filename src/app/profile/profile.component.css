@@ -93,13 +93,7 @@ textarea {
     background-color: rebeccapurple;
     background-repeat:no-repeat;
   }
-  .avatar {
-    vertical-align: middle;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 3px solid rgba(54, 8, 85, 0.829);
-  }
+
 
   .avatar2 {
     vertical-align: middle;
@@ -440,3 +434,17 @@ textarea {
     [class*="col-"] {
       width: 100%;
     }
+
+
+
+  .avatar {
+    vertical-align: middle;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid rgba(54, 8, 85, 0.829);
+  }
+
+  .row.d-flex.justify-content-center {
+    width: 600px;
+}

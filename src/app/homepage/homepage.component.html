@@ -159,8 +159,10 @@
       class="search-results"
       infiniteScroll
       [infiniteScrollDistance]="2"
+      [infiniteScrollUpDistance]="1.5"
       [infiniteScrollThrottle]="50"
       (scrolled)="onScroll()"
+      (scrolledUp)="onScrollup()"
     >
       <div class="card border-0  d-flex justify-content-center" *ngFor="let post of allPosts">
         <span *ngIf="post">{{ trackLikes(post) }}</span>
@@ -295,20 +297,11 @@
     </div>
 
 
-    <!-- Pagination Div -->
-    <div *ngIf="!isLoading" class="col-md-8 move">
-      <div align="center">
-
-        <!-- <button *ngIf="first_page_url" (click)="firstPage()" type="button" class="btn btn-primary">First</button> -->
-        <button *ngIf="prev_page_url" (click)="prevPage()" type="button" class="btn">Previous Page...</button>
-        <button *ngIf="next_page_url" (click)="nextPage()" type="button" class="btn">Load more...</button>
-        <!-- <button *ngIf="last_page_url" (click)="lastPage()" type="button" class="btn btn-primary">Last</button> -->
-      </div>
-    </div>
+   
 
     <br><br>
 
-    <div *ngIf="!isLoading" class="trending">
+    <!-- <div *ngIf="!isLoading" class="trending">
       <div class="row">
         <div class="col-sm-8">
           <h3 class="title" style="color: white;">Trending Videos</h3>
@@ -324,7 +317,7 @@
       </ngx-slick-carousel>
 
       <br>
-    </div>
+    </div> -->
     <div *ngIf="isLoading" class="d-flex justify-content-center">
       <br><br><br><br><br><br><br><br><br>
       <div class="spinner-grow" style="color: rgb(109, 8, 109);" role="status">

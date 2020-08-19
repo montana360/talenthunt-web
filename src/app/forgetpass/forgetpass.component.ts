@@ -110,7 +110,7 @@ pinData = {
   }
   compare(pin) {
     if(pin == this.pin) {
-      this.openverifyContent(pin)
+      this.router.navigate(['/resetpass/']);
     }else{
       this.alert.warning('pin do not match please check your mail and try again');
     }

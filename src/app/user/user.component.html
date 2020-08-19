@@ -90,14 +90,15 @@
     </nav>
     <img src="assets/img/41.png" alt="" height="6" width="100%">
     <br><br>
-
+    <div class=" container-fluid">
+      <div class = "d-flex justify-content-center">
     <div *ngIf="!isLoading" class="row  d-flex justify-content-center ">
       <div class="justify-content-center col-md-3 d-flex">
         <img *ngIf="viewuser?.profile_image !== null" src="{{viewuser?.profile_image}}" class="avatar" alt="">
         <img *ngIf="viewuser?.profile_image === null" src="assets/img/default-avatar.png" class="avatar" alt="">
       </div>
       <div class="col-md-7">
-        <div class="row">
+        <div class="row justify-content-around">
           <div class="col-md-3  text-center">
             <h6><b>{{follow?.posts.length}}</b></h6>
             <span style="font-size: 18px;">Posts</span>
@@ -119,7 +120,8 @@
           </div>
         </div><br>
         <div class="row" *ngIf="user_id !== ID">
-          <div class="col-md-7 ">
+          <div class="col-md-7 justify-content-around">
+            <div class="justify-content-around">
             <div *ngIf="viewuser?.follows.length > 0">
               <span *ngIf="isFollow?.length > 0">
                 <button type="button" (click)="unfollowuser(viewuser?.id)" class="btn success">Unfollow</button>
@@ -136,20 +138,27 @@
                 <button class="but" type="button" (click)="followuser(viewuser?.id)">Follow</button>
               </span>
             </div>
+          </div>
          </div>
         </div>
       </div>
-    </div>&nbsp;
-    <div *ngIf="!isLoading" class="row pb-5 justify-content-center">
-      <div class="justify-content-center col-md-5 p-5" style="margin-right: 310px;">
+    </div> </div>&nbsp;
+    <div class = "d-flex justify-content-center">
+    <div *ngIf="!isLoading" class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center col-md-9 col-xs-8">
         <h6><b>{{viewuser?.fullname}}</b></h6>
+        <div class="w-100"></div>
         <p>{{viewuser?.username}}</p>
      </div>
     </div>
-    <div *ngIf="!isLoading" class="row justify-content-center ">
-      <div class="justify-content-center col-md-5" style="margin-right: 310px;">
+    </div>
+    <br>
+    <div class = "d-flex justify-content-center">
+    <div *ngIf="!isLoading" class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center col-md-5">
         <p>{{viewuser?.personal_message}}</p>
      </div>
+    </div>
     </div>
     <br><br>
     <div *ngIf="isLoading" class="d-flex justify-content-center">

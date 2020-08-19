@@ -490,3 +490,6 @@ a {
       border: 3px solid rgba(54, 8, 85, 0.829);
 
     }
+    .row.d-flex.justify-content-center {
+      width: 600px;
+  }
