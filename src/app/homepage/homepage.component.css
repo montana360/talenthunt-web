@@ -54,6 +54,12 @@ form.example button {
   border: none;
   cursor: pointer;
 }
+.com{box-shadow: none !important;
+  border-radius: 0px !important;
+  border-bottom: 1px solid #9100ff !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;}
 form.example button:disabled {
   background: transparent;
   cursor: progress;
@@ -81,6 +87,7 @@ input {
   flex-grow:2;
   border:none;
 }
+.form{padding:10px 50px 10px 50px;}
 
 input:focus {
   /* removing the input focus blue box. Put this on the form if you like. */
@@ -222,15 +229,24 @@ cursor: pointer;
 }
 
 /* Green */
-.success {
+/* .success {
   border-color: #000000;
   color: black;
-}
+} */
 .popover {
   /* margin:10px, 10px; */
   padding:10px;
   width: 360px;
   height: 360px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align:justify center;
+}
+.popov {
+  /* margin:10px, 10px; */
+  padding:10px;
+  max-width: 100%; 
+  height: auto;
   overflow-x: hidden;
   overflow-y: auto;
   text-align:justify center;
@@ -311,3 +327,34 @@ cursor: pointer;
     background-repeat: no-repeat;
     color: white;
     }
+
+    .items {
+      width: 90%;
+      /* margin: 0px auto; */
+      /* margin-top: 100px */
+  }
+
+  .slick-slide {
+      /* margin: 10px */
+  }
+
+  .notification {
+    /* background-color: #555; */
+    color: black;
+    text-decoration: none;
+    /* padding: 15px 26px; */
+    position: relative;
+    /* display: inline-block; */
+    /* border-radius: 2px; */
+  }
+
+  .notification .badge {
+    position: absolute;
+    /* top: -5px; */
+    right: -10px;
+    padding: 1px 5px;
+    border-radius: 50%;
+    font-size: smaller;
+    background: rgba(54, 8, 85, 0.829);
+    color: white;
+  }

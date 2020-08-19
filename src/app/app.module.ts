@@ -29,7 +29,7 @@ import { AboutComponent } from './about/about.component';
 // Import your library
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ContactComponent } from './contact/contact.component';
-import { UserFollowersPipe } from './pipes/user-followers.pipe';
+// import { UserFollowersPipe } from './pipes/user-followers.pipe';
 import { ResponsiveModule } from 'ngx-responsive';
 import { ClipboardModule } from 'ngx-clipboard';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -37,6 +37,9 @@ import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
 import { ForgetpassComponent } from './forgetpass/forgetpass.component';
 import { ResetpassComponent } from './resetpass/resetpass.component';
 import { PinComponent } from './pin/pin.component';
+// import { ScrollingModule} from '@angular/cdk/scrolling';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { DateAgoPipe } from './pipes/date-ago.pipe';
 
 const config = {
   breakPoints: {
@@ -63,10 +66,11 @@ const config = {
     OneCompetitionComponent,
     AboutComponent,
     ContactComponent,
-    UserFollowersPipe,
+    // UserFollowersPipe,
     ForgetpassComponent,
     ResetpassComponent,
-    PinComponent
+    PinComponent,
+    DateAgoPipe
   ],
   imports: [
     BrowserModule,
@@ -84,7 +88,9 @@ const config = {
     CarouselModule,
     // Specify your library as an import
     SlickCarouselModule,
-    ClipboardModule
+    ClipboardModule,
+    InfiniteScrollModule
+    // ScrollingModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }

@@ -1,24 +1,24 @@
 <div class="container-fluid col-md-9">
   <div class="card0 border-0">
     <nav class="navbar navbar-expand-lg navbar-light  mb-3" style="background-color: white;">
-      <a class="navbar-brand " (click)="landingpage()"><img src="assets/img/22.png" ngbTooltip="Talent hunt"
+      <a class="navbar-brand " (click)="landingpage()"><img src="assets/img/22.png"
         height="50" width="150"></a>
 
       <!-- Step 3: Toggle the value of the property when the toggler button is clicked. -->
       <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
-        &#9776;
+        <i class="fa fa-bars"></i>
       </button>
 
       <!-- Step 2: Add the ngbCollapse directive to the element below. -->
       <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
 
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item mouse">
+          <li class="nav-item text-center mouse">
             <div ngbDropdown class="dropdown ">
               <a class="nav-link dropdown-toggle" ngbDropdownToggle>
                 <img src="assets/img/03.png" width="30">
               </a>
-              <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right page-nav">
+              <div ngbDropdownMenu class="dropdown-menu dropdown-menu-center page-nav">
                 <a class="dropdown-item" (click)="aboutpage()">ABOUT US</a>
                 <a class="dropdown-item" (click)="contact()">CONTACT US</a>
               </div>

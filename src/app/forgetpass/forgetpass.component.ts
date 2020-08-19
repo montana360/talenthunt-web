@@ -28,6 +28,7 @@ export class ForgetpassComponent implements OnInit {
   isloading= false;
   re_pin: any;
   pin: any;
+  pinnum:any;
 
   // pin data
 pinData = {
@@ -101,15 +102,20 @@ pinData = {
    openReportContent(pin) {
     this.modalService.open(pin, {centered: true, size: 'sm' });
   }
-
+  openverifyContent(pinnum) {
+    this.modalService.open(pinnum, {centered: true, size: 'sm' });
+  }
+  close(pin) {
+    this.modalService.dismissAll(pin);
+  }
   compare(pin) {
-    if(pin == this.pin){
-      this.router.navigate(['/resetpass/']);
-      this.openReportContent(pin)
-      console.log(pin);
+    if(pin == this.pin) {
+      this.openverifyContent(pin)
     }else{
       this.alert.warning('pin do not match please check your mail and try again');
     }
   }
-
+ress(){
+  this.router.navigate(['/resetpass/']);
+}
 }

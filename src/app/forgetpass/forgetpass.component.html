@@ -85,3 +85,14 @@
   </div>
 </div>
   </ng-template>
+  <ng-template #pinnum let-modal>
+    <div>
+      <div class="modal-content">
+        <div class="modal-header content-center">
+          <h4>Message <i class="fa fa-lock"></i></h4>
+        </div>
+        <div class="modal-body"><i class="fa fa-question-circle"></i> PIN VERIFIED Click OK to Continue</div>
+        <div class="modal-footer"><a (click)="ress();modal.close()" class="btn facebookbutton btn-block">Ok</a></div>
+      </div>
+    </div>
+  </ng-template>

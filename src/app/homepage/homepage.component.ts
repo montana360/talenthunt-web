@@ -33,6 +33,7 @@ import {
 import { ClipboardService } from 'ngx-clipboard'
 
 
+
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
@@ -78,6 +79,7 @@ export class HomepageComponent implements OnInit {
   searchList = null;
   isMineLike = false;
   isFound = false;
+  isNoti = false;
   allCraft: any;
 
   prev_page = null;
@@ -87,6 +89,9 @@ export class HomepageComponent implements OnInit {
   last_page_url = null;
   next_page_url = null;
   prev_page_url = null;
+
+  notEmptyPost = true;
+  notscrolly = true;
 
   isLoading = false;
   // boolean
@@ -128,6 +133,9 @@ export class HomepageComponent implements OnInit {
     user_id: localStorage.getItem('userID'),
     file_type: this.format,
   };
+// notifications
+unread:any;
+Allnoti:any;
 
   slides = [
     { img: 'assets/img/170.png' },
@@ -193,7 +201,8 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.getnotifications();
+    this.getAllnotifications();
     console.log(this.router.url);
     // console.log(window.location.href);
 
@@ -601,16 +610,128 @@ setReportData(){
       (response) => {
         console.log(response['data']['data']);
         this.allPosts = response['data']['data'];
-        this.first_page_url = response['data']['first_page_url'];
-        this.last_page_url = response['data']['last_page_url'];
+        // this.first_page_url = response['data']['first_page_url'];
+        // this.last_page_url = response['data']['last_page_url'];
         this.next_page_url = response['data']['next_page_url'];
-        this.prev_page_url = response['data']['prev_page_url'];
+        // this.prev_page_url = response['data']['prev_page_url'];
         this.isLoading = false;
       },
       (error) => {
         this.isLoading = false;
         this.alert.warning('connect to the internet and try again');
         // console.log(error);
+      }
+    );
+  }
+  onScroll(){
+    console.log("Scrolled");
+    if(this.notscrolly && this.notEmptyPost){
+      this.spinner.show();
+      this.notscrolly = false;
+      this.nextPage();
+    }
+  }
+
+  loadNextPost(){
+    const url = 'https://talenthunt.vokacom.net/api/v1/posts'
+        // returning last post from array
+        const lastPost = this.allPosts['data'][this.allPosts.length - 1];
+        // get id of last post
+        // const lastPostId = lastPost.id;
+        // sent this id as key value pare using formdata()
+        const dataTosend = new FormData();
+        // dataTosend.append('id', lastPostId);
+        this.auth.paginate(this.next_page_url)
+        .subscribe((response) =>{
+          console.log(response);
+          const newPost = this.next_page_url;
+          this.spinner.hide();
+          if (newPost.length === 0){
+            this.notEmptyPost = false;
+          }
+          this.allPosts = this.allPosts.concat(newPost);
+          this.notscrolly = true;
+        });
+  }
+
+  nextPage() {
+    // this.isLoading = true;
+    this.auth.paginate(this.next_page_url).subscribe(
+      (response) => {
+        this.allPosts = response['data']['data'];
+        this.next_page_url = response['data']['next_page_url'];
+          console.log(response);
+          const newPost = this.next_page_url;
+          this.spinner.hide();
+          if (newPost.length === 0){
+            this.notEmptyPost = false;
+          }
+          this.allPosts = this.allPosts.concat(newPost);
+          this.notscrolly = true;
+        this.isLoading = false;
+      },
+      (error) => {
+        console.log(error);
+        this.isLoading = false;
+        // this.alert.error('Could not get more data...');
+      }
+    );
+  }
+
+  // notifications
+  getnotifications() {
+    this.auth.show('unread_notifications', localStorage.getItem('userID')).subscribe(
+      (response) => {
+        //  console.log(response);
+         this.unread = response['data'];
+         console.log(this.unread);
+         this.spinner.hide();
+       },
+       (error) => {
+         this.spinner.hide();
+         this.alert.error('connect to the internet and try again');
+         // console.log(error);
+       }
+     );
+  }
+
+
+  getAllnotifications() {
+    this.auth.show('notifications', localStorage.getItem('userID')).subscribe(
+      (response) => {
+         console.log(response);
+         if (response['success'] === true) {
+          this.isNoti = true;
+          this.Allnoti = response['data']['data'];
+        } else {
+          this.Allnoti = null;
+          this.isNoti = false;
+        }
+      },
+       (error) => {
+         this.spinner.hide();
+         this.alert.error('try again');
+         // console.log(error);
+       }
+     );
+  }
+
+  deleteNotivication(id) {
+    // this.isLoader = true;
+    const data = {
+      id: id,
+    };
+    console.log(data);
+    this.auth.destroy('remove_notification',localStorage.getItem('userID'), data).subscribe(
+      response => {
+        this.isLoading = false;
+        // this.alert.success("Comment deleted successfully");
+        this.getAllnotifications();
+      },
+      error => {
+        console.log(error);
+        this.isLoading = false;
+        this.alert.warning('connect to the internet and try again');
       }
     );
   }
@@ -827,24 +948,8 @@ setReportData(){
     this.isFound = false;
   }
 
-  nextPage() {
-    this.isLoading = true;
-    this.auth.paginate(this.next_page_url).subscribe(
-      (response) => {
-        this.allPosts = response['data']['data'];
-        this.first_page_url = response['data']['first_page_url'];
-        this.last_page_url = response['data']['last_page_url'];
-        this.next_page_url = response['data']['next_page_url'];
-        this.prev_page_url = response['data']['prev_page_url'];
-        this.isLoading = false;
-      },
-      (error) => {
-        console.log(error);
-        this.isLoading = false;
-        // this.alert.error('Could not get more data...');
-      }
-    );
-  }
+
+
 
   prevPage() {
     this.isLoading = true;

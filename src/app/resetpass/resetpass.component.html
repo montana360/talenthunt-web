@@ -31,10 +31,6 @@
                     Please confirm your password
                   </p>
 
-                  <p style="color: red;" *ngIf="passData.new_password !== passData.user_new_password">
-                    Password mismatch, please check and correct!!!
-                  </p>
-
                 </div>
 
               </div>
@@ -44,8 +40,8 @@
               <button type="submit" class="btn btn-blue text-center"
                 [disabled]="!passForm.valid" (click)="resetPass()"><span *ngIf="this.isloading"
                   class="spinner-border spinner-border-sm" role="status"></span><span *ngIf="this.isloading"
-                  class="load-text"> Loading...</span><span *ngIf="!this.isloading" class="btn-text"> Sign
-                  In</span>
+                  class="load-text"> Loading...</span><span *ngIf="!this.isloading" class="btn-text">
+                  Reset Password</span>
                 </button> </div>
           </form>
 
