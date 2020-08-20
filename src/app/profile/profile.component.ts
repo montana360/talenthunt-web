@@ -185,7 +185,7 @@ export class ProfileComponent implements OnInit {
 
       this.auth.update('search_user',localStorage.getItem('userID'), search).subscribe(
         (response) => {
-          console.log(response);
+          // console.log(response);
           if (response['success'] === true) {
             this.isFound = true;
             this.searchList = response['data']['data'];
@@ -212,7 +212,7 @@ export class ProfileComponent implements OnInit {
     this.isData = cra['likes'].filter((like) => {
       return like.user_id == this.user_id;
     });
-    console.log(this.isData);
+    // console.log(this.isData);
   }
   trackLike(post) {
     this.isData = post['likes'].filter((like) => {
@@ -229,7 +229,7 @@ export class ProfileComponent implements OnInit {
     console.log(data);
     this.auth.update('like', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           // this.alert.success('Post liked');
@@ -259,7 +259,7 @@ export class ProfileComponent implements OnInit {
     console.log(data);
     this.auth.update('unlike', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           // this.alert.success('Post unliked');
@@ -300,7 +300,7 @@ export class ProfileComponent implements OnInit {
     console.log(data);
     this.auth.update('comment', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           // this.alert.success('Comment posted successfully');
@@ -401,7 +401,7 @@ export class ProfileComponent implements OnInit {
       .update('post', localStorage.getItem('userID'), formData)
       .subscribe(
         (response) => {
-          console.log(response);
+          // console.log(response);
           this.isLoader = false;
           if (response['success'] === false) {
             this.alert.warning(response['message']);
@@ -422,7 +422,7 @@ export class ProfileComponent implements OnInit {
     // this.isLoader = true;
     this.auth.show('user_posts', localStorage.getItem('userID')).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.allPosts = response['data'];
         this.postlength = response['data'].length;
         this.isLoader = false;
@@ -441,14 +441,14 @@ export class ProfileComponent implements OnInit {
       .show('get_profile_count', localStorage.getItem('userID'))
       .subscribe(
         (response) => {
-          console.log(response);
+          // console.log(response);
           this.follow = response;
           this.isLoader = false;
         },
         (error) => {
           this.isLoader = false;
           this.alert.error('connect to the internet and try again');
-          console.log(error);
+          // console.log(error);
         }
       );
   }
@@ -506,7 +506,7 @@ export class ProfileComponent implements OnInit {
     this.auth.show('user', localStorage.getItem('userID')).subscribe(
       (response) => {
         this.user = null;
-        console.log(response['data']);
+        // console.log(response['data']);
         this.user = response['data'];
         this.prepareEditForm();
         this.isLoader = false;
@@ -526,7 +526,7 @@ export class ProfileComponent implements OnInit {
       (response) => {
         this.isLoader = false;
         this.viewPost = response['data'];
-        console.log(this.viewPost);
+        // console.log(this.viewPost);
       },
       (error) => {
         console.log(error);
@@ -614,7 +614,7 @@ export class ProfileComponent implements OnInit {
         console.log(this.Posts);
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.alert.warning('Getting data unsuccessful. Please connect to the internet and try again');
       }
     );
@@ -678,7 +678,7 @@ export class ProfileComponent implements OnInit {
 
     imageData.append('user_id', localStorage.getItem('userID'));
 
-    console.log(imageData);
+    // console.log(imageData);
 
     this.auth
       .update('profile_photo', localStorage.getItem('userID'), imageData)
@@ -693,7 +693,7 @@ export class ProfileComponent implements OnInit {
           }
         },
         (error) => {
-          console.log(error);
+          // console.log(error);
           this.isLoader = false;
           this.alert.warning('connect to the internet and try again');
         }
@@ -750,7 +750,7 @@ export class ProfileComponent implements OnInit {
     console.log(data);
     this.auth.update('follow', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           // this.alert.success('following successful');
@@ -780,12 +780,12 @@ export class ProfileComponent implements OnInit {
       user_id: id,
       follower_id: parseInt(localStorage.getItem('userID'), 10),
     };
-    console.log(data);
+    // console.log(data);
     this.auth
       .update('un_follow', localStorage.getItem('userID'), data)
       .subscribe(
         (response) => {
-          console.log(response);
+          // console.log(response);
           this.spinner.hide();
           if (response !== null || response !== undefined) {
             // this.alert.success('Unfollow successful');
@@ -796,7 +796,7 @@ export class ProfileComponent implements OnInit {
           }
         },
         (error) => {
-          console.log(error);
+          // console.log(error);
           this.spinner.hide();
           if (error.status === 500) {
             this.spinner.hide();
@@ -847,13 +847,13 @@ export class ProfileComponent implements OnInit {
     console.log(data);
     this.auth.destroy('remove_post',localStorage.getItem('userID'), data).subscribe(
       response => {
-        console.log(this.id);
+        // console.log(this.id);
         this.isLoader = false;
         // this.alert.success('Post deleted successfully');
         this.getUserpost();
       },
       error => {
-        console.log(error);
+        // console.log(error);
         this.isLoader = false;
         this.alert.info('Deleting Post Unsuccessful connect to the internet and try again later');
       }
@@ -865,7 +865,7 @@ export class ProfileComponent implements OnInit {
     const data = {
       id: id,
     };
-    console.log(data);
+    // console.log(data);
     this.auth.destroy('remove_comment',localStorage.getItem('userID'), data).subscribe(
       response => {
         this.isLoader = false;

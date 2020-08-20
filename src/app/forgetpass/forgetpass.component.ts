@@ -72,19 +72,19 @@ pinData = {
     const data = {
       email: this.ResetForm.controls['email'].value,
     };
-    console.log(data);
+    // console.log(data);
     this.auth.restore('forgot_password', data).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.isloading = false;
         if (response !== null || response !== undefined) {
           this.pin = response['data'];
-          console.log(this.pin);
+          // console.log(this.pin);
           // this.router.navigate(['/pin/']);
         }
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.isloading = false;
         if (error.status === 500) {
            this.isloading = false;

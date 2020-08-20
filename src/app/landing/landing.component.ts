@@ -110,7 +110,7 @@ registration() {
   setTimeout(() => {
     this.auth.createUser("register", this.registerData).subscribe(
       response => {
-        console.log(response['data']);
+        // console.log(response['data']);
         this.isRegistering = false;
         this.alert.success("Hooray... Welcome to Talent Hunt Platform");
         this.router.navigate(["login"]);

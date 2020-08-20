@@ -20,10 +20,12 @@ export class TermsComponent implements OnInit {
   public isMenuCollapsed = true;
 
   compID: any;
+  COMPID: any;
   user_id: any;
   isLoading = false;
   viewcompetition: any;
   participants: any;
+  competition:any;
   comData: any;
   isMineCompetition = false;
   isPart = true;
@@ -41,7 +43,7 @@ export class TermsComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    // this.getAllCompetitions();
+    this.getAllCompetitions();
     // this.compID = this.route.snapshot.paramMap.get("id");
     this.compID = 3;
     this.user_id = localStorage.getItem('userID');
@@ -54,10 +56,12 @@ export class TermsComponent implements OnInit {
     this.isLoading = true;
     this.auth.get("competitions").subscribe(
       response => {
-        console.log(response);
+        // console.log(response);
         this.isLoading = false;
         if (response["data"] !== null || response["data"] !== undefined) {
-          // this.competition = response["data"];
+          this.competition = response["data"][0];
+          this.COMPID = this.competition.id;
+          // console.log(this.COMPID);
         } else {
           this.alert.info("No Competition Available.");
         }
@@ -148,7 +152,7 @@ export class TermsComponent implements OnInit {
 
     this.auth.update('check_registration_state', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         if (response['data'].length > 0){
           this.isPart = false;
         }

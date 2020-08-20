@@ -129,7 +129,7 @@ export class UserComponent implements OnInit {
 
       this.auth.update('search_user',localStorage.getItem('userID'), search).subscribe(
         (response) => {
-          console.log(response);
+          // console.log(response);
           if (response['success'] === true) {
             this.isFound = true;
             this.searchList = response['data']['data'];
@@ -163,13 +163,13 @@ export class UserComponent implements OnInit {
     this.isData = cra['likes'].filter((like) => {
       return like.user_id == this.user_id;
     });
-    console.log(this.isData);
+    // console.log(this.isData);
   }
   trackLike(post) {
     this.isData = post['likes'].filter((like) => {
       return like.user_id == this.user_id;
     });
-    console.log(this.isData);
+    // console.log(this.isData);
   }
   likep(id) {
     this.spinner.show();
@@ -177,10 +177,10 @@ export class UserComponent implements OnInit {
       post_id: id,
       user_id: parseInt(localStorage.getItem('userID'), 10),
     };
-    console.log(data);
+    // console.log(data);
     this.auth.update('like', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           // this.alert.success('Post liked');
@@ -211,7 +211,7 @@ export class UserComponent implements OnInit {
     console.log(data);
     this.auth.update('unlike', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           // this.alert.success('Post unliked');
@@ -243,10 +243,10 @@ reportpost(id){
     user_id: parseInt(localStorage.getItem('userID'), 10),
     complaint: this.reportForm.controls['complaint'].value
   };
-  console.log(data);
+  // console.log(data);
   this.auth.update('complaint', localStorage.getItem('userID'), data).subscribe(
     (response) => {
-      console.log(response);
+      // console.log(response);
       this.spinner.hide();
       if (response !== null || response !== undefined) {
         this.alert.info('Thank for you talent hunt team will check this!');
@@ -283,7 +283,7 @@ reportpost(id){
     // console.log(data);
     this.auth.update('comment', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           // this.alert.success('Comment posted successfully');
@@ -309,10 +309,10 @@ reportpost(id){
     this.auth.show('post', ev).subscribe(
       (response) => {
         this.Posts = response['data'];
-        console.log(this.Posts);
+        // console.log(this.Posts);
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.alert.info('Getting data unsuccessful. Please connect to the internet and try again');
       }
     );
@@ -360,7 +360,7 @@ reportpost(id){
   v(id) {
     this.auth.show('user', id).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.viewuser = response['data'];
         this.trackFollows();
         // console.log(this.viewuser['follows']);
@@ -389,7 +389,7 @@ reportpost(id){
     // this.isLoading = true;
     this.auth.show('get_profile_count', id).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.follow = response;
         this.isLoading = false;
       },
@@ -408,7 +408,7 @@ reportpost(id){
     this.auth.show('user_posts', id).subscribe(
       (response) => {
         this.allPosts = response['data'];
-        console.log(this.allPosts);
+        // console.log(this.allPosts);
         this.isLoading = false;
       },
       (error) => {
@@ -433,7 +433,7 @@ reportpost(id){
     console.log(data);
     this.auth.update('follow', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           // this.alert.success('following successful');
@@ -444,7 +444,7 @@ reportpost(id){
         }
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
@@ -469,7 +469,7 @@ reportpost(id){
       .update('un_follow', localStorage.getItem('userID'), data)
       .subscribe(
         (response) => {
-          console.log(response);
+          // console.log(response);
           this.spinner.hide();
           if (response !== null || response !== undefined) {
             // this.alert.success('Unfollow successful');
@@ -480,7 +480,7 @@ reportpost(id){
           }
         },
         (error) => {
-          console.log(error);
+          // console.log(error);
           this.spinner.hide();
           if (error.status === 500) {
             this.spinner.hide();
