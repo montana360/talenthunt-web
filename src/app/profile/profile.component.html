@@ -63,7 +63,7 @@
         </ng-template>
 
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item text-center mouse">
+          <li class="nav-item text-center mouse" style="cursor: pointer;">
             <a class="nav-link" (click)="openpost(postModal)" data-toggle="modal" data-target="#"><svg
                 style="color: black;" width="2em" height="1.5em" viewBox="0 0 16 16" class="bi bi-camera-fill"
                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -73,12 +73,40 @@
               </svg><span class="d-none d-sm-inline d-xl-block px-1"
                 style="color: black;font: 1em sans-serif;font-size: small;">Post</span></a>
           </li>&nbsp;&nbsp;
-          <li class="nav-item text-center mouse">
+          <li class="nav-item text-center mouse" style="cursor: pointer;">
             <a class="nav-link" (click)="compage()" data-toggle="modal" data-target="#"><img src="assets/img/53.png"
                 width="20"><span class="d-none d-sm-inline d-xl-block px-1"
                 style="color: black; font: 1em sans-serif;font-size: small;">Competition</span></a>
           </li>&nbsp;&nbsp;
           <li class="nav-item text-center mouse">
+            <a class="nav-link" [ngbPopover]="popCon" data-toggle="modal" data-target="#"><i class="fa fa-bell notification" style="font-size:25px;cursor: pointer;"><span *ngIf="unread.total !== 0" class="badge">{{unread?.total}}</span></i><span class="d-none d-sm-inline d-xl-block px-1"
+                style="color: black; font: 1em sans-serif;font-size: small;">Notifications</span></a>
+          </li>&nbsp;&nbsp;
+          <ng-template #popCon>
+            <div class="popov" *ngIf="isNoti">
+              <div *ngFor="let note of Allnoti">
+                <div class="row">
+                  <div class="col-xs-3 col-md-3">
+                    <i *ngIf="note.app === 'LIKE' && note.seen === 'NO'" class="fa fa-heart" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(88, 13, 88)"></i>
+                    <i *ngIf="note.app === 'FOLLOW' && note.seen === 'NO'" class="fa fa-group" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(88, 13, 88)"></i>
+                    <i *ngIf="note.app === 'COMMENT' && note.seen === 'NO'" class="fa fa-comments-o" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(88, 13, 88)"></i>
+                    <i *ngIf="note.app === 'LIKE' && note.seen === 'YES'" class="fa fa-heart" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(75, 57, 57)"></i>
+                    <i *ngIf="note.app === 'FOLLOW' && note.seen === 'YES'" class="fa fa-group" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(75, 57, 57)"></i>
+                    <i *ngIf="note.app === 'COMMENT' && note.seen === 'YES'" class="fa fa-comments-o" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(75, 57, 57)"></i>
+                  </div>
+                  <div class="col-xs-8 col-md-7" >
+                    <span *ngIf="note.seen === 'NO'" style="cursor: pointer; color: rgb(88, 13, 88);" (click)=" notif(note.content_id)"><b>{{note.message}}</b></span>
+                    <span *ngIf="note.seen === 'YES'" style="cursor: pointer;" (click)=" notif(note.content_id)"><b>{{note.message}}</b></span>
+                    <p >{{note?.created_at | dateAgo}}</p>
+                  </div>
+                  <div class="col-xs-1 col-md-2" >
+                    <i (click)="deleteNotivication(note.id)" class="fa fa-trash-o"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <li class="nav-item text-center mouse" style="cursor: pointer;">
             <div ngbDropdown class="dropdown ">
               <a class="nav-link dropdown-toggle" ngbDropdownToggle>
                 <img src="assets/img/03.png" width="30">
@@ -250,7 +278,6 @@
                         <h6 class="card-title">{{post.user.fullname}}</h6>
                         <p *ngIf="post?.location !== 'null'" class="card-text">{{post?.location}}</p>
                         <p *ngIf="post?.location === 'null'" class="card-text">{{post?.location}}</p>
-
                       </div>
                       <div class="col-md-2" style="text-align: right;">
                         <div ngbDropdown class="dropdown ">
@@ -628,7 +655,7 @@
       <div  class="col-sm-4 right-side">
         <br>
         <div class="row">
-          <div class="col-md-3" style="align-items: flex-end;">
+          <div class="col-md-3">
             <img *ngIf="cra.user.profile_image !== null" src="{{cra.user.profile_image}}" class="avatar2" alt="">
             <img *ngIf="cra.user.profile_image === null" src="assets/img/default-avatar.png" class="avatar2" alt="">
           </div>
@@ -660,7 +687,7 @@
             </div>
           </div>
         </div><br>
-        <div class="row">
+        <div class="row" style="margin-left: 5px;">
           <div *ngIf="cra?.likes.length > 0">
 
             <span *ngIf="isData.length > 0">

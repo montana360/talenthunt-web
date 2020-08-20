@@ -177,6 +177,7 @@ a {
   .left-side{
     /* padding:0px 0px 0px 0px; */
     /* background:#9100ff; */
+    min-height:514px;
     background-size:cover;
   }
   .left-side h1{
@@ -492,4 +493,24 @@ a {
     }
     .row.d-flex.justify-content-center {
       width: 600px;
+  }
+  .notification {
+    /* background-color: #555; */
+    color: black;
+    text-decoration: none;
+    /* padding: 15px 26px; */
+    position: relative;
+    /* display: inline-block; */
+    /* border-radius: 2px; */
+  }
+
+  .notification .badge {
+    position: absolute;
+    /* top: -5px; */
+    right: -10px;
+    padding: 1px 5px;
+    border-radius: 50%;
+    font-size: smaller;
+    background: rgba(54, 8, 85, 0.829);
+    color: white;
   }

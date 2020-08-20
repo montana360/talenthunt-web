@@ -140,22 +140,70 @@ export class HomepageComponent implements OnInit {
 unread:any;
 Allnoti:any;
 
-  slides = [
-    { img: 'assets/img/170.png' },
-    { img: '/assets/img/171.png' },
-    { img: '/assets/img/169.png' },
-    { img: '/assets/img/172.png' },
-    { img: '/assets/img/114.png' },
-    { img: '/assets/img/115.png' },
-    { img: '/assets/img/113.png' },
-    { img: '/assets/img/112.png' },
-    { img: '/assets/img/114.png' },
-    { img: '/assets/img/172.png' },
-  ];
+slides = [
 
-  slideConfig = { slidesToShow: 4, slidesToScroll: 4 };
+
+];
+
+  slideConfig = { slidesToShow: 4, slidesToScroll: 4,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+          infinite: true,
+          // dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      }
+      // You can unslick at a given breakpoint now by adding:
+      // settings: "unslick"
+      // instead of a settings object
+    ] };
   slideConfi = {slidesToShow: 5, slidesToScroll: 3,autoplay:true,
-  autoplaySpeed:3000,arrows:true};
+  autoplaySpeed:3000,arrows:true,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 5,
+        slidesToScroll: 3,
+        infinite: true,
+        // dots: true
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 2
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1
+      }
+    }
+    // You can unslick at a given breakpoint now by adding:
+    // settings: "unslick"
+    // instead of a settings object
+  ]};
 
 
   voteDetails = {
@@ -669,6 +717,7 @@ setReportData(){
          if (response['success'] === true) {
           this.isNoti = true;
           this.Allnoti = response['data']['data'];
+          console.log(this.Allnoti);
         } else {
           this.Allnoti = null;
           this.isNoti = false;
@@ -708,7 +757,7 @@ setReportData(){
       (response) => {
         if (response['data']['data'].length > 0) {
           this.allUsers = response['data']['data'];
-          console.log(this.allUsers);
+          // console.log(this.allUsers);
           this.spinner.hide();
         } else {
           this.spinner.hide();
@@ -853,6 +902,7 @@ setReportData(){
     this.auth.show('post', ev).subscribe(
       (response) => {
         this.Psts = response['data'];
+        console.log(this.Psts)
       },
       (error) => {
         // console.log(error);
@@ -989,6 +1039,9 @@ setReportData(){
   }
   fell(id) {
     this.router.navigate(['/user/',id]);
+  }
+  notif(id) {
+    this.router.navigate(['/notepost/',id]);
   }
    // Get all craft
 getCraft() {

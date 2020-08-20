@@ -36,21 +36,66 @@ export class OneCompetitionComponent implements OnInit {
   };
 
   slides = [
-    { img: 'assets/img/170.png' },
-    { img: '/assets/img/171.png' },
-    { img: '/assets/img/169.png' },
-    { img: '/assets/img/172.png' },
-    { img: '/assets/img/114.png' },
-    { img: '/assets/img/115.png' },
-    { img: '/assets/img/113.png' },
-    { img: '/assets/img/112.png' },
-    { img: '/assets/img/114.png' },
-    { img: '/assets/img/172.png' },
+
 
   ];
+  slideConfig = {"slidesToShow": 4, "slidesToScroll": 4,responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        infinite: true,
+        // dots: true
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+    // You can unslick at a given breakpoint now by adding:
+    // settings: "unslick"
+    // instead of a settings object
+  ]};
 
-  slideConfig = {"slidesToShow": 4, "slidesToScroll": 4,};
-  slideConfi = {"slidesToShow": 1.9, "slidesToScroll": 1,};
+  slideConfi = {"slidesToShow": 1.9, "slidesToScroll": 1,responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 1.9,
+        slidesToScroll: 1,
+        infinite: true,
+        dots: true
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+    // You can unslick at a given breakpoint now by adding:
+    // settings: "unslick"
+    // instead of a settings object
+  ]};
 
   toggleDisplay() {
     this.isShow = !this.isShow;

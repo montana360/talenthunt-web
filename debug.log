@@ -1,0 +1,46 @@
+[0820/042137.180:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.180:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.180:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.180:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.180:ERROR:exception_snapshot_win.cc(98)] thread ID 25388 not found in process
+[0820/042137.180:ERROR:exception_snapshot_win.cc(98)] thread ID 39000 not found in process
+[0820/042137.180:ERROR:exception_snapshot_win.cc(98)] thread ID 39328 not found in process
+[0820/042137.180:ERROR:exception_snapshot_win.cc(98)] thread ID 36816 not found in process
+[0820/042137.196:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.196:ERROR:exception_snapshot_win.cc(98)] thread ID 16192 not found in process
+[0820/042137.211:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.211:ERROR:exception_snapshot_win.cc(98)] thread ID 41344 not found in process
+[0820/042137.211:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.211:ERROR:exception_snapshot_win.cc(98)] thread ID 17652 not found in process
+[0820/042137.211:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.211:ERROR:exception_snapshot_win.cc(98)] thread ID 41752 not found in process
+[0820/042137.227:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.227:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.227:ERROR:exception_snapshot_win.cc(98)] thread ID 8560 not found in process
+[0820/042137.227:ERROR:exception_snapshot_win.cc(98)] thread ID 19516 not found in process
+[0820/042137.227:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.227:ERROR:exception_snapshot_win.cc(98)] thread ID 29996 not found in process
+[0820/042137.227:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.227:ERROR:exception_snapshot_win.cc(98)] thread ID 41204 not found in process
+[0820/042137.227:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.227:ERROR:exception_snapshot_win.cc(98)] thread ID 15216 not found in process
+[0820/042137.243:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.243:ERROR:exception_snapshot_win.cc(98)] thread ID 19860 not found in process
+[0820/042137.243:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.243:ERROR:exception_snapshot_win.cc(98)] thread ID 40912 not found in process
+[0820/042137.243:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.243:ERROR:exception_snapshot_win.cc(98)] thread ID 37568 not found in process
+[0820/042137.258:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.258:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.258:ERROR:exception_snapshot_win.cc(98)] thread ID 1916 not found in process
+[0820/042137.243:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.258:ERROR:exception_snapshot_win.cc(98)] thread ID 3780 not found in process
+[0820/042137.258:ERROR:exception_snapshot_win.cc(98)] thread ID 38088 not found in process
+[0820/042137.258:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.258:ERROR:exception_snapshot_win.cc(98)] thread ID 6224 not found in process
+[0820/042137.258:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.258:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.258:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0820/042137.258:ERROR:exception_snapshot_win.cc(98)] thread ID 3032 not found in process
+[0820/042137.258:ERROR:exception_snapshot_win.cc(98)] thread ID 11432 not found in process
+[0820/042137.258:ERROR:exception_snapshot_win.cc(98)] thread ID 42772 not found in process

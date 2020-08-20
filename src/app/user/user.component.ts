@@ -42,6 +42,9 @@ export class UserComponent implements OnInit {
   isFound = false;
   searchList = null;
   search = '';
+  isNoti = false;
+  Allnoti: any;
+  unread:any;
 
 
 
@@ -94,10 +97,10 @@ export class UserComponent implements OnInit {
     this.ID = this.route.snapshot.paramMap.get('id');
     this.user_id = localStorage.getItem('userID');
     this.v(this.ID);
-    this.getfollowers
-    (this.ID);
+    this.getfollowers(this.ID);
     this.getUserpost(this.ID);
-
+    this.getnotifications();
+    this.getAllnotifications();
     this.commentForm = this.formBuilder.group({
       user_id: [null],
       message: [null, Validators.required],
@@ -527,5 +530,65 @@ reportpost(id){
     this.clipboardService.copyFromContent(text);
     this.alert.success('Post link copied');
     // this.alert.success(text);
+  }
+
+  // notifications
+  getnotifications() {
+    this.auth.show('unread_notifications', localStorage.getItem('userID')).subscribe(
+      (response) => {
+         this.unread = response['data'];
+         this.spinner.hide();
+       },
+       (error) => {
+         this.spinner.hide();
+         this.alert.error('connect to the internet and try again');
+         // console.log(error);
+       }
+     );
+  }
+
+
+  getAllnotifications() {
+    this.auth.show('notifications', localStorage.getItem('userID')).subscribe(
+      (response) => {
+        //  console.log(response);
+         if (response['success'] === true) {
+          this.isNoti = true;
+          this.Allnoti = response['data']['data'];
+          console.log(this.Allnoti);
+        } else {
+          this.Allnoti = null;
+          this.isNoti = false;
+        }
+      },
+       (error) => {
+         this.spinner.hide();
+         this.alert.error('try again');
+         // console.log(error);
+       }
+     );
+  }
+
+  deleteNotivication(id) {
+    // this.isLoader = true;
+    const data = {
+      id: id,
+    };
+    // console.log(data);
+    this.auth.destroy('remove_notification',localStorage.getItem('userID'), data).subscribe(
+      response => {
+        this.isLoading = false;
+        // this.alert.success("Comment deleted successfully");
+        this.getAllnotifications();
+      },
+      error => {
+        console.log(error);
+        this.isLoading = false;
+        this.alert.warning('connect to the internet and try again');
+      }
+    );
+  }
+  notif(id) {
+    this.router.navigate(['/notepost/',id]);
   }
 }

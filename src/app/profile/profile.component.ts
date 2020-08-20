@@ -47,7 +47,9 @@ export class ProfileComponent implements OnInit {
   followers: any;
   following: any;
   search = '';
-
+  isNoti = false;
+  Allnoti: any;
+  unread:any;
 
   toggleDisplay() {
     this.isShow = !this.isShow;
@@ -127,6 +129,8 @@ export class ProfileComponent implements OnInit {
 
     this.getUser();
     this.getUsers();
+    this.getnotifications();
+    this.getAllnotifications();
 
 
     this.token = localStorage.getItem('token');
@@ -331,7 +335,7 @@ export class ProfileComponent implements OnInit {
   }
 
   openScrollableContent(longContent) {
-    this.modalService.open(longContent, { scrollable: true, size: 'lg' });
+    this.modalService.open(longContent, {  size: 'lg'});
   }
   openProfile(profile) {
     this.modalService.open(profile, { centered: true, size: 'sm' });
@@ -878,5 +882,64 @@ export class ProfileComponent implements OnInit {
         this.alert.error('connect to the internet and try again');
       }
     );
+  }
+  // notifications
+  getnotifications() {
+    this.auth.show('unread_notifications', localStorage.getItem('userID')).subscribe(
+      (response) => {
+         this.unread = response['data'];
+         this.spinner.hide();
+       },
+       (error) => {
+         this.spinner.hide();
+         this.alert.error('connect to the internet and try again');
+         // console.log(error);
+       }
+     );
+  }
+
+
+  getAllnotifications() {
+    this.auth.show('notifications', localStorage.getItem('userID')).subscribe(
+      (response) => {
+        //  console.log(response);
+         if (response['success'] === true) {
+          this.isNoti = true;
+          this.Allnoti = response['data']['data'];
+          console.log(this.Allnoti);
+        } else {
+          this.Allnoti = null;
+          this.isNoti = false;
+        }
+      },
+       (error) => {
+         this.spinner.hide();
+         this.alert.error('try again');
+         // console.log(error);
+       }
+     );
+  }
+
+  deleteNotivication(id) {
+    // this.isLoader = true;
+    const data = {
+      id: id,
+    };
+    // console.log(data);
+    this.auth.destroy('remove_notification',localStorage.getItem('userID'), data).subscribe(
+      response => {
+        this.isLoader = false;
+        // this.alert.success("Comment deleted successfully");
+        this.getAllnotifications();
+      },
+      error => {
+        console.log(error);
+        this.isLoader = false;
+        this.alert.warning('connect to the internet and try again');
+      }
+    );
+  }
+  notif(id) {
+    this.router.navigate(['/notepost/',id]);
   }
 }

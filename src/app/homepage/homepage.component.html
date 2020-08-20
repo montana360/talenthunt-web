@@ -93,16 +93,16 @@
               <div *ngFor="let note of Allnoti">
                 <div class="row">
                   <div class="col-xs-3 col-md-3">
-                    <i *ngIf="note.app === 'LIKE' && note.seen === 'NO'" class="fa fa-heart" style="font-size:28px;color:rgb(88, 13, 88)"></i>
-                    <i *ngIf="note.app === 'FOLLOW' && note.seen === 'NO'" class="fa fa-group" style="font-size:28px;color:rgb(88, 13, 88)"></i>
-                    <i *ngIf="note.app === 'COMMENT' && note.seen === 'NO'" class="fa fa-comments-o" style="font-size:28px;color:rgb(88, 13, 88)"></i>
-                    <i *ngIf="note.app === 'LIKE' && note.seen === 'YES'" class="fa fa-heart" style="font-size:28px;color:rgb(75, 57, 57)"></i>
-                    <i *ngIf="note.app === 'FOLLOW' && note.seen === 'YES'" class="fa fa-group" style="font-size:28px;color:rgb(75, 57, 57)"></i>
-                    <i *ngIf="note.app === 'COMMENT' && note.seen === 'YES'" class="fa fa-comments-o" style="font-size:28px;color:rgb(75, 57, 57)"></i>
+                    <i *ngIf="note.app === 'LIKE' && note.seen === 'NO'" class="fa fa-heart"(click)=" notif(note.content_id)" style="font-size:28px;color:rgb(88, 13, 88)"></i>
+                    <i *ngIf="note.app === 'FOLLOW' && note.seen === 'NO'" class="fa fa-group"(click)=" notif(note.content_id)" style="font-size:28px;color:rgb(88, 13, 88)"></i>
+                    <i *ngIf="note.app === 'COMMENT' && note.seen === 'NO'" class="fa fa-comments-o"(click)=" notif(note.content_id)" style="font-size:28px;color:rgb(88, 13, 88)"></i>
+                    <i *ngIf="note.app === 'LIKE' && note.seen === 'YES'" class="fa fa-heart"(click)=" notif(note.content_id)" style="font-size:28px;color:rgb(75, 57, 57)"></i>
+                    <i *ngIf="note.app === 'FOLLOW' && note.seen === 'YES'" class="fa fa-group" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(75, 57, 57)"></i>
+                    <i *ngIf="note.app === 'COMMENT' && note.seen === 'YES'" class="fa fa-comments-o"(click)=" notif(note.content_id)" style="font-size:28px;color:rgb(75, 57, 57)"></i>
                   </div>
                   <div class="col-xs-8 col-md-7" >
-                    <span *ngIf="note.seen === 'NO'" style="cursor: pointer; color: rgb(88, 13, 88);"><b>{{note.message}}</b></span>
-                    <span *ngIf="note.seen === 'YES'" style="cursor: pointer; "><b>{{note.message}}</b></span>
+                    <span *ngIf="note.seen === 'NO'" style="cursor: pointer; color: rgb(88, 13, 88);" (click)=" notif(note.content_id)"><b>{{note.message}}</b></span>
+                    <span *ngIf="note.seen === 'YES'" style="cursor: pointer;" (click)=" notif(note.content_id)"><b>{{note.message}}</b></span>
                     <p >{{note?.created_at | dateAgo}}</p>
                   </div>
                   <div class="col-xs-1 col-md-2" >
@@ -175,13 +175,13 @@
             </div>
             <div class="col-xs-8 col-md-7 div-holder " >
               <h6 class="card-title" style="cursor: pointer;" (click)="fell(post?.user_id)">{{post.user.fullname}}</h6>
-              <p *ngIf="post?.location !== 'null'" class="card-text" style="font-size: 1.2vw;">{{post?.location}}</p>
-              <p *ngIf="post?.location === 'null'" class="card-text" style="font-size: 1.2vw;">Sent from Mobile</p>
+              <p *ngIf="post?.location !== 'null'" class="card-text" >{{post?.location}}</p>
+              <p *ngIf="post?.location === 'null'" class="card-text" >Sent from Mobile</p>
             </div>
             <div class="col-xs-1 col-md-2" style="text-align: right;">
               <div ngbDropdown class="dropdown ">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle>
-                  <img class="sha" src="assets/img/49.png">
+                  <img  src="assets/img/49.png" width="30">
                 </a>
                 <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right page-nav">
                   <a class="dropdown-item" (click)="copy(post?.file_url)">Share Post</a>
@@ -205,18 +205,18 @@
           <div class="row">
             <div *ngIf="post?.likes.length > 0">
 
-              <span *ngIf="isData.length > 0">
-                <i class="fa fa-heart" style="cursor: pointer;" (click)="unlike(post?.id)" style="font-size:36px;color: rgb(63, 5, 117);"></i>
+              <span *ngIf="isData.length > 0" style="cursor: pointer;">
+                <i class="fa fa-heart"  (click)="unlike(post?.id)" style="font-size:36px;color: rgb(63, 5, 117);"></i>
               </span>
 
-              <span *ngIf="!isData || isData.length == 0">
-                <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likep(post?.id)" style="font-size:36px;"></i>
+              <span *ngIf="!isData || isData.length == 0" style="cursor: pointer;">
+                <i class="fa fa-heart-o"  (click)="likep(post?.id)" style="font-size:36px;"></i>
               </span>
             </div>
 
-            <div *ngIf="post?.likes.length == 0">
+            <div *ngIf="post?.likes.length == 0" style="cursor: pointer;">
               <span>
-                <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likep(post?.id)" style="font-size:36px;"></i>
+                <i class="fa fa-heart-o" (click)="likep(post?.id)" style="font-size:36px;"></i>
               </span>
             </div>&nbsp;&nbsp;
             <b>{{post?.likes.length || '0'}}</b>&nbsp;&nbsp;
@@ -254,9 +254,9 @@
               </div>
               <div class="col-md-9">
                 <div class="row">
-                  <span style="font-size: 1.2vw;"><b>{{comment.user.fullname}}</b></span>
+                  <span ><b>{{comment.user.fullname}}</b></span>
                   <div class="w-100"></div>
-                  <span style="font-size: 1.2vw;">{{comment.message}}</span>
+                  <span>{{comment.message}}</span>
                 </div>
               </div>
               <div *ngIf="user.id === comment.user.id" class="col-md-2">
