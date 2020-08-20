@@ -56,6 +56,7 @@ export class HomepageComponent implements OnInit {
   // variable declaration
   craftID: any;
   amount: any;
+  COMPID:any
   id: string;
   username: string;
   url: any;
@@ -290,10 +291,10 @@ setReportData(){
       user_id: parseInt(localStorage.getItem('userID'), 10),
       complaint: this.reportForm.controls['complaint'].value
     };
-    console.log(data);
+    // console.log(data);
     this.auth.update('complaint', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           // this.alert.success('Thank for you for reporting this post');
@@ -321,10 +322,10 @@ setReportData(){
       user_id: parseInt(localStorage.getItem('userID'), 10),
       message: this.craftcommentForm.controls['message'].value,
     };
-    console.log(data);
+    // console.log(data);
     this.auth.update('craft_comment', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           // this.alert.success('Comment posted successfully');
@@ -358,7 +359,7 @@ setReportData(){
     this.isFollow = list['follows'].filter((follow) => {
       return follow.follower_id == this.user_id;
     });
-    console.log(this.isFollow);
+    // console.log(this.isFollow);
   }
 
   addComment(id) {
@@ -368,10 +369,8 @@ setReportData(){
       user_id: parseInt(localStorage.getItem('userID'), 10),
       message: this.commentForm.controls['message'].value,
     };
-    console.log(data);
     this.auth.update('comment', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           // this.alert.success('Comment posted successfully');
@@ -397,10 +396,8 @@ setReportData(){
       craft_id: id,
       user_id: parseInt(localStorage.getItem('userID'), 10),
     };
-    console.log(data);
     this.auth.update('like_craft', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           // this.alert.success('Post liked');
@@ -427,10 +424,8 @@ setReportData(){
       craft_id: id,
       user_id: parseInt(localStorage.getItem('userID'), 10),
     };
-    console.log(data);
     this.auth.update('unlike_craft', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           // this.alert.success('Post unliked');
@@ -456,10 +451,8 @@ setReportData(){
       post_id: id,
       user_id: parseInt(localStorage.getItem('userID'), 10),
     };
-    console.log(data);
     this.auth.update('like', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           // this.alert.success('Post liked');
@@ -486,7 +479,6 @@ setReportData(){
       post_id: id,
       user_id: parseInt(localStorage.getItem('userID'), 10),
     };
-    console.log(data);
     this.auth.update('unlike', localStorage.getItem('userID'), data).subscribe(
       (response) => {
         // console.log(response);
@@ -515,10 +507,8 @@ setReportData(){
       follower_id: parseInt(localStorage.getItem('userID'), 10),
       user_id: id,
     };
-    console.log(data);
     this.auth.update('follow', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           this.alert.success('following successful');
@@ -528,7 +518,6 @@ setReportData(){
         }
       },
       (error) => {
-        console.log(error);
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
@@ -547,12 +536,10 @@ setReportData(){
       user_id: id,
       follower_id: parseInt(localStorage.getItem('userID'), 10),
     };
-    console.log(data);
     this.auth
       .update('un_follow', localStorage.getItem('userID'), data)
       .subscribe(
         (response) => {
-          console.log(response);
           this.spinner.hide();
           if (response !== null || response !== undefined) {
             this.alert.success('Unfollow successful');
@@ -611,12 +598,8 @@ setReportData(){
     // this.isLoading = true;
     this.auth.get('posts').subscribe(
       (response) => {
-        console.log(response['data']);
         this.allPosts = response['data']['data'];
-        // this.first_page_url = response['data']['first_page_url'];
-        // this.last_page_url = response['data']['last_page_url'];
         this.next_page_url = response['data']['next_page_url'];
-        console.log(this.next_page_url);
         this.prev_page_url = response['data']['prev_page_url'];
         this.isLoading = false;
       },
@@ -635,14 +618,7 @@ setReportData(){
       this.loadNextPost();
     }
   }
-  onScrollup(){
-    console.log("Scrolledup");
-    if(this.notscrolly && this.notEmptyPost){
-      this.spinner.show();
-      // this.notscrolly = false;
-      this. prevPage();
-    }
-  }
+
 
 
   loadNextPost(){
@@ -666,62 +642,15 @@ setReportData(){
           this.notscrolly = true;
         });
   }
-  prevPage() {
-    this.isLoading = true;
-    this.auth.paginate(this.prev_page_url).subscribe(
-      (response) => {
-        this.allPosts = response['data']['data'];
-        this.prev_page_url = response['data']['prev_page_url'];
-        this.isLoading = false;
-        console.log(response);
-          const oldPost = this.prev_page_url;
-          this.spinner.hide();
-          if (oldPost.length === 0){
-            this.notEmptyPost = false;
-          }
-          this.allPosts = this.allPosts.concat(oldPost);
-          this.notscrolly = true;
-        this.isLoading = false;
-      },
-      (error) => {
-        console.log(error);
-        this.isLoading = false;
-        // this.alert.error('Could not get more data...');
-      }
-    );
-  }
 
-  nextPage() {
-    // this.isLoading = true;
-    this.auth.paginate(this.next_page_url).subscribe(
-      (response) => {
-        this.allPosts = response['data']['data'];
-        this.next_page_url = response['data']['next_page_url'];
-          console.log(response);
-          const newPost = this.next_page_url;
-          this.spinner.hide();
-          if (newPost.length === 0){
-            this.notEmptyPost = false;
-          }
-          this.allPosts = this.allPosts.concat(newPost);
-          this.notscrolly = true;
-        this.isLoading = false;
-      },
-      (error) => {
-        console.log(error);
-        this.isLoading = false;
-        // this.alert.error('Could not get more data...');
-      }
-    );
-  }
+
+
 
   // notifications
   getnotifications() {
     this.auth.show('unread_notifications', localStorage.getItem('userID')).subscribe(
       (response) => {
-        //  console.log(response);
          this.unread = response['data'];
-         console.log(this.unread);
          this.spinner.hide();
        },
        (error) => {
@@ -779,6 +708,7 @@ setReportData(){
       (response) => {
         if (response['data']['data'].length > 0) {
           this.allUsers = response['data']['data'];
+          console.log(this.allUsers);
           this.spinner.hide();
         } else {
           this.spinner.hide();
@@ -796,9 +726,8 @@ setReportData(){
     this.spinner.show();
     this.auth.show('user_posts', id).subscribe(
       (response) => {
-        // console.log(response);
         this.UserPosts = response['data'];
-        console.log(this.UserPosts);
+        // console.log(this.UserPosts);
         this.spinner.hide();
       },
       (error) => {
@@ -813,15 +742,12 @@ setReportData(){
     this.spinner.show();
     this.auth.show('get_profile_count', id).subscribe(
       (response) => {
-        // console.log(response);
         this.follow = response;
-        // console.log(this.follow);
         this.spinner.hide();
       },
       (error) => {
         this.spinner.hide();
         this.alert.error('connect to the internet and try again');
-        // console.log(error);
       }
     );
   }
@@ -830,14 +756,11 @@ setReportData(){
     this.spinner.show();
     this.auth.show('user', id).subscribe(
       (response) => {
-        console.log(response);
         this.spinner.hide();
         this.vuser = response['data'];
-        console.log(this.vuser);
       },
       (error) => {
         this.spinner.hide();
-        // console.log(error);
         this.alert.warning('connect to the internet and try again');
       }
     );
@@ -855,7 +778,7 @@ setReportData(){
 
   getPostID(id) {
     this.commentDetails.post_id = id;
-    console.log(id);
+    // console.log(id);
   }
   onFileChanged(event) {
     const size = event.target.files[0].size;
@@ -910,7 +833,6 @@ setReportData(){
       .update('post', localStorage.getItem('userID'), formData)
       .subscribe(
         (response) => {
-          console.log(response);
           this.spinner.hide();
           if (response['success'] === false) {
             this.alert.warning(response['message']);
@@ -926,19 +848,14 @@ setReportData(){
       );
   }
 
-  v() {
-    this.url = ['next_page_url'];
-  }
   view(ev) {
     this.isShow = !this.isShow;
     this.auth.show('post', ev).subscribe(
       (response) => {
-        console.log(response['data']);
         this.Psts = response['data'];
-        console.log(this.Psts);
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.alert.error('Getting data unsuccessful. Please connect to the internet and try again');
       }
     );
@@ -961,7 +878,6 @@ setReportData(){
 
       this.auth.update('search_user',localStorage.getItem('userID'), search).subscribe(
         (response) => {
-          console.log(response);
           if (response['success'] === true) {
             this.isFound = true;
             this.searchList = response['data']['data'];
@@ -983,48 +899,43 @@ setReportData(){
     this.isFound = false;
   }
 
+  // firstPage() {
+  //   this.isLoading = true;
+  //   this.auth.paginate(this.first_page_url).subscribe(
+  //     (response) => {
+  //       this.allPosts = response['data']['data'];
+  //       this.first_page_url = response['data']['first_page_url'];
+  //       this.last_page_url = response['data']['last_page_url'];
+  //       this.next_page_url = response['data']['next_page_url'];
+  //       this.prev_page_url = response['data']['prev_page_url'];
+  //       this.isLoading = false;
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //       this.isLoading = false;
 
+  //     }
+  //   );
+  // }
 
+  // lastPage() {
+  //   this.isLoading = true;
+  //   this.auth.paginate(this.last_page_url).subscribe(
+  //     (response) => {
+  //       this.allPosts = response['data']['data'];
+  //       this.first_page_url = response['data']['first_page_url'];
+  //       this.last_page_url = response['data']['last_page_url'];
+  //       this.next_page_url = response['data']['next_page_url'];
+  //       this.prev_page_url = response['data']['prev_page_url'];
+  //       this.isLoading = false;
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //       this.isLoading = false;
 
-
-
-  firstPage() {
-    this.isLoading = true;
-    this.auth.paginate(this.first_page_url).subscribe(
-      (response) => {
-        this.allPosts = response['data']['data'];
-        this.first_page_url = response['data']['first_page_url'];
-        this.last_page_url = response['data']['last_page_url'];
-        this.next_page_url = response['data']['next_page_url'];
-        this.prev_page_url = response['data']['prev_page_url'];
-        this.isLoading = false;
-      },
-      (error) => {
-        console.log(error);
-        this.isLoading = false;
-        // this.alert.error('Could not get more data...');
-      }
-    );
-  }
-
-  lastPage() {
-    this.isLoading = true;
-    this.auth.paginate(this.last_page_url).subscribe(
-      (response) => {
-        this.allPosts = response['data']['data'];
-        this.first_page_url = response['data']['first_page_url'];
-        this.last_page_url = response['data']['last_page_url'];
-        this.next_page_url = response['data']['next_page_url'];
-        this.prev_page_url = response['data']['prev_page_url'];
-        this.isLoading = false;
-      },
-      (error) => {
-        console.log(error);
-        this.isLoading = false;
-        // this.alert.error('Could not get more data...');
-      }
-    );
-  }
+  //     }
+  //   );
+  // }
   // view(ev) {
   //   this.auth.show('post', ev).subscribe(
   //     (response) => {
@@ -1084,10 +995,8 @@ getCraft() {
   // this.isLoading = true;
   this.auth.get('crafts').subscribe(
     response => {
-      // console.log(response);
       if (response['data']['data'].length > 0) {
         this.allCraft = response['data']['data'];
-        console.log(this.allCraft);
         this.isLoading = false;
       } else {
         this.isLoading = false;
@@ -1109,9 +1018,7 @@ close(votepost) {
 viewcraft(ev) {
   this.auth.show('craft', ev).subscribe(
     (response) => {
-      console.log(response);
       this.craft = response['data'];
-      console.log(this.craft);
     },
     (error) => {
       console.log(error);
@@ -1125,11 +1032,8 @@ voteContent(votepost) {
 viewcraf(ev) {
   this.auth.show('craft', ev).subscribe(
     (response) => {
-      console.log(response);
       this.craft = response['data'][0];
-      console.log(this.craft);
       this.craftID = this.craft.id;
-      console.log(this.craftID);
     },
     (error) => {
       console.log(error);
@@ -1170,7 +1074,6 @@ vote() {
   console.log(data);
    this.auth.update('vote', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
         this.spinner.hide();
         if (response['success'] === false) {
           this.alert.warning(response['message']);
@@ -1191,9 +1094,9 @@ getcompetition() {
     (response) => {
       this.isLoading = false;
       this.viewcompetition = response['data'][0];
-      console.log(this.viewcompetition);
       this.amount = this.viewcompetition.vote_fees;
-      console.log(this.amount);
+      this.COMPID = this.viewcompetition.id;
+      console.log(this.viewcompetition)
     },
     (error) => {
       this.isLoading = false;
@@ -1215,7 +1118,7 @@ deleteComment(id) {
       this.getpost();
     },
     error => {
-      console.log(error);
+      // console.log(error);
       this.isLoading = false;
       this.alert.warning('connect to the internet and try again');
     }
@@ -1223,5 +1126,29 @@ deleteComment(id) {
 }
 voteC(cra) {
   this.numVotes = cra['votes'].reduce((accum,item) => accum + item.num_of_votes, 0)
+}
+opendeleteContent(del) {
+  this.modalService.open(del, {centered: true, size: 'sm' });
+}
+deletePost(id) {
+  // this.isLoader = true;
+   // this.isLoader = true;
+   const data = {
+    id: id,
+  };
+  console.log(data);
+  this.auth.destroy('remove_post',localStorage.getItem('userID'), data).subscribe(
+    response => {
+      console.log(this.id);
+      this.isLoading = false;
+      // this.alert.success('Post deleted successfully');
+      this.getpost();
+    },
+    error => {
+      console.log(error);
+      this.isLoading = false;
+      this.alert.info('Deleting Post Unsuccessful connect to the internet and try again later');
+    }
+  );
 }
 }

@@ -147,14 +147,14 @@ a {
         font-family: Impact, fantasy;
         line-height: 1 !important;
         font-weight: 500;
-        font-size: 200px;
+        font-size: 20vw;
         color: rgb(255, 255, 255);
       }
       .get{
         font-family: DejaVu Sans Mono, monospace;
         line-height: 0 !important;
         font-weight: 200;
-        font-size: 60px;
+        font-size: 10vw;
         color: rgb(255, 255, 255);
       }
       .offer{
@@ -164,7 +164,7 @@ a {
   .fish
       {
         position:absolute;
-        top: 10px;
+        /* top: 10px; */
         left: 25px;
         z-index: 2;
       }
@@ -175,11 +175,24 @@ a {
         right: 29px;
         z-index: 2;
       }
-  .sam{
-    position:absolute;
-    top: 15%;
-  }
+
   .page-nav{
     background-color: rgb(88, 13, 88);
     color: white;
+  }
+  @media screen and (min-width: 601px) {
+    .sam{
+      position: absolute;
+      top: 10%;
+      /* width: 20%; */
+    }
+  }
+
+  /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+  @media screen and (max-width: 600px) {
+    .sam{
+      position: absolute;
+      top: -30px;
+      /* width: 20%; */
+    }
   }

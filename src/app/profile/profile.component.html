@@ -98,7 +98,7 @@
     <div class=" container-fluid">
       <div class = "d-flex justify-content-center">
       <div *ngIf="!isLoader" class="row d-flex justify-content-center">
-        <div class="col-xs-1 col-md-3 justify-content-center">
+        <div class="col-md-3 justify-content-center">
           <img *ngIf="user?.profile_image !== null" (click)="openProfileContent(profile)" src="{{user?.profile_image}}"
             class="avatar" alt="">
           <img *ngIf="user?.profile_image === null" (click)="openProfileContent(profile)" src="assets/img/default-avatar.png"
@@ -108,11 +108,11 @@
 
         <div class="col-xs-3 col-md-7 justify-content-center">
           <div class="d-flex justify-content-center" style="padding-top: 5px;">
-            <div class="col-xs-5 col-md-5">
+            <div class="col-xs-5 col-md-6">
               <h6><b>{{user?.fullname}}</b></h6>
               <h6>{{user?.username}}</h6>
             </div>
-            <div class="col-xs-7 col-md-7">
+            <div class="col-xs-7 col-md-6">
               <button type="button" class="btn success" style="margin-left: auto;" (click)="opentContent(eitModal)">Edit Profile</button>
             </div>
           </div>

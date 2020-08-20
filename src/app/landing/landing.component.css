@@ -24,6 +24,7 @@ color: white;
   line-height: 0 !important;
   font-weight: 400;
   font-size: 75px;
+  width: 100%;
 }
 .get{
   font-family: DejaVu Sans Mono, monospace;

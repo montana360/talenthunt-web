@@ -50,7 +50,7 @@
         <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfi"
           (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
           (beforeChange)="beforeChange($event)">
-            <div ngxSlickItem class="card" style="height: 450px;" *ngFor="let craft of allCraft">
+            <div ngxSlickItem class="card" style="height: auto;width: 100%;" *ngFor="let craft of allCraft">
               <span *ngIf="craft">{{ voteCount(craft) }}</span>
               <video (click)="openCraft(singleCraft);viewcraft(craft.id)" class="card-img-top" style="height: 20rem;"  >
                 <source src="{{craft.file_url}}" type="video/mp4">
@@ -59,7 +59,7 @@
               <!-- <img class="card-img-top" src="assets/img/bg4.jpg" alt="Card image cap" style="height: 13rem;"> -->
               <div class="card-body">
                 <div class="row">
-                  <div class="col-md-3" style="align-items: flex-end;">
+                  <div class="col-md-3" >
                     <img *ngIf="craft.user.profile_image !== null" src="{{craft.user.profile_image}}"
                       class="avatar3" alt="">
                       <img *ngIf="craft.user.profile_image === null" src="assets/img/default-avatar.png"
@@ -68,18 +68,18 @@
                   <div class="col-md-7 div-holder ">
                     <h6 class="card-title" style="color: black;margin-top: auto;font-size: small;">{{craft.user.fullname}}</h6>
                     <p class="card-text" style="color: black;font-size: small;">{{craft.caption}}</p>
-                    <b class="card-text" style="color: black;font-size: small;">{{craft.likes.length || '0'}} like(s) and {{craft.comments.length || '0'}} comment</b>
+                    <b class="card-text" style="color: black;font-size: 1.2vw;">{{craft.likes.length || '0'}} like(s) and {{craft.comments.length || '0'}} comment</b>
                   </div>
-                  <div class="col-md-4" *ngIf ="craft.craft_type !== 'AUDITION'" style="text-align: right;">
-                    <b style="color: green;font-size: small;">{{ numVotes || '0' }} Votes</b>
+                  <div class="col-md-4" *ngIf ="craft.craft_type !== 'AUDITION'" >
+                    <b style="color: green;font-size: 1vw;">{{ numVotes || '0' }} Votes</b>
                     <div class="w-100"></div>
                     <a class="btn buts" (click)="voteContent(votepost);viewcraf(craft.id)">Vote</a>
                     <div class="w-100"></div>
-                    <span  style="color: black; font-size: small;"><b>{{craft?.votes.length || '0'}} voters</b></span>
+                    <span  style="color: black; font-size: 1vw;"><b>{{craft?.votes.length || '0'}} voters</b></span>
                   </div>
 
                   <div class="col-md-4" *ngIf ="craft.craft_type == 'AUDITION'" style="text-align: right;">
-                    <span  style="color: green; font-size: small;"><b>AUDITION</b></span>
+                    <span  style="color: green; font-size: 1vw;"><b>AUDITION</b></span>
                   </div>
 
                 </div>
@@ -123,7 +123,7 @@
               </div>
             </div>
           </div>
-          <a *ngIf="isMineCompetition" style="cursor: pointer" (click)="toggleDisplay()">view
+          <!-- <a *ngIf="isMineCompetition" style="cursor: pointer" (click)="toggleDisplay()">view
             comments</a>
           <div class="list" *ngIf="isShow">
             <ul class="list-group" style="text-align: center;">
@@ -131,7 +131,7 @@
               <li class="list-group-item"><b>Judge 2: </b>Dapibus ac facilisis in</li>
               <li class="list-group-item"><b>Judge 3: </b>Morbi leo risus</li>
             </ul>
-          </div>
+          </div> -->
         </div>
 
       </span>
@@ -328,13 +328,13 @@
 		<div class="col-sm-6 right-side">
       <br>
       <div class="row">
-        <div class="col-md-3" style="align-items: flex-end;">
+        <div class="col-md-3">
           <img *ngIf="cra.user.profile_image !== null" src="{{cra.user.profile_image}}"
             class="avatar3" alt="">
             <img *ngIf="cra.user.profile_image === null" src="assets/img/default-avatar.png"
             class="avatar3"  alt="">
         </div>
-        <div class="col-md-5 div-holder ">
+        <div class="col-md-5 ">
           <h6 class="card-title" style="color: black;margin-top: auto;font-size: small;">{{cra.user.fullname}}</h6>
           <span class="card-text" style="color: black;font-size: small;">{{cra.caption}}</span>
           <div class="w-100"></div>
@@ -351,9 +351,9 @@
         </div>
       </div><br>
 <!--Form with header-->
-<div class="card border-0 example-1 scrollbar-deep-purple bordered-deep-purple thin" *ngIf = " cra.judge_comments.length > 0 || cra.comments.length > 0">
+<div class="card border-0 example-1  thin" *ngIf = " cra.judge_comments.length > 0 || cra.comments.length > 0">
   <div class="card-body">
-    <h6 id="section1" style="font-size: 16px;"><strong>Comments:</strong></h6>
+    <h6 id="section1" style="font-size: 1.3vw;"><strong>Comments:</strong></h6>
     <div class="row pa-move" *ngFor="let comment of cra.judge_comments">
       <div class="col-md-1">
           <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt=""
@@ -361,11 +361,11 @@
           <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt=""
               class="avs">
       </div>
-      <div class="col-md-8" style="margin-left: 12px;">
+      <div class="col-md-8" >
           <div class="row">
-              <span style="color: rgb(57, 8, 104); font-size: 14px;"><b>{{comment.user.fullname}}</b></span>
+              <span style="color: rgb(57, 8, 104); font-size: 1.2vw;"><b>{{comment.user.fullname}}</b></span>
               <div class="w-100"></div>
-              <span style="font-size: 12px;">{{comment.message}}</span>
+              <span style="font-size: 1.2vw;">{{comment.message}}</span>
           </div>
       </div>
   </div>
@@ -376,11 +376,11 @@
           <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt=""
               class="avs">
       </div>
-      <div class="col-md-8" style="margin-left: 12px;">
+      <div class="col-md-8">
           <div class="row">
-              <span style="font-size: 14px;"><b>{{comment.user.fullname}}</b></span>
+              <span style="font-size: 1.2vw;"><b>{{comment.user.fullname}}</b></span>
               <div class="w-100"></div>
-              <span style="font-size: 12px;">{{comment.message}}</span>
+              <span style="font-size: 1.2vw;">{{comment.message}}</span>
           </div>
       </div>
   </div>

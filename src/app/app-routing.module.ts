@@ -18,6 +18,7 @@ import { ContactComponent } from './contact/contact.component';
 import { ForgetpassComponent } from './forgetpass/forgetpass.component';
 import { ResetpassComponent } from './resetpass/resetpass.component';
 import { PinComponent } from './pin/pin.component';
+import { User2Component } from './user2/user2.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'forgetpass', component: ForgetpassComponent},
   { path: 'resetpass', component: ResetpassComponent},
   { path: 'pin', component: PinComponent},
+  { path: 'user2/:id', component: User2Component, canActivate: [AuthGuard]},
   { path: 'homepage', component: HomepageComponent, canActivate: [AuthGuard]},
   { path: 'profile', component:  ProfileComponent, canActivate: [AuthGuard]},
   { path: 'competition', component: CompetitionComponent},

@@ -43,7 +43,7 @@ export class TermsComponent implements OnInit {
     this.isLoading = true;
     // this.getAllCompetitions();
     // this.compID = this.route.snapshot.paramMap.get("id");
-    this.compID = 2;
+    this.compID = 3;
     this.user_id = localStorage.getItem('userID');
     this.v(this.compID);
     this.userCompStatus();

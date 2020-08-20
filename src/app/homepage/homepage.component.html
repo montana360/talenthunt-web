@@ -138,7 +138,7 @@
           (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
           (beforeChange)="beforeChange($event)">
           <div ngxSlickItem *ngFor="let craf of allCraft" class="slide">
-            <div class="row">
+            <div class="row" *ngIf="allCraft.length >= 5">
               <div class="col-md-9">
                 <img style="cursor: pointer;" (click)="openCraft(singleCraft);viewcraft(craf.id)" *ngIf="craf.user.profile_image !== null" src="{{craf.user.profile_image}}" class="avatar1"
                  alt="">
@@ -162,13 +162,12 @@
       [infiniteScrollUpDistance]="1.5"
       [infiniteScrollThrottle]="50"
       (scrolled)="onScroll()"
-      (scrolledUp)="onScrollup()"
     >
-      <div class="card border-0  d-flex justify-content-center" *ngFor="let post of allPosts">
+      <div class="card border-0" *ngFor="let post of allPosts">
         <span *ngIf="post">{{ trackLikes(post) }}</span>
         <div class="card-body container-fluid">
           <div class="row">
-            <div class="col-xs-3 col-md-3" style="align-items: flex-end;">
+            <div class="col-xs-3 col-md-3" >
               <img style="cursor: pointer;" (click)="fell(post?.user_id)" *ngIf="post.user.profile_image !== null" src="{{post.user.profile_image}}" class="avatar1"
                alt="">
               <img style="cursor: pointer;" (click)="fell(post?.user_id)" *ngIf="post.user.profile_image === null" src="assets/img/default-avatar.png"
@@ -176,17 +175,18 @@
             </div>
             <div class="col-xs-8 col-md-7 div-holder " >
               <h6 class="card-title" style="cursor: pointer;" (click)="fell(post?.user_id)">{{post.user.fullname}}</h6>
-              <p *ngIf="post?.location !== 'null'" class="card-text">{{post?.location}}</p>
-              <p *ngIf="post?.location === 'null'" class="card-text">Sent from Mobile</p>
+              <p *ngIf="post?.location !== 'null'" class="card-text" style="font-size: 1.2vw;">{{post?.location}}</p>
+              <p *ngIf="post?.location === 'null'" class="card-text" style="font-size: 1.2vw;">Sent from Mobile</p>
             </div>
             <div class="col-xs-1 col-md-2" style="text-align: right;">
               <div ngbDropdown class="dropdown ">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle>
-                  <img src="assets/img/49.png" width="30">
+                  <img class="sha" src="assets/img/49.png">
                 </a>
                 <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right page-nav">
                   <a class="dropdown-item" (click)="copy(post?.file_url)">Share Post</a>
                   <a class="dropdown-item" (click)="openReportContent(report);view(post.id)">Report Post</a>
+                  <a *ngIf="post.user_id == this.user_id" class="dropdown-item" (click)="opendeleteContent(del);view(post.id)">delete Post</a>
                 </div>
               </div>
             </div>
@@ -254,9 +254,9 @@
               </div>
               <div class="col-md-9">
                 <div class="row">
-                  <span><b>{{comment.user.fullname}}</b></span>
+                  <span style="font-size: 1.2vw;"><b>{{comment.user.fullname}}</b></span>
                   <div class="w-100"></div>
-                  <span>{{comment.message}}</span>
+                  <span style="font-size: 1.2vw;">{{comment.message}}</span>
                 </div>
               </div>
               <div *ngIf="user.id === comment.user.id" class="col-md-2">
@@ -283,23 +283,37 @@
          size = "default"
          color ="#581f87"
          type = "ball-pulse-sync"
-         [fullScreen]= "false"
-         >
+         [fullScreen]= "false">
 
         </ngx-spinner>
       </div>
     </div>
-    <div *ngIf = "!notEmptyPost" class="row pb-5">
-      <div class="col-md-12 d-flex justify-content-center">
-        <div class="text-muted h6 alert alert-secondary p-2">No Post Available</div>
+    </div>
+    <br>
+    <!-- <div *ngIf="!isLoading" class="col-md-4 mov">
+      <div  class="card border-0 example-1   thin">
+        <div class="card-body">
+        <div class="row pa-move" *ngFor="let comment of post.comments">
+          <div class="col-md-1">
+            <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt=""
+              class="avs">
+            <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt=""
+              class="avs">
+          </div>
+          <div class="col-md-9">
+            <div class="row">
+              <span><b>{{comment.user.fullname}}</b></span>
+              <div class="w-100"></div>
+              <span>{{comment.message}}</span>
+            </div>
+          </div>
+          <div *ngIf="user.id === comment.user.id" class="col-md-2">
+            <a class="dropdown-item" (click)="deleteComment(comment.id)"><i class="fa fa-trash" style="color: red;"></i></a>
       </div>
-    </div>
-    </div>
-
-
-   
-
-    <br><br>
+        </div>
+      </div>
+      </div>
+    </div> -->
 
     <!-- <div *ngIf="!isLoading" class="trending">
       <div class="row">
@@ -636,3 +650,16 @@
   </div>
 </ng-template>
 <!-- logout modal end -->
+<!-- delete modal start -->
+<ng-template #del let-modal>
+  <div *ngFor="let post of Psts">
+    <div class="modal-content">
+      <div class="modal-header content-center">
+        <h4>Delete Post <i class="fa fa-trash" style="color: red;"></i></h4>
+      </div>
+      <div class="modal-body"><i class="fa fa-trash"></i> Are you sure you want to Delete this Post?</div>
+      <div class="modal-footer"><a (click)="deletePost(post.id);modal.close()" class="but btn-block" color="white">YES</a><a (click)="no()"
+          class="btn facebookbutton btn-block">NO</a></div>
+    </div>
+  </div>
+</ng-template>

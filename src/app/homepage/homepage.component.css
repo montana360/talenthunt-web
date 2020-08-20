@@ -17,10 +17,7 @@
   flex: 0 0 2%;
   max-width: 25%;
 }
-.card-title {
-  margin-bottom: 0rem;
-  margin-top: 1rem;
-}
+
 .trending{
   background-color: rgb(48, 10, 83);
 }
@@ -31,14 +28,11 @@
 .move{
   margin: 0 auto;
 }
-.avs {
-  vertical-align: middle;
-  width: 25px;
-  height: 25px;
-  border-radius: 60%;
-  border: 3px solid rgba(54, 8, 85, 0.829);
 
+.mov{
+  margin: 80px auto;
 }
+
 .card{
   /* transition: none !important; */
   box-shadow: none !important;
@@ -196,14 +190,7 @@ cursor: pointer;
   border: 3px solid rgba(54, 8, 85, 0.829);
 
 }
-.avatar1 {
-  vertical-align: middle;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  border: 3px solid rgba(54, 8, 85, 0.829);
 
-}
 
 .follow-button {
   background-color: #090833;
@@ -245,7 +232,7 @@ cursor: pointer;
 .popov {
   /* margin:10px, 10px; */
   padding:10px;
-  max-width: 100%; 
+  max-width: 100%;
   height: auto;
   overflow-x: hidden;
   overflow-y: auto;
@@ -357,4 +344,58 @@ cursor: pointer;
     font-size: smaller;
     background: rgba(54, 8, 85, 0.829);
     color: white;
+  }
+  @media screen and (min-width: 601px) {
+    .avatar1 {
+      vertical-align: middle;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 3px solid rgba(54, 8, 85, 0.829);
+
+    }
+    .card-title {
+      margin-bottom: 0rem;
+      margin-top: 1rem;
+      /* font-size: 12px; */
+    }
+    .sha{
+      width: 30px;
+    }
+    .avs {
+      vertical-align: middle;
+      width: 25px;
+      height: 25px;
+      border-radius: 60%;
+      border: 3px solid rgba(54, 8, 85, 0.829);
+
+    }
+  }
+
+  /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+  @media screen and (max-width: 600px) {
+    .avatar1 {
+      vertical-align: middle;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 3px solid rgba(54, 8, 85, 0.829);
+
+    }
+    .card-title {
+      margin-bottom: 0rem;
+      margin-top: 1rem;
+      font-size: 12px;
+    }
+    .sha{
+      width: 10px;
+    }
+    .avs {
+      vertical-align: middle;
+      width: 15px;
+      height: 15px;
+      border-radius: 60%;
+      border: 3px solid rgba(54, 8, 85, 0.829);
+
+    }
   }

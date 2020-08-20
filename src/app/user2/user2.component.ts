@@ -16,13 +16,12 @@ import { AuthService } from '../services/auth.service';
 import { AlertService } from '../services/alert.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ClipboardService } from 'ngx-clipboard';
-
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css'],
+  selector: 'app-user2',
+  templateUrl: './user2.component.html',
+  styleUrls: ['./user2.component.css']
 })
-export class UserComponent implements OnInit {
+export class User2Component implements OnInit {
   public isMenuCollapsed = true;
 
   isShow = false;
@@ -495,9 +494,7 @@ reportpost(id){
 
 
   fell(id) {
-
-    this.router.navigate(['/user2/', id]);
-
+    this.router.navigate(['/user/', id]);
   }
 
 
@@ -529,3 +526,4 @@ reportpost(id){
     // this.alert.success(text);
   }
 }
+
