@@ -408,12 +408,12 @@ a {
       background-color: #090833; /* Green */
       border: none;
       color: white;
-      padding: 12px;
+      padding: 4px 3px;
       text-align: center;
       text-decoration: none;
       display: inline-block;
       font-size: 14px;
-      margin: 4px 2px;
+      margin: 1px 2px;
       cursor: pointer;
       border-radius: 5px;
     }
@@ -468,6 +468,7 @@ a {
       overflow-x: hidden;
       overflow-y: auto;
       text-align:justify center;
+      background-color: rgb(182, 194, 216);
     }
     .myInput {
       background-image: url('/css/searchicon.png'); /* Add a search icon to input */
@@ -514,3 +515,9 @@ a {
     background: rgba(54, 8, 85, 0.829);
     color: white;
   }
+  .rolling {
+    display: flex;
+    flex-wrap: initial;
+    margin-right: -15px;
+    margin-left: -15px;
+}

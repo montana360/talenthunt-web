@@ -420,6 +420,15 @@ textarea {
       overflow-y: auto;
       text-align:justify center;
     }
+    .popov {
+      /* margin:10px, 10px; */
+      padding:10px;
+      max-width: 100%;
+      height: auto;
+      overflow-x: hidden;
+      overflow-y: auto;
+      text-align:justify center;
+    }
     .myInput {
       background-image: url('/css/searchicon.png'); /* Add a search icon to input */
       background-position: 10px 12px; /* Position the search icon */
@@ -467,4 +476,10 @@ textarea {
   font-size: smaller;
   background: rgba(54, 8, 85, 0.829);
   color: white;
+}
+.rolling {
+  display: flex;
+  flex-wrap: initial;
+  margin-right: -15px;
+  margin-left: -15px;
 }

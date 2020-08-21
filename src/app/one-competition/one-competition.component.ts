@@ -19,6 +19,7 @@ import {
 export class OneCompetitionComponent implements OnInit {
   public isMenuCollapsed = true;
   craftcommentForm: FormGroup;
+  searchForm: FormGroup;
   isShow = false;
   viewcompetition:any;
   competition:any;
@@ -27,6 +28,17 @@ export class OneCompetitionComponent implements OnInit {
   isVotes:any;
   myArray = [];
   numVotes = 0;
+  isFound = false;
+  searchList = null;
+  followers: any;
+  following: any;
+  search = '';
+  isNoti = false;
+  Allnoti: any;
+  unread:any;
+  isFollow: any;
+  isFollowData: any;
+  follow:any;
 
   // comment variable declaration
   craftcommentDetails = {
@@ -171,6 +183,15 @@ export class OneCompetitionComponent implements OnInit {
     // this.trackvotes(this.craft);
     this.getCraft();
     this.userCompStatus();
+    this.getnotifications();
+    this.getAllnotifications();
+    this.getfollowers();
+
+
+     // search form
+     this.searchForm = this.formBuilder.group({
+      search: [null],
+    });
     // post data form
   this.craftForm = this.formBuilder.group({
   caption: [null,Validators.required],
@@ -607,4 +628,208 @@ openCraft(singleCraft) {
   voteC(cra) {
     this.numVotes = cra['votes'].reduce((accum,item) => accum + item.num_of_votes, 0)
   }
+
+  // Search functionality
+searchEverything(data) {
+  if (this.search === '') {
+    this.clearSearch();
+  } else if (data === '' || data === null) {
+    this.clearSearch();
+    return;
+  } else {
+
+    const search = {
+      data: data,
+    };
+
+    // console.log(search);
+
+    this.auth.update('search_user',localStorage.getItem('userID'), search).subscribe(
+      (response) => {
+        // console.log(response);
+        if (response['success'] === true) {
+          this.isFound = true;
+          this.searchList = response['data']['data'];
+        } else {
+          this.searchList = null;
+          this.isFound = false;
+        }
+      },
+      (error) => {
+        // console.log(error);
+        this.searchList = null;
+      }
+    );
+  }
+}
+
+clearSearch() {
+  this.searchList = null;
+  this.isFound = false;
+}
+
+getfollowers() {
+  // this.isLoader = true;
+  this.auth
+    .show('get_profile_count', localStorage.getItem('userID'))
+    .subscribe(
+      (response) => {
+        // console.log(response);
+        this.follow = response;
+        this.isLoading = false;
+      },
+      (error) => {
+        this.isLoading = false;
+        this.alert.error('connect to the internet and try again');
+        // console.log(error);
+      }
+    );
+}
+
+// Tracking all followers of user
+trackFollowing(user) {
+  // console.log(data['follower']);
+  this.isFollowData = user['follower']['follows'].filter((follow) => {
+    return follow.follower_id == this.user_id;
+  });
+  console.log(this.isFollowData);
+}
+ // Checking if you follow searched user
+ trackFollows(user) {
+  this.isFollow = user['follows'].filter((follow) => {
+    return follow.follower_id == this.user_id;
+  });
+  // console.log(this.isFollow);
+}
+followuser(id) {
+  this.spinner.show();
+  const data = {
+    follower_id: parseInt(localStorage.getItem('userID'), 10),
+    user_id: id,
+  };
+  console.log(data);
+  this.auth.update('follow', localStorage.getItem('userID'), data).subscribe(
+    (response) => {
+      // console.log(response);
+      this.spinner.hide();
+      if (response !== null || response !== undefined) {
+        // this.alert.success('following successful');
+        // this.v(this.ID);
+        this.getfollowers();
+        this.isFollow = null;
+        // this.searchList = null;
+      }
+    },
+    (error) => {
+      console.log(error);
+      this.spinner.hide();
+      if (error.status === 500) {
+        this.spinner.hide();
+        this.alert.warning('connect to the internet and try again');
+      } else {
+        this.spinner.hide();
+        // this.alert.error('can not follow user');
+      }
+    }
+  );
+}
+
+unfollowuser(id) {
+  this.spinner.show();
+  const data = {
+    user_id: id,
+    follower_id: parseInt(localStorage.getItem('userID'), 10),
+  };
+  // console.log(data);
+  this.auth
+    .update('un_follow', localStorage.getItem('userID'), data)
+    .subscribe(
+      (response) => {
+        // console.log(response);
+        this.spinner.hide();
+        if (response !== null || response !== undefined) {
+          // this.alert.success('Unfollow successful');
+          // this.v(this.ID);
+          this.getfollowers();
+          this.isFollow = null;
+          // this.searchList = null;
+        }
+      },
+      (error) => {
+        // console.log(error);
+        this.spinner.hide();
+        if (error.status === 500) {
+          this.spinner.hide();
+          this.alert.warning('connect to the internet and try again');
+        } else {
+          this.spinner.hide();
+          // this.alert.error('can not unfollow user');
+        }
+      }
+    );
+}
+
+fell(id) {
+  this.router.navigate(['/user/', id]);
+}
+ // notifications
+ getnotifications() {
+  this.auth.show('unread_notifications', localStorage.getItem('userID')).subscribe(
+    (response) => {
+       this.unread = response['data'];
+       this.spinner.hide();
+     },
+     (error) => {
+       this.spinner.hide();
+       this.alert.error('connect to the internet and try again');
+       // console.log(error);
+     }
+   );
+}
+
+
+getAllnotifications() {
+  this.auth.show('notifications', localStorage.getItem('userID')).subscribe(
+    (response) => {
+      //  console.log(response);
+       if (response['success'] === true) {
+        this.isNoti = true;
+        this.Allnoti = response['data']['data'];
+        console.log(this.Allnoti);
+      } else {
+        this.Allnoti = null;
+        this.isNoti = false;
+      }
+    },
+     (error) => {
+       this.spinner.hide();
+       this.alert.error('try again');
+       // console.log(error);
+     }
+   );
+}
+
+deleteNotivication(id) {
+  // this.isLoader = true;
+  const data = {
+    id: id,
+  };
+  // console.log(data);
+  this.auth.destroy('remove_notification',localStorage.getItem('userID'), data).subscribe(
+    response => {
+      this.isLoading = false;
+      // this.alert.success("Comment deleted successfully");
+      this.getAllnotifications();
+    },
+    error => {
+      console.log(error);
+      this.isLoading = false;
+      this.alert.warning('connect to the internet and try again');
+    }
+  );
+}
+notif(id) {
+  this.router.navigate(['/notepost/',id]);
+}
+
 }

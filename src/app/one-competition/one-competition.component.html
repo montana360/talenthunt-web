@@ -12,7 +12,55 @@
 
       <!-- Step 2: Add the ngbCollapse directive to the element below. -->
       <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+        <form [formGroup]="searchForm" class="form-inline my-2 my-lg-0">
+          <input class="myInput form-control mr-sm-2" (keyup)="clearSearch()" formControlName="search" [(ngModel)]="search"
+            (input)="searchEverything($event.target.value)"  placement="bottom" [ngbPopover]="popContent" type="search" placeholder="Search" aria-label="Search">
+        </form>
 
+        <!-- <ng-template  #popTitle>Search Results</ng-template> -->
+
+        <ng-template #popContent>
+          <div class="popover" *ngIf="isFound">
+            <div *ngFor="let list of searchList">
+
+              <span *ngIf="list">{{ trackFollows(list) }}</span>
+
+              <div  class="row" [hidden]="list?.id == user_id">
+                <div class="col-md-2">
+                  <img *ngIf="list.profile_image === null" src="assets/img/default-avatar.png" class="avatar4">
+                  <img *ngIf="list.profile_image !== null" src="{{ list?.profile_image }}" class="avatar4">
+                </div>
+                <div class="col-md-6" >
+                  &nbsp;
+                  <span style="cursor: pointer;" (click)="fell(list?.id)">
+                    {{ list.fullname }}
+                  </span>
+                  &nbsp; &nbsp;
+                </div>
+                <div class="col-md-3">
+                  <div *ngIf="list.follows.length > 0">
+                    <span *ngIf="isFollow.length > 0">
+                      <button style="cursor: pointer;" type="button" class="btnu success" (click)="unfollowuser(list.id);">Following</button>
+                    </span>
+
+                    <span *ngIf="!isFollow || isFollow.length == 0">
+                      <button style="cursor: pointer;" type="button" class="bits" (click)="followuser(list.id);">Follow</button>
+                    </span>
+                  </div>
+                  <div *ngIf="list.follows.length == 0">
+                    <span>
+                      <button style="cursor: pointer;" type="button" class="bits" (click)="followuser(list.id);">Follow</button>
+                    </span>
+                </div>
+            </div>
+              </div>
+              <hr>
+            </div>
+          </div>
+          <div *ngIf="!isFound">
+            Find your friends
+          </div>
+        </ng-template>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item text-center mouse">
             <a class="nav-link" (click)="profilePage()" data-toggle="modal" data-target="#"><img
@@ -24,6 +72,34 @@
                 width="20"><span class="d-none d-sm-inline d-xl-block px-1"
                 style="color: black; font: 1em sans-serif;font-size: small;">Competition</span></a>
           </li>&nbsp;&nbsp;
+          <li class="nav-item text-center mouse">
+            <a class="nav-link" [ngbPopover]="popCon" data-toggle="modal" data-target="#"><i class="fa fa-bell notification" style="font-size:25px;cursor: pointer;"><span *ngIf="unread.total !== 0" class="badge">{{unread?.total}}</span></i><span class="d-none d-sm-inline d-xl-block px-1"
+                style="color: black; font: 1em sans-serif;font-size: small;">Notifications</span></a>
+          </li>&nbsp;&nbsp;
+          <ng-template #popCon>
+            <div class="popov" *ngIf="isNoti">
+              <div *ngFor="let note of Allnoti">
+                <div class="row">
+                  <div class="col-xs-3 col-md-3">
+                    <i *ngIf="note.app === 'LIKE' && note.seen === 'NO'" class="fa fa-heart" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(88, 13, 88)"></i>
+                    <i *ngIf="note.app === 'FOLLOW' && note.seen === 'NO'" class="fa fa-group" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(88, 13, 88)"></i>
+                    <i *ngIf="note.app === 'COMMENT' && note.seen === 'NO'" class="fa fa-comments-o" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(88, 13, 88)"></i>
+                    <i *ngIf="note.app === 'LIKE' && note.seen === 'YES'" class="fa fa-heart" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(75, 57, 57)"></i>
+                    <i *ngIf="note.app === 'FOLLOW' && note.seen === 'YES'" class="fa fa-group" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(75, 57, 57)"></i>
+                    <i *ngIf="note.app === 'COMMENT' && note.seen === 'YES'" class="fa fa-comments-o" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(75, 57, 57)"></i>
+                  </div>
+                  <div class="col-xs-8 col-md-7" >
+                    <span *ngIf="note.seen === 'NO'" style="cursor: pointer; color: rgb(88, 13, 88);" (click)=" notif(note.content_id)"><b>{{note.message}}</b></span>
+                    <span *ngIf="note.seen === 'YES'" style="cursor: pointer;" (click)=" notif(note.content_id)"><b>{{note.message}}</b></span>
+                    <p >{{note?.created_at | dateAgo}}</p>
+                  </div>
+                  <div class="col-xs-1 col-md-2" >
+                    <i (click)="deleteNotivication(note.id)" class="fa fa-trash-o"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
           <li class="nav-item text-center mouse">
             <div ngbDropdown class="dropdown ">
               <a class="nav-link dropdown-toggle" ngbDropdownToggle>
@@ -71,11 +147,11 @@
                     <b class="card-text" style="color: black;font-size: 10px;">{{craft.likes.length || '0'}} like(s) and {{craft.comments.length || '0'}} comment</b>
                   </div>
                   <div class="col-md-4" *ngIf ="craft.craft_type !== 'AUDITION'" >
-                    <b style="color: green;font-size: 1.2vw;">{{ numVotes || '0' }} Votes</b>
+                    <b style="color: green;font-size: 0.9vw;">{{ numVotes || '0' }} Votes</b>
                     <div class="w-100"></div>
                     <a class="btn buts" (click)="voteContent(votepost);viewcraf(craft.id)">Vote</a>
                     <div class="w-100"></div>
-                    <span  style="color: black; font-size: 1.2vw;"><b>{{craft?.votes.length || '0'}} voters</b></span>
+                    <span  style="color: black; font-size: 0.9vw;"><b>{{craft?.votes.length || '0'}} voters</b></span>
                   </div>
 
                   <div class="col-md-4" *ngIf ="craft.craft_type == 'AUDITION'" style="text-align: right;">
@@ -114,24 +190,22 @@
           <div class="row text-center d-flex justify-content-center">
             <div class="col-md-4" *ngFor="let judge of viewcompetition.judges">
               <div class="team-player">
-                <img *ngIf="judge.user.profile_image !== null" src="{{judge.user.profile_image}}" alt="Thumbnail Image" class="imsg"
-                  style="width: 90px; height: 90px;">
-                  <img *ngIf="judge.user.profile_image === null" src="assets/img/default-avatar.png" alt="Thumbnail Image" class="imsg"
-                  style="width: 90px; height: 90px;">
-                <h6 class="title">{{judge.user.fullname}}</h6>
-                <!-- <p class="category text-primary">{{judge.user.username}}</p> -->
+                <img (click)="fell(judge?.user_id)" *ngIf="judge.user.profile_image !== null" src="{{judge.user.profile_image}}" alt="Thumbnail Image" class="imsg"
+                  style="width: 90px; height: 90px;cursor: pointer;"><span  class="bad"><i class="fa fa-gavel" style="font-size:26px;color:rgba(54, 8, 85, 0.829);"></i></span>
+                  <h6 style="margin-right: 20px;" (click)="fell(judge?.user_id)" class="title">{{judge.user.fullname}}</h6>
+                  <span style="margin-right: 30px;color:rgba(54, 8, 85, 0.829);" class="category">JUDGE</span>
               </div>
             </div>
           </div>
-          <!-- <a *ngIf="isMineCompetition" style="cursor: pointer" (click)="toggleDisplay()">view
+          <a *ngIf="isMineCompetition" style="cursor: pointer" (click)="toggleDisplay()">view
             comments</a>
           <div class="list" *ngIf="isShow">
-            <ul class="list-group" style="text-align: center;">
-              <li class="list-group-item "><b>Judge 1: </b>Cras justo odio</li>
-              <li class="list-group-item"><b>Judge 2: </b>Dapibus ac facilisis in</li>
-              <li class="list-group-item"><b>Judge 3: </b>Morbi leo risus</li>
-            </ul>
-          </div> -->
+            <div  *ngIf="craft.user_id == this.user_id">
+              <ul  *ngFor="let mycom of craft.judge_comments" class="list-group" style="text-align: center;" >
+                <li class="list-group-item "><b>{{mycom.user.fullname}}</b>{{mycom.message}}</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
       </span>
@@ -341,8 +415,8 @@
           <b class="card-text" style="color: black;font-size: 10px;">{{cra.likes.length || '0'}} like(s)</b>
         </div>
         <div class="col-md-4" >
-          <span *ngIf="cra.craft_type =='AUDITION'" style="color: green; font-size:  1.2vw;"><b>AUDITION</b></span>
-          <b *ngIf="cra.craft_type !=='AUDITION'" style="color: green;font-size:  1.2vw;">{{ numVotes || '0' }} Votes</b>
+          <span *ngIf="cra.craft_type =='AUDITION'" style="color: green; font-size:  0.9vw;"><b>AUDITION</b></span>
+          <b *ngIf="cra.craft_type !=='AUDITION'" style="color: green;font-size:  0.9vw;">{{ numVotes || '0' }} Votes</b>
           <div class="w-100"></div>
           <a *ngIf="cra.craft_type !=='AUDITION'" class="btn buts" (click)="voteContent(votepost);viewcraf(cra.id)">vote</a>
           <div class="w-100"></div>

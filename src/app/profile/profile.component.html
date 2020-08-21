@@ -25,7 +25,7 @@
 
               <span *ngIf="list">{{ trackFollows(list) }}</span>
 
-              <div  class="row" [hidden]="list?.id == user_id">
+              <div  class="rolling" [hidden]="list?.id == user_id">
                 <div class="col-md-2">
                   <img *ngIf="list.profile_image === null" src="assets/img/default-avatar.png" class="avatar4">
                   <img *ngIf="list.profile_image !== null" src="{{ list?.profile_image }}" class="avatar4">
@@ -73,6 +73,11 @@
               </svg><span class="d-none d-sm-inline d-xl-block px-1"
                 style="color: black;font: 1em sans-serif;font-size: small;">Post</span></a>
           </li>&nbsp;&nbsp;
+          <li class="nav-item text-center mouse">
+            <a class="nav-link" (click)="profilePage()" data-toggle="modal" data-target="#"><img
+                src="assets/img/52.png" width="20"><span class="d-none d-sm-inline d-xl-block px-1"
+                style="color: black;font: 1em sans-serif;font-size: small;">Profile</span></a>
+          </li>&nbsp;&nbsp;
           <li class="nav-item text-center mouse" style="cursor: pointer;">
             <a class="nav-link" (click)="compage()" data-toggle="modal" data-target="#"><img src="assets/img/53.png"
                 width="20"><span class="d-none d-sm-inline d-xl-block px-1"
@@ -85,7 +90,7 @@
           <ng-template #popCon>
             <div class="popov" *ngIf="isNoti">
               <div *ngFor="let note of Allnoti">
-                <div class="row">
+                <div class="rolling">
                   <div class="col-xs-3 col-md-3">
                     <i *ngIf="note.app === 'LIKE' && note.seen === 'NO'" class="fa fa-heart" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(88, 13, 88)"></i>
                     <i *ngIf="note.app === 'FOLLOW' && note.seen === 'NO'" class="fa fa-group" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(88, 13, 88)"></i>
@@ -135,7 +140,7 @@
         </div>
 
         <div class="col-xs-3 col-md-7 justify-content-center">
-          <div class="d-flex justify-content-center" style="padding-top: 5px;">
+          <div class="rolling d-flex justify-content-center" style="padding-top: 5px;">
             <div class="col-xs-5 col-md-6">
               <h6><b>{{user?.fullname}}</b></h6>
               <h6>{{user?.username}}</h6>
@@ -146,25 +151,25 @@
           </div>
           <br>
           <div class="row d-flex justify-content-around">
-            <div class="col-xs-1 col-md-3 text-center">
+            <div class="col-md-3 text-center">
               <h6><b>{{follow?.posts.length}}</b></h6>
               <span style="font-size: 18px;">Posts</span>
             </div>
             <!-- <img src="assets/img/04.png" height="50px"> -->
 
-            <div class="col-xs-1 col-md-3 text-center" style="cursor: pointer;" (click)="openfollowers(followers)">
+            <div class="col-md-3 text-center" style="cursor: pointer;" (click)="openfollowers(followers)">
               <h6><b>{{follow?.followers.length}}</b></h6>
               <span style="font-size: 18px;">Followers</span>
             </div>
             <!-- <img src="assets/img/04.png" height="50px"> -->
 
-            <div class=" col-xs-1 col-md-3 text-center" style="cursor: pointer;" (click)="openfollowing(following)">
+            <div class="col-md-3 text-center" style="cursor: pointer;" (click)="openfollowing(following)">
               <h6><b>{{follow?.following.length}}</b></h6>
               <span style="font-size: 18px;">Following</span>
             </div>
           </div>
           <br>
-          <div class="row">
+          <div class="rolling">
             <div class="col-xs-9 col-md-9">
 
               <p class="d-flex justify-content-center" style="font-size: 14px;">
@@ -175,7 +180,7 @@
         </div>
 
         <!-- <div class="justify-content-center">
-          <div class="row">
+          <div class="rolling">
             <div class="col-md-3">
               <img *ngIf="user.profile_image !== null" src="{{user.profile_image}}" class="avatar" alt="">
               <img *ngIf="user.profile_image === null" src="assets/img/default-avatar.png" class="avatar" alt="">
@@ -203,7 +208,7 @@
     </div>
 
 
-    <div *ngIf="!isLoader" class="row">
+    <div *ngIf="!isLoader" class="rolling">
       <div *ngIf="allPosts?.length == 0" class=" d-flex justify-content-center col-md-10 move">
       <a (click)="openpost(postModal)">
         <i class="fa fa-camera-retro" style="font-size:50px;color: rgb(143, 127, 127);margin-left: 50px;"></i>
@@ -267,7 +272,7 @@
                 <div class="card border-0  d-flex justify-content-center" *ngFor="let post of allPosts">
                   <span *ngIf="post">{{ trackLike(post) }}</span>
                   <div class="card-body">
-                    <div class="row">
+                    <div class="rolling">
                       <div class="col-md-3" style="align-items: flex-end;">
                         <img *ngIf="post.user.profile_image !== null" src="{{post.user.profile_image}}" class="avatar1"
                           alt="">

@@ -381,6 +381,16 @@ cursor: pointer;
     .column {
       flex: 50%;
     }
+    .bad {
+      position: absolute;
+      top: 60px;
+      right: 120px;
+      padding: 1px 5px;
+      border-radius: 50%;
+      font-size: smaller;
+      background: rgb(255, 255, 255);
+      color: white;
+    }
   }
 
   /* On screens that are 600px wide or less, make the columns stack on top of each other instead of next to each other */
@@ -391,4 +401,27 @@ cursor: pointer;
     .column {
       flex: 100%;
     }
+
   }
+  .imsg {
+    border-radius: 50%;
+    size: 10px;
+    border: 3px solid rgba(54, 8, 85, 0.829);
+    position: relative;
+  }
+ .bad {
+    position: absolute;
+    top: 60px;
+    right: 60px;
+    padding: 5px 5px;
+    border-radius: 50%;
+    font-size: smaller;
+    background: rgb(255, 255, 255);
+    color: white;
+  }
+  .rolling {
+    display: flex;
+    flex-wrap: initial;
+    margin-right: -15px;
+    margin-left: -15px;
+}

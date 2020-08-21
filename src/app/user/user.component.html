@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-md-6" >
                   &nbsp;
-                  <span style="cursor: pointer;" (click)="fell(list?.id); refresh()">
+                  <span style="cursor: pointer;" (click)="fell(list?.id)">
                     {{ list.fullname }}
                   </span>
                   &nbsp; &nbsp;
@@ -127,7 +127,7 @@
       </div>
       <br>
       <div class="col-md-7 justify-content-around">
-        <div class="row justify-content-around" style="padding-top: 5px;">
+        <div class="rolling justify-content-around" style="padding-top: 5px;">
           <div class="col-md-3  text-center">
             <h6><b>{{follow?.posts.length}}</b></h6>
             <span style="font-size: 18px;">Posts</span>
@@ -197,7 +197,7 @@
     </div>
 
 
-    <div *ngIf="!isLoading" class="row">
+    <div *ngIf="!isLoading" class="rolling">
       <div *ngIf="allPosts.length == 0" class=" d-flex justify-content-center col-md-10 move">
         <a >
           <i class="fa fa-camera-retro" style="font-size:50px;color: rgb(143, 127, 127);margin-left: 50px;"></i>
@@ -260,7 +260,7 @@
                 <div class="card border-0  d-flex justify-content-center" *ngFor="let post of allPosts">
                   <span *ngIf="post">{{ trackLike(post) }}</span>
                   <div class="card-body">
-                    <div class="row">
+                    <div class="rolling">
                       <div class="col-md-3" style="align-items: flex-end;">
                         <img *ngIf="post.user.profile_image !== null" src="{{post.user.profile_image}}"
                           class="avatar1"  alt="">
@@ -461,7 +461,7 @@
       </div>
       <div class="col-md-7" >
         &nbsp;
-        <span style="cursor: pointer;" (click)="fell(foll?.user_id);refresh();modal.dismiss('Cross click')">
+        <span style="cursor: pointer;" (click)="fell(foll?.user_id);modal.dismiss('Cross click')">
           {{ foll.user.fullname }}
         </span>
         &nbsp; &nbsp;

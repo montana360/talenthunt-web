@@ -42,6 +42,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { User2Component } from './user2/user2.component';
 import { NotificationpostComponent } from './notificationpost/notificationpost.component';
+import { SinglecraftComponent } from './singlecraft/singlecraft.component';
 
 const config = {
   breakPoints: {
@@ -74,7 +75,8 @@ const config = {
     PinComponent,
     DateAgoPipe,
     User2Component,
-    NotificationpostComponent
+    NotificationpostComponent,
+    SinglecraftComponent
   ],
   imports: [
     BrowserModule,

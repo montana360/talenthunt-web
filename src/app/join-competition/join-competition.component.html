@@ -12,7 +12,55 @@
 
       <!-- Step 2: Add the ngbCollapse directive to the element below. -->
       <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+        <form [formGroup]="searchForm" class="form-inline my-2 my-lg-0">
+          <input class="myInput form-control mr-sm-2" (keyup)="clearSearch()" formControlName="search" [(ngModel)]="search"
+            (input)="searchEverything($event.target.value)"  placement="bottom" [ngbPopover]="popContent" type="search" placeholder="Search" aria-label="Search">
+        </form>
 
+        <!-- <ng-template  #popTitle>Search Results</ng-template> -->
+
+        <ng-template #popContent>
+          <div class="popover" *ngIf="isFound">
+            <div *ngFor="let list of searchList">
+
+              <span *ngIf="list">{{ trackFollows(list) }}</span>
+
+              <div  class="row" [hidden]="list?.id == user_id">
+                <div class="col-md-2">
+                  <img *ngIf="list.profile_image === null" src="assets/img/default-avatar.png" class="avatar4">
+                  <img *ngIf="list.profile_image !== null" src="{{ list?.profile_image }}" class="avatar4">
+                </div>
+                <div class="col-md-6" >
+                  &nbsp;
+                  <span style="cursor: pointer;" (click)="fell(list?.id)">
+                    {{ list.fullname }}
+                  </span>
+                  &nbsp; &nbsp;
+                </div>
+                <div class="col-md-3">
+                  <div *ngIf="list.follows.length > 0">
+                    <span *ngIf="isFollow.length > 0">
+                      <button style="cursor: pointer;" type="button" class="btnu success" (click)="unfollowuser(list.id);">Following</button>
+                    </span>
+
+                    <span *ngIf="!isFollow || isFollow.length == 0">
+                      <button style="cursor: pointer;" type="button" class="bits" (click)="followuser(list.id);">Follow</button>
+                    </span>
+                  </div>
+                  <div *ngIf="list.follows.length == 0">
+                    <span>
+                      <button style="cursor: pointer;" type="button" class="bits" (click)="followuser(list.id);">Follow</button>
+                    </span>
+                </div>
+            </div>
+              </div>
+              <hr>
+            </div>
+          </div>
+          <div *ngIf="!isFound">
+            Find your friends
+          </div>
+        </ng-template>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item text-center mouse">
             <a class="nav-link" (click)="profilePage()" data-toggle="modal" data-target="#"><img
@@ -24,6 +72,34 @@
                 width="20"><span class="d-none d-sm-inline d-xl-block px-1"
                 style="color: black; font: 1em sans-serif;font-size: small;">Competition</span></a>
           </li>&nbsp;&nbsp;
+          <li class="nav-item text-center mouse">
+            <a class="nav-link" [ngbPopover]="popCon" data-toggle="modal" data-target="#"><i class="fa fa-bell notification" style="font-size:25px;cursor: pointer;"><span *ngIf="unread.total !== 0" class="badge">{{unread?.total}}</span></i><span class="d-none d-sm-inline d-xl-block px-1"
+                style="color: black; font: 1em sans-serif;font-size: small;">Notifications</span></a>
+          </li>&nbsp;&nbsp;
+          <ng-template #popCon>
+            <div class="popov" *ngIf="isNoti">
+              <div *ngFor="let note of Allnoti">
+                <div class="row">
+                  <div class="col-xs-3 col-md-3">
+                    <i *ngIf="note.app === 'LIKE' && note.seen === 'NO'" class="fa fa-heart" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(88, 13, 88)"></i>
+                    <i *ngIf="note.app === 'FOLLOW' && note.seen === 'NO'" class="fa fa-group" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(88, 13, 88)"></i>
+                    <i *ngIf="note.app === 'COMMENT' && note.seen === 'NO'" class="fa fa-comments-o" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(88, 13, 88)"></i>
+                    <i *ngIf="note.app === 'LIKE' && note.seen === 'YES'" class="fa fa-heart" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(75, 57, 57)"></i>
+                    <i *ngIf="note.app === 'FOLLOW' && note.seen === 'YES'" class="fa fa-group" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(75, 57, 57)"></i>
+                    <i *ngIf="note.app === 'COMMENT' && note.seen === 'YES'" class="fa fa-comments-o" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(75, 57, 57)"></i>
+                  </div>
+                  <div class="col-xs-8 col-md-7" >
+                    <span *ngIf="note.seen === 'NO'" style="cursor: pointer; color: rgb(88, 13, 88);" (click)=" notif(note.content_id)"><b>{{note.message}}</b></span>
+                    <span *ngIf="note.seen === 'YES'" style="cursor: pointer;" (click)=" notif(note.content_id)"><b>{{note.message}}</b></span>
+                    <p >{{note?.created_at | dateAgo}}</p>
+                  </div>
+                  <div class="col-xs-1 col-md-2" >
+                    <i (click)="deleteNotivication(note.id)" class="fa fa-trash-o"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
           <li class="nav-item text-center mouse">
             <div ngbDropdown class="dropdown ">
               <a class="nav-link dropdown-toggle" ngbDropdownToggle>

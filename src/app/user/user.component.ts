@@ -498,9 +498,7 @@ reportpost(id){
 
 
   fell(id) {
-
     this.router.navigate(['/user2/', id]);
-
   }
 
 

@@ -1,3 +1,4 @@
+
 <div class="container-fluid col-md-9 con">
   <div class="card0 border-0">
     <!-- <div class="row" style="align-items: flex-end;"> <img src="assets/img/21.png" class="logo"> </div> -->
@@ -96,8 +97,9 @@
 
     <div *ngIf="!isLoading" class="col-md-8 move">
 
-      <div class="card border-0" *ngFor="let post of allPosts">
+      <div class="card border-0" *ngFor="let post of craft">
         <span *ngIf="post">{{ trackLikes(post) }}</span>
+        <span *ngIf="post">{{ voteCount(post) }}</span>
         <div class="card-body container-fluid">
           <div class="rolling">
             <div class="col-xs-3 col-md-3" >
@@ -106,10 +108,8 @@
               <img style="cursor: pointer;" (click)="fell(post?.user_id)" *ngIf="post.user.profile_image === null" src="assets/img/default-avatar.png"
                 class="avatar1"  alt="">
             </div>
-            <div class="col-xs-8 col-md-7 div-holder " >
-              <h6 class="card-title" style="cursor: pointer;" (click)="fell(post?.user_id)">{{post.user.fullname}}</h6>
-              <p *ngIf="post?.location !== 'null'" class="card-text" >{{post?.location}}</p>
-              <p *ngIf="post?.location === 'null'" class="card-text" >Sent from Mobile</p>
+            <div class="col-xs-8 col-md-7" >
+              <h6 class="card-title" style="cursor: pointer; padding-top: 20px;" (click)="fell(post?.user_id)">{{post.user.fullname}}</h6>
             </div>
             <div class="col-xs-1 col-md-2" style="text-align: right;">
               <div ngbDropdown class="dropdown ">
@@ -118,8 +118,8 @@
                 </a>
                 <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right page-nav">
                   <a class="dropdown-item" (click)="copy(post?.file_url)">Share Post</a>
-                  <a class="dropdown-item" (click)="openReportContent(report);view(post.id)">Report Post</a>
-                  <a *ngIf="post.user_id == this.user_id" class="dropdown-item" (click)="opendeleteContent(del);view(post.id)">delete Post</a>
+                  <a class="dropdown-item" (click)="openReportContent(report);viewcraft(post.id)">Report Post</a>
+                  <!-- <a *ngIf="post.user_id == this.user_id" class="dropdown-item" (click)="opendeleteContent(del);view(post.id)">delete Post</a> -->
                 </div>
               </div>
             </div>
@@ -139,23 +139,34 @@
             <div *ngIf="post?.likes.length > 0">
 
               <span *ngIf="isData.length > 0" style="cursor: pointer;">
-                <i class="fa fa-heart"  (click)="unlike(post?.id)" style="font-size:36px;color: rgb(63, 5, 117);"></i>
+                <i class="fa fa-heart"  (click)="unclike(post?.id)" style="font-size:36px;color: rgb(63, 5, 117);"></i>
               </span>
 
               <span *ngIf="!isData || isData.length == 0" style="cursor: pointer;">
-                <i class="fa fa-heart-o"  (click)="likep(post?.id)" style="font-size:36px;"></i>
+                <i class="fa fa-heart-o"  (click)="likecp(post?.id)" style="font-size:36px;"></i>
               </span>
             </div>
 
             <div *ngIf="post?.likes.length == 0" style="cursor: pointer;">
               <span>
-                <i class="fa fa-heart-o"  (click)="likep(post?.id)" style="font-size:36px;"></i>
+                <i class="fa fa-heart-o"  (click)="likecp(post?.id)" style="font-size:36px;"></i>
               </span>
             </div>&nbsp;&nbsp;
             <b>{{post?.likes.length || '0'}}</b>&nbsp;&nbsp;
             <i class="fa fa-comments-o" style="font-size:36px;cursor: pointer;"></i>&nbsp;&nbsp;
             <b>{{post?.comments.length || '0'}}</b>&nbsp;&nbsp;
-            <i class="fa fa-share-alt" (click)="copy(post?.file_url)" style="font-size:36px;cursor: pointer;"></i>
+            <i class="fa fa-share-alt" (click)="copy(post?.file_url)" style="font-size:36px;cursor: pointer;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div  *ngIf ="post.craft_type !== 'AUDITION'" >
+              <b style="color: green;font-size: small;">{{ numVotes || '0' }} Votes</b>
+              <div class="w-100"></div>
+              <a class="btn buts" (click)="voteContent(votepost);viewcraft(post.id)">Vote</a>
+              <div class="w-100"></div>
+              <span  style="color: black; font-size: small;"><b>{{post?.votes.length || '0'}} voters</b></span>
+            </div>
+
+            <div *ngIf ="post.craft_type == 'AUDITION'" style="text-align: right;">
+              <span  style="color: green; font-size: small;"><b>AUDITION</b></span>
+            </div>
           </div>
 
           <!-- <div class="row">
@@ -192,17 +203,14 @@
                   <span>{{comment.message}}</span>
                 </div>
               </div>
-              <div *ngIf="this.user_id == comment.user.id" class="col-md-2">
-                <a class="dropdown-item" (click)="deleteComment(comment.id)"><i class="fa fa-trash" style="color: red;"></i></a>
-          </div>
             </div>
           </div>
           </div>
         </div>
         <div class="card-footer">
-          <form class="example for" [formGroup]="commentForm">
+          <form class="example for" [formGroup]="craftcommentForm">
             <input class="mt-auto" placeholder="comment" formControlName="message">
-            <button [disabled]="!commentForm.valid" style="color: rgb(48, 10, 83); cursor: pointer;" (click)="addComment(post.id);commentForm.reset();"><b>Post</b></button>
+            <button [disabled]="!craftcommentForm.valid" style="color: rgb(48, 10, 83); cursor: pointer;" (click)="addCraftComment(post.id);craftcommentForm.reset();"><b>Post</b></button>
           </form>
         </div><br><br>
       </div>
@@ -305,7 +313,7 @@
 <!-- logout modal end -->
 
 <ng-template #report let-modal>
-  <div *ngFor="let pos of allPosts">
+  <div *ngFor="let pos of craft">
   <div class="modal-header" >
     <h6 class="modal-title" style="color: red;" id="modal-basic-title">Why are you reporting this post?</h6>
     <button type="button" style="font-size: small;" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -329,17 +337,92 @@
     <button  type="button" class="buts" (click)="reportpost(pos.id);modal.close()">Report</button>
   </div>
 </div>
+</ng-template>
 
-  </ng-template>
-  <ng-template #del let-modal>
-    <div *ngFor="let post of allPosts">
-      <div class="modal-content">
-        <div class="modal-header content-center">
-          <h4>Delete Post <i class="fa fa-trash" style="color: red;"></i></h4>
-        </div>
-        <div class="modal-body"><i class="fa fa-trash"></i> Are you sure you want to Delete this Post?</div>
-        <div class="modal-footer"><a (click)="deletePost(post.id);modal.close()" class="but btn-block" color="white">YES</a><a (click)="no()"
-            class="btn facebookbutton btn-block">NO</a></div>
+<ng-template #votepost Let-modal>
+  <div class="section text-center rtt">
+      <div class="col-l-6 justify-content-center">
+          <div class="container">
+              <form [formGroup]="voteForm"><br>
+                  <!-- <div class="row">
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <input id="input-address" class="form-control form-control-alternative"
+                                  placeholder="Amount" type="number" formControlName="amount">
+                          </div>
+                      </div>
+                  </div> -->
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <input id="input-address" class="form-control form-control-alternative"
+                                  placeholder="Number of votes" type="number" formControlName="num_of_votes">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input id="input-address" class="form-control form-control-alternative" placeholder="Phone Number"
+                          type="number" maxlength="9" formControlName="momo_number">
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="row">
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <input id="input-address" class="form-control form-control-alternative"
+                                placeholder="example 2332460767" type="number" formControlName="msisdn">
+                          </div>
+                      </div>
+                  </div> -->
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <select formControlName="network" class='form-control'>
+                                  <option value='null'>Mobile Network</option>
+                                  <option value='MTN'>MTN</option>
+                                  <option value='AirtelTigo'>AirtelTigo</option>
+                                  <option value='Vodafone'>Vodafone</option>
+                                  <option value='Visa'>Visa</option>
+                              </select>
+                          </div>
+                      </div>
+                  </div><br>
+
+
+                  <!-- <div class="row">
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <input id="input-address" class="form-control form-control-alternative"
+                                  placeholder="Request ID" type="number" [(ngModel)]="clientID"
+                                  formControlName="client_request_id">
+                          </div>
+                      </div>
+                  </div><br> -->
+
+                  <div class="row">
+                      <div class="col-md-12 text-center">
+                          <button class="button"
+                              (click)="vote();voteForm.reset();close(votepost);opensms(sms)"><span>VOTE</span></button><br><br>
+                      </div>
+                  </div>
+
+              </form>
+          </div>
       </div>
+  </div>
+</ng-template>
+<!-- logout modal start -->
+<ng-template #sms let-modal>
+<div>
+  <div class="modal-content">
+    <div class="modal-header content-center">
+      <h4>Message <i class="fa fa-lock"></i></h4>
     </div>
-  </ng-template>
+    <div class="modal-body"><i class="fa fa-question-circle"></i> Check you phone to enter your Mobile money pin</div>
+    <div class="modal-footer"><a (click)="no()" class="btn facebookbutton btn-block">Ok</a></div>
+  </div>
+</div>
+</ng-template>

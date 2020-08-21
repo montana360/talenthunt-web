@@ -54,9 +54,10 @@ export class HomepageComponent implements OnInit {
   public isMenuCollapsed = true;
 
   // variable declaration
+  Judges: any;
   craftID: any;
   amount: any;
-  COMPID:any
+  COMPID:any;
   id: string;
   username: string;
   url: any;
@@ -255,7 +256,7 @@ slides = [
     this.loadNextPost();
     this.getnotifications();
     this.getAllnotifications();
-    console.log(this.router.url);
+    // console.log(this.router.url);
     // console.log(window.location.href);
 
     this.isLoading = true;
@@ -755,9 +756,8 @@ setReportData(){
     this.spinner.show();
     this.auth.get('users').subscribe(
       (response) => {
-        if (response['data']['data'].length > 0) {
+        if (response['data']['user_type'] = 'JD') {
           this.allUsers = response['data']['data'];
-          // console.log(this.allUsers);
           this.spinner.hide();
         } else {
           this.spinner.hide();
@@ -949,55 +949,7 @@ setReportData(){
     this.isFound = false;
   }
 
-  // firstPage() {
-  //   this.isLoading = true;
-  //   this.auth.paginate(this.first_page_url).subscribe(
-  //     (response) => {
-  //       this.allPosts = response['data']['data'];
-  //       this.first_page_url = response['data']['first_page_url'];
-  //       this.last_page_url = response['data']['last_page_url'];
-  //       this.next_page_url = response['data']['next_page_url'];
-  //       this.prev_page_url = response['data']['prev_page_url'];
-  //       this.isLoading = false;
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //       this.isLoading = false;
-
-  //     }
-  //   );
-  // }
-
-  // lastPage() {
-  //   this.isLoading = true;
-  //   this.auth.paginate(this.last_page_url).subscribe(
-  //     (response) => {
-  //       this.allPosts = response['data']['data'];
-  //       this.first_page_url = response['data']['first_page_url'];
-  //       this.last_page_url = response['data']['last_page_url'];
-  //       this.next_page_url = response['data']['next_page_url'];
-  //       this.prev_page_url = response['data']['prev_page_url'];
-  //       this.isLoading = false;
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //       this.isLoading = false;
-
-  //     }
-  //   );
-  // }
-  // view(ev) {
-  //   this.auth.show('post', ev).subscribe(
-  //     (response) => {
-  //       this.Posts = response['data'];
-  //       console.log(this.Posts);
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //       this.alert.error('Getting data unsuccessful. Please try again');
-  //     }
-  //   );
-  // }
+  
 
   addSlide() {
     this.slides.push({ img: 'http://placehold.it/350x150/777777' });
@@ -1043,6 +995,9 @@ setReportData(){
   notif(id) {
     this.router.navigate(['/notepost/',id]);
   }
+  vc(id) {
+    this.router.navigate(['/single/',id]);
+  }
    // Get all craft
 getCraft() {
   // this.isLoading = true;
@@ -1050,6 +1005,7 @@ getCraft() {
     response => {
       if (response['data']['data'].length > 0) {
         this.allCraft = response['data']['data'];
+        // console.log(this.allCraft);
         this.isLoading = false;
       } else {
         this.isLoading = false;

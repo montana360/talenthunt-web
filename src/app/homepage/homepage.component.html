@@ -130,31 +130,21 @@
 
     <img src="assets/img/41.png" alt="" height="6" width="100%">
 
-
-
     <div *ngIf="!isLoading" class="col-md-8 move">
-      <div class="card border-0" >&nbsp;
-        <ngx-slick-carousel class="carousel items"  #slickModal="slick-carousel" [config]="slideConfi"
-          (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
-          (beforeChange)="beforeChange($event)">
-          <div ngxSlickItem *ngFor="let craf of allCraft" class="slide">
-            <div class="row" *ngIf="allCraft.length >= 5">
-              <div class="col-md-9">
-                <img style="cursor: pointer;" (click)="openCraft(singleCraft);viewcraft(craf.id)" *ngIf="craf.user.profile_image !== null" src="{{craf.user.profile_image}}" class="avatar1"
-                 alt="">
-                <img style="cursor: pointer;" (click)="openCraft(singleCraft);viewcraft(craf.id)"  *ngIf="craf.user.profile_image === null" src="assets/img/default-avatar.png"
-                  class="avatar1"  alt="">
-                  <!-- <div class="w-100"></div> -->
-                  <div class="center-text justify-content-center">
-                    <h6 class="card-title" style="cursor: pointer;" (click)="openCraft(singleCraft);viewcraft(craf.id)" >{{craf.user.fullname}}</h6>
+     &nbsp;
+            <div class="team" >
+              <div class="rolling text-center d-flex justify-content-center">
+                <div class="col-md-4" *ngFor="let judge of viewcompetition.judges">
+                  <div class="team-player">
+                    <img (click)="fell(judge?.user_id)" *ngIf="judge.user.profile_image !== null" src="{{judge.user.profile_image}}" alt="Thumbnail Image" class="imsg"
+                      style="width: 90px; height: 90px;cursor: pointer;"><span  class="bad"><i class="fa fa-gavel" style="font-size:26px;color:rgba(54, 8, 85, 0.829);"></i></span>
+                    <h6 style="margin-right: 20px;" (click)="fell(judge?.user_id)" class="title">{{judge.user.fullname}}</h6>
+                    <span style="margin-right: 30px;color:rgba(54, 8, 85, 0.829);" class="category">JUDGE</span>
                   </div>
+                </div>
               </div>
-
             </div>
-          </div>
-        </ngx-slick-carousel>
-
-      </div>&nbsp;
+      &nbsp;
       <div
       class="search-results"
       infiniteScroll
@@ -166,14 +156,14 @@
       <div class="card border-0" *ngFor="let post of allPosts">
         <span *ngIf="post">{{ trackLikes(post) }}</span>
         <div class="card-body container-fluid">
-          <div class="row">
-            <div class="col-xs-3 col-md-3" >
+          <div class="rolling">
+            <div class=" col-md-3" >
               <img style="cursor: pointer;" (click)="fell(post?.user_id)" *ngIf="post.user.profile_image !== null" src="{{post.user.profile_image}}" class="avatar1"
                alt="">
               <img style="cursor: pointer;" (click)="fell(post?.user_id)" *ngIf="post.user.profile_image === null" src="assets/img/default-avatar.png"
                 class="avatar1"  alt="">
             </div>
-            <div class="col-xs-8 col-md-7 div-holder " >
+            <div class="col-md-7">
               <h6 class="card-title" style="cursor: pointer;" (click)="fell(post?.user_id)">{{post.user.fullname}}</h6>
               <p *ngIf="post?.location !== 'null'" class="card-text" >{{post?.location}}</p>
               <p *ngIf="post?.location === 'null'" class="card-text" >Sent from Mobile</p>
@@ -315,7 +305,7 @@
       </div>
     </div> -->
 
-    <!-- <div *ngIf="!isLoading" class="trending">
+    <div *ngIf="!isLoading" class="trending">
       <div class="row">
         <div class="col-sm-8">
           <h3 class="title" style="color: white;">Trending Videos</h3>
@@ -325,13 +315,16 @@
       <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig"
         (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
         (beforeChange)="beforeChange($event)">
-        <div ngxSlickItem *ngFor="let slide of slides" class="slide">
-          <img src="{{ slide.img }}" alt="" height="340px" width="95%">
+        <div ngxSlickItem *ngFor="let craf of allCraft" class="slide">
+          <img (click)="vc(craf.id)"  *ngIf="craf.video_thumbnail !== null" src="https://talenthunt.vokacom.net/uploads/{{ craf.video_thumbnail}}" alt="" height="340px" width="95%">
+            <img (click)="vc(craf.id)" *ngIf="craf.video_thumbnail === null" src="assets/img/favicon.png" alt="" height="340px" width="75%">
         </div>
       </ngx-slick-carousel>
 
       <br>
-    </div> -->
+    </div>
+
+
     <div *ngIf="isLoading" class="d-flex justify-content-center">
       <br><br><br><br><br><br><br><br><br>
       <div class="spinner-grow" style="color: rgb(109, 8, 109);" role="status">
