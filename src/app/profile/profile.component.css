@@ -418,6 +418,7 @@ textarea {
       height: 360px;
       overflow-x: hidden;
       overflow-y: auto;
+  background-color: rgb(182, 194, 216);
       text-align:justify center;
     }
     .popov {

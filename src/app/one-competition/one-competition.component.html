@@ -128,7 +128,7 @@
           (beforeChange)="beforeChange($event)">
             <div ngxSlickItem class="card" style="height: auto;width: 100%;" *ngFor="let craft of allCraft">
               <span *ngIf="craft">{{ voteCount(craft) }}</span>
-              <video (click)="openCraft(singleCraft);viewcraft(craft.id)" class="card-img-top" style="height: 20rem;"  >
+              <video (click)="vc(craft.id);viewcraft(craft.id)" class="card-img-top" style="height: 20rem;"  >
                 <source src="{{craft.file_url}}" type="video/mp4">
             </video>
             <!-- <img class="fish" (click)="openCraft(singleCraft);viewcraft(craft.id)"  width="80" src="assets/img/160.png"> -->
@@ -219,8 +219,8 @@
           (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
           (beforeChange)="beforeChange($event)">
           <div ngxSlickItem  *ngFor="let craft of allCraft" class="slide">
-            <img (click)="openCraft(singleCraft);viewcraft(craft.id)"  *ngIf="craft.video_thumbnail !== null" src="https://talenthunt.vokacom.net/uploads/{{ craft.video_thumbnail}}" alt="" height="340px" width="95%">
-            <img (click)="openCraft(singleCraft);viewcraft(craft.id)" *ngIf="craft.video_thumbnail === null" src="assets/img/favicon.png" alt="" height="340px" width="75%">
+            <img (click)="vc(craft.id);viewcraft(craft.id)"  *ngIf="craft.video_thumbnail !== null" src="https://talenthunt.vokacom.net/uploads/{{ craft.video_thumbnail}}" alt="" height="340px" width="95%">
+            <img (click)="vc(craft.id);viewcraft(craft.id)" *ngIf="craft.video_thumbnail === null" src="assets/img/favicon.png" alt="" height="340px" width="75%">
 
           </div>
         </ngx-slick-carousel>

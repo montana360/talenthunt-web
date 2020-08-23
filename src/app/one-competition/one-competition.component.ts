@@ -628,7 +628,9 @@ openCraft(singleCraft) {
   voteC(cra) {
     this.numVotes = cra['votes'].reduce((accum,item) => accum + item.num_of_votes, 0)
   }
-
+  vc(id) {
+    this.router.navigate(['/single/',id]);
+  }
   // Search functionality
 searchEverything(data) {
   if (this.search === '') {

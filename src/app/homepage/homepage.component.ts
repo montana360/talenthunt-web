@@ -77,6 +77,7 @@ export class HomepageComponent implements OnInit {
   format: any;
   data: any;
   Psts: any;
+  isPart = true;
   numVotes = 0;
   next: '';
   search = '';
@@ -638,6 +639,9 @@ setReportData(){
   openUserContent(usermodal) {
     this.modalService.open(usermodal, { size: 'lg' });
   }
+  openCompContent(competition) {
+    this.modalService.open(competition, { size: 'md' });
+  }
   openSContent(singlepost) {
     this.modalService.open(singlepost, { size: 'lg' });
   }
@@ -949,7 +953,7 @@ setReportData(){
     this.isFound = false;
   }
 
-  
+
 
   addSlide() {
     this.slides.push({ img: 'http://placehold.it/350x150/777777' });
@@ -998,6 +1002,33 @@ setReportData(){
   vc(id) {
     this.router.navigate(['/single/',id]);
   }
+  join(id) {
+    this.router.navigate(['/join/',id]);
+  }
+
+  one(id) {
+    console.log(id);
+    this.router.navigate(['/one/',id]);
+  }
+  userCompStatus() {
+    const data = {
+      user_id: localStorage.getItem('userID'),
+      competition_id: this.COMPID
+    };
+
+    this.auth.update('check_registration_state', localStorage.getItem('userID'), data).subscribe(
+      (response) => {
+        // console.log(response);
+        if (response['data'].length > 0){
+          this.isPart = false;
+        }
+      },
+      (error) => {
+        this.isLoading = false;
+        this.alert.info('Getting data unsuccessful. Please try again');
+      }
+    );
+  }
    // Get all craft
 getCraft() {
   // this.isLoading = true;
@@ -1005,7 +1036,7 @@ getCraft() {
     response => {
       if (response['data']['data'].length > 0) {
         this.allCraft = response['data']['data'];
-        // console.log(this.allCraft);
+        console.log(this.allCraft);
         this.isLoading = false;
       } else {
         this.isLoading = false;

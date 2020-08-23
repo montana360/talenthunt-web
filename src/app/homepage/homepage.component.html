@@ -130,6 +130,7 @@
 
     <img src="assets/img/41.png" alt="" height="6" width="100%">
 
+    <div class="row">
     <div *ngIf="!isLoading" class="col-md-8 move">
      &nbsp;
             <div class="team" >
@@ -279,7 +280,109 @@
       </div>
     </div>
     </div>
-    <br>
+    <br><br><br>
+    <div class="col-md-4 order-xl-2 mb-5 mb-xl-0">
+      <br><br>
+      <div class="card card-profile shadow rtt">
+        <div class="row justify-content-center">
+          <div class="col-lg-3 order-lg-2">
+            <div class="card-profile-image">
+              <a href="javascript:void(0)">
+                <img src="assets/img/46940.png" class="rounded-circle">
+                <!-- <i class="fa fa-trophy img" style="font-size:200px"></i> -->
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4 car">
+          <br><br>
+        </div>
+        <div class="card-body pt-0 pt-md-4">
+          <div class="text-center">
+            <h3>
+              Talent Hunt 2020 Music Competition
+            </h3>
+            <p >It is that time of the year again, where everyone wants to be heard, their craft acknowledged and their talent acclaimed. Your opportunity is here! <a (click)="openCompContent(competition)"style="color: blueviolet;">Show more..</a> </p>
+
+            <div class="h5">
+             <span>Current Phase: <span class="font-weight-300" style="color: blueviolet;">{{viewcompetition.phase}}</span></span>
+            </div>
+            <div class="h5">
+              <span>Current Stage: <span class="font-weight-300" style="color: blueviolet;">{{viewcompetition.current_stage}}</span></span>
+             </div>
+             <div class="h5" *ngIf="viewcompetition.starts !== null">
+              <span>Starting Date: <span class="font-weight-300" style="color: blueviolet;">{{viewcompetition.Starts}}</span></span>
+             </div>
+             <div class="h5" *ngIf="viewcompetition.ends !== null">
+              <span>Ends: <span class="font-weight-300" style="color: blueviolet;">{{viewcompetition.ends}}</span></span>
+             </div>
+            <hr class="my-4" />
+            <div class="h5 mt-4">
+              <span style="color: blueviolet;">AWARD</span>
+            </div>
+            <div *ngFor="let award of viewcompetition.awards">
+              <i class="fa fa-trophy"></i><h3 class="tshake">
+                GH₵: {{award.cash_price}}.00
+              </h3>
+              <h6>
+                {{award.description}}
+              </h6>
+            </div>
+            <div class="d-flex justify-content-between">
+              <div *ngIf="viewcompetition.phase == 'AUDITION'">
+                <button class="btn btn-sm btn-info mr-4" *ngIf="isPart" (click)="join(viewcompetition?.id)">
+                  <span>Join Competition</span>
+                </button>
+              </div>
+                <button (click)="one(viewcompetition?.id)" class="btn btn-sm btn-default float-right"><span>View Competition</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br><br>
+      <div class="card card-profile shadow" *ngFor="let cra of allCraft">
+        <span *ngIf="cra">{{ voteC(cra) }}</span>
+        <div class="row justify-content-center">
+          <div class="col-lg-3 order-lg-2">
+            <div class="card-profile-image">
+            </div>
+          </div>
+        </div>
+        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4 car">
+          <h3>
+            COMPETITORS
+          </h3>
+        </div>
+        <div class="card-body pt-0 pt-md-4">
+          <div class="text-center">
+            <div class="row" >
+              <div class="col-md-2">
+                <img *ngIf="cra.user.profile_image !== null" src="{{cra.user.profile_image}}"
+                  class="avatar3" alt="">
+                  <img *ngIf="cra.user.profile_image === null" src="assets/img/default-avatar.png"
+                  class="avatar3"  alt="">
+              </div>
+              <div class="col-md-5" (click)="fell(cra.user_id)">
+                <h6 class="card-title" style="color: black;margin-top: auto;font-size: small;cursor: pointer;">{{cra.user.fullname}}</h6>
+                <!-- <div class="w-100"></div> -->
+                <b class="card-text" style="color: black;font-size: small;">{{cra.likes.length || '0'}} <i class="fa fa-thumbs-up" style="color: blueviolet;"></i></b>
+                <b *ngIf="cra.craft_type !=='AUDITION'" style="color: green;font-size: small">{{ numVotes || '0' }} Votes</b>
+              </div>
+              <div class="col-md-6 d-flex justify-content-between" >
+                <span *ngIf="cra.craft_type =='AUDITION'" style="color: green; font-size: small;"><b>AUDITION</b></span>
+                <a  class="btn btn-sm btn-info" (click)="vc(cra.id);viewcraf(cra.id)">view</a>&nbsp;
+                <a *ngIf="cra.craft_type !=='AUDITION'" class="btn btn-sm btn-default  float-right" (click)="voteContent(votepost);viewcraf(cra.id)">vote</a>
+                <div class="w-100"></div>
+                <!-- <span *ngIf="cra.craft_type !=='AUDITION'" style="color: black; font-size: 11px;"><b>{{cra.votes.length || '0'}} voters</b></span> -->
+              </div>
+            </div>
+            <hr class="my-4" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <!-- <div *ngIf="!isLoading" class="col-md-4 mov">
       <div  class="card border-0 example-1   thin">
         <div class="card-body">
@@ -364,6 +467,116 @@
     </div>
   </footer>
 </div>
+<ng-template #singleCraft Let-modal>
+  <div class="row" *ngFor="let cra of craft">
+    <span *ngIf="cra">{{ trackLikes(cra) }}</span>
+    <span *ngIf="cra">{{ voteC(cra) }}</span>
+    <div class="col-sm-6 left-side">
+      <video  class="card-img-top"  style="height: 30rem;" controls >
+        <source src="{{cra.file_url}}" type="video/mp4">
+    </video>
+    </div>
+    <div class="col-sm-6 right-side">
+      <br>
+      <div class="row">
+        <div class="col-md-3" style="align-items: flex-end;">
+          <img *ngIf="cra.user.profile_image !== null" src="{{cra.user.profile_image}}"
+            class="avatar3" alt="">
+            <img *ngIf="cra.user.profile_image === null" src="assets/img/default-avatar.png"
+            class="avatar3"  alt="">
+        </div>
+        <div class="col-md-5 div-holder ">
+          <h6 class="card-title" style="color: black;margin-top: auto;font-size: small;">{{cra.user.fullname}}</h6>
+          <span class="card-text" style="color: black;font-size: small;">{{cra.caption}}</span>
+          <div class="w-100"></div>
+          <b class="card-text" style="color: black;font-size: small;">{{cra.likes.length || '0'}} like(s)</b>
+        </div>
+        <div class="col-md-4" >
+          <b *ngIf="cra.craft_type !=='AUDITION'" style="color: green;font-size: small">{{ numVotes || '0' }} Votes</b>
+          <div class="w-100"></div>
+          <span *ngIf="cra.craft_type =='AUDITION'" style="color: green; font-size: small;"><b>AUDITION</b></span>
+          <a *ngIf="cra.craft_type !=='AUDITION'" class="but" (click)="voteContent(votepost);viewcraf(cra.id)">vote</a>
+          <div class="w-100"></div>
+          <!-- <span *ngIf="cra.craft_type !=='AUDITION'" style="color: black; font-size: 11px;"><b>{{cra.votes.length || '0'}} voters</b></span> -->
+        </div>
+      </div><br>
+<!--Form with header-->
+<div class="card border-0 example-1  thin" *ngIf = " cra.judge_comments.length > 0 || cra.comments.length > 0">
+  <div class="card-body">
+    <h6 id="section1" style="font-size: 16px;"><strong>Comments:</strong></h6>
+    <div class="row pa-move" *ngFor="let comment of cra.judge_comments">
+      <div class="col-md-1">
+          <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt=""
+              class="avs">
+          <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt=""
+              class="avs">
+      </div>
+      <div class="col-md-8" style="margin-left: 12px;">
+          <div class="row">
+              <span style="color: rgb(57, 8, 104); font-size: 14px;"><b>{{comment.user.fullname}}</b></span>
+              <div class="w-100"></div>
+              <span style="font-size: 12px;">{{comment.message}}</span>
+          </div>
+      </div>
+  </div>
+    <div class="row pa-move" *ngFor="let comment of cra.comments">
+      <div class="col-md-1">
+          <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt=""
+              class="avs">
+          <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt=""
+              class="avs">
+      </div>
+      <div class="col-md-8" style="margin-left: 12px;">
+          <div class="row">
+              <span style="font-size: 14px;"><b>{{comment.user.fullname}}</b></span>
+              <div class="w-100"></div>
+              <span style="font-size: 12px;">{{comment.message}}</span>
+          </div>
+      </div>
+
+  </div>
+  </div>
+</div><br>
+<div class="row">
+  <div *ngIf="cra?.likes.length > 0">
+
+    <span *ngIf="isData.length > 0">
+      <i class="fa fa-heart" style="cursor: pointer;" (click)="unclike(cra?.id)" style="font-size:36px;color: rgb(63, 5, 117);"></i>
+    </span>
+
+    <span *ngIf="!isData || isData.length == 0">
+      <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likecp(cra?.id)" style="font-size:36px;"></i>
+    </span>
+
+  </div>
+
+  <div *ngIf="cra?.likes.length == 0">
+    <span>
+      <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likecp(cra?.id)" style="font-size:36px;"></i>
+    </span>
+  </div>&nbsp;&nbsp;
+  <b>{{cra?.likes.length || '0'}}</b>&nbsp;&nbsp;
+  <i class="fa fa-share-alt" (click)="copy(cra?.file_url)" style="font-size:36px;cursor: pointer;"></i>
+
+  <!-- <img src="assets/img/45.png" height="30" width="30"> -->
+</div>&nbsp;
+<form [formGroup]="craftcommentForm">
+  <div class="input-group">
+    <input type="text" class="com" placeholder="Add Comments" formControlName="message"/>
+    <div class="input-group-btn">
+      <button class="btns btn-default" type="submit" [disabled]="!craftcommentForm.valid" (click)="addCraftComment(cra.id);craftcommentForm.reset();">
+        <b>Post</b>
+      </button>
+    </div>
+  </div>
+</form>
+
+
+</div>
+<!--/Form with header-->
+
+    </div><!--col-sm-6-->
+</ng-template>
 
 <!-- post modal start-->
 <ng-template #postModal let-modal>
@@ -443,116 +656,7 @@
   </ng-template>
 
 
-  <ng-template #singleCraft Let-modal>
-    <div class="row" *ngFor="let cra of craft">
-      <span *ngIf="cra">{{ trackLikes(cra) }}</span>
-      <span *ngIf="cra">{{ voteC(cra) }}</span>
-      <div class="col-sm-6 left-side">
-        <video  class="card-img-top"  style="height: 30rem;" controls >
-          <source src="{{cra.file_url}}" type="video/mp4">
-      </video>
-      </div>
-      <div class="col-sm-6 right-side">
-        <br>
-        <div class="row">
-          <div class="col-md-3" style="align-items: flex-end;">
-            <img *ngIf="cra.user.profile_image !== null" src="{{cra.user.profile_image}}"
-              class="avatar3" alt="">
-              <img *ngIf="cra.user.profile_image === null" src="assets/img/default-avatar.png"
-              class="avatar3"  alt="">
-          </div>
-          <div class="col-md-5 div-holder ">
-            <h6 class="card-title" style="color: black;margin-top: auto;font-size: small;">{{cra.user.fullname}}</h6>
-            <span class="card-text" style="color: black;font-size: small;">{{cra.caption}}</span>
-            <div class="w-100"></div>
-            <b class="card-text" style="color: black;font-size: small;">{{cra.likes.length || '0'}} like(s)</b>
-          </div>
-          <div class="col-md-4" >
-            <b *ngIf="cra.craft_type !=='AUDITION'" style="color: green;font-size: small">{{ numVotes || '0' }} Votes</b>
-            <div class="w-100"></div>
-            <span *ngIf="cra.craft_type =='AUDITION'" style="color: green; font-size: small;"><b>AUDITION</b></span>
-            <a *ngIf="cra.craft_type !=='AUDITION'" class="but" (click)="voteContent(votepost);viewcraf(cra.id)">vote</a>
-            <div class="w-100"></div>
-            <!-- <span *ngIf="cra.craft_type !=='AUDITION'" style="color: black; font-size: 11px;"><b>{{cra.votes.length || '0'}} voters</b></span> -->
-          </div>
-        </div><br>
-  <!--Form with header-->
-  <div class="card border-0 example-1  thin" *ngIf = " cra.judge_comments.length > 0 || cra.comments.length > 0">
-    <div class="card-body">
-      <h6 id="section1" style="font-size: 16px;"><strong>Comments:</strong></h6>
-      <div class="row pa-move" *ngFor="let comment of cra.judge_comments">
-        <div class="col-md-1">
-            <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt=""
-                class="avs">
-            <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt=""
-                class="avs">
-        </div>
-        <div class="col-md-8" style="margin-left: 12px;">
-            <div class="row">
-                <span style="color: rgb(57, 8, 104); font-size: 14px;"><b>{{comment.user.fullname}}</b></span>
-                <div class="w-100"></div>
-                <span style="font-size: 12px;">{{comment.message}}</span>
-            </div>
-        </div>
-    </div>
-      <div class="row pa-move" *ngFor="let comment of cra.comments">
-        <div class="col-md-1">
-            <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt=""
-                class="avs">
-            <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt=""
-                class="avs">
-        </div>
-        <div class="col-md-8" style="margin-left: 12px;">
-            <div class="row">
-                <span style="font-size: 14px;"><b>{{comment.user.fullname}}</b></span>
-                <div class="w-100"></div>
-                <span style="font-size: 12px;">{{comment.message}}</span>
-            </div>
-        </div>
 
-    </div>
-    </div>
-  </div><br>
-  <div class="row">
-    <div *ngIf="cra?.likes.length > 0">
-
-      <span *ngIf="isData.length > 0">
-        <i class="fa fa-heart" style="cursor: pointer;" (click)="unclike(cra?.id)" style="font-size:36px;color: rgb(63, 5, 117);"></i>
-      </span>
-
-      <span *ngIf="!isData || isData.length == 0">
-        <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likecp(cra?.id)" style="font-size:36px;"></i>
-      </span>
-
-    </div>
-
-    <div *ngIf="cra?.likes.length == 0">
-      <span>
-        <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likecp(cra?.id)" style="font-size:36px;"></i>
-      </span>
-    </div>&nbsp;&nbsp;
-    <b>{{cra?.likes.length || '0'}}</b>&nbsp;&nbsp;
-    <i class="fa fa-share-alt" (click)="copy(cra?.file_url)" style="font-size:36px;cursor: pointer;"></i>
-
-    <!-- <img src="assets/img/45.png" height="30" width="30"> -->
-  </div>&nbsp;
-  <form [formGroup]="craftcommentForm">
-    <div class="input-group">
-      <input type="text" class="com" placeholder="Add Comments" formControlName="message"/>
-      <div class="input-group-btn">
-        <button class="btns btn-default" type="submit" [disabled]="!craftcommentForm.valid" (click)="addCraftComment(cra.id);craftcommentForm.reset();">
-          <b>Post</b>
-        </button>
-      </div>
-    </div>
-  </form>
-
-
-  </div>
-  <!--/Form with header-->
-
-      </div><!--col-sm-6-->
-  </ng-template>
 
 
   <ng-template #votepost Let-modal>
@@ -655,4 +759,38 @@
           class="btn facebookbutton btn-block">NO</a></div>
     </div>
   </div>
+</ng-template>
+<ng-template #competition let-modal>
+  <div class="rtt">
+    <div class="modal-header d-flex justify-content-center car" >
+      <h4 class="modal-title " id="modal-basic-title">Talent Hunt 2020</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body rtt">
+      <div class="justify">
+        <p>It is that time of the year again, where everyone wants to be heard, their craft acknowledged and their talent acclaimed. Your opportunity is here! Register and join the maiden edition of the Talent Hunt 2020 Music Competition to stand the chance of winning a GHS 100,000 cash prize, inclusive of a one year record label deal.</p>
+        <p>Don't just read and gasp in awe! Make that move. Right here. Right Now. Register and upload a personal original demo or a music cover to stand the chance of being selected join the competition.</p>
+        <p>It is time to tell your story! #TalentHunt2020</p>
+        <b class="d-flex justify-content-center">Description</b>
+          <p>Like all talent competitions on our traditional television screens, the Talent Hunt competition would hold a preliminary auditioning stage. Interested participants would have to submit their audition videos via the Talent Hunt mobile app on their smartphones, after successful purchase and completion of registration forms also via the app. Competition videos should be either a personal demo or a cover.</p>
+        <p>After successful auditions, twelve (12) competitors shall be selected by our three (3) resident judges – Reggie Rockstone, Richie Mensah and Okyeame Kwame – to partake in the maiden edition of the Talent Hunt competition. With a final four (4) competitors for the grand finale of the Talent Hunt 2020 Competition.</p>
+        <p>The Talent Hunt competition would be held over a sixteen-week (16 weeks) duration spanning September to December 2020. The twelve selected competitors shall be tasked with weekly activities by the judges to explore their musical talents and craft. There shall be surprise judges for each week’s online show on the Talent Hunt app. After each weekly tasks, following votes received and feedback from the Judges, one or more competitors shall be evicted and shall not participate in the next round of the Talent Hunt 2020 Music Competition.</p>
+        <p> Each week’s competition shall be streamed live on the Talent Hunt app, in partnership with Zoom. Judges’ comments and feedback for each competitor’s performance shall be via the app. </p>
+        <b class="d-flex justify-content-center">Awards: Ultimate Prize</b>
+        <p>A GHC 100,000.00 cash prize, inclusive of a one year record label for the Winner.e</p>
+      </div>
+
+    </div>
+    <div class="modal-footer d-flex justify-content-center">
+      <div *ngIf="viewcompetition.phase == 'AUDITION'">
+      <button class="btn btn-sm btn-info" *ngIf="isPart" (click)="join(viewcompetition?.id);modal.close()">
+        <span>Join Competition</span>
+      </button>
+    </div>
+      <button (click)="one(viewcompetition?.id);modal.close()" class="btn btn-sm btn-default"><span>View Competition</span></button>
+    </div>
+  </div>
+
 </ng-template>
