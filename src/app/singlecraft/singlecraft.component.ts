@@ -137,12 +137,15 @@ export class SinglecraftComponent implements OnInit {
     this.ID = this.route.snapshot.paramMap.get('id');
     this.user_id = localStorage.getItem('userID');
     this.viewcraft(this.ID);
+    this.getcompetition();
   }
+
   // set craftcomment data
   setCraftCommentData() {
     this.craftcommentDetails.user_id = this.craftcommentForm.controls['user_id'].value;
     this.craftcommentDetails.message = this.craftcommentForm.controls['message'].value;
   }
+  
   addCraftComment(id) {
     this.spinner.show();
     const data = {
@@ -489,7 +492,7 @@ export class SinglecraftComponent implements OnInit {
  buildVData() {
   this.voteDetails.amount = this.amount * this.voteForm.controls['num_of_votes'].value;
   // this.voteDetails.client_request_id = this.clientID;
-  this.voteDetails.craft_id = this.craftID;
+  this.voteDetails.craft_id = this.ID;
   this.voteDetails.network =  this.voteForm.controls['network'].value;
   this.voteDetails.num_of_votes = this.voteForm.controls['num_of_votes'].value;
   this.voteDetails.user_id = localStorage.getItem('userID');
@@ -507,7 +510,7 @@ export class SinglecraftComponent implements OnInit {
 vote() {
   // this.buildData();
   const data = {
-    craft_id: this.craftID,
+    craft_id: this.ID,
     user_id: parseInt(localStorage.getItem('userID'), 10),
     msisdn: parseInt('233' + this.voteForm.controls['momo_number'].value),
     num_of_votes: this.voteForm.controls['num_of_votes'].value,
@@ -571,6 +574,7 @@ getcompetition() {
       this.isLoading = false;
       this.viewcompetition = response['data'][0];
       this.amount = this.viewcompetition.vote_fees;
+      console.log(this.amount);
       this.COMPID = this.viewcompetition.id;
       console.log(this.viewcompetition)
     },

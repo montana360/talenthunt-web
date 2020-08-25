@@ -119,7 +119,7 @@ registration() {
         if (error.status === 500) {
           this.isRegistering = false;
           this.alert.info(
-            "Please check the form data and fill correctly especially the domain name."
+            "Please check the form data."
           );
         }else if(error.status === 401){
           this.isRegistering = false;

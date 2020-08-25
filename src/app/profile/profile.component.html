@@ -1,6 +1,6 @@
 <div class="container-fluid col-md-9 con">
   <div class="card0 border-0">
-    <nav class="navbar navbar-expand-lg navbar-light  mb-3" style="background-color: white;">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top mb-4" style="background-color: white;">
       <a class="navbar-brand " style="cursor: pointer;" (click)="homePage()"><img src="assets/img/22.png"  height="50"
           width="150"></a>
 
@@ -25,7 +25,7 @@
 
               <span *ngIf="list">{{ trackFollows(list) }}</span>
 
-              <div  class="rolling" [hidden]="list?.id == user_id">
+              <div  class="row" [hidden]="list?.id == user_id">
                 <div class="col-md-2">
                   <img *ngIf="list.profile_image === null" src="assets/img/default-avatar.png" class="avatar4">
                   <img *ngIf="list.profile_image !== null" src="{{ list?.profile_image }}" class="avatar4">
@@ -561,7 +561,7 @@
 
   <!-- edit modal start -->
   <ng-template #eitModal let-modal>
-    <div class="d-flex text-center justify-content-center">
+    <div class="d-flex text-center justify-content-center" style="padding: 10px;">
       <form [formGroup]="profileEditForm">
         <br>
         <h6 class="heading-small text-muted mb-4">information <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">

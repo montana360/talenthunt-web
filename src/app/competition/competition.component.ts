@@ -63,6 +63,7 @@ export class CompetitionComponent implements OnInit {
     this.v(this.compID);
     this.userCompStatus();
   }
+  
 
   getAllCompetitions() {
     this.spinner.show();

@@ -2,7 +2,7 @@
   <div class="card0 border-0">
     <!-- <div class="row" style="align-items: flex-end;"> <img src="assets/img/21.png" class="logo"> </div> -->
 
-    <nav class="navbar navbar-expand-lg navbar-light  mb-3" style="background-color: white;">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top mb-4" style="background-color: white;">
       <a class="navbar-brand " style="cursor: pointer;" (click)="homePage()"><img src="assets/img/22.png"
         height="50" width="150"></a>
 
@@ -133,14 +133,21 @@
     <div class="row">
     <div *ngIf="!isLoading" class="col-md-8 move">
      &nbsp;
+     <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfi"
+     (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+     (beforeChange)="beforeChange($event)">
+     <div ngxSlickItem *ngFor="let judge of viewcompetition.judges" class="slide">
+      <img (click)="fell(judge?.user_id)" *ngIf="judge.user.profile_image !== null" src="{{judge.user.profile_image}}" alt="Thumbnail Image" class="imsg"
+      style="width: 90px; height: 90px;cursor: pointer;"><span  class="bad"><i class="fa fa-gavel" style="font-size:26px;color:rgba(54, 8, 85, 0.829);"></i></span>
+    <h6  (click)="fell(judge?.user_id)" class="text-center">{{judge.user.fullname}}</h6>
+    <!-- <span style="color:rgba(54, 8, 85, 0.829);" class="text-center">JUDGE</span> -->
+     </div>
+   </ngx-slick-carousel>
             <div class="team" >
               <div class="rolling text-center d-flex justify-content-center">
                 <div class="col-md-4" *ngFor="let judge of viewcompetition.judges">
                   <div class="team-player">
-                    <img (click)="fell(judge?.user_id)" *ngIf="judge.user.profile_image !== null" src="{{judge.user.profile_image}}" alt="Thumbnail Image" class="imsg"
-                      style="width: 90px; height: 90px;cursor: pointer;"><span  class="bad"><i class="fa fa-gavel" style="font-size:26px;color:rgba(54, 8, 85, 0.829);"></i></span>
-                    <h6 style="margin-right: 20px;" (click)="fell(judge?.user_id)" class="title">{{judge.user.fullname}}</h6>
-                    <span style="margin-right: 30px;color:rgba(54, 8, 85, 0.829);" class="category">JUDGE</span>
+
                   </div>
                 </div>
               </div>
@@ -677,6 +684,10 @@
                             <div class="form-group">
                                 <input id="input-address" class="form-control form-control-alternative"
                                     placeholder="Number of votes" type="number" formControlName="num_of_votes">
+                                    <span style="color: red;font-size: 80%;"
+                                    *ngIf="voteForm.get('num_of_votes').touched && voteForm.get('num_of_votes').hasError('required')">
+                                    Field required Please enter the number of votes!!
+                                  </span>
                             </div>
                         </div>
                     </div>
@@ -686,6 +697,10 @@
                         <div class="form-group">
                           <input id="input-address" class="form-control form-control-alternative" placeholder="Phone Number"
                             type="number" maxlength="9" formControlName="momo_number">
+                            <span style="color: red;font-size: 80%;"
+                            *ngIf="voteForm.get('momo_number').touched && voteForm.get('momo_number').hasError('required')">
+                            Field required Please enter your number!!
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -708,6 +723,10 @@
                                     <option value='Visa'>Visa</option>
                                 </select>
                             </div>
+                            <span style="color: red;font-size: 80%;"
+                            *ngIf="voteForm.get('network').touched && voteForm.get('network').hasError('required')">
+                            Field required Please select your momo payment network!!
+                          </span>
                         </div>
                     </div><br>
 
@@ -724,6 +743,7 @@
 
                     <div class="row">
                         <div class="col-md-12 text-center">
+
                             <button class="button"
                                 (click)="vote();voteForm.reset();close(votepost);opensms(sms)"><span>VOTE</span></button><br><br>
                         </div>

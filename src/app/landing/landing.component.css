@@ -202,4 +202,57 @@ a {
 .footer-text{
   color: white;
   }
- 
+  .rolling {
+    display: flex;
+    flex-wrap: initial;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+@media only screen and (min-width: 600px) {
+  /* For tablets: */
+  .app{
+    font-family: Impact, fantasy;
+    line-height: 0 !important;
+    font-weight: 400;
+    font-size: 40px;
+    width: 100%;
+  }
+  .get{
+    font-family: DejaVu Sans Mono, monospace;
+    line-height: 0 !important;
+    font-weight: 200;
+    font-size: 35px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+  .app{
+    font-family: Impact, fantasy;
+    line-height: 0 !important;
+    font-weight: 400;
+    font-size: 57px;
+    width: 100%;
+  }
+  .get{
+    font-family: DejaVu Sans Mono, monospace;
+    line-height: 0 !important;
+    font-weight: 200;
+    font-size: 45px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  /* For phone: */
+  .app{
+    font-family: Impact, fantasy;
+    line-height: 0 !important;
+    font-weight: 400;
+    font-size: 30px;
+    width: 100%;
+  }
+  .get{
+    font-family: DejaVu Sans Mono, monospace;
+    line-height: 0 !important;
+    font-weight: 200;
+    font-size: 35px;
+  }
+}

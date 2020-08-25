@@ -176,14 +176,14 @@ slides = [
       // settings: "unslick"
       // instead of a settings object
     ] };
-  slideConfi = {slidesToShow: 5, slidesToScroll: 3,autoplay:true,
+  slideConfi = {slidesToShow: 3, slidesToScroll: 1,autoplay:true,
   autoplaySpeed:3000,arrows:true,
   responsive: [
     {
       breakpoint: 1024,
       settings: {
-        slidesToShow: 5,
-        slidesToScroll: 3,
+        slidesToShow: 3,
+        slidesToScroll: 1,
         infinite: true,
         // dots: true
       }
@@ -230,11 +230,11 @@ slides = [
     private clipboardService: ClipboardService
   ) {
     this.voteForm = formBuilder.group({
-      num_of_votes: [null, Validators.compose([Validators.required])],
-      network: [null, Validators.compose([Validators.required])],
-      momo_number: [null, Validators.compose([Validators.required])],
-      msisdn: [null, Validators.compose([Validators.required])],
-      amount: [null, Validators.compose([Validators.required])],
+      num_of_votes: [null,Validators.required],
+      network: [null,Validators.required],
+      momo_number: [null,Validators.required],
+      msisdn: [null,Validators.required],
+      amount: [null,Validators.required],
     });
 
     this.craftcommentForm = this.formBuilder.group({
@@ -1092,12 +1092,6 @@ viewcraf(ev) {
 
   const msisdn = this.voteForm.controls['momo_code'].value + this.voteForm.controls['momo_number'].value;
   this.voteDetails.msisdn = msisdn;
-
-  // const msisdn = this.joinComForm.get('momo_code').value + this.joinComForm.get('momo_number').value;
-  // this.paymentDetails.msisdn = msisdn;
-  // this.paymentDetails.amount = this.amount.toString();
-  // this.paymentDetails.ClientRequestId = this.clientID;
-  // this.paymentDetails.network = this.joinComForm.get('momo_network').value;
 }
 
 vote() {
@@ -1122,10 +1116,23 @@ vote() {
           this.getCraft();
         }
       },
-      (error) => {
-        console.log(error);
-        this.alert.warning('connect to the internet and try again');
+      error => {
+        if (error.status === 500) {
+        this.isLoading = false;
+        this.alert.info(
+          "Please Make sure you fill all fields."
+        );
       }
+       else if (error.status === 0) {
+        this.isLoading = false;
+        this.alert.info("Network error. No internet connectivity.");
+      }
+       else {
+        this.isLoading = false;
+        this.alert.info('Please check your internet connection and try again');
+      }
+      // console.log(error);
+    }
     );
 }
 getcompetition() {
