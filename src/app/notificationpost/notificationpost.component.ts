@@ -314,7 +314,7 @@ setReportData(){
           }
         },
         (error) => {
-          console.log(error);
+          // console.log(error);
           this.spinner.hide();
           if (error.status === 500) {
             this.spinner.hide();
@@ -448,16 +448,16 @@ setReportData(){
      const data = {
       id: id,
     };
-    console.log(data);
+    // console.log(data);
     this.auth.destroy('remove_post',localStorage.getItem('userID'), data).subscribe(
       response => {
-        console.log(this.id);
+        // console.log(this.id);
         this.isLoading = false;
         // this.alert.success('Post deleted successfully');
         this.router.navigate(['/homepage/']);
       },
       error => {
-        console.log(error);
+        // console.log(error);
         this.isLoading = false;
         this.alert.info('Deleting Post Unsuccessful connect to the internet and try again later');
       }
@@ -466,7 +466,7 @@ setReportData(){
   v(id) {
     this.auth.show('post', id).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.allPosts = response['data'];
         // this.trackFollows();
         // console.log(this.viewuser['follows']);
@@ -482,7 +482,7 @@ setReportData(){
     this.auth.show('post', ev).subscribe(
       (response) => {
         this.Psts = response['data'];
-        console.log(this.Psts)
+        // console.log(this.Psts)
       },
       (error) => {
         // console.log(error);

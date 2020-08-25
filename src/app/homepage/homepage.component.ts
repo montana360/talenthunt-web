@@ -254,13 +254,13 @@ slides = [
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.loadNextPost();
     this.getnotifications();
     this.getAllnotifications();
     // console.log(this.router.url);
     // console.log(window.location.href);
 
-    this.isLoading = true;
     this.user_id = localStorage.getItem('userID');
     this.getUsers();
     this.getcompetition();
@@ -300,6 +300,12 @@ slides = [
     this.reportForm = this.formBuilder.group({
       user_id: [null],
       complaint: [null,Validators.required],
+    });
+
+    this.voteForm = this.formBuilder.group({
+      num_of_votes: [null,Validators.required],
+      network: [null,Validators.required],
+      momo_number: [null,Validators.required],
     });
 
     // this.callPostsAgain();
@@ -599,7 +605,7 @@ setReportData(){
           }
         },
         (error) => {
-          console.log(error);
+          // console.log(error);
           this.spinner.hide();
           if (error.status === 500) {
             this.spinner.hide();
@@ -675,7 +681,7 @@ setReportData(){
 
 
   loadNextPost(){
-    console.log(this.next_page_url);
+    // console.log(this.next_page_url);
 
         this.auth.paginate(this.next_page_url)
         .subscribe((response) =>{
@@ -683,7 +689,7 @@ setReportData(){
           this.next_page_url = null;
           const newPost = response['data']['data'];
           this.next_page_url = response['data']['next_page_url'];
-          console.log(this.next_page_url);
+          // console.log(this.next_page_url);
           this.prev_page_url = response['data']['prev_page_url'];
           if(this.next_page_url == null) {
             this.notEmptyPost = false;
@@ -722,7 +728,7 @@ setReportData(){
          if (response['success'] === true) {
           this.isNoti = true;
           this.Allnoti = response['data']['data'];
-          console.log(this.Allnoti);
+          // console.log(this.Allnoti);
         } else {
           this.Allnoti = null;
           this.isNoti = false;
@@ -749,7 +755,7 @@ setReportData(){
         this.getAllnotifications();
       },
       error => {
-        console.log(error);
+        // console.log(error);
         this.isLoading = false;
         this.alert.warning('connect to the internet and try again');
       }
@@ -880,7 +886,7 @@ setReportData(){
     // formData.append('user_id', localStorage.getItem('userID'));
     formData.append('file_type', this.postForm.get('file_type').value);
 
-    console.log(formData);
+    // console.log(formData);
 
     this.auth
       .update('post', localStorage.getItem('userID'), formData)
@@ -895,7 +901,7 @@ setReportData(){
           }
         },
         (error) => {
-          console.log(error);
+          // console.log(error);
           this.alert.warning('connect to the internet and try again');
         }
       );
@@ -906,7 +912,7 @@ setReportData(){
     this.auth.show('post', ev).subscribe(
       (response) => {
         this.Psts = response['data'];
-        console.log(this.Psts)
+        // console.log(this.Psts)
       },
       (error) => {
         // console.log(error);
@@ -928,7 +934,7 @@ setReportData(){
         data: data,
       };
 
-      console.log(search);
+      // console.log(search);
 
       this.auth.update('search_user',localStorage.getItem('userID'), search).subscribe(
         (response) => {
@@ -1007,7 +1013,7 @@ setReportData(){
   }
 
   one(id) {
-    console.log(id);
+    // console.log(id);
     this.router.navigate(['/one/',id]);
   }
   userCompStatus() {
@@ -1036,7 +1042,7 @@ getCraft() {
     response => {
       if (response['data']['data'].length > 0) {
         this.allCraft = response['data']['data'];
-        console.log(this.allCraft);
+        // console.log(this.allCraft);
         this.isLoading = false;
       } else {
         this.isLoading = false;
@@ -1061,7 +1067,7 @@ viewcraft(ev) {
       this.craft = response['data'];
     },
     (error) => {
-      console.log(error);
+      // console.log(error);
       this.alert.warning('Getting data unsuccessful. Please connect to the internet and try again');
     }
   );
@@ -1076,7 +1082,7 @@ viewcraf(ev) {
       this.craftID = this.craft.id;
     },
     (error) => {
-      console.log(error);
+      // console.log(error);
       this.alert.warning('Getting data unsuccessful. Please connect to the internet and try again');
     }
   );
@@ -1105,7 +1111,7 @@ vote() {
     network: this.voteForm.controls['network'].value,
 
   };
-  console.log(data);
+  // console.log(data);
    this.auth.update('vote', localStorage.getItem('userID'), data).subscribe(
       (response) => {
         this.spinner.hide();
@@ -1143,7 +1149,7 @@ getcompetition() {
       this.viewcompetition = response['data'][0];
       this.amount = this.viewcompetition.vote_fees;
       this.COMPID = this.viewcompetition.id;
-      console.log(this.viewcompetition)
+      // console.log(this.viewcompetition)
     },
     (error) => {
       this.isLoading = false;
@@ -1157,7 +1163,7 @@ deleteComment(id) {
   const data = {
     id: id,
   };
-  console.log(data);
+  // console.log(data);
   this.auth.destroy('remove_comment',localStorage.getItem('userID'), data).subscribe(
     response => {
       this.isLoading = false;
@@ -1183,10 +1189,10 @@ deletePost(id) {
    const data = {
     id: id,
   };
-  console.log(data);
+  // console.log(data);
   this.auth.destroy('remove_post',localStorage.getItem('userID'), data).subscribe(
     response => {
-      console.log(this.id);
+      // console.log(this.id);
       this.isLoading = false;
       // this.alert.success('Post deleted successfully');
       this.getpost();

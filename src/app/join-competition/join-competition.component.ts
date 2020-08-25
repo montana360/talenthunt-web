@@ -133,7 +133,7 @@ export class JoinCompetitionComponent implements OnInit {
     this.auth.show('competition', id).subscribe(
       (response) => {
         this.viewcompetition = response['data'][0];
-        console.log(this.viewcompetition);
+        // console.log(this.viewcompetition);
         this.amount = this.viewcompetition.service_fees;
       },
       (error) => {
@@ -193,12 +193,12 @@ export class JoinCompetitionComponent implements OnInit {
     const msisdn = "233" +
       this.joinComForm.get('momo_number').value;
     formData.append('msisdn', msisdn);
-    console.log(msisdn);
+    // console.log(msisdn);
 
     formData.append('amount', this.amount);
     // formData.append('client_request_id', this.clientID);
 
-    console.log(formData);
+    // console.log(formData);
 
     // this.makePayment();
 
@@ -206,7 +206,7 @@ export class JoinCompetitionComponent implements OnInit {
       .update('registration', localStorage.getItem('userID'), formData)
       .subscribe(
         (response) => {
-          console.log(response);
+          // console.log(response);
           this.spinner.hide();
           if (response['success'] === false) {
             this.alert.warning(response['message']);
@@ -217,7 +217,7 @@ export class JoinCompetitionComponent implements OnInit {
           }
         },
         (error) => {
-          console.log(error);
+          // console.log(error);
           this.alert.warning('Error sending data');
         }
       );
@@ -338,7 +338,7 @@ trackFollowing(user) {
   this.isFollowData = user['follower']['follows'].filter((follow) => {
     return follow.follower_id == this.user_id;
   });
-  console.log(this.isFollowData);
+  // console.log(this.isFollowData);
 }
  // Checking if you follow searched user
  trackFollows(user) {
@@ -353,7 +353,7 @@ followuser(id) {
     follower_id: parseInt(localStorage.getItem('userID'), 10),
     user_id: id,
   };
-  console.log(data);
+  // console.log(data);
   this.auth.update('follow', localStorage.getItem('userID'), data).subscribe(
     (response) => {
       // console.log(response);
@@ -367,7 +367,7 @@ followuser(id) {
       }
     },
     (error) => {
-      console.log(error);
+      // console.log(error);
       this.spinner.hide();
       if (error.status === 500) {
         this.spinner.hide();
@@ -441,7 +441,7 @@ getAllnotifications() {
        if (response['success'] === true) {
         this.isNoti = true;
         this.Allnoti = response['data']['data'];
-        console.log(this.Allnoti);
+        // console.log(this.Allnoti);
       } else {
         this.Allnoti = null;
         this.isNoti = false;
@@ -468,7 +468,7 @@ deleteNotivication(id) {
       this.getAllnotifications();
     },
     error => {
-      console.log(error);
+      // console.log(error);
       this.isLoading = false;
       this.alert.warning('connect to the internet and try again');
     }

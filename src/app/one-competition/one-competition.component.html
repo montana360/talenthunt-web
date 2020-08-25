@@ -73,7 +73,7 @@
                 style="color: black; font: 1em sans-serif;font-size: small;">Competition</span></a>
           </li>&nbsp;&nbsp;
           <li class="nav-item text-center mouse">
-            <a class="nav-link" [ngbPopover]="popCon" data-toggle="modal" data-target="#"><i class="fa fa-bell notification" style="font-size:25px;cursor: pointer;"><span *ngIf="unread.total !== 0" class="badge">{{unread?.total}}</span></i><span class="d-none d-sm-inline d-xl-block px-1"
+            <a class="nav-link" [ngbPopover]="popCon" data-toggle="modal" data-target="#"><i class="fa fa-bell notification" style="font-size:25px;cursor: pointer;"><span *ngIf="unread?.total !== 0" class="badge">{{unread?.total}}</span></i><span class="d-none d-sm-inline d-xl-block px-1"
                 style="color: black; font: 1em sans-serif;font-size: small;">Notifications</span></a>
           </li>&nbsp;&nbsp;
           <ng-template #popCon>
@@ -147,15 +147,15 @@
                     <b class="card-text" style="color: black;font-size: 10px;">{{craft.likes.length || '0'}} like(s) and {{craft.comments.length || '0'}} comment</b>
                   </div>
                   <div class="col-md-4" *ngIf ="craft.craft_type !== 'AUDITION'" >
-                    <b style="color: green;font-size: 0.9vw;">{{ numVotes || '0' }} Votes</b>
+                    <b style="color: green;font-size: 9px;">{{ numVotes || '0' }} Votes</b>
                     <div class="w-100"></div>
                     <a class="btn buts" (click)="voteContent(votepost);viewcraf(craft.id)">Vote</a>
                     <div class="w-100"></div>
-                    <span  style="color: black; font-size: 0.9vw;"><b>{{craft?.votes.length || '0'}} voters</b></span>
+                    <span  style="color: black; font-size: 10px"><b>{{craft?.votes.length || '0'}} voters</b></span>
                   </div>
 
                   <div class="col-md-4" *ngIf ="craft.craft_type == 'AUDITION'" style="text-align: right;">
-                    <span  style="color: green; font-size: 1vw;"><b>AUDITION</b></span>
+                    <span  style="color: green; font-size: 12px;"><b>AUDITION</b></span>
                   </div>
 
                 </div>
@@ -186,17 +186,16 @@
             <p>Upload</p>
           </div>
         </div>
-        <div class="team" >
-          <div class="row text-center d-flex justify-content-center">
-            <div class="col-md-4" *ngFor="let judge of viewcompetition.judges">
-              <div class="team-player">
-                <img (click)="fell(judge?.user_id)" *ngIf="judge.user.profile_image !== null" src="{{judge.user.profile_image}}" alt="Thumbnail Image" class="imsg"
-                  style="width: 90px; height: 90px;cursor: pointer;"><span  class="bad"><i class="fa fa-gavel" style="font-size:26px;color:rgba(54, 8, 85, 0.829);"></i></span>
-                  <h6 style="margin-right: 20px;" (click)="fell(judge?.user_id)" class="title">{{judge.user.fullname}}</h6>
-                  <span style="margin-right: 30px;color:rgba(54, 8, 85, 0.829);" class="category">JUDGE</span>
-              </div>
-            </div>
+          <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideCon"
+          (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+          (beforeChange)="beforeChange($event)">
+          <div ngxSlickItem *ngFor="let judge of viewcompetition?.judges" class="slide">
+           <img (click)="fell(judge?.user_id)" *ngIf="judge?.user.profile_image !== null" src="{{judge.user.profile_image}}" alt="Thumbnail Image" class="imsg"
+           style="width: 90px; height: 90px;cursor: pointer;"><span  class="bad"><i class="fa fa-gavel" style="font-size:26px;color:rgba(54, 8, 85, 0.829);"></i></span>
+         <h6  (click)="fell(judge?.user_id)" class="text-center">{{judge.user.fullname}}</h6>
+         <!-- <span style="color:rgba(54, 8, 85, 0.829);" class="text-center">JUDGE</span> -->
           </div>
+        </ngx-slick-carousel>
           <a *ngIf="isMineCompetition" style="cursor: pointer" (click)="toggleDisplay()">view
             comments</a>
           <div class="list" *ngIf="isShow">
@@ -206,8 +205,6 @@
               </ul>
             </div>
           </div>
-        </div>
-
       </span>
       <div class="container">
         <div class="row">
@@ -332,6 +329,10 @@
                           <div class="form-group">
                               <input id="input-address" class="form-control form-control-alternative"
                                   placeholder="Number of votes" type="number" formControlName="num_of_votes">
+                                  <span style="color: red;font-size: 80%;"
+                                  *ngIf="voteForm.get('num_of_votes').touched && voteForm.get('num_of_votes').hasError('required')">
+                                  Field required Please enter the number of votes!!
+                                </span>
                           </div>
                       </div>
                   </div>
@@ -341,6 +342,10 @@
                       <div class="form-group">
                         <input id="input-address" class="form-control form-control-alternative" placeholder="Phone Number"
                           type="number" maxlength="9" formControlName="momo_number">
+                          <span style="color: red;font-size: 80%;"
+                          *ngIf="voteForm.get('momo_number').touched && voteForm.get('momo_number').hasError('required')">
+                          Field required Please enter your number!!
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -363,6 +368,10 @@
                                   <option value='Visa'>Visa</option>
                               </select>
                           </div>
+                          <span style="color: red;font-size: 80%;"
+                          *ngIf="voteForm.get('network').touched && voteForm.get('network').hasError('required')">
+                          Field required Please select your momo payment network!!
+                        </span>
                       </div>
                   </div><br>
 
@@ -378,9 +387,12 @@
                   </div><br> -->
 
                   <div class="row">
-                      <div class="col-md-12 text-center">
-                          <button class="button"
-                              (click)="vote();voteForm.reset();close(votepost);opensms(sms)"><span>VOTE</span></button><br><br>
+                      <div class="col-md-12 text-center d-flex justify-content-center">
+                        <button class="button"[disabled]="!voteForm.valid"
+                        (click)="vote();voteForm.reset();close(votepost);opensms(sms)">
+                        <span *ngIf="voteForm.valid">VOTE</span>
+                        <span *ngIf="!voteForm.valid">Fill all fields</span>
+                      </button><br><br>
                       </div>
                   </div>
 

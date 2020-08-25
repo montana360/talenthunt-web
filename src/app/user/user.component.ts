@@ -211,7 +211,7 @@ export class UserComponent implements OnInit {
       post_id: id,
       user_id: parseInt(localStorage.getItem('userID'), 10),
     };
-    console.log(data);
+    // console.log(data);
     this.auth.update('unlike', localStorage.getItem('userID'), data).subscribe(
       (response) => {
         // console.log(response);
@@ -406,7 +406,7 @@ reportpost(id){
 
 
   getUserpost(id) {
-    console.log(id);
+    // console.log(id);
     // this.isLoading = true;
     this.auth.show('user_posts', id).subscribe(
       (response) => {
@@ -433,7 +433,7 @@ reportpost(id){
       follower_id: parseInt(localStorage.getItem('userID'), 10),
       user_id: id,
     };
-    console.log(data);
+    // console.log(data);
     this.auth.update('follow', localStorage.getItem('userID'), data).subscribe(
       (response) => {
         // console.log(response);
@@ -467,7 +467,7 @@ reportpost(id){
       user_id: id,
       follower_id: parseInt(localStorage.getItem('userID'), 10),
     };
-    console.log(data);
+    // console.log(data);
     this.auth
       .update('un_follow', localStorage.getItem('userID'), data)
       .subscribe(
@@ -553,7 +553,7 @@ reportpost(id){
          if (response['success'] === true) {
           this.isNoti = true;
           this.Allnoti = response['data']['data'];
-          console.log(this.Allnoti);
+          // console.log(this.Allnoti);
         } else {
           this.Allnoti = null;
           this.isNoti = false;
@@ -580,7 +580,7 @@ reportpost(id){
         this.getAllnotifications();
       },
       error => {
-        console.log(error);
+        // console.log(error);
         this.isLoading = false;
         this.alert.warning('connect to the internet and try again');
       }

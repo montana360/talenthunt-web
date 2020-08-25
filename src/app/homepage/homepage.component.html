@@ -85,7 +85,7 @@
                 style="color: black; font: 1em sans-serif;font-size: small;">Competition</span></a>
           </li>&nbsp;&nbsp;
           <li class="nav-item text-center mouse">
-            <a class="nav-link" [ngbPopover]="popCon" data-toggle="modal" data-target="#"><i class="fa fa-bell notification" style="font-size:25px"><span *ngIf="unread.total !== 0" class="badge">{{unread?.total}}</span></i><span class="d-none d-sm-inline d-xl-block px-1"
+            <a class="nav-link" [ngbPopover]="popCon" data-toggle="modal" data-target="#"><i class="fa fa-bell notification" style="font-size:25px"><span *ngIf="unread?.total !== 0" class="badge">{{unread?.total}}</span></i><span class="d-none d-sm-inline d-xl-block px-1"
                 style="color: black; font: 1em sans-serif;font-size: small;">Notifications</span></a>
           </li>&nbsp;&nbsp;
           <ng-template #popCon>
@@ -288,14 +288,14 @@
     </div>
     </div>
     <br><br><br>
-    <div class="col-md-4 order-xl-2 mb-5 mb-xl-0">
+    <div *ngIf="viewcompetition.length !== 0" class="col-md-4 order-xl-2 mb-5 mb-xl-0">
       <br><br>
       <div class="card card-profile shadow rtt">
         <div class="row justify-content-center">
           <div class="col-lg-3 order-lg-2">
             <div class="card-profile-image">
               <a href="javascript:void(0)">
-                <img src="assets/img/46940.png" class="rounded-circle">
+                <!-- <img src="assets/img/46940.png" class="rounded-circle"> -->
                 <!-- <i class="fa fa-trophy img" style="font-size:200px"></i> -->
               </a>
             </div>
@@ -312,16 +312,16 @@
             <p >It is that time of the year again, where everyone wants to be heard, their craft acknowledged and their talent acclaimed. Your opportunity is here! <a (click)="openCompContent(competition)"style="color: blueviolet;">Show more..</a> </p>
 
             <div class="h5">
-             <span>Current Phase: <span class="font-weight-300" style="color: blueviolet;">{{viewcompetition.phase}}</span></span>
+             <span>Current Phase: <span class="font-weight-300" style="color: blueviolet;">{{viewcompetition?.phase}}</span></span>
             </div>
             <div class="h5">
-              <span>Current Stage: <span class="font-weight-300" style="color: blueviolet;">{{viewcompetition.current_stage}}</span></span>
+              <span>Current Stage: <span class="font-weight-300" style="color: blueviolet;">{{viewcompetition?.current_stage}}</span></span>
              </div>
-             <div class="h5" *ngIf="viewcompetition.starts !== null">
-              <span>Starting Date: <span class="font-weight-300" style="color: blueviolet;">{{viewcompetition.Starts}}</span></span>
+             <div class="h5" *ngIf="viewcompetition?.starts !== null">
+              <span>Starting Date: <span class="font-weight-300" style="color: blueviolet;">{{viewcompetition?.Starts}}</span></span>
              </div>
-             <div class="h5" *ngIf="viewcompetition.ends !== null">
-              <span>Ends: <span class="font-weight-300" style="color: blueviolet;">{{viewcompetition.ends}}</span></span>
+             <div class="h5" *ngIf="viewcompetition?.ends !== null">
+              <span>Ends: <span class="font-weight-300" style="color: blueviolet;">{{viewcompetition?.ends}}</span></span>
              </div>
             <hr class="my-4" />
             <div class="h5 mt-4">
@@ -743,9 +743,11 @@
 
                     <div class="row">
                         <div class="col-md-12 text-center">
-
-                            <button class="button"
-                                (click)="vote();voteForm.reset();close(votepost);opensms(sms)"><span>VOTE</span></button><br><br>
+                          <button class="button"[disabled]="!voteForm.valid"
+                          (click)="vote();voteForm.reset();close(votepost);opensms(sms)">
+                          <span *ngIf="voteForm.valid">VOTE</span>
+                          <span *ngIf="!voteForm.valid">Fill all fields</span>
+                        </button><br><br>
                         </div>
                     </div>
 

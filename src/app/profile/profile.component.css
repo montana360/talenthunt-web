@@ -74,7 +74,7 @@ textarea {
   }
   .col-md-3 {
     flex: 0 0 2%;
-    max-width: 25%;
+    max-width: 50%;
   }
   .but {
     background-color: #090833; /* Green */
@@ -487,10 +487,11 @@ textarea {
     cursor: pointer;
     border-radius: 5px;
   }
-
+  
 }
 @media only screen and (min-width: 768px) {
   /* For desktop: */
+
   .popover {
     /* margin:10px, 10px; */
     padding:10px;
@@ -527,6 +528,7 @@ textarea {
 }
 @media only screen and (max-width: 768px) {
   /* For phone: */
+
   .popover {
     /* margin:10px, 10px; */
     padding:10px;

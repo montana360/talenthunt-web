@@ -80,6 +80,36 @@ export class OneCompetitionComponent implements OnInit {
     // instead of a settings object
   ]};
 
+  slideCon = {"slidesToShow": 3, "slidesToScroll": 1,responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        infinite: true,
+        // dots: true
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+    // You can unslick at a given breakpoint now by adding:
+    // settings: "unslick"
+    // instead of a settings object
+  ]};
+
+
   slideConfi = {"slidesToShow": 1.9, "slidesToScroll": 1,responsive: [
     {
       breakpoint: 1024,
@@ -203,6 +233,18 @@ this.craftcommentForm = this.formBuilder.group({
   user_id: [null],
   message: [null,Validators.required],
 });
+
+this.voteForm = this.formBuilder.group({
+  num_of_votes: [null, Validators.compose([Validators.required])],
+  network: [null, Validators.compose([Validators.required])],
+  momo_number: [null, Validators.compose([Validators.required])],
+  // msisdn: [null, Validators.compose([Validators.required])],
+  // amount: [null, Validators.compose([Validators.required])],
+});
+this.craftcommentForm = this.formBuilder.group({
+  user_id: [null],
+  message: [null,Validators.required],
+});
   }
   trackvotes(cra) {
     console.log(cra['votes']);
@@ -218,7 +260,7 @@ this.craftcommentForm = this.formBuilder.group({
     this.isData = cra['likes'].filter((like) => {
       return like.user_id == this.user_id;
     });
-    console.log(this.isData);
+    // console.log(this.isData);
   }
   likep(id) {
     this.spinner.show();
@@ -226,10 +268,10 @@ this.craftcommentForm = this.formBuilder.group({
       craft_id: id,
       user_id: parseInt(localStorage.getItem('userID'), 10),
     };
-    console.log(data);
+    // console.log(data);
     this.auth.update('like_craft', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           this.alert.success('Post liked');
@@ -256,10 +298,10 @@ this.craftcommentForm = this.formBuilder.group({
       craft_id: id,
       user_id: parseInt(localStorage.getItem('userID'), 10),
     };
-    console.log(data);
+    // console.log(data);
     this.auth.update('unlike_craft', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           this.alert.success('Post unliked');
@@ -292,10 +334,10 @@ this.craftcommentForm = this.formBuilder.group({
       user_id: parseInt(localStorage.getItem('userID'), 10),
       message: this.craftcommentForm.controls['message'].value,
     };
-    console.log(data);
+    // console.log(data);
     this.auth.update('craft_comment', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.spinner.hide();
         if (response !== null || response !== undefined) {
           this.alert.success('Comment posted successfully');
@@ -346,9 +388,9 @@ v(id) {
     (response) => {
       this.isLoading = false;
       this.viewcompetition = response['data'][0];
-      console.log(this.viewcompetition);
+      // console.log(this.viewcompetition);
       this.amount = this.viewcompetition.vote_fees;
-      console.log(this.amount);
+      // console.log(this.amount);
         this.comData = this.participants.filter((part) => {
           if(part.user_id == this.user_id) {
             this.isMineCompetition = true;
@@ -433,11 +475,11 @@ createPost() {
   formData.append('competition_id', this.compID);
   formData.append('file_type', this.craftForm.get('file_type').value);
 
-  console.log(formData);
+  // console.log(formData);
 
   this.auth.update("craft", localStorage.getItem('userID'), formData).subscribe(
     response => {
-      console.log(response);
+      // console.log(response);
       this.isLoading = false;
       if (response['success'] === false) {
         this.alert.warning('Make sure provide your video');
@@ -448,7 +490,7 @@ createPost() {
       }
     },
     error => {
-      console.log(error);
+      // console.log(error);
       this.alert.warning('Error sending data');
     }
   );
@@ -457,10 +499,10 @@ view(ev) {
   this.auth.show('craft', ev).subscribe(
     (response) => {
       this.crafts = response['data'];
-      console.log(this.crafts);
+      // console.log(this.crafts);
     },
     (error) => {
-      console.log(error);
+      // console.log(error);
       this.alert.error('Getting data unsuccessful. Please try again');
     }
   );
@@ -480,19 +522,19 @@ openCraft(singleCraft) {
   }
 
   slickInit(e) {
-    console.log('slick initialized');
+    // console.log('slick initialized');
   }
 
   breakpoint(e) {
-    console.log('breakpoint');
+    // console.log('breakpoint');
   }
 
   afterChange(e) {
-    console.log('afterChange');
+    // console.log('afterChange');
   }
 
   beforeChange(e) {
-    console.log('beforeChange');
+    // console.log('beforeChange');
   }
   homePage(){
     this.router.navigate(['/homepage/']);
@@ -551,10 +593,10 @@ openCraft(singleCraft) {
       network: this.voteForm.controls['network'].value,
 
     };
-    console.log(data);
+    // console.log(data);
      this.auth.update('vote', localStorage.getItem('userID'), data).subscribe(
         (response) => {
-          console.log(response);
+          // console.log(response);
           this.spinner.hide();
           if (response['success'] === false) {
             this.alert.warning(response['message']);
@@ -573,12 +615,12 @@ openCraft(singleCraft) {
   viewcraft(ev) {
     this.auth.show('craft', ev).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.craft = response['data'];
-        console.log(this.craft);
+        // console.log(this.craft);
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.alert.error('Getting data unsuccessful. Please try again');
       }
     );
@@ -588,14 +630,14 @@ openCraft(singleCraft) {
   viewcraf(ev) {
     this.auth.show('craft', ev).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.craft = response['data'][0];
-        console.log(this.craft);
+        // console.log(this.craft);
         this.craftID = this.craft.id;
-        console.log(this.craftID);
+        // console.log(this.craftID);
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.alert.error('Getting data unsuccessful. Please try again');
       }
     );
@@ -610,7 +652,7 @@ openCraft(singleCraft) {
 
     this.auth.update('check_registration_state', localStorage.getItem('userID'), data).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         if (response['data'].length > 0){
           this.isPart = false;
         }
@@ -694,7 +736,7 @@ trackFollowing(user) {
   this.isFollowData = user['follower']['follows'].filter((follow) => {
     return follow.follower_id == this.user_id;
   });
-  console.log(this.isFollowData);
+  // console.log(this.isFollowData);
 }
  // Checking if you follow searched user
  trackFollows(user) {
@@ -709,7 +751,7 @@ followuser(id) {
     follower_id: parseInt(localStorage.getItem('userID'), 10),
     user_id: id,
   };
-  console.log(data);
+  // console.log(data);
   this.auth.update('follow', localStorage.getItem('userID'), data).subscribe(
     (response) => {
       // console.log(response);
@@ -723,7 +765,7 @@ followuser(id) {
       }
     },
     (error) => {
-      console.log(error);
+      // console.log(error);
       this.spinner.hide();
       if (error.status === 500) {
         this.spinner.hide();
@@ -797,7 +839,7 @@ getAllnotifications() {
        if (response['success'] === true) {
         this.isNoti = true;
         this.Allnoti = response['data']['data'];
-        console.log(this.Allnoti);
+        // console.log(this.Allnoti);
       } else {
         this.Allnoti = null;
         this.isNoti = false;
@@ -824,7 +866,7 @@ deleteNotivication(id) {
       this.getAllnotifications();
     },
     error => {
-      console.log(error);
+      // console.log(error);
       this.isLoading = false;
       this.alert.warning('connect to the internet and try again');
     }

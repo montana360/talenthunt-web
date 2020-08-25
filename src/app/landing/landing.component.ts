@@ -106,7 +106,7 @@ setData() {
 registration() {
   this.isRegistering = true;
   this.setData();
-  console.log(this.registerData);
+  // console.log(this.registerData);
   setTimeout(() => {
     this.auth.createUser("register", this.registerData).subscribe(
       response => {

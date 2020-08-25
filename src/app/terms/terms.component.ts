@@ -136,7 +136,7 @@ trackFollowing(user) {
   this.isFollowData = user['follower']['follows'].filter((follow) => {
     return follow.follower_id == this.user_id;
   });
-  console.log(this.isFollowData);
+  // console.log(this.isFollowData);
 }
  // Checking if you follow searched user
  trackFollows(user) {
@@ -151,7 +151,7 @@ followuser(id) {
     follower_id: parseInt(localStorage.getItem('userID'), 10),
     user_id: id,
   };
-  console.log(data);
+  // console.log(data);
   this.auth.update('follow', localStorage.getItem('userID'), data).subscribe(
     (response) => {
       // console.log(response);
@@ -165,7 +165,7 @@ followuser(id) {
       }
     },
     (error) => {
-      console.log(error);
+      // console.log(error);
       this.spinner.hide();
       if (error.status === 500) {
         this.spinner.hide();
@@ -239,7 +239,7 @@ getAllnotifications() {
        if (response['success'] === true) {
         this.isNoti = true;
         this.Allnoti = response['data']['data'];
-        console.log(this.Allnoti);
+        // console.log(this.Allnoti);
       } else {
         this.Allnoti = null;
         this.isNoti = false;
@@ -266,7 +266,7 @@ deleteNotivication(id) {
       this.getAllnotifications();
     },
     error => {
-      console.log(error);
+      // console.log(error);
       this.isLoading = false;
       this.alert.warning('connect to the internet and try again');
     }
@@ -336,7 +336,7 @@ notif(id) {
   }
 
   one(id) {
-    console.log(id);
+    // console.log(id);
     this.router.navigate(['/one/',id]);
   }
 

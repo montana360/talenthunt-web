@@ -196,16 +196,7 @@ a {
   .move{
     margin-left: 200px;
   }
-  .popover {
-    /* margin:10px, 10px; */
-    padding:10px;
-    width: 360px;
-    height: 360px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-color: rgb(182, 194, 216);
-    text-align:justify center;
-  }
+ 
   .notification {
     /* background-color: #555; */
     color: black;
@@ -246,27 +237,7 @@ a {
     border: 1px solid #ddd; /* Add a grey border */
     /* margin-bottom: 12px; */
   }
-  .btnu {
-    border: 2px solid black;
-    background-color: white;
-    color: black;
-    padding: 4px 3px;
-    font-size: 14px;
-    cursor: pointer;
-  }
-  .bits {
-    background-color: #090833; /* Green */
-    border: none;
-    color: white;
-    padding: 12px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
+
   .avatar4 {
     vertical-align: middle;
     width: 30px;
@@ -274,4 +245,111 @@ a {
     border-radius: 50%;
     border: 3px solid rgba(54, 8, 85, 0.829);
 
+  }
+  @media only screen and (min-width: 600px) {
+    /* For tablets: */
+    .popover {
+      /* margin:10px, 10px; */
+      padding:10px;
+      width: 260px;
+      height: 260px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      text-align:justify;
+      background-color: rgb(182, 194, 216);
+
+    }
+    .btnu {
+      border: 2px solid black;
+      background-color: white;
+      color: black;
+      padding: 3px 2px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .bits {
+      background-color: #090833; /* Green */
+      border: none;
+      color: white;
+      padding: 9px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      margin: 3px 2px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+  }
+  @media only screen and (min-width: 768px) {
+    /* For desktop: */
+    .popover {
+      /* margin:10px, 10px; */
+      padding:10px;
+      width: 360px;
+      height: 360px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      text-align:justify;
+      background-color: rgb(182, 194, 216);
+
+    }
+    .btnu {
+      border: 2px solid black;
+      background-color: white;
+      color: black;
+      padding: 4px 3px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .bits {
+      background-color: #090833; /* Green */
+      border: none;
+      color: white;
+      padding: 12px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+  }
+  @media only screen and (max-width: 768px) {
+    /* For phone: */
+    .popover {
+      /* margin:10px, 10px; */
+      padding:10px;
+      width: 160px;
+      height: 260px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      text-align:justify;
+      background-color: rgb(182, 194, 216);
+
+    }
+    .btnu {
+      border: 2px solid black;
+      background-color: white;
+      color: black;
+      padding: 2px 1px;
+      font-size: 10px;
+      cursor: pointer;
+    }
+    .bits {
+      background-color: #090833; /* Green */
+      border: none;
+      color: white;
+      padding: 8px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 10px;
+      margin: 2px 1px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
   }

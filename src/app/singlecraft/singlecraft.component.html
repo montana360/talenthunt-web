@@ -155,13 +155,12 @@
             <b>{{post?.likes.length || '0'}}</b>&nbsp;&nbsp;
             <i class="fa fa-comments-o" style="font-size:36px;cursor: pointer;"></i>&nbsp;&nbsp;
             <b>{{post?.comments.length || '0'}}</b>&nbsp;&nbsp;
-            <i class="fa fa-share-alt" (click)="copy(post?.file_url)" style="font-size:36px;cursor: pointer;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <div  *ngIf ="post.craft_type !== 'AUDITION'" >
+            <i class="fa fa-share-alt" (click)="copy(post?.file_url)" style="font-size:36px;cursor: pointer;"></i>
+
+            <div *ngIf ="post.craft_type !== 'AUDITION'" >
+              <a  class="btn buts" (click)="voteContent(votepost);viewcraft(post.id)">Vote</a>
+              <div class="w-100"></div>
               <b style="color: green;font-size: small;">{{ numVotes || '0' }} Votes</b>
-              <div class="w-100"></div>
-              <a class="btn buts" (click)="voteContent(votepost);viewcraft(post.id)">Vote</a>
-              <div class="w-100"></div>
-              <span  style="color: black; font-size: small;"><b>{{post?.votes.length || '0'}} voters</b></span>
             </div>
 
             <div *ngIf ="post.craft_type == 'AUDITION'" style="text-align: right;">
@@ -357,6 +356,10 @@
                           <div class="form-group">
                               <input id="input-address" class="form-control form-control-alternative"
                                   placeholder="Number of votes" type="number" formControlName="num_of_votes">
+                                  <span style="color: red;font-size: 80%;"
+                                  *ngIf="voteForm.get('num_of_votes').touched && voteForm.get('num_of_votes').hasError('required')">
+                                  Field required Please enter the number of votes!!
+                                </span>
                           </div>
                       </div>
                   </div>
@@ -366,6 +369,10 @@
                       <div class="form-group">
                         <input id="input-address" class="form-control form-control-alternative" placeholder="Phone Number"
                           type="number" maxlength="9" formControlName="momo_number">
+                          <span style="color: red;font-size: 80%;"
+                          *ngIf="voteForm.get('momo_number').touched && voteForm.get('momo_number').hasError('required')">
+                          Field required Please enter your number!!
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -388,6 +395,10 @@
                                   <option value='Visa'>Visa</option>
                               </select>
                           </div>
+                          <span style="color: red;font-size: 80%;"
+                          *ngIf="voteForm.get('network').touched && voteForm.get('network').hasError('required')">
+                          Field required Please select your momo payment network!!
+                        </span>
                       </div>
                   </div><br>
 
@@ -404,8 +415,11 @@
 
                   <div class="row">
                       <div class="col-md-12 text-center">
-                          <button class="button"
-                              (click)="vote();voteForm.reset();close(votepost);opensms(sms)"><span>VOTE</span></button><br><br>
+                          <button class="button"[disabled]="!voteForm.valid"
+                              (click)="vote();voteForm.reset();close(votepost);opensms(sms)">
+                              <span *ngIf="voteForm.valid">VOTE</span>
+                              <span *ngIf="!voteForm.valid">Fill all fields</span>
+                            </button><br><br>
                       </div>
                   </div>
 

@@ -78,17 +78,17 @@ export class ResetpassComponent implements OnInit {
   resetPass() {
     this.isloading = true;
     this.setData();
-    console.log(this.passData);
+    // console.log(this.passData);
     this.auth.restore('reset_password', this.passData).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.isloading = false;
         if (response !== null || response !== undefined) {
           this.router.navigate(['/login/']);
         }
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.isloading = false;
         if (error.status === 500) {
            this.isloading = false;

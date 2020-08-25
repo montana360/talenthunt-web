@@ -378,7 +378,7 @@ reportpost(id){
     this.isFollow = user['follows'].filter((follow) => {
       return follow.follower_id == this.user_id;
     });
-    console.log(this.isFollow);
+    // console.log(this.isFollow);
   }
 
 
@@ -448,7 +448,7 @@ reportpost(id){
         }
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
@@ -580,7 +580,7 @@ reportpost(id){
         this.getAllnotifications();
       },
       error => {
-        console.log(error);
+        // console.log(error);
         this.isLoading = false;
         this.alert.warning('connect to the internet and try again');
       }

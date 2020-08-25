@@ -109,11 +109,11 @@ export class SinglecraftComponent implements OnInit {
     private clipboardService: ClipboardService
   ) {
     this.voteForm = formBuilder.group({
-      num_of_votes: [null, Validators.compose([Validators.required])],
-      network: [null, Validators.compose([Validators.required])],
-      momo_number: [null, Validators.compose([Validators.required])],
-      msisdn: [null, Validators.compose([Validators.required])],
-      amount: [null, Validators.compose([Validators.required])],
+      num_of_votes: [null,Validators.required],
+      network: [null,Validators.required],
+      momo_number: [null,Validators.required],
+      msisdn: [null,Validators.required],
+      amount: [null,Validators.required],
     });
 
     this.craftcommentForm = this.formBuilder.group({
@@ -138,14 +138,21 @@ export class SinglecraftComponent implements OnInit {
     this.user_id = localStorage.getItem('userID');
     this.viewcraft(this.ID);
     this.getcompetition();
-  }
 
+    this.voteForm = this.formBuilder.group({
+      num_of_votes:[null,Validators.required],
+      network: [null,Validators.required],
+      momo_number: [null,Validators.required],
+      // msisdn: [null, Validators.compose([Validators.required])],
+      // amount: [null, Validators.compose([Validators.required])],
+    });
+  }
   // set craftcomment data
   setCraftCommentData() {
     this.craftcommentDetails.user_id = this.craftcommentForm.controls['user_id'].value;
     this.craftcommentDetails.message = this.craftcommentForm.controls['message'].value;
   }
-  
+
   addCraftComment(id) {
     this.spinner.show();
     const data = {
@@ -341,7 +348,7 @@ export class SinglecraftComponent implements OnInit {
           }
         },
         (error) => {
-          console.log(error);
+          // console.log(error);
           this.spinner.hide();
           if (error.status === 500) {
             this.spinner.hide();
@@ -389,7 +396,7 @@ export class SinglecraftComponent implements OnInit {
          if (response['success'] === true) {
           this.isNoti = true;
           this.Allnoti = response['data']['data'];
-          console.log(this.Allnoti);
+          // console.log(this.Allnoti);
         } else {
           this.Allnoti = null;
           this.isNoti = false;
@@ -416,7 +423,7 @@ export class SinglecraftComponent implements OnInit {
         this.getAllnotifications();
       },
       error => {
-        console.log(error);
+        // console.log(error);
         this.isLoading = false;
         this.alert.warning('connect to the internet and try again');
       }
@@ -458,7 +465,7 @@ export class SinglecraftComponent implements OnInit {
     this.auth.show('craft', ev).subscribe(
       (response) => {
         this.Psts = response['data'];
-        console.log(this.Psts)
+        // console.log(this.Psts)
       },
       (error) => {
         // console.log(error);
@@ -476,11 +483,11 @@ export class SinglecraftComponent implements OnInit {
     this.auth.show('craft', ev).subscribe(
       (response) => {
         this.craft = response['data'];
-        console.log(this.craft);
+        // console.log(this.craft);
         this.isLoading = false;
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.alert.warning('Getting data unsuccessful. Please connect to the internet and try again');
       }
     );
@@ -518,7 +525,7 @@ vote() {
     network: this.voteForm.controls['network'].value,
 
   };
-  console.log(data);
+  // console.log(data);
    this.auth.update('vote', localStorage.getItem('userID'), data).subscribe(
       (response) => {
         this.spinner.hide();
@@ -530,7 +537,7 @@ vote() {
         }
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.alert.warning('connect to the internet and try again');
       }
     );

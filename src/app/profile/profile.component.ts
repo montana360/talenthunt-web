@@ -230,7 +230,7 @@ export class ProfileComponent implements OnInit {
       post_id: id,
       user_id: parseInt(localStorage.getItem('userID'), 10),
     };
-    console.log(data);
+    // console.log(data);
     this.auth.update('like', localStorage.getItem('userID'), data).subscribe(
       (response) => {
         // console.log(response);
@@ -260,7 +260,7 @@ export class ProfileComponent implements OnInit {
       post_id: id,
       user_id: parseInt(localStorage.getItem('userID'), 10),
     };
-    console.log(data);
+    // console.log(data);
     this.auth.update('unlike', localStorage.getItem('userID'), data).subscribe(
       (response) => {
         // console.log(response);
@@ -301,7 +301,7 @@ export class ProfileComponent implements OnInit {
       user_id: parseInt(localStorage.getItem('userID'), 10),
       message: this.commentForm.controls['message'].value,
     };
-    console.log(data);
+    // console.log(data);
     this.auth.update('comment', localStorage.getItem('userID'), data).subscribe(
       (response) => {
         // console.log(response);
@@ -399,7 +399,7 @@ export class ProfileComponent implements OnInit {
     // formData.append('user_id', localStorage.getItem('userID'));
     formData.append('file_type', this.postForm.get('file_type').value);
 
-    console.log(formData);
+    // console.log(formData);
 
     this.auth
       .update('post', localStorage.getItem('userID'), formData)
@@ -416,7 +416,7 @@ export class ProfileComponent implements OnInit {
           }
         },
         (error) => {
-          console.log(error);
+          // console.log(error);
           this.alert.warning('connect to the internet and try again');
         }
       );
@@ -432,7 +432,7 @@ export class ProfileComponent implements OnInit {
         this.isLoader = false;
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.isLoader = false;
         this.alert.warning('connect to the internet and try again');
       }
@@ -463,7 +463,7 @@ export class ProfileComponent implements OnInit {
     this.isFollowData = user['follower']['follows'].filter((follow) => {
       return follow.follower_id == this.user_id;
     });
-    console.log(this.isFollowData);
+    // console.log(this.isFollowData);
   }
    // Checking if you follow searched user
    trackFollows(user) {
@@ -516,7 +516,7 @@ export class ProfileComponent implements OnInit {
         this.isLoader = false;
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.isLoader = false;
         this.alert.warning('connect to the internet and try again');
       }
@@ -533,7 +533,7 @@ export class ProfileComponent implements OnInit {
         // console.log(this.viewPost);
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.isLoader = false;
         this.alert.warning('connect to the internet and try again');
       }
@@ -595,7 +595,7 @@ export class ProfileComponent implements OnInit {
           }
         },
         (error) => {
-          console.log(error);
+          // console.log(error);
           this.isLoader = false;
           if (error.status === 500) {
             this.alert.warning(
@@ -615,7 +615,7 @@ export class ProfileComponent implements OnInit {
       (response) => {
         // this.isLoader = false;
         this.Posts = response['data'];
-        console.log(this.Posts);
+        // console.log(this.Posts);
       },
       (error) => {
         // console.log(error);
@@ -717,7 +717,7 @@ export class ProfileComponent implements OnInit {
           }
         },
         (error) => {
-          console.log(error);
+          // console.log(error);
           this.alert.warning('connect to the internet and try again');
         }
       );
@@ -751,7 +751,7 @@ export class ProfileComponent implements OnInit {
       follower_id: parseInt(localStorage.getItem('userID'), 10),
       user_id: id,
     };
-    console.log(data);
+    // console.log(data);
     this.auth.update('follow', localStorage.getItem('userID'), data).subscribe(
       (response) => {
         // console.log(response);
@@ -765,7 +765,7 @@ export class ProfileComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.spinner.hide();
         if (error.status === 500) {
           this.spinner.hide();
@@ -848,7 +848,7 @@ export class ProfileComponent implements OnInit {
      const data = {
       id: id,
     };
-    console.log(data);
+    // console.log(data);
     this.auth.destroy('remove_post',localStorage.getItem('userID'), data).subscribe(
       response => {
         // console.log(this.id);
@@ -877,7 +877,7 @@ export class ProfileComponent implements OnInit {
         this.getUserpost();
       },
       error => {
-        console.log(error);
+        // console.log(error);
         this.isLoader = false;
         this.alert.error('connect to the internet and try again');
       }
@@ -906,7 +906,7 @@ export class ProfileComponent implements OnInit {
          if (response['success'] === true) {
           this.isNoti = true;
           this.Allnoti = response['data']['data'];
-          console.log(this.Allnoti);
+          // console.log(this.Allnoti);
         } else {
           this.Allnoti = null;
           this.isNoti = false;
@@ -933,7 +933,7 @@ export class ProfileComponent implements OnInit {
         this.getAllnotifications();
       },
       error => {
-        console.log(error);
+        // console.log(error);
         this.isLoader = false;
         this.alert.warning('connect to the internet and try again');
       }
