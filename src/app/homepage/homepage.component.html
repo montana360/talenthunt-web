@@ -7,9 +7,10 @@
         height="50" width="150"></a>
 
       <!-- Step 3: Toggle the value of the property when the toggler button is clicked. -->
-      <a class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
-        <i class="fa fa-bars"></i>
-      </a>
+      <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#sidebarModal">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
 
       <!-- Step 2: Add the ngbCollapse directive to the element below. -->
       <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
@@ -138,9 +139,13 @@
      (beforeChange)="beforeChange($event)">
      <div ngxSlickItem *ngFor="let judge of viewcompetition.judges" class="slide">
       <img (click)="fell(judge?.user_id)" *ngIf="judge.user.profile_image !== null" src="{{judge.user.profile_image}}" alt="Thumbnail Image" class="imsg"
-      style="width: 90px; height: 90px;cursor: pointer;"><span  class="bad"><i class="fa fa-gavel" style="font-size:26px;color:rgba(54, 8, 85, 0.829);"></i></span>
-    <h6  (click)="fell(judge?.user_id)" class="text-center">{{judge.user.fullname}}</h6>
-    <!-- <span style="color:rgba(54, 8, 85, 0.829);" class="text-center">JUDGE</span> -->
+      style="width: 90px; height: 90px;cursor: pointer;">
+      <!-- <span  class="bad"><i *ngIf="judge.user.profile_image !== null" class="fa fa-gavel" style="font-size:26px;color:rgba(54, 8, 85, 0.829);"></i></span> -->
+      <img (click)="fell(judge?.user_id)" *ngIf="judge.user.profile_image === null" src="assets/img/default-avatar.png" alt="Thumbnail Image" class="imsg"
+      style="width: 90px; height: 90px;cursor: pointer;">
+      <!-- <span  class="bad"><i *ngIf="judge.user.profile_image === null" class="fa fa-gavel" style="font-size:26px;color:rgba(54, 8, 85, 0.829);"></i></span> -->
+      <h6  (click)="fell(judge?.user_id)" class="text-center">{{judge.user.fullname}}</h6>
+    <p style="color:rgba(54, 8, 85, 0.829);" class="text-center">JUDGE</p>
      </div>
    </ngx-slick-carousel>
             <div class="team" >
@@ -203,7 +208,7 @@
           <div class="row">
             <div *ngIf="post?.likes.length > 0">
 
-              <span *ngIf="isData.length > 0" style="cursor: pointer;">
+              <span *ngIf="isData?.length > 0" style="cursor: pointer;">
                 <i class="fa fa-heart"  (click)="unlike(post?.id)" style="font-size:36px;color: rgb(63, 5, 117);"></i>
               </span>
 
@@ -288,9 +293,9 @@
     </div>
     </div>
     <br><br><br>
-    <div *ngIf="viewcompetition.length !== 0" class="col-md-4 order-xl-2 mb-5 mb-xl-0">
+    <div *ngIf="viewcompetition?.length !== 0" class="col-md-4 order-xl-2 mb-5 mb-xl-0">
       <br><br>
-      <div class="card card-profile shadow rtt">
+      <div *ngIf="!isLoading" class="card card-profile shadow rtt">
         <div class="row justify-content-center">
           <div class="col-lg-3 order-lg-2">
             <div class="card-profile-image">
@@ -327,7 +332,7 @@
             <div class="h5 mt-4">
               <span style="color: blueviolet;">AWARD</span>
             </div>
-            <div *ngFor="let award of viewcompetition.awards">
+            <div *ngFor="let award of viewcompetition?.awards">
               <i class="fa fa-trophy"></i><h3 class="tshake">
                 GH₵: {{award.cash_price}}.00
               </h3>
@@ -336,7 +341,7 @@
               </h6>
             </div>
             <div class="d-flex justify-content-between">
-              <div *ngIf="viewcompetition.phase == 'AUDITION'">
+              <div *ngIf="viewcompetition?.phase == 'AUDITION'">
                 <button class="btn btn-sm btn-info mr-4" *ngIf="isPart" (click)="join(viewcompetition?.id)">
                   <span>Join Competition</span>
                 </button>
@@ -347,8 +352,7 @@
         </div>
       </div>
       <br><br><br>
-      <div class="card card-profile shadow" *ngFor="let cra of allCraft">
-        <span *ngIf="cra">{{ voteC(cra) }}</span>
+      <div *ngIf="!isLoading" class="card card-profile shadow">
         <div class="row justify-content-center">
           <div class="col-lg-3 order-lg-2">
             <div class="card-profile-image">
@@ -360,9 +364,10 @@
             COMPETITORS
           </h3>
         </div>
-        <div class="card-body pt-0 pt-md-4">
-          <div class="text-center">
-            <div class="row" >
+        <div class="card-body pt-0 pt-md-4"  *ngFor="let cra of allCraft">
+
+          <span *ngIf="cra">{{ voteC(cra) }}</span>
+          <div class="row" >
               <div class="col-md-2">
                 <img *ngIf="cra.user.profile_image !== null" src="{{cra.user.profile_image}}"
                   class="avatar3" alt="">
@@ -375,7 +380,8 @@
                 <b class="card-text" style="color: black;font-size: small;">{{cra.likes.length || '0'}} <i class="fa fa-thumbs-up" style="color: blueviolet;"></i></b>
                 <b *ngIf="cra.craft_type !=='AUDITION'" style="color: green;font-size: small">{{ numVotes || '0' }} Votes</b>
               </div>
-              <div class="col-md-6 d-flex justify-content-between" >
+            </div>
+              <div class="d-flex justify-content-between" >
                 <span *ngIf="cra.craft_type =='AUDITION'" style="color: green; font-size: small;"><b>AUDITION</b></span>
                 <a  class="btn btn-sm btn-info" (click)="vc(cra.id);viewcraf(cra.id)">view</a>&nbsp;
                 <a *ngIf="cra.craft_type !=='AUDITION'" class="btn btn-sm btn-default  float-right" (click)="voteContent(votepost);viewcraf(cra.id)">vote</a>
@@ -385,7 +391,6 @@
             </div>
             <hr class="my-4" />
           </div>
-        </div>
       </div>
     </div>
   </div>
@@ -473,7 +478,117 @@
       </nav>
     </div>
   </footer>
+  <div class="modal left fade menu" id="sidebarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog position-fixed m-auto" role="document">
+        <div class="modal-content h-100 page-nav">
+            <div class="modal-body p-3">
+                <div class="nav flex-column">
+                  <a class="navbar-brand d-flex justify-content-center" style="cursor: pointer;" data-dismiss="modal" (click)="homePage()"><img src="assets/img/155.png"
+                    height="50" width="150"></a>&nbsp;
+                  <!-- <form [formGroup]="searchForm" class="form-inline my-2 my-lg-0">
+                    <input class="myInput form-control mr-sm-2" (keyup)="clearSearch()" formControlName="search" [(ngModel)]="search"
+                      (input)="searchEverything($event.target.value)"  placement="bottom" [ngbPopover]="popContent" type="search" placeholder="Search" aria-label="Search">
+                  </form>
+
+
+
+                  <ng-template #popContent>
+                    <div class="popover" *ngIf="isFound">
+                      <div *ngFor="let list of searchList">
+
+                        <span *ngIf="list">{{ trackFollows(list) }}</span>
+
+                        <div  class="row" [hidden]="list?.id == user_id">
+                          <div class="col-md-2">
+                            <img *ngIf="list.profile_image === null" src="assets/img/default-avatar.png" class="avatar">
+                            <img *ngIf="list.profile_image !== null" src="{{ list?.profile_image }}" class="avatar">
+                          </div>
+                          <div class="col-md-6" >
+                            &nbsp;
+                            <span style="cursor: pointer;" (click)="fell(list?.id)" data-dismiss="modal" aria-hidden="true">
+                              {{ list.fullname }}
+                            </span>
+                            &nbsp; &nbsp;
+                          </div>
+                            <div class="col-md-3">
+                              <div *ngIf="list.follows.length > 0">
+                                <span *ngIf="isFollow.length > 0">
+                                  <button style="cursor: pointer;" type="button" class="btnu success" (click)="unfollowuser(list.id);">Following</button>
+                                </span>
+
+                                <span *ngIf="!isFollow || isFollow.length == 0">
+                                  <button style="cursor: pointer;" type="button" class="bits" (click)="followuser(list.id);">Follow</button>
+                                </span>
+                              </div>
+                              <div *ngIf="list.follows.length == 0">
+                                <span>
+                                  <button style="cursor: pointer;" type="button" class="bits" (click)="followuser(list.id);">Follow</button>
+                                </span>
+                            </div>
+                        </div>
+                        </div>
+                        <hr>
+                      </div>
+                    </div>
+                    <div *ngIf="!isFound">
+                      Find your friends
+                    </div>
+                  </ng-template> -->
+                  <a class="nav-link" (click)="openpost(postModal)" data-dismiss="modal" data-target="#sidebarModal"><i class="fa fa-camera" style="font-size:24px"></i>&nbsp;<span class="d-xl-block px-1"
+                  style="color: white;; font: 1em sans-serif;font-size: 22px;">Add Post</span></a>
+                  <a class="nav-link" (click)="profilePage()" data-dismiss="modal" data-target="#sidebarModal"><i class="fa fa-user" style="font-size:24px"></i>&nbsp;<span class="d-xl-block px-1"
+                    style="color: white;; font: 1em sans-serif;font-size: 22px;">My Profile</span></a>
+                    <a class="nav-link" (click)="compage()" data-dismiss="modal" data-target="#sidebarModal"><i class="fa fa-trophy" style="font-size:24px"></i>&nbsp;<span class="d-xl-block px-1"
+                      style="color: white; font: 1em sans-serif;font-size: 22px;">Competition</span></a>
+                      <!-- <a class="nav-link" [ngbPopover]="popCon" data-target="#sidebarModal"><i class="fa fa-bell" style="font-size:24px"></i> &nbsp;<span class="d-xl-block px-1"
+                        style="color: white; font: 1em sans-serif;font-size: 22px;">Notification</span></a>
+                        <ng-template #popCon>
+                          <div class="popov"  *ngIf="isNoti">
+                            <div *ngFor="let note of Allnoti">
+                              <div  class="row">
+                                <div class="col-xs-3 col-md-3" >
+                                  <i *ngIf="note.app === 'LIKE' && note.seen === 'NO'" class="fa fa-heart" (click)=" notif(note.content_id);"  style="font-size:28px;color:rgb(88, 13, 88)"></i>
+                                  <i *ngIf="note.app === 'FOLLOW' && note.seen === 'NO'" class="fa fa-group"(click)=" notif(note.content_id)"   style="font-size:28px;color:rgb(88, 13, 88)"></i>
+                                  <i *ngIf="note.app === 'COMMENT' && note.seen === 'NO'" class="fa fa-comments-o"(click)=" notif(note.content_id);"  style="font-size:28px;color:rgb(88, 13, 88)"></i>
+                                  <i *ngIf="note.app === 'LIKE' && note.seen === 'YES'" class="fa fa-heart"(click)=" notif(note.content_id)" style="font-size:28px;color:rgb(75, 57, 57)"></i>
+                                  <i *ngIf="note.app === 'FOLLOW' && note.seen === 'YES'" class="fa fa-group" (click)=" notif(note.content_id)" style="font-size:28px;color:rgb(75, 57, 57)"></i>
+                                  <i *ngIf="note.app === 'COMMENT' && note.seen === 'YES'" class="fa fa-comments-o"(click)=" notif(note.content_id)" style="font-size:28px;color:rgb(75, 57, 57)"></i>
+                                </div>
+                                <div class="col-xs-8 col-md-7" >
+                                  <span *ngIf="note.seen === 'NO'" style="cursor: pointer; color: rgb(88, 13, 88);" (click)=" notif(note.content_id)"><b>{{note.message}}</b></span>
+                                  <span *ngIf="note.seen === 'YES'" style="cursor: pointer;"  (click)=" notif(note.content_id)"><b>{{note.message}}</b></span>
+                                  <p >{{note?.created_at | dateAgo}}</p>
+                                </div>
+                                <div class="col-xs-1 col-md-2" >
+                                  <i (click)="deleteNotivication(note.id)" class="fa fa-trash-o"></i>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template> -->
+                        <a class="nav-link" (click)="aboutpage()" data-dismiss="modal" data-target="#sidebarModal"><i class="fa fa-tags" style="font-size:24px"></i>&nbsp;<span class="d-xl-block px-1"
+                          style="color: white;font: 1em sans-serif;font-size: 22px;">About Us</span></a>
+                          <a class="nav-link" (click)="contact()" data-dismiss="modal" data-target="#sidebarModal"><i class="fa fa-question-circle" style="font-size:24px"></i>&nbsp;<span class="d-xl-block px-1"
+                            style="color: white;font: 1em sans-serif;font-size: 22px;">Contact Us</span></a>
+                            <div class="d-flex justify-content-between">
+                              <a href="https://play.google.com/store/apps/details?id=app.service.talenthunt"><img src="assets/img/556.png" style="width: 90%;"></a>
+                              <a href="https://apps.apple.com/us/app/id1527415294"><img src="assets/img/557.png" style="width: 90%;"></a>
+                            <!-- </div> -->
+                </div>
+            </div>
+            <div class="modal-footer">
+              <a class="nav-link" (click)="openContent(logoutModal)" data-dismiss="modal" data-target="#sidebarModal"><i class="fa fa-power-off" style="font-size:24px"></i>&nbsp;<span class="d-xl-block px-1"
+                style="color: white; font: 1em sans-serif;font-size: 22px;">LOG OUT</span></a>
+                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+            </div>
+        </div>
+    </div>
 </div>
+</div>
+
+
+
+
 <ng-template #singleCraft Let-modal>
   <div class="row" *ngFor="let cra of craft">
     <span *ngIf="cra">{{ trackLikes(cra) }}</span>
@@ -588,6 +703,7 @@
 <!-- post modal start-->
 <ng-template #postModal let-modal>
   <div class="modal-content">
+    <form [formGroup]="postForm">
     <div class="modal-body justify-content-center">
 
       <img [src]="selectedFile" *ngIf="format==='IMAGE' && selectedFile" style="height: 240px; width:240px">
@@ -598,23 +714,22 @@
       <input *ngIf="!selectedFile" type="image" src="assets/img/103.png" width="100px" style="margin-left: 80px;"
         (click)="fileInput.click()" />
         <p *ngIf="!selectedFile" style="margin-left: 70px;">Click <b>"+"</b> to add file</p>
-      <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+      <input style="display: none" type="file" id="postFile" (change)="onFileChanged($event)" #fileInput>
       <div class="row">
         <div class="col-md-12">
-          <form [formGroup]="postForm">
             <div class="form-group">
-              <input type="text" id="input-age" class="form-control form-control-alternative" formControlName="caption"
+              <input type="text" id="caption" class="form-control form-control-alternative" formControlName="caption"
                 placeholder="caption">
             </div>
-          </form>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="but btn btn-danger" *ngIf="selectedFile" (click)="cancel()">Cancel</button>
-      <button type="button" class="butn btn-warning" *ngIf="!selectedFile" (click)="modal.close()">Close</button>
-      <button [disabled]="!postForm.valid" type="button" class="but" (click)="createPost();modal.close()">Post</button>
-    </div>
+      <div class="modal-footer">
+        <button type="button" class="but btn btn-danger" *ngIf="selectedFile" (click)="cancel()">Cancel</button>
+        <button type="button" class="butn btn-warning" *ngIf="!selectedFile" (click)="modal.close()">Close</button>
+        <button [disabled]="!postForm.valid" type="button" class="but" (click)="createPost();modal.close()">Post</button>
+      </div>
+    </form>
   </div>
 </ng-template>
 <!-- post modal end -->

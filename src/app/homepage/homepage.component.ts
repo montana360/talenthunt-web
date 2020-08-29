@@ -1,6 +1,7 @@
 import {
   Component,
   OnInit,
+  ViewChild, ElementRef
 } from '@angular/core';
 import {
   NgbModalConfig,
@@ -33,14 +34,14 @@ import {
 import { ClipboardService } from 'ngx-clipboard'
 
 
+declare var $: any;
 
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
-
-
 })
+
 export class HomepageComponent implements OnInit {
   // formgroup
   commentForm: FormGroup;
@@ -52,7 +53,6 @@ export class HomepageComponent implements OnInit {
 
 
   public isMenuCollapsed = true;
-
   // variable declaration
   Judges: any;
   craftID: any;
@@ -86,6 +86,7 @@ export class HomepageComponent implements OnInit {
   isFound = false;
   isNoti = false;
   allCraft: any;
+  filesa:any;
 
   prev_page = null;
   next_page = null;
@@ -97,6 +98,8 @@ export class HomepageComponent implements OnInit {
 
   notEmptyPost = true;
   notscrolly = true;
+
+  theImage:any;
 
   isLoading = false;
   // boolean
@@ -308,8 +311,8 @@ slides = [
       momo_number: [null,Validators.required],
     });
 
-    // this.callPostsAgain();
   }
+
 
   callPostsAgain() {
     setTimeout(() => {
@@ -907,6 +910,7 @@ setReportData(){
       );
   }
 
+
   view(ev) {
     this.isShow = !this.isShow;
     this.auth.show('post', ev).subscribe(
@@ -1061,6 +1065,9 @@ openCraft(singleCraft) {
 close(votepost) {
   this.modalService.dismissAll(votepost);
 }
+
+
+
 viewcraft(ev) {
   this.auth.show('craft', ev).subscribe(
     (response) => {

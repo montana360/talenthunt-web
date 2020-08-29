@@ -25,6 +25,7 @@ import { ClipboardService } from 'ngx-clipboard';
   providers: [NgbTabsetConfig], // add NgbTabsetConfig to the component providers
 })
 export class ProfileComponent implements OnInit {
+
   public isMenuCollapsed = true;
   // formBuild
   postForm: FormGroup;
@@ -49,6 +50,7 @@ export class ProfileComponent implements OnInit {
   search = '';
   isNoti = false;
   Allnoti: any;
+  fileData: File = null;
   unread:any;
 
   toggleDisplay() {
@@ -69,6 +71,7 @@ export class ProfileComponent implements OnInit {
   isData: any;
   isFollow: any;
   isFollowData: any;
+  // selectedFile: File;
 
 
   // comment variable declaration
@@ -116,7 +119,13 @@ export class ProfileComponent implements OnInit {
       message: [null, Validators.required],
     });
 
-
+     // post data form
+     this.postForm = this.formBuilder.group({
+      caption: [null,Validators.required],
+      file: [null],
+      file_type: [null],
+    });
+    
     // customize default values of tabsets used by this component tree
     conTabfig.justify = 'center';
     conTabfig.type = 'pills';
@@ -635,6 +644,7 @@ export class ProfileComponent implements OnInit {
   }
 
   // Getting image functionality
+
   onImageChanged(event) {
     const size = event.target.files[0].size;
     const fileSize = size / 1024;
@@ -714,6 +724,7 @@ export class ProfileComponent implements OnInit {
             // this.alert.warning(response['message']);
           } else {
             // this.alert.success('Profile image update successful');
+            this.getUser()
           }
         },
         (error) => {

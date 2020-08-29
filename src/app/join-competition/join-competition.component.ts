@@ -41,6 +41,7 @@ export class JoinCompetitionComponent implements OnInit {
   isFollowData: any;
   follow:any;
   isLoading = false;
+  format: any;
 
   selectedFile = null;
   clientID: any;
@@ -157,6 +158,13 @@ export class JoinCompetitionComponent implements OnInit {
     if (file) {
       var reader = new FileReader();
       reader.readAsDataURL(file);
+      if (file.type.indexOf('image') > -1) {
+        this.format = 'IMAGE';
+      } else if (file.type.indexOf('video') > -1) {
+        this.format = 'VIDEO';
+        this.alert.info('Videos not allowed');
+        return false;
+      }
 
       reader.onload = (event) => {
         this.selectedFile = event.target.result;

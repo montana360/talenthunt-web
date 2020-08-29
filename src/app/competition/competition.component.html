@@ -1,30 +1,46 @@
 <div class="container-fluid col-md-9">
   <div class="card0 border-0">
     <!-- <div class="row" style="align-items: flex-end;"> <img src="assets/img/21.png" class="logo"> </div> -->
-    <section class="row no-gutter align-items-center">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top mb-4" style="background-color: white;">
+      <a class="navbar-brand " style="cursor: pointer;" (click)="homePage()"><img src="assets/img/22.png"
+        height="50" width="150"></a>
 
-      <div class="contend-flex justify-content-start">
+      <!-- Step 3: Toggle the value of the property when the toggler button is clicked. -->
+      <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#sidebarModal">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+      <!-- Step 2: Add the ngbCollapse directive to the element below. -->
+      <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+        &nbsp; &nbsp;
+
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item text-center mouse">
+            <a class="nav-link" (click)="profilePage()" data-toggle="modal" data-target="#"><img
+                src="assets/img/52.png" width="20"><span class="d-none d-sm-inline d-xl-block px-1"
+                style="color: black;font: 1em sans-serif;font-size: small;">Profile</span></a>
+          </li>&nbsp;&nbsp;
+          <li class="nav-item text-center mouse">
+            <a class="nav-link" (click)="compage()" data-toggle="modal" data-target="#"><img src="assets/img/53.png"
+                width="20"><span class="d-none d-sm-inline d-xl-block px-1"
+                style="color: black; font: 1em sans-serif;font-size: small;">Competition</span></a>
+          </li>&nbsp;&nbsp;
+
+          <li class="nav-item text-center mouse">
+            <div ngbDropdown class="dropdown ">
+              <a class="nav-link dropdown-toggle" ngbDropdownToggle>
+                <img src="assets/img/03.png" width="30">
+              </a>
+              <div ngbDropdownMenu class="dropdown-menu dropdown-menu-left page-nav">
+                <a class="dropdown-item" (click)="aboutpage()">ABOUT US</a>
+                <a class="dropdown-item" (click)="contact()">CONTACT US</a>
+                <!-- <a (click)="openContent(logoutModal)" class="dropdown-item">LOG OUT</a> -->
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
-      <div class="col-lg-12 text-center p-0 d-flex">
-        <img class="fish" (click)="homePage()"  width="200" src="assets/img/155.png">
-        <div ngbDropdown class="dropdown drop">
-          <a class="nav-link dropdown-toggle" ngbDropdownToggle>
-            <img src="assets/img/156.png" width="30">
-          </a>
-          <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right page-nav">
-            <a class="dropdown-item" (click)="aboutpage()">ABOUT US</a>
-            <a class="dropdown-item">CONTACT US</a>
-          </div>
-        </div>
-          <img class="img-fluid mx-auto" src="assets/img/157.png" style="object-fit: cover;">
-
-            <span class="w-100 sam position-absolute text-white mt-5 pt-5 pl-5">
-              <span class="get">ABOUT</span>
-              <br>
-              <span class="app">US</span>
-            </span>
-        </div>
-    </section>
+    </nav>
     <div class="container-fluid"><br>
       <h4 style="text-align: center;">We are about talent!</h4>
       <p class="col-8 offset-2" style="text-align: center; font: 1.1em ;">Talent Hunt is the first platform to marry features of TV talent competitions, video
@@ -89,4 +105,23 @@
       </nav>
     </div>
   </footer>
+  <div class="modal left fade menu" id="sidebarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog position-fixed m-auto" role="document">
+        <div class="modal-content h-100">
+            <div class="modal-body p-3">
+                <div class="nav flex-column">
+                    <a class="nav-item nav-link active" href="#"><img
+                      src="assets/img/52.png" width="20"><span class=" d-xl-block px-1"
+                      style="color: black;font: 1em sans-serif;font-size: small;">Profile</span></a>
+                    <a href="#" class="nav-item nav-link">Link </a>
+                    <a href="#" class="nav-item nav-link">Link</a>
+                    <a href="#" class="nav-item nav-link">Link</a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 </div>

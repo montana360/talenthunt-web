@@ -159,7 +159,7 @@ export class AuthService {
       'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
       "Content-Type": "text/plain"
     });
-    const url = 'https://payment.tekhype.com/thirdpartypayments/thirdpaymentapi.ashx';
+    const url = 'http://payment.tekhype.com/thirdpartypayments/thirdpaymentapi.ashx';
     return this.http.post(url, payload, { headers: config });
   }
 

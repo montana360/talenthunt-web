@@ -484,7 +484,7 @@ createPost() {
       if (response['success'] === false) {
         this.alert.warning('Make sure provide your video');
       } else {
-        this.alert.success('Post added successfully');
+        this.alert.success('Craft Uploaded successfully...All the best!');
         this.getCraft();
 
       }
