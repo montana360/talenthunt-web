@@ -140,9 +140,9 @@
      <div ngxSlickItem *ngFor="let judge of viewcompetition.judges" class="slide">
       <img (click)="fell(judge?.user_id)" *ngIf="judge.user.profile_image !== null" src="{{judge.user.profile_image}}" alt="Thumbnail Image" class="imsg"
       style="width: 90px; height: 90px;cursor: pointer;">
-      <!-- <span  class="bad"><i *ngIf="judge.user.profile_image !== null" class="fa fa-gavel" style="font-size:26px;color:rgba(54, 8, 85, 0.829);"></i></span> -->
-      <img (click)="fell(judge?.user_id)" *ngIf="judge.user.profile_image === null" src="assets/img/default-avatar.png" alt="Thumbnail Image" class="imsg"
-      style="width: 90px; height: 90px;cursor: pointer;">
+      <span  class="bad"><i *ngIf="judge.user.profile_image !== null" class="fa fa-gavel" style="font-size:26px;color:rgba(54, 8, 85, 0.829);"></i></span>
+      <!-- <img (click)="fell(judge?.user_id)" *ngIf="judge.user.profile_image === null" src="assets/img/default-avatar.png" alt="Thumbnail Image" class="imsg" -->
+      <!-- style="width: 90px; height: 90px;cursor: pointer;"> -->
       <!-- <span  class="bad"><i *ngIf="judge.user.profile_image === null" class="fa fa-gavel" style="font-size:26px;color:rgba(54, 8, 85, 0.829);"></i></span> -->
       <h6  (click)="fell(judge?.user_id)" class="text-center">{{judge.user.fullname}}</h6>
     <p style="color:rgba(54, 8, 85, 0.829);" class="text-center">JUDGE</p>
@@ -181,7 +181,7 @@
               <p *ngIf="post?.location !== 'null'" class="card-text" >{{post?.location}}</p>
               <p *ngIf="post?.location === 'null'" class="card-text" >Sent from Mobile</p>
             </div>
-            <div class="col-xs-1 col-md-2" style="text-align: right;">
+            <div class="col-md-2" style="text-align: right;">
               <div ngbDropdown class="dropdown ">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle>
                   <img  src="assets/img/49.png" width="30">
@@ -195,12 +195,12 @@
             </div>
           </div>
         </div>
-        <a>
+        <a >
           <img *ngIf="post?.file_type === 'IMAGE'" class="card-img-top" src="{{post.file_url}}"
-            width="300px" alt="Card image cap">
+            style="width:100%" alt="Card image cap">
         </a>
         <a>
-          <video class="card-img-top" *ngIf="post?.file_type === 'VIDEO'" width="450px" height="450px" controls>
+          <video class="card-img-top" *ngIf="post?.file_type === 'VIDEO'" style="width: 100%;height: 450px;" controls>
             <source src="{{post.file_url}}" type="video/mp4">
           </video>
         </a>
@@ -256,7 +256,7 @@
                   class="avs">
               </div>
               <div class="col-md-9">
-                <div class="row">
+                <div class="roll">
                   <span ><b>{{comment.user.fullname}}</b></span>
                   <div class="w-100"></div>
                   <span>{{comment.message}}</span>

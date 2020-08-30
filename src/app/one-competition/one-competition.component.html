@@ -118,11 +118,14 @@
     <img src="assets/img/41.png" alt="" height="6" width="100%">
     <div *ngIf="!isLoading" class="rtt">
       <div class="row">
-        <div class="col-sm-9">
+        <div class="col-sm-9" >
           <h4 class="title">Competition Videos</h4>
         </div>
       </div>
-      <div class="container">
+      <div *ngIf="allCraft?.length === 0" class="container d-flex justify-content-center">
+        <h4>No Competition videos</h4>
+      </div>
+      <div class="container" *ngIf="allCraft?.length >= 1">
         <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfi"
           (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
           (beforeChange)="beforeChange($event)">
@@ -191,9 +194,10 @@
           (beforeChange)="beforeChange($event)">
           <div ngxSlickItem *ngFor="let judge of viewcompetition?.judges" class="slide">
            <img (click)="fell(judge?.user_id)" *ngIf="judge?.user.profile_image !== null" src="{{judge.user.profile_image}}" alt="Thumbnail Image" class="imsg"
-           style="width: 90px; height: 90px;cursor: pointer;"><span  class="bad"><i class="fa fa-gavel" style="font-size:26px;color:rgba(54, 8, 85, 0.829);"></i></span>
+           style="width: 90px; height: 90px;cursor: pointer;">
+           <!-- <span  class="bad"><i class="fa fa-gavel" style="font-size:26px;color:rgba(54, 8, 85, 0.829);"></i></span> -->
          <h6  (click)="fell(judge?.user_id)" class="text-center">{{judge.user.fullname}}</h6>
-         <!-- <span style="color:rgba(54, 8, 85, 0.829);" class="text-center">JUDGE</span> -->
+         <p style="color:rgba(162, 45, 240, 0.829);" class="text-center">JUDGE</p>
           </div>
         </ngx-slick-carousel>
           <a *ngIf="isMineCompetition" style="cursor: pointer" (click)="toggleDisplay()">view

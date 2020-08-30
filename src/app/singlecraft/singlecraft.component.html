@@ -101,13 +101,13 @@
         <span *ngIf="post">{{ voteCount(post) }}</span>
         <div class="card-body container-fluid">
           <div class="rolling">
-            <div class="col-xs-3 col-md-3" >
+            <div class="col-md-3" >
               <img style="cursor: pointer;" (click)="fell(post?.user_id)" *ngIf="post.user.profile_image !== null" src="{{post.user.profile_image}}" class="avatar1"
                alt="">
               <img style="cursor: pointer;" (click)="fell(post?.user_id)" *ngIf="post.user.profile_image === null" src="assets/img/default-avatar.png"
                 class="avatar1"  alt="">
             </div>
-            <div class="col-xs-8 col-md-7" >
+            <div class="col-md-7" >
               <h6 class="card-title" style="cursor: pointer; padding-top: 20px;" (click)="fell(post?.user_id)">{{post.user.fullname}}</h6>
             </div>
             <div class="col-xs-1 col-md-2" style="text-align: right;">

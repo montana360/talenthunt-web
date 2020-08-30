@@ -257,17 +257,17 @@
             <ng-template ngbTabTitle><img src="assets/img/34.png" width="30px" height="30px"></ng-template>
             <ng-template ngbTabContent>
               <div class=" col-md-10 move">
-                <div class="card border-0  d-flex justify-content-center" *ngFor="let post of allPosts">
+                <div class="card border-0" *ngFor="let post of allPosts">
                   <span *ngIf="post">{{ trackLike(post) }}</span>
-                  <div class="card-body">
+                  <div class="card-body container-fluid">
                     <div class="rolling">
-                      <div class="col-md-3" style="align-items: flex-end;">
+                      <div class="col-md-3">
                         <img *ngIf="post.user.profile_image !== null" src="{{post.user.profile_image}}"
                           class="avatar1"  alt="">
                         <img *ngIf="post.user.profile_image === null" src="assets/img/default-avatar.png"
                           class="avatar1"  alt="">
                       </div>
-                      <div class="col-md-7 div-holder ">
+                      <div class="col-md-7">
                         <h6 class="card-title">{{post.user.fullname}}</h6>
                         <p *ngIf="post?.location !== 'null'" class="card-text">{{post?.location}}</p>
                         <p *ngIf="post?.location === 'null'" class="card-text">Sent from Mobile</p>
