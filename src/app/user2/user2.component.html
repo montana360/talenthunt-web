@@ -332,19 +332,38 @@
                     <div *ngIf="isShow" class="card border-0 example-2 scrollbar-deep-purple bordered-deep-purple thin">
                       <div class="card-body">
                       <div class="row pa-move" *ngFor="let comment of post.comments">
+                        <span *ngIf="comment">{{ trackLc(comment) }}</span>
                         <div class="col-md-1">
                           <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt=""
                             class="avs">
                           <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt=""
                             class="avs">
                         </div>
-                        <div class="col-md-11">
+                        <div class="col-md-8">
                           <div class="row">
                             <span><b>{{comment.user.fullname}}</b></span>
                             <div class="w-100"></div>
                             <span>{{comment.message}}</span>
                           </div>
                         </div>
+                        <div  class="col-md-2 d-flex">
+                          <div *ngIf="comment?.likes.length > 0">
+                            <span *ngIf="isComment?.length > 0" style="cursor: pointer;">
+                              <i  class="fa fa-heart" (click)="unlikecomment(comment?.id)" style="color: rgb(63, 5, 117);"></i>
+                            </span>
+
+                            <span *ngIf="!isComment || isComment.length == 0" style="cursor: pointer;">
+                              <i class="fa fa-heart-o"  (click)="likecomment(comment?.id)" ></i>
+                            </span>
+                          </div>
+                          <div *ngIf="comment?.likes.length == 0" style="cursor: pointer;">
+                            <span>
+                              <i class="fa fa-heart-o" (click)="likecomment(comment?.id)"></i>
+                            </span>
+                          </div>&nbsp;&nbsp;
+                          <!-- <i class="fa fa-mail-reply" value="Set Focus" OnClick="document.commentForm.message.focus();" style="cursor: pointer;"></i>&nbsp;&nbsp; -->
+                          <i class="fa fa-trash" style="cursor: pointer;" *ngIf="this.user_id == comment.user.id" (click)="deleteComment(comment?.id)" style="color: red;"></i>
+                    </div>
                       </div>
                     </div>
                     </div>
@@ -614,6 +633,7 @@
         <div class="card-body">
           <h6 id="section1" style="font-size: 12px;"><strong>Comments:</strong></h6>
           <div class="row pa-move" *ngFor="let comment of cra.comments">
+            <span *ngIf="comment">{{ trackLc(comment) }}</span>
             <div class="col-md-1">
               <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt="" class="avs">
               <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt="" class="avs">
@@ -625,6 +645,24 @@
                 <span style="font-size: 10px;">{{comment.message}}</span>
               </div>
             </div>
+            <div  class="col-md-2 d-flex">
+              <div *ngIf="comment?.likes.length > 0">
+                <span *ngIf="isComment?.length > 0" style="cursor: pointer;">
+                  <i  class="fa fa-heart" (click)="unlikecomment(comment?.id)" style="color: rgb(63, 5, 117);"></i>
+                </span>
+
+                <span *ngIf="!isComment || isComment.length == 0" style="cursor: pointer;">
+                  <i class="fa fa-heart-o"  (click)="likecomment(comment?.id)" ></i>
+                </span>
+              </div>
+              <div *ngIf="comment?.likes.length == 0" style="cursor: pointer;">
+                <span>
+                  <i class="fa fa-heart-o" (click)="likecomment(comment?.id)"></i>
+                </span>
+              </div>&nbsp;&nbsp;
+              <!-- <i class="fa fa-mail-reply" value="Set Focus" OnClick="document.commentForm.message.focus();" style="cursor: pointer;"></i>&nbsp;&nbsp; -->
+              <i class="fa fa-trash" style="cursor: pointer;" *ngIf="this.user_id == comment.user.id" (click)="deleteComment(comment?.id)" style="color: red;"></i>
+        </div>
           </div>
         </div>
       </div><br>

@@ -194,13 +194,31 @@
                 <img *ngIf="comment.user.profile_image === null" src="assets/img/default-avatar.png" alt=""
                   class="avs">
               </div>
-              <div class="col-md-9">
+              <div class="col-md-8">
                 <div class="row">
                   <span ><b>{{comment.user.fullname}}</b></span>
                   <div class="w-100"></div>
                   <span>{{comment.message}}</span>
                 </div>
               </div>
+              <div  class="col-md-2 d-flex">
+                <div *ngIf="comment?.likes.length > 0">
+                  <span *ngIf="isComment?.length > 0" style="cursor: pointer;">
+                    <i  class="fa fa-heart" (click)="unlikecomment(comment?.id)" style="color: rgb(63, 5, 117);"></i>
+                  </span>
+
+                  <span *ngIf="!isComment || isComment.length == 0" style="cursor: pointer;">
+                    <i class="fa fa-heart-o"  (click)="likecomment(comment?.id)" ></i>
+                  </span>
+                </div>
+                <div *ngIf="comment?.likes.length == 0" style="cursor: pointer;">
+                  <span>
+                    <i class="fa fa-heart-o" (click)="likecomment(comment?.id)"></i>
+                  </span>
+                </div>&nbsp;&nbsp;
+                <!-- <i class="fa fa-mail-reply" value="Set Focus" OnClick="document.commentForm.message.focus();" style="cursor: pointer;"></i>&nbsp;&nbsp; -->
+                <i class="fa fa-trash" style="cursor: pointer;" *ngIf="this.user_id == comment.user.id" (click)="deleteComment(comment?.id)" style="color: red;"></i>
+          </div>
             </div>
           </div>
           </div>

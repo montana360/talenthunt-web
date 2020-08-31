@@ -183,11 +183,6 @@ cursor: pointer;
 
 }
 
-
-.follow-button {
-  background-color: #090833;
-}
-
 .btn {
   border: none;
   background-color: white;
@@ -246,27 +241,6 @@ cursor: pointer;
       content: attr(data-src-800px, url);
   }
 }
-.scrollbar-deep-purple::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background-color: #512da8; }
-
-  .scrollbar-deep-purple {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  scrollbar-color: #512da8 #F5F5F5;
-
-  }
-  .square::-webkit-scrollbar-track {
-    border-radius: 0 !important;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-    width: 6px;
-  }
-
-    .square::-webkit-scrollbar-thumb {
-    border-radius: 0 !important;
-    width: 6px;
-  }
 
     .thin::-webkit-scrollbar {
     width: 6px;
@@ -297,17 +271,6 @@ cursor: pointer;
       /* background-repeat: no-repeat; */
       color: white;
       }
-
-
-    .items {
-      width: 90%;
-      /* margin: 0px auto; */
-      /* margin-top: 100px */
-  }
-
-  .slick-slide {
-      /* margin: 10px */
-  }
 
   .notification {
     /* background-color: #555; */
@@ -377,16 +340,7 @@ cursor: pointer;
     }
   }
 
-  /* On screens that are 600px wide or less, make the columns stack on top of each other instead of next to each other */
-  @media screen and (max-width: 600px) {
-    /* .row {
-      flex-direction: column;
-    } */
-    .column {
-      flex: 100%;
-    }
 
-  }
   .imsg {
     border-radius: 50%;
     size: 10px;
@@ -409,22 +363,7 @@ cursor: pointer;
     margin-right: -15px;
     margin-left: -15px;
 }
-.card-profile-image
-{
-    position: relative;
-}
-.card-profile-image img
-{
-    position: absolute;
-    left: 50%;
 
-    max-width: 180px;
-
-    transition: all .15s ease;
-    transform: translate(-50%, -30%);
-
-    border-radius: .375rem;
-}
 .card-profile-image img:hover
 {
     transform: translate(-50%, -33%);
@@ -829,10 +768,4 @@ cursor: pointer;
 .modal-header {
 	border-bottom-color: #eeeeee;
 	background-color: #fafafa;
-}
-.roll {
-  display: absolute;
-  flex-wrap: inherit;
-  margin-right: -10px;
-  margin-left: -10px;
 }

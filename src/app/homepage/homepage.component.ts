@@ -45,6 +45,7 @@ declare var $: any;
 export class HomepageComponent implements OnInit {
   // formgroup
   commentForm: FormGroup;
+  replyForm: FormGroup;
   postForm: FormGroup;
   searchForm: FormGroup;
   craftcommentForm: FormGroup;
@@ -54,6 +55,7 @@ export class HomepageComponent implements OnInit {
 
   public isMenuCollapsed = true;
   // variable declaration
+  progress: number = 0;
   Judges: any;
   craftID: any;
   amount: any;
@@ -106,6 +108,7 @@ export class HomepageComponent implements OnInit {
   isMine = false;
   isShow = false;
   isData: any;
+  isComment: any;
   isFollow: any;
   toggleDisplay() {
     this.isShow = !this.isShow;
@@ -116,6 +119,13 @@ export class HomepageComponent implements OnInit {
   }
   // comment variable declaration
   commentDetails = {
+    user_id: '',
+    post_id: '',
+    message: '',
+  };
+
+  // comment variable declaration
+  replyDetails = {
     user_id: '',
     post_id: '',
     message: '',
@@ -249,6 +259,11 @@ slides = [
       user_id: [null],
       message: [null,Validators.required],
     });
+    this.replyForm = this.formBuilder.group({
+      user_id: [null],
+      comment_id: [null],
+      message: [null,Validators.required],
+    });
 
     this.reportForm = this.formBuilder.group({
       user_id: [null],
@@ -258,6 +273,7 @@ slides = [
 
   ngOnInit(): void {
     this.isLoading = true;
+    // document.forms['commentForm'].elements['message'].focus();
     this.loadNextPost();
     this.getnotifications();
     this.getAllnotifications();
@@ -305,14 +321,20 @@ slides = [
       complaint: [null,Validators.required],
     });
 
+    this.replyForm = this.formBuilder.group({
+      user_id: [null],
+      comment_id: [null],
+      message: [null,Validators.required],
+    });
+
     this.voteForm = this.formBuilder.group({
       num_of_votes: [null,Validators.required],
       network: [null,Validators.required],
       momo_number: [null,Validators.required],
     });
 
-  }
 
+  }
 
   callPostsAgain() {
     setTimeout(() => {
@@ -374,6 +396,37 @@ setReportData(){
     );
   }
 
+  replycomment(){
+    this.isLoading = true;
+    const data= {
+      user_id:parseInt(localStorage.getItem('userID'), 10),
+      comment_id: this.id,
+      message: this.replyForm.controls['message'].value,
+    };
+    // console.log(data);
+    this.auth.update('craft_comment', localStorage.getItem('userID'), data).subscribe(
+      (response) => {
+        // console.log(response);
+        this.spinner.hide();
+        if (response !== null || response !== undefined) {
+          // this.alert.success('Comment posted successfully');
+          this.getpost();
+        }
+      },
+      (error) => {
+        // console.log(error);
+        this.spinner.hide();
+        if (error.status === 500) {
+          this.spinner.hide();
+          this.alert.warning('connect to the internet and try again');
+        } else {
+          this.spinner.hide();
+          // this.alert.error('Comment not posted Try again later');
+        }
+      }
+    );
+  }
+
   addCraftComment(id) {
     this.spinner.show();
     const data = {
@@ -407,6 +460,14 @@ setReportData(){
   // Checked if you liked a post
   trackLikes(post) {
     this.isData = post['likes'].filter((like) => {
+      return like.user_id == this.user_id;
+    });
+
+    // console.log(this.isData);
+  }
+  // Checked if you liked a post
+  trackLc(comment) {
+    this.isComment = comment['likes'].filter((like) => {
       return like.user_id == this.user_id;
     });
 
@@ -532,6 +593,7 @@ setReportData(){
     );
   }
 
+  // unlike post
   unlike(id) {
     this.spinner.show();
     const data = {
@@ -560,6 +622,67 @@ setReportData(){
       }
     );
   }
+
+// like comments
+  likecomment(id) {
+    this.spinner.show();
+    const data = {
+      comment_id: id,
+      user_id: parseInt(localStorage.getItem('userID'), 10),
+    };
+    this.auth.update('like_comment', localStorage.getItem('userID'), data).subscribe(
+      (response) => {
+        this.spinner.hide();
+        if (response !== null || response !== undefined) {
+          // this.alert.success('Post liked');
+          this.getpost()
+        }
+      },
+      (error) => {
+        // console.log(error);
+        this.spinner.hide();
+        if (error.status === 500) {
+          this.spinner.hide();
+          this.alert.warning('connect to the internet and try again');
+        } else {
+          this.spinner.hide();
+          // this.alert.error('Post liked not successful try again later');
+        }
+      }
+    );
+  }
+
+  // unlike comment function
+  unlikecomment(id) {
+    this.spinner.show();
+    const data = {
+      comment_id: id,
+      user_id: parseInt(localStorage.getItem('userID'), 10),
+    };
+    this.auth.update('unlike_comment', localStorage.getItem('userID'), data).subscribe(
+      (response) => {
+        // console.log(response);
+        this.spinner.hide();
+        if (response !== null || response !== undefined) {
+          // this.alert.success('Post unliked');
+          this.getpost()
+        }
+      },
+      (error) => {
+        // console.log(error);
+        this.spinner.hide();
+        if (error.status === 500) {
+          this.spinner.hide();
+          this.alert.warning('connect to the internet and try again');
+        } else {
+          this.spinner.hide();
+          // this.alert.error('Post cant be unliked try again later');
+        }
+      }
+    );
+  }
+
+  // follow someone
   followuser(id) {
     this.spinner.show();
     const data = {
@@ -661,6 +784,7 @@ setReportData(){
     this.auth.get('posts').subscribe(
       (response) => {
         this.allPosts = response['data']['data'];
+        console.log(this.allPosts);
         this.next_page_url = response['data']['next_page_url'];
         this.prev_page_url = response['data']['prev_page_url'];
         this.isLoading = false;
@@ -900,6 +1024,7 @@ setReportData(){
             this.alert.warning(response['message']);
           } else {
             // this.alert.success('Post added successfully');
+
             this.getpost();
           }
         },

@@ -57,6 +57,7 @@ export class NotificationpostComponent implements OnInit {
   isMine = false;
   isShow = false;
   isData: any;
+  isComment: any;
   isFollow: any;
   toggleDisplay() {
     this.isShow = !this.isShow;
@@ -176,6 +177,15 @@ setReportData(){
     });
   }
 
+  // Checked if you liked a post
+  trackLc(comment) {
+    this.isComment = comment['likes'].filter((like) => {
+      return like.user_id == this.user_id;
+    });
+
+    // console.log(this.isData);
+  }
+
   // Checking if you follow searched user
   trackFollows(list) {
     this.isFollow = list['follows'].filter((follow) => {
@@ -266,6 +276,68 @@ setReportData(){
       }
     );
   }
+
+
+// like comments
+likecomment(id) {
+  this.spinner.show();
+  const data = {
+    comment_id: id,
+    user_id: parseInt(localStorage.getItem('userID'), 10),
+  };
+  this.auth.update('like_comment', localStorage.getItem('userID'), data).subscribe(
+    (response) => {
+      this.spinner.hide();
+      if (response !== null || response !== undefined) {
+        // this.alert.success('Post liked');
+        this.v(this.ID);
+      }
+    },
+    (error) => {
+      console.log(error);
+      this.spinner.hide();
+      if (error.status === 500) {
+        this.spinner.hide();
+        // this.alert.warning('connect to the internet and try again');
+      } else {
+        this.spinner.hide();
+        // this.alert.error('Post liked not successful try again later');
+      }
+    }
+  );
+}
+
+// unlike comment function
+unlikecomment(id) {
+  this.spinner.show();
+  const data = {
+    comment_id: id,
+    user_id: parseInt(localStorage.getItem('userID'), 10),
+  };
+  this.auth.update('unlike_comment', localStorage.getItem('userID'), data).subscribe(
+    (response) => {
+      // console.log(response);
+      this.spinner.hide();
+      if (response !== null || response !== undefined) {
+        // this.alert.success('Post unliked');
+        this.v(this.ID);
+      }
+    },
+    (error) => {
+      // console.log(error);
+      this.spinner.hide();
+      if (error.status === 500) {
+        this.spinner.hide();
+        this.alert.warning('connect to the internet and try again');
+      } else {
+        this.spinner.hide();
+        // this.alert.error('Post cant be unliked try again later');
+      }
+    }
+  );
+}
+
+
   followuser(id) {
     this.spinner.show();
     const data = {

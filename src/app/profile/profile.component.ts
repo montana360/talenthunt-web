@@ -69,6 +69,7 @@ export class ProfileComponent implements OnInit {
   allUsers: any;
   user_id: any;
   isData: any;
+  isComment:any;
   isFollow: any;
   isFollowData: any;
   // selectedFile: File;
@@ -125,7 +126,7 @@ export class ProfileComponent implements OnInit {
       file: [null],
       file_type: [null],
     });
-    
+
     // customize default values of tabsets used by this component tree
     conTabfig.justify = 'center';
     conTabfig.type = 'pills';
@@ -295,6 +296,76 @@ export class ProfileComponent implements OnInit {
     );
   }
 
+// like comments
+likecomment(id) {
+  this.spinner.show();
+  const data = {
+    comment_id: id,
+    user_id: parseInt(localStorage.getItem('userID'), 10),
+  };
+  this.auth.update('like_comment', localStorage.getItem('userID'), data).subscribe(
+    (response) => {
+      this.spinner.hide();
+      if (response !== null || response !== undefined) {
+        // this.alert.success('Post liked');
+        this.view(id);
+        this.getUserpost();
+      }
+    },
+    (error) => {
+      console.log(error);
+      this.spinner.hide();
+      if (error.status === 500) {
+        this.spinner.hide();
+        // this.alert.warning('connect to the internet and try again');
+      } else {
+        this.spinner.hide();
+        // this.alert.error('Post liked not successful try again later');
+      }
+    }
+  );
+}
+
+ // Checked if you liked a post
+ trackLc(comment) {
+  this.isComment = comment['likes'].filter((like) => {
+    return like.user_id == this.user_id;
+  });
+
+  // console.log(this.isComment);
+}
+
+
+// unlike comment function
+unlikecomment(id) {
+  this.spinner.show();
+  const data = {
+    comment_id: id,
+    user_id: parseInt(localStorage.getItem('userID'), 10),
+  };
+  this.auth.update('unlike_comment', localStorage.getItem('userID'), data).subscribe(
+    (response) => {
+      // console.log(response);
+      this.spinner.hide();
+      if (response !== null || response !== undefined) {
+        // this.alert.success('Post unliked');
+        this.view(id);
+        this.getUserpost();
+      }
+    },
+    (error) => {
+      // console.log(error);
+      this.spinner.hide();
+      if (error.status === 500) {
+        this.spinner.hide();
+        this.alert.warning('connect to the internet and try again');
+      } else {
+        this.spinner.hide();
+        // this.alert.error('Post cant be unliked try again later');
+      }
+    }
+  );
+}
 
 
   // set comment data
@@ -866,6 +937,7 @@ export class ProfileComponent implements OnInit {
         this.isLoader = false;
         // this.alert.success('Post deleted successfully');
         this.getUserpost();
+        this.view(this.id);
       },
       error => {
         // console.log(error);
@@ -886,6 +958,7 @@ export class ProfileComponent implements OnInit {
         this.isLoader = false;
         // this.alert.success("Comment deleted successfully");
         this.getUserpost();
+        this.view(id);
       },
       error => {
         // console.log(error);

@@ -344,6 +344,7 @@
                     <div *ngIf="isShow" class="card border-0 example-2 thin">
                       <div class="card-body">
                       <div class="row pa-move" *ngFor="let comment of post.comments">
+                        <span *ngIf="comment">{{ trackLc(comment) }}</span>
                         <div class="col-md-1">
                           <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt=""
                             class="avs">
@@ -357,9 +358,24 @@
                             <span>{{comment.message}}</span>
                           </div>
                         </div>
-                        <div *ngIf="user.id === comment.user.id" class="col-md-2">
-                              <a class="dropdown-item" (click)="deleteComment(comment.id)"><i class="fa fa-trash" style="color: red;"></i></a>
-                        </div>
+                        <div  class="col-md-2 d-flex">
+                          <div *ngIf="comment?.likes.length > 0">
+                            <span *ngIf="isComment?.length > 0" style="cursor: pointer;">
+                              <i  class="fa fa-heart" (click)="unlikecomment(comment?.id)" style="color: rgb(63, 5, 117);"></i>
+                            </span>
+
+                            <span *ngIf="!isComment || isComment.length == 0" style="cursor: pointer;">
+                              <i class="fa fa-heart-o"  (click)="likecomment(comment?.id)" ></i>
+                            </span>
+                          </div>
+                          <div *ngIf="comment?.likes.length == 0" style="cursor: pointer;">
+                            <span>
+                              <i class="fa fa-heart-o" (click)="likecomment(comment?.id)"></i>
+                            </span>
+                          </div>&nbsp;&nbsp;
+                          <!-- <i class="fa fa-mail-reply" value="Set Focus" OnClick="document.commentForm.message.focus();" style="cursor: pointer;"></i>&nbsp;&nbsp; -->
+                          <i class="fa fa-trash" style="cursor: pointer;" *ngIf="user.id === comment.user.id" (click)="deleteComment(comment?.id)" style="color: red;"></i>
+                    </div>
                       </div>
                     </div>
                     </div>
@@ -766,7 +782,8 @@
 
       <div  class="col-sm-4 right-side">
         <br>
-        <div class="rolling">
+        <div class="modal-header">
+          <div class="rolling">
           <div class="col-md-3">
             <img *ngIf="cra.user.profile_image !== null" src="{{cra.user.profile_image}}" class="avatar2" alt="">
             <img *ngIf="cra.user.profile_image === null" src="assets/img/default-avatar.png" class="avatar2" alt="">
@@ -777,13 +794,16 @@
             <div class="w-100"></div>
             <b class="card-text" style="color: black;font-size: small;">{{cra.likes.length || '0'}} like(s)</b>
           </div>
-        </div><br>
+        </div>
+        </div>
         <!--Form with header-->
+        <div class="modal-body">
         <div *ngIf="cra.comments.length > 0"
           class="card border-0 example-1 thin">
           <div class="card-body">
             <h6 id="section1" style="font-size: 12px;"><strong>Comments:</strong></h6>
             <div class="row pa-move" *ngFor="let comment of cra.comments">
+              <span *ngIf="comment">{{ trackLc(comment) }}</span>
               <div class="col-md-1">
                 <img *ngIf="comment.user.profile_image !== null" src="{{comment.user.profile_image}}" alt=""
                   class="avs">
@@ -796,24 +816,45 @@
                   <span style="font-size: 10px;">{{comment.message}}</span>
                 </div>
               </div>
+              <div  class="col-md-2 d-flex">
+                <div *ngIf="comment?.likes.length > 0">
+                  <span *ngIf="isComment?.length > 0" style="cursor: pointer;">
+                    <i  class="fa fa-heart" (click)="unlikecomment(comment?.id)" style="color: rgb(63, 5, 117);"></i>
+                  </span>
+
+                  <span *ngIf="!isComment || isComment.length == 0" style="cursor: pointer;">
+                    <i class="fa fa-heart-o"  (click)="likecomment(comment?.id)" ></i>
+                  </span>
+                </div>
+                <div *ngIf="comment?.likes.length == 0" style="cursor: pointer;">
+                  <span>
+                    <i class="fa fa-heart-o" (click)="likecomment(comment?.id)"></i>
+                  </span>
+                </div>&nbsp;&nbsp;
+                <!-- <i class="fa fa-mail-reply" value="Set Focus" OnClick="document.commentForm.message.focus();" style="cursor: pointer;"></i>&nbsp;&nbsp; -->
+                <i class="fa fa-trash" style="cursor: pointer;" *ngIf="user.id === comment.user.id" (click)="deleteComment(comment?.id)" style="color: red;"></i>
+          </div>
+
             </div>
           </div>
-        </div><br>
+        </div>
+      </div>
+
         <div class="row" style="margin-left: 5px;">
           <div *ngIf="cra?.likes.length > 0">
 
             <span *ngIf="isData.length > 0">
-              <i class="fa fa-heart" style="cursor: pointer;" (click)="unlike(cra?.id)" style="font-size:36px;color: rgb(63, 5, 117);"></i>
+              <i class="fa fa-heart" style="cursor: pointer;" (click)="unlike(cra?.id)" style="font-size:30px;color: rgb(63, 5, 117);"></i>
             </span>
 
             <span *ngIf="!isData || isData.length == 0">
-              <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likep(cra?.id)" style="font-size:36px;"></i>
+              <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likep(cra?.id)" style="font-size:30px;"></i>
             </span>
           </div>
 
           <div *ngIf="cra?.likes.length == 0">
             <span>
-              <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likep(cra?.id)" style="font-size:36px;"></i>
+              <i class="fa fa-heart-o" style="cursor: pointer;" (click)="likep(cra?.id)" style="font-size:30px;"></i>
             </span>
           </div>&nbsp;&nbsp;
         <b>{{cra?.likes.length || '0'}}</b>&nbsp;&nbsp;
