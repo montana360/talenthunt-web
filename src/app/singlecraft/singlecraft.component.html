@@ -156,13 +156,13 @@
             <b>{{post?.comments.length || '0'}}</b>&nbsp;&nbsp;
             <i class="fa fa-share-alt" (click)="copy(post?.file_url)" style="font-size:36px;cursor: pointer;"></i>
 
-            <div *ngIf ="post.craft_type !== 'AUDITION'" >
+            <div class="col-md-8" style="align-self: flex-end;" *ngIf ="post.craft_type !== 'AUDITION'" >
               <a  class="btn buts" (click)="voteContent(votepost);viewcraft(post.id)">Vote</a>
               <div class="w-100"></div>
               <b style="color: green;font-size: small;">{{ numVotes || '0' }} Votes</b>
             </div>
 
-            <div *ngIf ="post.craft_type == 'AUDITION'" style="text-align: right;">
+            <div class="col-md-8" *ngIf ="post.craft_type == 'AUDITION'" style="float: right;">
               <span  style="color: green; font-size: small;"><b>AUDITION</b></span>
             </div>
           </div>

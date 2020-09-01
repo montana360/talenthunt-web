@@ -612,7 +612,7 @@
     <div class="modal-body">
       <div *ngFor="let foll of follow.followers">
         <span *ngIf="foll">{{ trackFollowing(foll) }}</span>
-        <div class="row">
+        <div class="rolling">
           <div class="col-md-2">
             <img *ngIf="foll.follower.profile_image === null" src="assets/img/default-avatar.png" class="avatar3">
             <img *ngIf="foll.follower.profile_image !== null" src="{{ foll?.follower.profile_image }}" class="avatar3">
@@ -625,8 +625,8 @@
             </span>
             &nbsp; &nbsp;
           </div>
-          <!-- <div class="col-md-3">
-            <div *ngIf="foll.follows.length > 0">
+           <div class="col-md-3">
+            <!-- <div *ngIf="foll.follows.length > 0">
               <span *ngIf="isFollowData.length > 0">
                 <button  type="button" class="btnu success" (click)="unfollowuser(foll.id);">Following</button>
               </span>
@@ -634,13 +634,13 @@
               <span *ngIf="!isFollowData || isFollowData.length == 0">
                 <button  type="button" class="bits" (click)="followuser(foll.id);">Follow</button>
               </span>
-            </div>
-            <div *ngIf="foll.follows.length == 0">
+            </div> -->
+            <!-- <div *ngIf="foll.follows.length == 0">
               <span>
                 <button type="button" class="bits" (click)="followuser(foll.id);">Follow</button>
               </span>
-          </div>
-      </div>  -->
+          </div> -->
+      </div>
 
         </div>
         <hr>
@@ -659,7 +659,7 @@
     </div>
     <div class="modal-body">
       <div *ngFor="let follow of follow.following">
-        <div class="row">
+        <div class="rolling">
           <div class="col-md-2">
             <img *ngIf="follow.user.profile_image === null" src="assets/img/default-avatar.png" class="avatar3">
             <img *ngIf="follow.user.profile_image !== null" src="{{ follow?.user.profile_image }}" class="avatar3">

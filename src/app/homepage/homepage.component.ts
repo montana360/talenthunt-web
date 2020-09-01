@@ -1,7 +1,7 @@
 import {
   Component,
   OnInit,
-  ViewChild, ElementRef
+  ViewChild, ElementRef, Renderer2, HostListener
 } from '@angular/core';
 import {
   NgbModalConfig,
@@ -32,7 +32,9 @@ import {
 } from '@angular/common/http';
 
 import { ClipboardService } from 'ngx-clipboard'
-
+import { isPlatformBrowser } from '@angular/common';
+import { data } from 'jquery';
+import { findIndex } from 'rxjs/operators';
 
 declare var $: any;
 
@@ -43,6 +45,7 @@ declare var $: any;
 })
 
 export class HomepageComponent implements OnInit {
+  @ViewChild('aForm') aForm: ElementRef;
   // formgroup
   commentForm: FormGroup;
   replyForm: FormGroup;
@@ -89,7 +92,8 @@ export class HomepageComponent implements OnInit {
   isNoti = false;
   allCraft: any;
   filesa:any;
-
+  comments:any;
+  comment_id:any;
   prev_page = null;
   next_page = null;
 
@@ -107,11 +111,15 @@ export class HomepageComponent implements OnInit {
   // boolean
   isMine = false;
   isShow = false;
+  isReply= false;
   isData: any;
   isComment: any;
   isFollow: any;
   toggleDisplay() {
     this.isShow = !this.isShow;
+  }
+  replyDisplay(ev) {
+    this.isReply = !this.isReply;
   }
   isLiked = false;
   likedisplay() {
@@ -240,7 +248,8 @@ slides = [
     private spinner: NgxSpinnerService,
     private router: Router,
     private http: HttpClient,
-    private clipboardService: ClipboardService
+    private clipboardService: ClipboardService,
+
   ) {
     this.voteForm = formBuilder.group({
       num_of_votes: [null,Validators.required],
@@ -270,7 +279,7 @@ slides = [
       complaint: [null,Validators.required],
     });
   }
-
+  
   ngOnInit(): void {
     this.isLoading = true;
     // document.forms['commentForm'].elements['message'].focus();
@@ -335,6 +344,8 @@ slides = [
 
 
   }
+
+
 
   callPostsAgain() {
     setTimeout(() => {
@@ -784,9 +795,11 @@ setReportData(){
     this.auth.get('posts').subscribe(
       (response) => {
         this.allPosts = response['data']['data'];
-        console.log(this.allPosts);
+        // console.log(this.allPosts);
         this.next_page_url = response['data']['next_page_url'];
         this.prev_page_url = response['data']['prev_page_url'];
+        // this.comments = this.allPosts.comments;
+        // console.log(this.comments);
         this.isLoading = false;
       },
       (error) => {
@@ -1040,8 +1053,10 @@ setReportData(){
     this.isShow = !this.isShow;
     this.auth.show('post', ev).subscribe(
       (response) => {
-        this.Psts = response['data'];
-        // console.log(this.Psts)
+        this.Psts = response['data'][0];
+        // this.comments = this.Psts.comments;
+        // this.comment_id = this.Psts.comments.id;
+        // console.log(this.comments)
       },
       (error) => {
         // console.log(error);

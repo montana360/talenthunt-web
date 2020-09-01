@@ -270,34 +270,34 @@
               <div  class="col-md-2 d-flex">
                 <div *ngIf="comment?.likes.length > 0">
                   <span *ngIf="isComment?.length > 0" style="cursor: pointer;">
-                    <i  class="fa fa-heart" (click)="unlikecomment(comment?.id)" style="color: rgb(63, 5, 117);"></i>
+                    <i  class="fa fa-heart" data-toggle="tooltip" title="unlike comments" data-toggle="tooltip" title="Reply!" (click)="unlikecomment(comment?.id)" style="color: rgb(63, 5, 117);"></i>
                   </span>
 
                   <span *ngIf="!isComment || isComment.length == 0" style="cursor: pointer;">
-                    <i class="fa fa-heart-o"  (click)="likecomment(comment?.id)" ></i>
+                    <i class="fa fa-heart-o" data-toggle="tooltip" title="like comments"  (click)="likecomment(comment?.id)" ></i>
                   </span>
                 </div>
                 <div *ngIf="comment?.likes.length == 0" style="cursor: pointer;">
                   <span>
-                    <i class="fa fa-heart-o" (click)="likecomment(comment?.id)"></i>
+                    <i class="fa fa-heart-o" data-toggle="tooltip" title="Like Comment" (click)="likecomment(comment?.id)"></i>
                   </span>
                 </div>&nbsp;&nbsp;
-                <!-- <i class="fa fa-mail-reply" value="Set Focus" OnClick="document.commentForm.message.focus();" style="cursor: pointer;"></i>&nbsp;&nbsp; -->
-                <i class="fa fa-trash" style="cursor: pointer;" *ngIf="user.id === comment.user.id" (click)="deleteComment(comment?.id)" style="color: red;"></i>
+                <!-- <i class="fa fa-mail-reply" data-toggle="tooltip" title="Reply!" (click)="replyDisplay(comment.id);" style="cursor: pointer;"></i>&nbsp;&nbsp; -->
+                <i class="fa fa-trash" data-toggle="tooltip" title="Delete comment" style="cursor: pointer;" *ngIf="user.id === comment.user.id" (click)="deleteComment(comment?.id)" style="color: red;"></i>
           </div>
             </div>
           </div>
           </div>
         </div>
         <div class="card-footer">
-          <form class="example for" [formGroup]="commentForm">
+          <form *ngIf="!isReply" class="example for" [formGroup]="commentForm">
             <input class="mt-auto" placeholder="comment" formControlName="message">
             <button [disabled]="!commentForm.valid" style="color: rgb(48, 10, 83); cursor: pointer;" (click)="addComment(post.id);commentForm.reset();"><b>Post</b></button>
           </form>
-          <!-- <form class="example for" [formGroup]="replyForm">
-            <input class="mt-auto" placeholder="comment" formControlName="message">
-            <button [disabled]="!replyForm.valid" style="color: rgb(48, 10, 83); cursor: pointer;" (click)="addComment(post.id);commentForm.reset();"><b>Post</b></button>
-          </form> -->
+          <form *ngIf="isReply" class="example for" [formGroup]="replyForm">
+            <input  class="mt-auto" placeholder="comment" name="message" formControlName="message">
+            <button [disabled]="!replyForm.valid" style="color: rgb(48, 10, 83); cursor: pointer;" (click)="addComment(post.id);replyForm.reset();"><b>Reply</b></button>
+          </form>
         </div><br><br>
       </div>
     </div>
